@@ -5,7 +5,7 @@
 | agente | worker swarm - IB-20 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-20-reunificacion-planes` |
-| commits | `1ad68ac0fc45c0507348475e65edb82a1efd1081` (obra) / `6adf8b0fb976be3ca38e33a73aedfe47ffa43d88` (MUNDOS+PARTICION) / `24e88a0fbf046c2dfd33df6bf5758ee8ed86c27c` (reporte) / tip post-fix abajo |
+| commits | `1ad68ac0fc45c0507348475e65edb82a1efd1081` (obra) / `6adf8b0fb976be3ca38e33a73aedfe47ffa43d88` (MUNDOS+PARTICION) / `24e88a0fbf046c2dfd33df6bf5758ee8ed86c27c` (reporte) / `8e7c171fa103947b846aa5c764975348e0f847a2` (encoding) |
 | eje(s) CA | III (auditoria / layout - reunificacion) |
 | estado propuesto | listo para revision |
 
