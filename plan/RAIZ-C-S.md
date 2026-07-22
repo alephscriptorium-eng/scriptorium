@@ -15,6 +15,7 @@
 | `vigilancia/` | `OUT_DIR` estación Vigilante-S (fuera de git público) | DA-S07 · ESTACION |
 | `_fuentes/` | checkouts de lectura/fuente (p.ej. cuadernos) | IB-01 / gobierno |
 | `.worktrees/` | `WORKTREE_BASE` de obra del carril S | ESTACION · PRACTICAS |
+| `S_SDK-skills-library/` | checkout de obra de la librería · vivo mientras haya WPs de librería en curso — hoy: 0.7.0 pendiente — · se limpia al cierre del arco | brief N0-02 · R12-S · DA-S11 |
 | `LLM.md` | broche acuerdo agentes (fuera de git) | IB-23 · `plan/BROCHE-C-S.md` |
 | `README.md` | copia-release de **este** mapa (fuera de git) | este asiento |
 

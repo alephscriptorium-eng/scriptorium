@@ -54,12 +54,12 @@ Tag hoy **NO**.
   · reporte `REPORTES/N0-02-site-web-piel-fanzine.md`
   · **Aceptado** · AVISO **R12-S** emitido (gate pre N0-03).
 
-- ⬜ **N0-03 · Re-pielado portal aleph-null** — carril S · alcance
-  `docs/.vitepress/theme/**` · consume versión nueva del skill.
-  Brief **stub** OK. 🔶 solo tras N0-02 publicado + gate propio.
-  **CA:** ver `BRIEFS/N0-03.md` (cerrar al despacho).
-  _Brief:_ `BRIEFS/N0-03.md` · stub encolado · AVISO **R12-S** pedida ·
-  **sin 🔶** hasta PASS.
+- 🔶 **N0-03 · Re-pielado portal aleph-null** — carril S · alcance
+  `docs/.vitepress/theme/**` (+ pin `@0.6.1` + `skills:sync` + gitlink
+  `64883a9`) · R12-S **PASS** autoriza.
+  **CA:** ver `BRIEFS/N0-03.md`.
+  _Brief:_ `BRIEFS/N0-03.md` · rama `wp/n0-03-repielado-portal` ·
+  worktree `C:\S\.worktrees\wp-n0-03` · tip PRE `ddbea1a`.
 
 - ⬜ **N0-04 · WP-BRAND-1 · marca / colofón aleph-null** — carril S ·
   `scriptorium/branding/` desde cantera tip `0567a24` · derivados
@@ -91,12 +91,13 @@ Tag hoy **NO**.
   (GO orquestador post branding).
 - ✅ **N0-02** aceptado · `@alephscript/skills-scriptorium@0.6.1`
   publicado · AVISO **R12-S** emitido (`AVISO-VIGIA-R12-S.md`).
-- Gate R12-S: **pendiente** · pre 🔶 N0-03 · **sin PASS no hay 🔶**.
+- Gate R12-S: **PASS** · `INFORME-VIGIA-R12-S.md` · tip PRE-🔶
+  `ddbea1a` · 🔶 N0-03 despachado.
 - **Tag `release/numero-0` RETENIDO** (PO · DA-S13) hasta post **N0-04**
   — OK de sellado vigente; colofón = BRAND-1. **Tag no ejecutado.**
 - AVISO encolado branding: `AVISO-VIGIA-ENC-BRANDING.md` (gobierno;
   **no** pide gate N0-04 hoy).
-- N0-03 / N0-04 / BRAND-2: **sin 🔶**.
+- N0-04 / BRAND-2: **sin 🔶**.
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)
 
