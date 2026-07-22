@@ -5,7 +5,7 @@
 | agente | worker consolidado · IB-12 (orquestador tras stall) |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-12-skills-estacion` |
-| commits | `<pendiente tip tras commit>` |
+| commits | `d9ffc10753309ea3a2f4310ce1b1fce9c5a4578c` |
 | eje(s) CA | III (auditoría / layout · calibración) |
 | estado propuesto | listo para revisión |
 
