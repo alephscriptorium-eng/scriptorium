@@ -5,7 +5,7 @@
 | agente | worker swarm · IB-10 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-10-estructura-scriptorium` |
-| commits | `8364ac21e03a54790d46885d451a0f9a1ec6fb75` (+ tip post-fix SHA) |
+| commits | `8364ac21e03a54790d46885d451a0f9a1ec6fb75` · tip `415df883b1f296311fdbae80cde8b00202e5c2ea` |
 | eje(s) CA | III (auditoría / layout) + regla 13 (plan autocontenido) |
 | estado propuesto | listo para revisión |
 
