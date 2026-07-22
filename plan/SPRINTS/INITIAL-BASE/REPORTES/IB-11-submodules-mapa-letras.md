@@ -5,7 +5,7 @@
 | agente | worker swarm · IB-11 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-11-submodules-mapa-letras` |
-| commits | `<pendiente tip commit obra>` |
+| commits | `90dfb64897c7c1cee5012fc61e5e9643785ed845` |
 | eje(s) CA | III (auditoría / layout · DS-5) |
 | estado propuesto | listo para revisión |
 
