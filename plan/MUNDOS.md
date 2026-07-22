@@ -34,8 +34,8 @@ aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
 
 | dato | valor |
 | ---- | ----- |
-| pin | `@alephscript/skills-scriptorium@0.6.1` (package.json · bump OLA 0 → 0.7.0) |
-| resuelta | lock **0.6.1** · npm view canal `https://npm.scriptorium.escrivivir.co` → **0.7.0** (= latest) |
+| pin | `@alephscript/skills-scriptorium@0.7.0` (package.json) |
+| resuelta | lock **0.7.0** · npm view canal `https://npm.scriptorium.escrivivir.co` → **0.7.0** (= latest) |
 | plan/ | presente (gobierno del carril) |
 | cuadernos vigia | `scriptorium-vigilancia` @ `03f09a9` (BACKSTAGE_GIT) |
 
@@ -43,7 +43,7 @@ aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
 
 | sujeto | pin | resuelta / latest canal | accion |
 | ------ | --- | ----------------------- | ------ |
-| workspace scriptorium | `0.6.1` | latest canal **0.7.0** | OLA 0 (= este GO) |
+| workspace scriptorium | `0.7.0` | `0.7.0` = latest | OLA 0 hecha (este GO) |
 | z-sdk | `0.x` | lock 0.3.4 · latest 0.7.0 | **sin bump** (ola 1+ · tras PASS R18-S) |
 | s-sdk | `0.x` | lock 0.4.0 · latest 0.7.0 | **sin bump** (ola 1+) |
 | o-sdk | `0.x` | lock 0.3.4 · latest 0.7.0 | **EXCLUIDO** (F3) |

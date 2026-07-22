@@ -6,11 +6,11 @@
     "node": ">=22"
   },
   "devDependencies": {
-    "@alephscript/skills-scriptorium": "0.6.1",
+    "@alephscript/skills-scriptorium": "0.7.0",
     "vitepress": "1.6.4"
   },
   "scripts": {
-    "skills:sync": "node scripts/sync-claude-skills.mjs",
+    "skills:sync": "alephscript-skills-sync --runtime claude",
     "skills:ceguera": "bash node_modules/@alephscript/skills-scriptorium/skills/swarm-orquestacion/scripts/comprobar-ceguera.sh",
     "docs:dev": "node ./node_modules/vitepress/bin/vitepress.js dev docs",
     "docs:build": "node ./node_modules/vitepress/bin/vitepress.js build docs",

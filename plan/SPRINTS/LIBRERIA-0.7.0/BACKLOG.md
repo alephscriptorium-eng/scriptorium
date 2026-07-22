@@ -19,9 +19,9 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## COLA encadenada (GO B · R17-S PASS)
 
-- 🔶 **SKILLS-EN-MUNDOS · OLA 0** (workspace scriptorium) — bump
-  `@alephscript/skills-scriptorium` 0.6.1→0.7.0 + `skills:sync` +
-  migración #16 (bin del paquete; borrar script local).
+- ✅ **SKILLS-EN-MUNDOS · OLA 0** (workspace) — bump 0.6.1→0.7.0 +
+  `skills:sync` (bin) + migración #16 (script local borrado · acta) ·
+  **AVISO R18-S** (aceptación · sin PASS no hay olas 1+).
 - ⬜ **Olas 1+** mundos **z·g·s·e·a** — **bloqueadas hasta PASS
   R18-S**. **o-sdk EXCLUIDO** (F3). Obra en `C:\S_LAB\<letra>-sdk`.
 
