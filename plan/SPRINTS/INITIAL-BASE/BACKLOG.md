@@ -151,5 +151,6 @@ propio.
   `AVISO-VIGIA-R5-S.md` · gate **R5-S = PASS-con-residual**
   (`INFORME-VIGIA-R5-S.md` · tip pulso previo `797662e` · main post-informe
   `68d078d`). Backstage `scriptorium-vigilancia` @ `03f09a9`.
-- **IB-20: 🔶 en curso** (brief re-emitido con partición declarada;
-  worktree/rama aparcados reutilizados). No abrir IB-21+ sin PASS R6-S.
+- **IB-20: ✅ aceptado** 2026-07-22 (merge post-aceptación). AVISO
+  `AVISO-VIGIA-R6-S.md` · gate **R6-S** pendiente. No 🔶 IB-21∥IB-22
+  sin PASS R6-S.
