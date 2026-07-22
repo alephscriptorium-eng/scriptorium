@@ -40,7 +40,8 @@ siempre). C-6 = semillas número 1 — **fuera de este WP**.
 ## Ola N0-2 · Piel → re-pielado → colofón marca (DA-S13)
 
 Orden literal: **N0-02 → N0-03 → N0-04 (= BRAND-1) → tag `release/numero-0`**.
-Tag hoy **NO**.
+Tag **SELLADO** @ `40598f0e307921d613dacf1c324415eb4a1b5d32` · arco
+cerrado R15-S.
 
 - ✅ **N0-02 · FAST-TRACK issue #15 · piel fanzine en skill `site-web`**
   — carril librería (`S_SDK-skills-library`): elevar piel canónica a
@@ -78,8 +79,17 @@ Tag hoy **NO**.
   — minor **0.7.0** · bundle issues **#16+#17** · site-web
   BRAND_* · montar-plan docs-FOSS opcional · vigilancia «marca
   renderiza» + layout `cantera/` · ceguera delta 5 = 0 · publish +
-  npm view + C8. Checkout **DECLARADO**: `C:\S\S_SDK-skills-library`.
+  npm view + C8. Checkout **DECLARADO**: `C:\S\S_SDK-skills-library`
+  (destino legislado `C:\S_LAB\…` — move pendiente por handle vivo).
   _Brief:_ `BRIEFS/BRAND-2.md` · **PRE-🔶** · sin gate propio no hay 🔶.
+
+- ⬜ **Residual · banner-scriptorium fuente corrupta** — tip cantera /
+  branding: blob de ceros (declarado R14-S; cabecera usa fallback
+  `banner-fundacion-web.png`). **No reabre N0-04.** Cola: (a) tick
+  custodio = re-depositar banner real en cantera; (b) WP menor
+  (numero-0.1 o gobierno / 0.7.0) = sustituir fuente + derivar web +
+  decidir cabecera. Fuente: `INFORME-VIGIA-R14-S.md` ·
+  `branding/PROCEDENCIA.md`.
 
 ## Gate / estado lote
 
@@ -102,11 +112,16 @@ Tag hoy **NO**.
   `f276690` · autoriza 🔶 N0-04.
 - ✅ **N0-04** aceptado · colofón BRAND-1 · AVISO **R14-S** emitido
   (`AVISO-VIGIA-R14-S.md`).
-- Gate R14-S: **pendiente** · C8 marca post-deploy · **sin PASS no hay
-  tag `release/numero-0`**.
-- **Tag `release/numero-0` RETENIDO** (PO · DA-S13) hasta **PASS R14-S**.
-  **Tag no ejecutado.**
+- Gate R14-S: **PASS-con-residual** · `INFORME-VIGIA-R14-S.md` · tip
+  `40598f0e307921d613dacf1c324415eb4a1b5d32` · OK de sellado concedido.
+- ✅ **Tag `release/numero-0` SELLADO** · commit tagged
+  `40598f0e307921d613dacf1c324415eb4a1b5d32` · tag obj
+  `69bbc098b91d8e09c15873d5ffbffa6b9c5589be` · notes = CHANGELOG
+  §Número 0 · release GitHub publicada.
+- AVISO **R15-S** · cierre de arco (`AVISO-VIGIA-R15-S.md`).
 - BRAND-2: **sin 🔶** (carril librería · aparte).
+- Residual banner-scriptorium: **encolado** (re-depósito + WP menor;
+  no reabre N0-04).
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)
 

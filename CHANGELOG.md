@@ -6,15 +6,15 @@ Registro derivado del backlog cerrado de facto del workspace
 
 ## [Unreleased]
 
-Tag `release/numero-0` **RETENIDO** por PO (DA-S13): OK de sellado
-R10-S vigente; secuencia N0-02 (issue #15) → N0-03 (re-pielado) →
-N0-04 (BRAND-1 colofón) → **entonces** sellar. Notes del tag =
-sección Número 0 (sin inventar).
+Tag `release/numero-0` **SELLADO** 2026-07-22 sobre
+`40598f0e307921d613dacf1c324415eb4a1b5d32` (R14-S PASS-con-residual ·
+notes = sección Número 0 al momento del tag). Residual
+banner-scriptorium → cola (no reabre N0-04).
 
 ## Número 0 · portal aleph-null (2026-07-22)
 
 Sprint `PORTAL-NUMERO-0` · WPs **N0-01…N0-04** (colofón). Tag
-`release/numero-0` **aún RETENIDO** hasta PASS R14-S.
+`release/numero-0` **SELLADO** @ `40598f0e307921d613dacf1c324415eb4a1b5d32`.
 
 ### N0-01 · contenido portal ✅
 

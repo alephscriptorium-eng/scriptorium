@@ -192,6 +192,19 @@ Vía elegida (PO): **patrón puntero tipo GL** (más trazable que copiar el
 composite completo a cada raíz). Mundos hermanos pueden seguir el mismo
 puntero.
 
+### DA-S15 · S_LAB = raíz de obra de los mundos (2026-07-22 · custodio)
+
+Eleva a doctrina lo que PARTICION ya insinuaba y la addenda Vigilante-S
+fundó en FS: **`C:\S_LAB`** = taller de la constelación (obra por
+carril); **`C:\S\scriptorium\codebase/*`** = gitlinks del atlas, SOLO
+LECTURA (bump solo con GO · DA-S11). Canónico: `plan/S-LAB.md`.
+Copia-release FS: `C:\S_LAB\README.md`.
+
+Checkout de librería hoy en `C:\S\S_SDK-skills-library` — reubicación a
+`C:\S_LAB\…` **pendiente** (bloqueada por handle vivo; no forzar). Se
+ejecuta en quietud o con WP 0.7.0 / BRAND-2. Atlas `C:\S` queda
+solo-mapa + estación + fuentes.
+
 ## Abiertas
 
 _(las resuelve el custodio)_

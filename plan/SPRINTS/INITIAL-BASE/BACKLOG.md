@@ -135,17 +135,17 @@ el pub») · F4 playground + Docker Hub scriptorium-city (solarnet ·
 lurker · founder) · tipos-del-FOSS (peer-card-seat primero) · pasada-2
 auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
 
-- ▶ **Contenido portal aleph-null (número 0)** — GO custodio 2026-07-22
-  · **NO reabre IB-13** · sprint propio
-  [`PORTAL-NUMERO-0`](../PORTAL-NUMERO-0/BACKLOG.md) · WP **N0-01** ✅ ·
-  R10-S PASS-con-residual · R11-S PASS · secuencia PO **DA-S13**
-  (N0-02 → N0-03 → N0-04=BRAND-1 → tag; tag RETENIDO hoy) · hermano
-  **WP-BRAND-2** (librería · 0.7.0 · #16+#17) encolado sin 🔶.
-- ⬜ **WP-BRAND-2 · pack marca librería** — encolado en sprint portal
-  (territorio hermano) · brief
+- ✅ **Contenido portal aleph-null (número 0)** — cerrado R15-S · tag
+  `release/numero-0` @ `40598f0e307921d613dacf1c324415eb4a1b5d32` ·
+  sprint [`PORTAL-NUMERO-0`](../PORTAL-NUMERO-0/BACKLOG.md).
+- ⬜ **WP-BRAND-2 · pack marca librería** — encolado · brief
   [`BRAND-2.md`](../PORTAL-NUMERO-0/BRIEFS/BRAND-2.md) · checkout
-  `C:\S\S_SDK-skills-library` DECLARADO · paquete
-  `@alephscript/skills-scriptorium` · **sin PASS de gate propio no hay 🔶**.
+  `C:\S\S_SDK-skills-library` DECLARADO (destino `C:\S_LAB\…`
+  pendiente) · paquete `@alephscript/skills-scriptorium` · **sin PASS
+  de gate propio no hay 🔶**.
+- ⬜ **Residual · banner-scriptorium fuente corrupta** — blob de ceros
+  (R14-S) · re-depósito custodio + WP menor · **no reabre N0-04** ·
+  ver `PORTAL-NUMERO-0/BACKLOG.md` §COLA.
 - ⬜ **Lección · sucesión de vigía** (skill `vigilancia` vNext) — PORT al
   método: vigía del carril = estación viva Vigilante-* (OUT_DIR), no
   subagente del orquestador; gates `Rn-*` por AVISO + veredicto vía
