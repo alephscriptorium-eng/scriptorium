@@ -92,4 +92,6 @@ PASS de LIB-070 salvo higiene §8.
 | tip ~mencionado en GO | `9cff48a` (ancestro; HEAD real = cfa9110) |
 | cantera banner (fuente XS) | `39caef49ba9726ed501017144df68157327229a1` |
 | checkout librería HEAD al clonar | `64883a9f1d525d6ad14759efa13cb788ab68542c` |
-| tip main POST-push este aviso | `<pendiente push — rellenar literal tras push>` |
+| tip gobierno (AVISO+BRIEF+retoques R15-S) | `2b8f4b45566c49e4c320f3c716327025f5ba65dc` |
+| tip WP-XS (obra banner) | `68d98ec4c2f514e29b8e6bd7faac00cecda3cc3a` |
+| tip main POST-push (HEAD real = origin/main) | `68d98ec4c2f514e29b8e6bd7faac00cecda3cc3a` |
