@@ -32,7 +32,7 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## Ola IB-1 · Génesis del workspace
 
-- 🔶 **IB-10 · Estructura `C:\S` + repo `scriptorium`** — repo
+- ✅ **IB-10 · Estructura `C:\S` + repo `scriptorium`** — repo
   alephscriptorium-eng/scriptorium (público). Layout: `codebase/`
   (submodules) · `playground/` (semillas) · `docs/` (site-web overall) ·
   `plan/` (montar-plan del skill). Cuadernos = repo privado
@@ -42,7 +42,9 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   paths cortos (C:\S\...).
   _Nota génesis:_ esqueleto + plan montados en sesión de génesis; este WP
   verifica CA de facto y cierra huecos — no reescribe alcance.
-  _Brief:_ `BRIEFS/IB-10.md` · rama `wp/ib-10-estructura-scriptorium`
+  _Brief:_ `BRIEFS/IB-10.md` · merge `wp/ib-10-estructura-scriptorium`
+  · reporte `REPORTES/IB-10-estructura-scriptorium.md`
+  · gitlinks `<pendiente>` → IB-11
 - ⬜ **IB-11 · Submodules mapa de letras** — codebase/: z-sdk (Z_SDK) ·
   g-sdk (Z_SDK-games-library) · s-sdk (S_SDK) · e-sdk (E_SDK) · o-sdk
   (O_SDK post-IB-01) · a-sdk (aleph-scriptorium). DS-5: apuntar, no
@@ -105,10 +107,11 @@ IB-23. Gates del vigía por ola (rondas Rn-S). Regla de oro: PORT, NO
 REWRITE — todo lo que huela a reescritura se devuelve a cola con GO
 propio.
 
-## Gate pre-despacho (ola IB-0 + IB-10)
+## Gate / estado lote (ola IB-0 + IB-10)
 
 - Briefs: `BRIEFS/IB-01.md`, `BRIEFS/IB-02.md`, `BRIEFS/IB-10.md`
-- Aviso vigía: `AVISO-VIGIA-R1-S.md`
-- **R1-S PASS** (`INFORME-VIGIA-R1-S.md`) — 🔶 marcado 2026-07-22;
-  lote IB-01 ∥ IB-02 ∥ IB-10 en curso. **No** abrir IB-11 hasta
-  cierre/aceptación de IB-10 (+ o-sdk post IB-01 para gitlink).
+- Aviso vigía: `AVISO-VIGIA-R1-S.md` · informe `INFORME-VIGIA-R1-S.md` (PASS)
+- **Lote IB-01 ∥ IB-02 ∥ IB-10: ✅ cerrado** 2026-07-22 (merges post-aceptación).
+- **Próximo:** gate vigía **R2-S** antes de despachar **IB-11** (gitlinks;
+  o-sdk tip post IB-01 = `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`).
+  No despachar IB-11 sin R2-S PASS.

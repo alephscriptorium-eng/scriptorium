@@ -11,7 +11,7 @@ explícita del usuario, no se proyecta.
 
 | sprint | estado | ruta |
 | ------ | ------ | ---- |
-| INITIAL-BASE | 🔶 montado · gate R1-S pendiente pre-despacho | `plan/SPRINTS/INITIAL-BASE/` |
+| INITIAL-BASE | 🔶 activo · lote IB-01∥02∥10 ✅ · próximo gate R2-S (IB-11) | `plan/SPRINTS/INITIAL-BASE/` |
 
 ## Cola (fuera de INITIAL-BASE — GO propio)
 

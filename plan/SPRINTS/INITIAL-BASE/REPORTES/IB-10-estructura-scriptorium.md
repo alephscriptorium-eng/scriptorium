@@ -142,4 +142,16 @@ Ninguno bloqueante. Submodules = `<pendiente>` explícito (depende IB-11).
 
 ## Revisión del orquestador
 
-_(la rellena el orquestador: aceptado ✅ / devuelto con lista numerada)_
+**Aceptado ✅** · 2026-07-22 · orquestador carril S
+
+### CA
+- [x] Layout `codebase/` · `playground/` · `docs/` · `plan/` + paths `C:\S\...`
+- [x] Plan autocontenido (regla 13) operable con skill 0.5.1
+- [x] Submodules/gitlinks = `<pendiente>` explícito (IB-11 no despachado)
+- [x] Hueco README (paths + nota gitlinks) cerrado · PORT NO REWRITE
+
+### Eje III
+Dedup layout verificado; sin árboles anidados duplicados.
+
+### Merge
+`wp/ib-10-estructura-scriptorium` → `main` post-aceptación.
