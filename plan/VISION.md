@@ -44,5 +44,6 @@ Mapa inventariado (IB-20): `plan/MUNDOS.md`. Partición de obra/gobierno:
 
 ## Sprint activo
 
-`plan/SPRINTS/INITIAL-BASE/` — génesis mínima; arcos F3/F4 quedan en
-cola con GO propio.
+`plan/SPRINTS/PORTAL-NUMERO-0/` — número 0 del portal (N0-01 ✅;
+secuencia piel DA-S12). INITIAL-BASE cerrado (R8-S). Arcos F3/F4 y
+**SKILLS-EN-MUNDOS** quedan en cola con GO propio.

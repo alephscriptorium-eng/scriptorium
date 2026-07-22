@@ -118,6 +118,31 @@ mundo).
 - **Bumps futuros del gitlink = GO**, como todo gitlink del índice
 - No declara checkout futuro de issue #15 (piel); eso = su brief
 
+### DA-S12 · Secuencia PO post-R10-S · tag retenido + piel primero (2026-07-22 · custodio)
+
+Tras R10-S **PASS-con-residual** (OK de sellado del tag concedido), el PO
+reteniene el **cuándo** del tag `release/numero-0` hasta piel correcta
+(defecto issue #15 visible con contenido real). El OK de sellado **sigue
+válido**; cambia el cuándo, no el qué.
+
+**Orden del portal (literal):**
+
+1. **FAST-TRACK N0-02** (issue #15) — carril librería
+   `S_SDK-skills-library`: piel fanzine como asset de `site-web` + CA
+   estructural C8 anti-regresión · release `0.6.1`/`0.7.0` · checkout
+   de obra **DECLARADO** en brief (`C:\S\S_SDK-skills-library`) · gate
+   **R11-S** por AVISO · **sin PASS no hay 🔶**.
+2. **N0-03 · re-pielado del portal** — carril S · alcance
+   `docs/.vitepress/theme/**` · consume versión nueva · brief stub OK;
+   🔶 solo tras #15 publicado + gate propio.
+3. **ENTONCES** sellar `release/numero-0` (notes = sección Número 0 del
+   CHANGELOG). **Hoy no.**
+
+Gobierno de raíz (residual R10-S) en el mismo GO: `plan/RAIZ-C-S.md` +
+`C:\S\README.md` copia-release + barrido residuo #3/bootstrap con acta.
+Arco **SKILLS-EN-MUNDOS** (z·g·s·e·a; o-sdk excluido F3-01) = solo COLA
+hasta cierre del arco portal.
+
 ## Abiertas
 
 _(las resuelve el custodio)_

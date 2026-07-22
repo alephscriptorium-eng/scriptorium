@@ -138,7 +138,8 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
 - ▶ **Contenido portal aleph-null (número 0)** — GO custodio 2026-07-22
   · **NO reabre IB-13** · sprint propio
   [`PORTAL-NUMERO-0`](../PORTAL-NUMERO-0/BACKLOG.md) · WP **N0-01** ✅ ·
-  gate R9-S PASS · AVISO **R10-S** (aceptación + C8 5 rutas).
+  R10-S PASS-con-residual · secuencia PO **DA-S12** (N0-02 → N0-03 →
+  tag; tag RETENIDO hoy) · gate **R11-S** pre N0-02.
 - ⬜ **Lección · sucesión de vigía** (skill `vigilancia` vNext) — PORT al
   método: vigía del carril = estación viva Vigilante-* (OUT_DIR), no
   subagente del orquestador; gates `Rn-*` por AVISO + veredicto vía
@@ -148,9 +149,17 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
   a skill vNext con GO propio — no reescribe el resto del backlog.
 - ⬜ **Lección · checkout declarado** (skill método / `vigilancia` vNext)
   — brief con obra en repo externo → ubicación del checkout
-  **DECLARADA**. Casos fundantes **IB-01 · IB-21** (2026-07-22).
-  Encolada junto a «sucesión de vigía»; PORT a skill vNext con GO
-  propio — no reescribe el resto del backlog.
+  **DECLARADA**. Casos fundantes **tres**: **IB-01 · IB-21 · N0-02 /
+  issue #15** (GO 2026-07-22 · checkout `C:\S\S_SDK-skills-library` en
+  brief). Encolada junto a «sucesión de vigía»; PORT a skill vNext con
+  GO propio — no reescribe el resto del backlog.
+- ⬜ **Arco · SKILLS-EN-MUNDOS** — inicializar paquete skills en
+  **z·g·s·e·a** (**o-sdk EXCLUIDO**: F3-01). Por mundo: devDep `@latest`
+  + espejo `skills:sync` + asiento en SU plan («la estación se activa
+  desde aquí»). Obra por-mundo en territorio hermano con checkout
+  declarado; bumps de gitlink en el índice con GO al cierre. Prepara
+  g-sdk para parlament (F3-09). **ACTIVACIÓN: tras cierre del arco
+  portal** — hoy **solo encolado** (sin GO de despacho).
 
 ## Orden y paralelismo
 
