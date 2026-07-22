@@ -6,6 +6,7 @@
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio** · archivo del sprint  
 **Fecha:** 2026-07-22  
 **Estado:** arco PORTAL-NUMERO-0 **cerrado** tras sellado `release/numero-0` · R14-S PASS-con-residual · OK de sellado ejecutado
+**Cierre ratificado por Vigilante-S** — ver `INFORME-VIGIA-R15-S.md` (con corrección de registro: checkout librería BORRADO por custodio; raíz = atlas puro).
 
 > Este aviso **cierra** el arco. No abre N0-05+. No pide PASS para
 > despacho de lote siguiente del portal número 0 (no hay más WPs del
