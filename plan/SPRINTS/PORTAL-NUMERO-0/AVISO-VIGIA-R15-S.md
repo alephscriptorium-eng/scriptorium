@@ -79,8 +79,8 @@ tag. Regla de oro: PORT, NO REWRITE. Paquete:
 | tag `release/numero-0` (objeto) | `69bbc098b91d8e09c15873d5ffbffa6b9c5589be` |
 | tag `release/numero-0` → commit | `40598f0e307921d613dacf1c324415eb4a1b5d32` |
 | release URL | https://github.com/alephscriptorium-eng/scriptorium/releases/tag/release/numero-0 |
-| AVISO R15-S (cuerpo) | _(este commit · tip POST-push abajo)_ |
-| tip main POST-push | _(rellenar tras push · HEAD real)_ |
+| AVISO R15-S (cuerpo) | `c19dc5461ea62e242175ee17dc39471861e2039b` |
+| tip main POST-push | `c19dc5461ea62e242175ee17dc39471861e2039b` |
 
 ## Vetos respetados en el cierre
 
