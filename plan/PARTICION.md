@@ -1,65 +1,61 @@
-# PARTICIÓN — territorios del carril S (IB-20)
+# PARTICIÓN — obra y gobierno (carril S)
 
-Protocolo multi-orquestador **asentado por cita** (PORT, no rewrite).
+Asentado por IB-20. **Fuente de método:** skill
+`@alephscript/skills-scriptorium` →
+`swarm-orquestacion/reference/convivencia-multi-orquestador.md`
+(**contrato v1.1 / método v0.6**). Este fichero **cita y calibra** el
+contrato al workspace; no lo reescribe.
 
-## Fuente del contrato
+## Carril
 
-Contrato **v1.1** / método **v0.6**:
+| dato | valor |
+| ---- | ----- |
+| Carril | **S** |
+| Mundo / checkout | `C:\S\scriptorium` |
+| Gobierno | `plan/` de este repo (único escritor de gobierno del carril S) |
+| Vigía | **Vigilante-S** · estación `C:\S\vigilancia` · vía custodio (DA-S07) |
+| Gates | `Rn-S` por AVISO en `plan/SPRINTS/INITIAL-BASE/` · sin PASS no hay 🔶 |
 
-`.claude/skills/swarm-orquestacion/reference/convivencia-multi-orquestador.md`
+## Partición de obra (§1 skill)
 
-(espejo de `@alephscript/skills-scriptorium`; fuente única del cuerpo —
-roles y este fichero **enlazan**, no re-declaran §§1–9).
+| territorio | dueño | escritura |
+| ---------- | ----- | --------- |
+| `plan/` del workspace | orquestador / workers del carril S | **sí** (gobierno + reportes del sprint) |
+| `docs/`, raíz workspace (scripts, etc.) | carril S con BRIEF explícito | solo si el BRIEF lo declara |
+| `codebase/{z,g,s,e,o,a}-sdk` | carril dueño de cada sdk / GO propio | **no** desde IB-20 ni desde briefs de reunificación: **SOLO LECTURA** |
+| gitlinks bajo `codebase/*` | bump solo con WP que lo autorice | IB-20: **cero bump** |
+| `scriptorium-cuadernos` (privado) | custodio / volcados por rama-mundo | punteros desde plan público; no volcar crudo aquí |
 
-Decisión local: **DA-S06** (`plan/DECISIONES.md`) — carril **S**, rondas
-`Rn-S`. Sucesión de vigía: **DA-S07** + `plan/ESTACION.md`.
+Hallazgo dentro de un sdk → **nota-a-forense** o **WP nuevo** del carril
+dueño. Prohibido excavar (§F3a · nests a-sdk = forense).
 
-## Partición declarada (obra IB-20 y regla estable)
+## Partición de gobierno (§2 skill)
 
-| territorio | dueño / escritor | modo en IB-20 |
-| ---------- | ---------------- | ------------- |
-| `plan/` del workspace `scriptorium` | orquestador/worker **carril S** | **escritura** (tabla mundos, esta partición, enlaces PORT, reportes del sprint) |
-| `plan/SPRINTS/INITIAL-BASE/REPORTES/` | worker del WP bajo brief S | **escritura** (reporte IB-20) |
-| punteros cuadernos (rama por mundo) | declaración en `plan/MUNDOS.md` | **escritura** solo del puntero; histórico vive en `scriptorium-cuadernos` (privado) |
-| `codebase/{z,g,s,e,o,a}-sdk` | carril dueño de cada hermano (§1 / §4 convivencia) | **SOLO LECTURA** en IB-20 |
-| gitlinks `codebase/*-sdk` | gobierno S con GO de bump | **cero bump** en IB-20 |
-| raíz compartida (skills, registry) | consumo OK (§6); escritura encolada | lectura / `npm view` OK; sin bump masivo |
+- Un escritor por prefijo `plan/` del carril S.
+- V2 atómico: commit de ✅ ≠ commit de brief/🔶 de otro WP.
+- REPORTES/BRIEFS bajo `plan/SPRINTS/<sprint>/` del carril (§5).
 
-### ALCANCE_DIFF canónico (IB-20)
+## Consumo de raíz y hermanos (§4 · §6 · §7)
+
+- Lectura de skills / registry / docs de método: OK.
+- Escritura en territorio hermano: solo el dueño.
+- E2E entre territorios: registry limpio · fixture scratch · vía
+  post-gate — **no** checkout raíz ajeno como dependencia.
+
+## Higiene pre-despacho (§8) + locks (§9)
+
+Antes de 🔶 / BRIEF / worker:
 
 ```text
-ESCRITURA:
-  plan/**  (workspace scriptorium; no BACKLOG estados 🔶/✅ del orquestador)
-  plan/SPRINTS/INITIAL-BASE/REPORTES/IB-20-*.md
-
-SOLO LECTURA:
-  codebase/{z,g,s,e,o,a}-sdk/**
-  gitlinks (mode 160000) — no modificar
+[ ] worktrees explicados (sin huérfanos injustificados)
+[ ] ramas wp/* justificadas o ausentes
+[ ] git status del plan/ del carril explicado
+[ ] Rn-S en PASS (Vigilante-S vía custodio)
+[ ] index.lock / HEAD.lock ausentes (freeze mutuo si sostenido)
 ```
 
-## §§ aplicables (cita, no copia del cuerpo)
+## Mapa operativo
 
-Del skill `convivencia-multi-orquestador.md`:
-
-- **§1** Partición de obra — un orquestador por territorio; worker S no
-  escribe en hermano.
-- **§2** Partición de gobierno — un escritor por prefijo `plan/` (carril S).
-- **§3** Vigía único — gates `Rn-S`; sin PASS no hay 🔶 (Vigilante-S /
-  DA-S07).
-- **§4** Territorio hermano exclusivo — checkout/`wp/*` en sdk = dueño.
-- **§5** REPORTES bajo el sprint del carril.
-- **§6** Consumo de raíz OK; escritura encolada.
-- **§8** Higiene pre-despacho antes de 🔶.
-
-## Vetos locales (PRACTICAS + mandato)
-
-- No borrar sin veredicto desechable.
-- `alephscript-network-sdk`: solo remote epsylon (`oasis-upstream`).
-- o-sdk / §F3a: cero arqueología; hallazgo → nota-a-forense / WP dueño.
-- PORT, NO REWRITE.
-- Worker: no edita BACKLOG; no merge a main.
-
-## Inventario de mundos
-
-Ver `plan/MUNDOS.md` (skill pin/resuelta + estado `plan/` + destino
-cuadernos).
+- Inventario de mundos + skill + cuadernos: `plan/MUNDOS.md`
+- Calibración estación: `plan/ESTACION.md`
+- Candados doctrina: `plan/VISION.md` · `plan/PRACTICAS.md` · `plan/DECISIONES.md`

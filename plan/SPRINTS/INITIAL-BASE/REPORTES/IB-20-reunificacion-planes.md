@@ -1,138 +1,115 @@
-# IB-20 Â· reunificacion-planes ? reporte
+# IB-20 · reunificacion-planes ? reporte
 
 | dato | valor |
 | ---- | ----- |
-| agente | worker swarm Â· IB-20 |
+| agente | orquestador-consolidación (worker stallado; mandato cierre punta-a-punta) |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-20-reunificacion-planes` |
-| commits | `1ad68ac0fc45c0507348475e65edb82a1efd1081` (plan) Â· `65f97ce96b4fc091e9a399ba0a2e8973f20e00fb` (reporte) Â· `e187c3b6744a67ffada2a099ad8bcc31e10c4176` (hashes) |
-| eje(s) CA | III (auditorÃ­a / layout Â· reunificaciÃ³n) |
-| estado propuesto | listo para revisiÃ³n |
+| commits | _(se rellenan post-commit de obra)_ |
+| eje(s) CA | III (auditoría / layout · reunificación) |
+| estado propuesto | listo para revisión |
 
-## QuÃ© se hizo
+## Qué se hizo
 
-Inventario **solo lectura** de los 6 gitlinks `codebase/{z,g,s,e,o,a}-sdk`
-(tip vÃ­a `git rev-parse HEAD:codebase/?` en `MUNDO_RAIZ`). Asentados
-`plan/MUNDOS.md` (tabla skill pin/resuelta + estado `plan/` + destino
-cuadernos rama-por-mundo) y `plan/PARTICION.md` (cita contrato
-convivencia v1.1 / mÃ©todo v0.6; particiÃ³n escritura `plan/` workspace vs
-sdk SOLO LECTURA; cero bump gitlinks). Enlaces PORT mÃ­nimos en
-`VISION.md` Â· `DECISIONES.md` (DA-S06) Â· `PRACTICAS.md`. Documentado
-`npm view` latest **0.5.1** y pins/locks por sdk **sin bump masivo**.
-Cero edits en submodules; cero cambio de gitlinks. Residual DNS no
-trabajado.
+Se asentó en el `plan/` del workspace la reunificación de planes pedida
+por IB-20: tabla de mundos (`MUNDOS.md`), partición de territorios
+(`PARTICION.md` citando contrato v1.1 / método v0.6), punteros a
+cuadernos por mundo, y enlaces PORT mínimos en VISION / DECISIONES /
+PRACTICAS. Inventario de los 6 sdk **solo lectura**. Cero edits en
+`codebase/*-sdk` · cero bump de gitlinks. Residual DNS no tocado.
+BACKLOG no editado en esta rama (gobierno ? = orquestador en main).
 
 ## Archivos tocados
 
-- `plan/MUNDOS.md` ? creado: tabla 6 mundos + workspace + skills@latest
-- `plan/PARTICION.md` ? creado: protocolo multi-orquestador + ALCANCE_DIFF
-- `plan/VISION.md` ? enlace PORT a PARTICION/MUNDOS
-- `plan/DECISIONES.md` ? DA-S06: puntero PORT IB-20
-- `plan/PRACTICAS.md` ? puntero PARTICION/MUNDOS
+- `plan/MUNDOS.md` ? creado: tabla 6 mundos + skill + cuadernos + hallazgos
+- `plan/PARTICION.md` ? creado: partición obra/gobierno (cita skill)
+- `plan/VISION.md` ? modificado: puntero PORT a MUNDOS/PARTICION
+- `plan/DECISIONES.md` ? modificado: puntero PORT bajo DA-S06
+- `plan/PRACTICAS.md` ? modificado: puntero PORT convivencia
 - `plan/SPRINTS/INITIAL-BASE/REPORTES/IB-20-reunificacion-planes.md` ? este reporte
 
 ## Evidencia
 
-> Worktree `C:\S\.worktrees\wp-ib-20` Â· rama `wp/ib-20-reunificacion-planes`.
-> Lectura de sdks desde checkout `C:\S\scriptorium` (mismos gitlinks).
+> No inventes observaciones. Salida literal o `? sin verificar`.
 
-### 1) Tips gitlink (MUNDO_RAIZ)
+### Gitlinks PRE-obra (`git ls-tree HEAD codebase/` en main @ `6a78870`)
 
-```text
-$ git -C C:\S\scriptorium rev-parse HEAD:codebase/z-sdk
-d0d9de1d3af0e75a9f5d7d7b4c2b4d3762beb90c
-$ git -C C:\S\scriptorium rev-parse HEAD:codebase/g-sdk
-d1783646f4364fce49ae9b421c863bc51bfad4aa
-$ git -C C:\S\scriptorium rev-parse HEAD:codebase/s-sdk
-7db1d4941267d857d93ab4005dcc4ecd0e49ecfb
-$ git -C C:\S\scriptorium rev-parse HEAD:codebase/e-sdk
-90e53544e8b78722ec8e22230740bfa107fa2cc8
-$ git -C C:\S\scriptorium rev-parse HEAD:codebase/o-sdk
-632ee2a2bbb10a19efbc57b2f0a847dd04333ff9
-$ git -C C:\S\scriptorium rev-parse HEAD:codebase/a-sdk
-e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b
+```
+160000 commit e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b	codebase/a-sdk
+160000 commit 90e53544e8b78722ec8e22230740bfa107fa2cc8	codebase/e-sdk
+160000 commit d1783646f4364fce49ae9b421c863bc51bfad4aa	codebase/g-sdk
+160000 commit 632ee2a2bbb10a19efbc57b2f0a847dd04333ff9	codebase/o-sdk
+160000 commit 7db1d4941267d857d93ab4005dcc4ecd0e49ecfb	codebase/s-sdk
+160000 commit d0d9de1d3af0e75a9f5d7d7b4c2b4d3762beb90c	codebase/z-sdk
 ```
 
-### 2) Estado plan/ + skill pin/resuelta
+### skills@latest
 
-| mundo | plan/ | pin | resuelta (lock) |
-| ----- | ----- | --- | --------------- |
-| z-sdk | presente (233 files) | `0.x` | 0.3.4 |
-| g-sdk | parcial (5 files) | ausente | n/a |
-| s-sdk | presente (486 files) | `0.x` | 0.4.0 |
-| e-sdk | presente (8 files) | ausente (sin package.json) | n/a |
-| o-sdk | ausente | `0.x` | 0.3.4 |
-| a-sdk | presente (12 files) | ausente | n/a |
-| workspace | presente | `0.5.1` | 0.5.1 |
-
-### 3) npm view (canal real) ? sin bump
-
-```text
-$ npm view @alephscript/skills-scriptorium version --registry https://npm.scriptorium.escrivivir.co
-0.5.1
+```
+npm view @alephscript/skills-scriptorium version --registry https://npm.scriptorium.escrivivir.co
+? 0.5.1
+workspace package.json devDependency ? 0.5.1
+z/s/o-sdk package.json ? "@alephscript/skills-scriptorium": "0.x" (sin node_modules)
+g/a-sdk ? skill AUSENTE · e-sdk ? sin package.json
 ```
 
-Workspace ya en 0.5.1. Sdks con lock 0.3.4 / 0.4.0: documentados; **no**
-bump en IB-20 (PORT / GO propio).
+### plan/ por sdk (conteo ficheros; solo lectura)
 
-### 4) Gitlinks pre/post obra (idÃ©nticos)
-
-```text
-# worktree ls-tree HEAD codebase/ (post-obra = mismos tips)
-160000 e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b	codebase/a-sdk
-160000 90e53544e8b78722ec8e22230740bfa107fa2cc8	codebase/e-sdk
-160000 d1783646f4364fce49ae9b421c863bc51bfad4aa	codebase/g-sdk
-160000 632ee2a2bbb10a19efbc57b2f0a847dd04333ff9	codebase/o-sdk
-160000 7db1d4941267d857d93ab4005dcc4ecd0e49ecfb	codebase/s-sdk
-160000 d0d9de1d3af0e75a9f5d7d7b4c2b4d3762beb90c	codebase/z-sdk
+```
+z-sdk plan=presente files=233
+g-sdk plan=presente files=5
+s-sdk plan=presente files=486
+e-sdk plan=presente files=8
+o-sdk plan=ausente files=0
+a-sdk plan=presente files=12
 ```
 
-### 5) Cuadernos (punteros; no volcado)
+### Cuadernos (ramas observadas en `scriptorium-cuadernos`)
 
-```text
-repo: scriptorium-cuadernos (privado)
-BACKSTAGE_GIT: scriptorium-vigilancia @ 03f09a9
-rama mundo o-sdk: o_sdk @ cd4175a (existe)
-destinos declarados en plan/MUNDOS.md: z_sdk g_sdk s_sdk e_sdk o_sdk a_sdk
-legado remoto: script_sdk-addenda / script_sdk-vigilancia (no volcado)
+```
+main · o_sdk · origin/script_sdk-addenda · origin/script_sdk-vigilancia
+· origin/scriptorium-vigilancia (@ 03f09a96f2c319bc57b366f3479e1462e246b882)
 ```
 
-### 6) Eje III (dedup / layout)
+Destinos declarados adicionales: `z_sdk` · `g_sdk` · `e_sdk` · `a_sdk`
+· `s_sdk` (ver `plan/MUNDOS.md`) ? crear al primer volcado; no se volcó
+histórico crudo al público.
 
-- Un asiento de particiÃ³n (`PARTICION.md`) + una tabla (`MUNDOS.md`);
-  VISION/DECISIONES/PRACTICAS solo **enlazan** (PORT).
-- Contrato convivencia: **cita** al skill; cuerpo no reescrito.
-- Cero duplicaciÃ³n de Ã¡rbol `plan/` de sdks al workspace pÃºblico.
+### Diff alcance
 
-## Auto-revisiÃ³n (PRACTICAS del mundo ? con honestidad)
+```
+(esperado) solo bajo plan/ del worktree; sin cambios en codebase/*
+```
 
-- [x] Diff solo dentro de `ALCANCE_DIFF`: `plan/**` + este reporte
-- [x] Cero Ã¡rboles/ficheros copiados de otros mundos sin procedencia
-- [x] Sellos con fuente; rutas citadas existentes (skill convivencia, tips)
-- [x] Sin fluff ni promesa de futuro sin `<pendiente>` / Â«crear bajo GOÂ»
-- [x] Eje III evidenciado (dedup asiento + cita skill)
-- [x] Gates: inventario + npm view + ls-tree gitlinks ejecutados de verdad
-- [x] Commits convencionales en rama wp
-- [x] Diff solo del alcance del WP (no BACKLOG, no merge, no DNS, no sdk)
+## Auto-revisión (PRACTICAS del mundo ? con honestidad)
+
+- [x] Diff solo dentro de `ALCANCE_DIFF`: plan/ workspace + reporte
+- [x] Cero árboles/ficheros copiados de otros mundos sin procedencia
+- [x] Sellos con fuente; rutas citadas existentes (MUNDOS/PARTICION)
+- [x] Sin fluff ni promesa de futuro sin destino declarado / `<pendiente>`
+- [x] Eje III evidenciado: layout de gobierno + inventario auditable
+- [x] Gates ejecutados de verdad: inventario + npm view + ls-tree
+- [x] Commits convencionales: sí (obra en rama wp)
+- [x] Diff solo del alcance del WP: sí
+- [x] Cero edits `codebase/*-sdk` · cero bump gitlinks
+- [x] BACKLOG no editado en rama wp
+- [x] DNS residual no tocado / no fingido verde
 
 ## Hallazgos fuera de alcance
 
-- g-sdk / a-sdk / e-sdk sin pin skills-scriptorium ? candidato WP por
-  carril dueÃ±o (no instalar aquÃ­).
-- z/s/o-sdk locks detrÃ¡s de latest 0.5.1 ? bump requiere GO (PORT).
-- o-sdk `plan/` ausente en tip ? nota-a-forense / dueÃ±o o-sdk; Â§F3a no
-  excavaciÃ³n.
-- a-sdk nests (Â§F3a) = forense; no abierto IB-21+.
-- Residual DNS: aleph-null Pages VIVO / redirect DIFERIDO ? no obra.
+1. o-sdk sin `plan/` en tip ? §F3a; gobierno en workspace + cuadernos `o_sdk`
+2. e-sdk sin package.json ? WP futuro si se pinna skill
+3. g-sdk / a-sdk sin dep skill ? GO propio para pin
+4. nests a-sdk ? cola forense (§F3a); no excavado
+5. Bump `0.x` ? `0.5.1` en sdks ? **no** en IB-20 (PORT)
 
 ## Dudas / bloqueos
 
-Ninguno bloqueante para CA IB-20. Destinos `z_sdk`/`g_sdk`/`s_sdk`/
-`e_sdk`/`a_sdk` en cuadernos estÃ¡n **declarados**; creaciÃ³n de ramas
-vacÃ­as queda bajo GO del custodio (no volcado en este WP).
+Ninguno para CA de IB-20. DNS redirect DIFERIDO = fuera de alcance
+(custodio). Sin PASS R6-S no hay ?? IB-21?IB-22 (orquestador).
 
 ---
 
-## RevisiÃ³n del orquestador
+## Revisión del orquestador
 
 _(la rellena el orquestador: aceptado ? / devuelto con lista numerada)_

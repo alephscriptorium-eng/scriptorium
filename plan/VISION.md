@@ -27,6 +27,9 @@ submodules bajo `codebase/`. **PORT, no rewrite.**
 Cuadernos = repo privado `scriptorium-cuadernos` (rama por mundo). **No
 entran al público.**
 
+Mapa inventariado (IB-20): `plan/MUNDOS.md`. Partición de obra/gobierno:
+`plan/PARTICION.md` (cita contrato v1.1; no lo reescribe).
+
 ## Candados
 
 - Nada se borra sin veredicto desechable.

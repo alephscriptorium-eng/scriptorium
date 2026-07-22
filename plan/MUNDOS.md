@@ -1,57 +1,57 @@
-# MUNDOS — inventario de holones (carril S · IB-20)
+# MUNDOS — mapa de holones del workspace (carril S)
 
-Fuente de lectura: tips gitlink en `MUNDO_RAIZ` (`C:\S\scriptorium`) vía
-`git rev-parse HEAD:codebase/<letra>-sdk`. **SOLO LECTURA** de
-`codebase/*-sdk` en este WP: cero edits, cero bump de gitlinks.
+Inventario IB-20 (2026-07-22). **Solo lectura** de `codebase/*-sdk`.
+Cero edits en submodules · cero bump de gitlinks en este WP.
+Fuente de partición: `plan/PARTICION.md`. Protocolo: skill
+`swarm-orquestacion/reference/convivencia-multi-orquestador.md`
+(contrato v1.1 / método v0.6) — citar, no reescribir.
 
-Cuadernos = repo privado `scriptorium-cuadernos` (fuera del público).
-Punteros abajo = destino rama-por-mundo; **no** se vuelca histórico crudo
-aquí. BACKSTAGE del vigía: rama `scriptorium-vigilancia` (ver
-`plan/ESTACION.md`).
+Registry canal real (workspace): `https://npm.scriptorium.escrivivir.co`
+· `npm view @alephscript/skills-scriptorium version` → **`0.5.1`**
+(evidencia IB-20). Pin del workspace (`package.json` devDependency):
+**`0.5.1`**.
 
 ## Tabla de mundos
 
-| mundo | tip gitlink (HEAD:codebase/…) | plan/ | skill pin (`package.json`) | skill resuelta (lock / npm) | cuadernos (rama destino) |
-| ----- | ----------------------------- | ----- | -------------------------- | --------------------------- | ------------------------ |
-| z-sdk | `d0d9de1d3af0e75a9f5d7d7b4c2b4d3762beb90c` | **presente** (233 ficheros; VISION·BACKLOG·DECISIONES·PRACTICAS·REPORTES·roles) | `@alephscript/skills-scriptorium`: `0.x` | lock → **0.3.4** (registry canal) | `z_sdk` _(declarada; crear bajo GO si falta)_ |
-| g-sdk | `d1783646f4364fce49ae9b421c863bc51bfad4aa` | **parcial** (5 ficheros: README·PRACTICAS·REPORTES; sin VISION/BACKLOG/DECISIONES) | **ausente** (no dep skills-scriptorium) | n/a | `g_sdk` _(declarada; crear bajo GO si falta)_ |
-| s-sdk | `7db1d4941267d857d93ab4005dcc4ecd0e49ecfb` | **presente** (486 ficheros; gobierno + SPRINTS + REPORTES) | `@alephscript/skills-scriptorium`: `0.x` | lock → **0.4.0** (registry canal) | `s_sdk` _(canónica declarada; legado remoto `script_sdk-*` — no volcar)_ |
-| e-sdk | `90e53544e8b78722ec8e22230740bfa107fa2cc8` | **presente** (8 ficheros; VISION·BACKLOG·DECISIONES·PRACTICAS·REPORTES·roles) | **ausente** (sin `package.json`) | n/a | `e_sdk` _(declarada; crear bajo GO si falta)_ |
-| o-sdk | `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9` | **ausente** (sin `plan/` en tip; §F3a: no excavar) | `@alephscript/skills-scriptorium`: `0.x` | lock → **0.3.4** (registry canal) | `o_sdk` _(existe; tip `cd4175a`)_ |
-| a-sdk | `e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b` | **presente** (12 ficheros; VISION·BACKLOG·DECISIONES·PRACTICAS·REPORTES·roles) | **ausente** (no dep skills-scriptorium) | n/a | `a_sdk` _(declarada; nests §F3a → forense, no excavación)_ |
+| mundo | path | tip gitlink (`git ls-tree HEAD`) | plan/ | skill pin (package.json) | skill resuelta local | cuadernos (rama destino) |
+| ----- | ---- | --------------------------------- | ----- | ------------------------ | -------------------- | ------------------------ |
+| z-sdk | `codebase/z-sdk` | `d0d9de1d3af0e75a9f5d7d7b4c2b4d3762beb90c` | **presente** (233 ficheros) | rango `0.x` | no instalada (`node_modules` ausente) | `scriptorium-cuadernos` · `z_sdk` (declarada; crear al primer volcado) |
+| g-sdk | `codebase/g-sdk` | `d1783646f4364fce49ae9b421c863bc51bfad4aa` | **presente** (5 ficheros) | **ausente** | ausente | `scriptorium-cuadernos` · `g_sdk` (declarada) |
+| s-sdk | `codebase/s-sdk` | `7db1d4941267d857d93ab4005dcc4ecd0e49ecfb` | **presente** (486 ficheros) | rango `0.x` | no instalada | `scriptorium-cuadernos` · histórico en `script_sdk-addenda` / `script_sdk-vigilancia`; destino canónico de mundo `s_sdk` si hace falta |
+| e-sdk | `codebase/e-sdk` | `90e53544e8b78722ec8e22230740bfa107fa2cc8` | **presente** (plan + roles/REPORTES) | **ausente** (sin `package.json`) | ausente | `scriptorium-cuadernos` · `e_sdk` (declarada; DA-S03) |
+| o-sdk | `codebase/o-sdk` | `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9` | **ausente** | rango `0.x` | no instalada | `scriptorium-cuadernos` · `o_sdk` (**existe**; IB-01) |
+| a-sdk | `codebase/a-sdk` | `e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b` | **presente** (12 ficheros) | **ausente** | ausente | `scriptorium-cuadernos` · `a_sdk` (declarada; nests §F3a = forense) |
 
-## Workspace (carril S · no es un sdk)
+## skills@latest (documentar; sin bump)
 
-| dato | valor |
-| ---- | ----- |
-| pin | `@alephscript/skills-scriptorium@0.5.1` (`package.json`) |
-| resuelta | lock → **0.5.1** · `npm view` canal `https://npm.scriptorium.escrivivir.co` → **0.5.1** (= latest) |
-| plan/ | presente (gobierno del carril) |
-| cuadernos vigía | `scriptorium-vigilancia` @ `03f09a9` (BACKSTAGE_GIT) |
+| ámbito | evidencia | acción IB-20 |
+| ------ | --------- | ------------ |
+| registry | `npm view … version` → `0.5.1` | documentado |
+| workspace | pin `0.5.1` | intacto |
+| z/s/o-sdk | dep `0.x` en package.json | **no** bump masivo (PORT; GO propio) |
+| g/e/a-sdk | sin dep skill | hallazgo → cola / WP de su carril; no forzar aquí |
 
-## skills@latest (documentar · sin bump)
+## Histórico → cuadernos (cero pérdida)
 
-| sujeto | pin | resuelta / latest canal | acción IB-20 |
-| ------ | --- | ----------------------- | ------------ |
-| workspace scriptorium | `0.5.1` | `0.5.1` = latest | ninguna (ya al día) |
-| z-sdk | `0.x` | lock 0.3.4 · latest canal 0.5.1 | **sin bump** (PORT; GO propio) |
-| s-sdk | `0.x` | lock 0.4.0 · latest canal 0.5.1 | **sin bump** |
-| o-sdk | `0.x` | lock 0.3.4 · latest canal 0.5.1 | **sin bump** · tip pin IB-01 |
-| g-sdk / e-sdk / a-sdk | ausente | n/a | no instalar en este WP |
+- **No se borró** ningún `plan/` de sdk en este WP (solo lectura).
+- Destino canónico de histórico / untracked / caras §interna:
+  repo privado `scriptorium-cuadernos`, **rama por mundo** (tabla).
+- Backstage vigía del carril S: rama `scriptorium-vigilancia`
+  (tip ack R5-S `03f09a96f2c319bc57b366f3479e1462e246b882`) — canal
+  Vigilante-S (`plan/ESTACION.md`), no histórico de sdk.
+- Volcado crudo al repo público: **prohibido**.
 
-## Cero histórico perdido
+## Hallazgos (no excavados aquí)
 
-- Inventario arriba = evidencia de lectura; **ningún** `plan/` de sdk fue
-  borrado ni modificado en IB-20.
-- Destino de archivo/histórico de gobierno hermano = ramas en
-  `scriptorium-cuadernos` (columna «cuadernos»). Volcado crudo al repo
-  público = **veto**.
-- o-sdk sin `plan/` en tip: estado **ausente** documentado; no se inventa
-  ni se excavá (§F3a / DA-S04).
+1. **o-sdk sin `plan/`** en tip pin — esperado post-fresh-start §F3a;
+   gobierno vive en workspace + cuadernos `o_sdk`. Cero excavación.
+2. **e-sdk sin `package.json`** — `plan/` presente; skill ausente.
+   WP futuro de su carril si se pinna skill.
+3. **g-sdk / a-sdk sin dep skill** — documentado; bump = GO propio.
+4. **nests a-sdk** — §F3a forense; cero arqueología en IB-20.
 
 ## Relación
 
-- Partición de territorios: `plan/PARTICION.md`
-- Convivencia: skill `convivencia-multi-orquestador.md` (contrato v1.1 /
-  método v0.6) — citar, no reescribir
-- Estación / BACKSTAGE: `plan/ESTACION.md`
+- Partición de obra/gobierno: `plan/PARTICION.md`
+- Estación / BACKSTAGE_GIT: `plan/ESTACION.md`
+- Doctrina L1/L2 y candados: `plan/VISION.md`
