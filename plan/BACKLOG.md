@@ -20,11 +20,11 @@ explícita del usuario, no se proyecta.
 ## Cola (fuera de despacho — GO / encadenamiento)
 
 - **LIB-070 / 0.7.0** — ✅ publicado · checkout
-  `C:\S_LAB\skills-library` · AVISO R17-S.
-- **SKILLS-EN-MUNDOS** — COLA · **bloqueado hasta PASS R17-S** ·
-  mundos z·g·s·e·a · o-sdk EXCLUIDO · **GO B no despachado**.
-- **Gitlink** `codebase/skills-library` → tip 0.7.0 · **pendiente GO**
-  (DA-S11).
+  `C:\S_LAB\skills-library` · R17-S **PASS** · GO B desencadenado.
+- **SKILLS-EN-MUNDOS** — GO B · **OLA 0** (workspace) en curso · olas
+  1+ (z·g·s·e·a) **bloqueadas hasta PASS R18-S** · o-sdk EXCLUIDO (F3).
+- **Gitlink** `codebase/skills-library` → `fb98098` (0.7.0) · **GO
+  DA-S11** (este gobierno).
 - Aparcados (cero acción): carril Z · F3 · F4 · redirect · para-la-voz ·
   pasada-2 OASIS · limpieza mundo legado · IOCANDI.
 - Lecciones vNext (dentro del alcance 0.7.0): sucesión vigía · checkout

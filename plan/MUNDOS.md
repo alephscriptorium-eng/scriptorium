@@ -25,8 +25,8 @@ aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
 | dato | valor |
 | ---- | ----- |
 | submodule | `codebase/skills-library` |
-| tip gitlink | `6512e27dd11c4d84192d4a66035ede609ba97523` |
-| versión | `@alephscript/skills-scriptorium@0.6.0` (publish pin) |
+| tip gitlink | `fb980984e5faa979247afa43054e52cfd4e07c3e` |
+| versión | `@alephscript/skills-scriptorium@0.7.0` (publish pin) |
 | rol | fuente del método en paquete; bumps = GO (como todo gitlink) · DA-S11 |
 | remoto | `alephscriptorium-eng/S_SDK-skills-library` |
 
@@ -34,20 +34,20 @@ aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
 
 | dato | valor |
 | ---- | ----- |
-| pin | `@alephscript/skills-scriptorium@0.5.1` (package.json) |
-| resuelta | lock **0.5.1** · npm view canal `https://npm.scriptorium.escrivivir.co` → **0.5.1** (= latest) |
+| pin | `@alephscript/skills-scriptorium@0.6.1` (package.json · bump OLA 0 → 0.7.0) |
+| resuelta | lock **0.6.1** · npm view canal `https://npm.scriptorium.escrivivir.co` → **0.7.0** (= latest) |
 | plan/ | presente (gobierno del carril) |
 | cuadernos vigia | `scriptorium-vigilancia` @ `03f09a9` (BACKSTAGE_GIT) |
 
-## skills@latest (documentar · sin bump)
+## skills@latest (documentar · sin bump mundos)
 
-| sujeto | pin | resuelta / latest canal | accion IB-20 |
-| ------ | --- | ----------------------- | ------------ |
-| workspace scriptorium | `0.5.1` | `0.5.1` = latest | ninguna (ya al dia) |
-| z-sdk | `0.x` | lock 0.3.4 · latest 0.5.1 | **sin bump** (PORT; GO propio) |
-| s-sdk | `0.x` | lock 0.4.0 · latest 0.5.1 | **sin bump** |
-| o-sdk | `0.x` | lock 0.3.4 · latest 0.5.1 | **sin bump** · tip pin IB-01 |
-| g-sdk / e-sdk / a-sdk | ausente | n/a | no instalar en este WP |
+| sujeto | pin | resuelta / latest canal | accion |
+| ------ | --- | ----------------------- | ------ |
+| workspace scriptorium | `0.6.1` | latest canal **0.7.0** | OLA 0 (= este GO) |
+| z-sdk | `0.x` | lock 0.3.4 · latest 0.7.0 | **sin bump** (ola 1+ · tras PASS R18-S) |
+| s-sdk | `0.x` | lock 0.4.0 · latest 0.7.0 | **sin bump** (ola 1+) |
+| o-sdk | `0.x` | lock 0.3.4 · latest 0.7.0 | **EXCLUIDO** (F3) |
+| g-sdk / e-sdk / a-sdk | ausente | n/a | ola 1+ · tras PASS R18-S |
 
 ## Cero historico perdido
 

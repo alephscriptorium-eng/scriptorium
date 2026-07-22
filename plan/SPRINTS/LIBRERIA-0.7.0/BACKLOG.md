@@ -17,17 +17,18 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   (re-triangulación / aceptación).
   _Brief:_ `BRIEFS/LIB-070.md`.
 
-## COLA encadenada (NO despachar hasta PASS R17-S)
+## COLA encadenada (GO B · R17-S PASS)
 
-- ⬜ **SKILLS-EN-MUNDOS** — **bloqueado hasta PASS R17-S**. Mundos
-  **z·g·s·e·a** (**o-sdk EXCLUIDO** — F3). Por mundo: devDep 0.7.0 +
-  espejo + asiento en SU plan. Obra en `C:\S_LAB\<letra>-sdk`.
-  **LIB-070 no despachó GO B.**
+- 🔶 **SKILLS-EN-MUNDOS · OLA 0** (workspace scriptorium) — bump
+  `@alephscript/skills-scriptorium` 0.6.1→0.7.0 + `skills:sync` +
+  migración #16 (bin del paquete; borrar script local).
+- ⬜ **Olas 1+** mundos **z·g·s·e·a** — **bloqueadas hasta PASS
+  R18-S**. **o-sdk EXCLUIDO** (F3). Obra en `C:\S_LAB\<letra>-sdk`.
 
-## Pendiente gobierno (no bloquea R17-S)
+## Gobierno gitlink (DA-S11 · GO)
 
-- Gitlink `codebase/skills-library` pin aún `64883a9` → bump a
-  `fb98098` (tip 0.7.0) **solo con GO** (DA-S11).
+- ✅ Gitlink `codebase/skills-library` →
+  `fb980984e5faa979247afa43054e52cfd4e07c3e` (tip 0.7.0).
 
 ## Aparcados (cero acción en este arco)
 
