@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (pedido de gate)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`, watcher activo) vía **custodio**  
 **Fecha:** 2026-07-22  
-**Estado gate:** ⏳ pendiente de veredicto Vigilante-S
+**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R7-S.md`
 
 ## Cableado (contrato · sucesión de vigía)
 
