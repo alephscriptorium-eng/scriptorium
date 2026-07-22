@@ -45,5 +45,6 @@ Mapa inventariado (IB-20): `plan/MUNDOS.md`. Partición de obra/gobierno:
 ## Sprint activo
 
 `plan/SPRINTS/PORTAL-NUMERO-0/` — número 0 del portal (N0-01 ✅;
-secuencia piel DA-S12). INITIAL-BASE cerrado (R8-S). Arcos F3/F4 y
-**SKILLS-EN-MUNDOS** quedan en cola con GO propio.
+secuencia DA-S13: N0-02 → N0-03 → N0-04=BRAND-1 → tag). INITIAL-BASE
+cerrado (R8-S). Arcos F3/F4 y **SKILLS-EN-MUNDOS** quedan en cola con
+GO propio.

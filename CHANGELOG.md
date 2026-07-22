@@ -6,9 +6,10 @@ Registro derivado del backlog cerrado de facto del workspace
 
 ## [Unreleased]
 
-Tag `release/numero-0` **RETENIDO** por PO (DA-S12): OK de sellado
+Tag `release/numero-0` **RETENIDO** por PO (DA-S13): OK de sellado
 R10-S vigente; secuencia N0-02 (issue #15) → N0-03 (re-pielado) →
-**entonces** sellar. Notes del tag = sección Número 0 (sin inventar).
+N0-04 (BRAND-1 colofón) → **entonces** sellar. Notes del tag =
+sección Número 0 (sin inventar).
 
 ## Número 0 · portal aleph-null (2026-07-22)
 

@@ -138,11 +138,63 @@ válido**; cambia el cuándo, no el qué.
 3. **ENTONCES** sellar `release/numero-0` (notes = sección Número 0 del
    CHANGELOG). **Hoy no.**
 
+> **Superseded en el tramo final por DA-S13** (N0-04 = BRAND-1 entra
+> antes del tag). El OK de sellado y el orden N0-02 → N0-03 siguen
+> vigentes; cambia solo el colofón previo al tag.
+
 Gobierno de raíz (residual R10-S) en el mismo GO: `plan/RAIZ-C-S.md` +
 `C:\S\README.md` copia-release + barrido residuo #3/bootstrap con acta.
 Arco **SKILLS-EN-MUNDOS** (z·g·s·e·a; o-sdk excluido F3-01) = solo COLA
 hasta cierre del arco portal.
 
+### DA-S13 · Secuencia portal + colofón BRAND-1 (2026-07-22 · custodio / GO BRANDING v3)
+
+Actualiza el tramo final de DA-S12. Tag `release/numero-0` **RETENIDO**
+hasta BRAND-1 (recomendación vigía: sellar con colofón).
+
+**Orden del portal (literal):**
+
+1. **N0-02** (piel · issue #15 · librería) — gate R11-S
+2. **N0-03** (re-pielado portal · `theme/**`) — gate propio post-publish
+3. **N0-04 = WP-BRAND-1** (marca aleph-null · cantera →
+   `scriptorium/branding/` · favicon · `/licencia` · LICENSE puntero) —
+   gate propio al turno · brief `BRIEFS/N0-04.md` · **sin 🔶 hoy**
+4. **ENTONCES** tag `release/numero-0` (notes = sección Número 0 del
+   CHANGELOG). **Hoy no.**
+
+Carril hermano (no bloquea el tag por sí, pero se encola):
+**WP-BRAND-2** · librería · minor `0.7.0` · bundle `#16+#17` · brief
+`BRIEFS/BRAND-2.md` · checkout `C:\S\S_SDK-skills-library` DECLARADO ·
+sin 🔶 sin gate propio.
+
+PRE-TICK cantera: `script_sdk-addenda` @
+`0567a2481db5cc85c8eaac613754f35061587988` · `cantera/branding/`.
+Paquete: `@alephscript/skills-scriptorium`. MIGAS intactas.
+
+### DA-S14 · Doctrina de licencias por capas (borrador · 2026-07-22)
+
+Borrador asentado por GO BRANDING v3 (PO decide vía canónica; ratificación
+custodio implícita al GO salvo objeción).
+
+**Capas (de fuera hacia dentro del zine):**
+
+| Capa | Artefacto | Rol |
+| ---- | --------- | --- |
+| Canónica workspace | `LICENSE.md` raíz | **Puntero tipo GL**: GPL-3.0-or-later + capa Animus Iocandi + SPDX + link a composite Z_SDK |
+| Composite (texto completo) | Z_SDK `LICENSE.md` / cantera `licencia-AIGPL-composite.md` | referencia; no se sustituye por lore |
+| Lore / pieza zine | `licencia-AIPL-v1-lore.md` → solo `/licencia` | narrativa AIPL; **nunca** LICENSE canónica |
+| Transición | AIGPL v4 | PENDING (or-later mantiene puente) |
+
+**Prohibición:** copiar el LICENSE.md del Desktop (AIPL lore) como
+licencia del workspace. Catch C8 del vigía = ley del carril.
+
+Vía elegida (PO): **patrón puntero tipo GL** (más trazable que copiar el
+composite completo a cada raíz). Mundos hermanos pueden seguir el mismo
+puntero.
+
 ## Abiertas
 
 _(las resuelve el custodio)_
+
+- DA-S14 queda como borrador operativo del GO; objeción custodio =
+  enmenda explícita.

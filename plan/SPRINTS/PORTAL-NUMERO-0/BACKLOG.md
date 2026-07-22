@@ -6,7 +6,8 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 > 2026-07-22 · «contenido portal numero-0 / aleph-null». Carril: **S** ·
 > gates vigía: rondas `Rn-S`. Principio: **PORT, NO REWRITE**.
 > **NO reabre IB-13** (esqueleto web cerrado en INITIAL-BASE).
-> Secuencia PO post-R10-S: **DA-S12** (tag retenido · piel primero).
+> Secuencia PO: **DA-S13** (tag retenido · piel → re-pielado → BRAND-1
+> colofón → tag). Supersede tramo final DA-S12.
 
 ## Fuentes del WP (lectura íntegra · worker ejecuta, no inventa)
 
@@ -14,6 +15,7 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 | ------ | ---------- | --------- |
 | Base Vigilante-S | `scriptorium-vigilancia` @ `b12d26f` | `ENTREGA-VIGILANTE-S-contenido-aleph-null-2026-07-22.md` |
 | Complemento Fable | `script_sdk-addenda` @ `5f0a11b` | `ENTREGA-COMPLEMENTO-FABLE-aleph-null-2026-07-22.md` |
+| Cantera branding (PRE-TICK) | `script_sdk-addenda` @ `0567a24` | `cantera/branding/` |
 
 **Regla de fusión (dentro del complemento):** la base del Vigilante-S
 **manda**; bloques C-* se insertan donde indica el complemento; si la
@@ -35,9 +37,10 @@ siempre). C-6 = semillas número 1 — **fuera de este WP**.
   · **Aceptado** post obra local verde (docs:build/verificar); C8
     post-deploy 5 rutas → re-chequeo Vigilante-S en **R10-S**.
 
-## Ola N0-2 · Piel (secuencia PO · DA-S12)
+## Ola N0-2 · Piel → re-pielado → colofón marca (DA-S13)
 
-Orden literal: **N0-02 → N0-03 → tag `release/numero-0`**. Tag hoy **NO**.
+Orden literal: **N0-02 → N0-03 → N0-04 (= BRAND-1) → tag `release/numero-0`**.
+Tag hoy **NO**.
 
 - ⬜ **N0-02 · FAST-TRACK issue #15 · piel fanzine en skill `site-web`**
   — carril librería (`S_SDK-skills-library`): elevar piel canónica a
@@ -45,14 +48,31 @@ Orden literal: **N0-02 → N0-03 → tag `release/numero-0`**. Tag hoy **NO**.
   `0.6.1`/`0.7.0` (secrets sembrados; publish triangulado IB-21).
   Checkout de obra **DECLARADO**: `C:\S\S_SDK-skills-library`.
   **CA:** ver `BRIEFS/N0-02.md`.
-  _Brief:_ `BRIEFS/N0-02.md` · **PRE-🔶** · gate **R11-S**
-  (`AVISO-VIGIA-R11-S.md`) · **sin PASS no hay 🔶**.
+  _Brief:_ `BRIEFS/N0-02.md` · **PRE-🔶** · gate **R11-S PASS**
+  (`INFORME-VIGIA-R11-S.md`) · autorizado; **este GO no despacha 🔶**.
 
 - ⬜ **N0-03 · Re-pielado portal aleph-null** — carril S · alcance
   `docs/.vitepress/theme/**` · consume versión nueva del skill.
   Brief **stub** OK. 🔶 solo tras N0-02 publicado + gate propio.
   **CA:** ver `BRIEFS/N0-03.md` (cerrar al despacho).
   _Brief:_ `BRIEFS/N0-03.md` · stub encolado · sin AVISO de 🔶 aún.
+
+- ⬜ **N0-04 · WP-BRAND-1 · marca / colofón aleph-null** — carril S ·
+  `scriptorium/branding/` desde cantera tip `0567a24` · derivados
+  `*-web.png` + favicon · LICENSE puntero GL · `/licencia` explicada ·
+  CONTRIBUTING/.github desde plantillas. **CA:** ver `BRIEFS/N0-04.md`.
+  _Brief:_ `BRIEFS/N0-04.md` · **PRE-🔶** · gate propio **al turno**
+  (post N0-03) · AVISO encolado `AVISO-VIGIA-ENC-BRANDING.md` ·
+  **sin 🔶 hoy**.
+
+## COLA hermano · librería (mismo GO branding · no bloquea tag solo)
+
+- ⬜ **WP-BRAND-2 · pack marca en `@alephscript/skills-scriptorium`**
+  — minor **0.7.0** · bundle issues **#16+#17** · site-web
+  BRAND_* · montar-plan docs-FOSS opcional · vigilancia «marca
+  renderiza» + layout `cantera/` · ceguera delta 5 = 0 · publish +
+  npm view + C8. Checkout **DECLARADO**: `C:\S\S_SDK-skills-library`.
+  _Brief:_ `BRIEFS/BRAND-2.md` · **PRE-🔶** · sin gate propio no hay 🔶.
 
 ## Gate / estado lote
 
@@ -62,18 +82,20 @@ Orden literal: **N0-02 → N0-03 → tag `release/numero-0`**. Tag hoy **NO**.
 - ✅ **N0-01** aceptado · merge post-aceptación · AVISO **R10-S** emitido.
 - Gate R10-S: **PASS-con-residual** · `INFORME-VIGIA-R10-S.md` · tip
   `5a7f372` · OK de sellado concedido.
-- **Tag `release/numero-0` RETENIDO** (PO · DA-S12) hasta post N0-03 —
-  OK de sellado vigente; cambia el cuándo. **Tag no ejecutado.**
-- Gate R11-S: **AVISO emitido** · `AVISO-VIGIA-R11-S.md` · pre N0-02 ·
-  ⏳ sin PASS no hay 🔶.
+- Gate R11-S: **PASS** · `INFORME-VIGIA-R11-S.md` · tip `c7292bc` ·
+  autoriza 🔶 N0-02 (no despachado en GO branding).
+- **Tag `release/numero-0` RETENIDO** (PO · DA-S13) hasta post **N0-04**
+  — OK de sellado vigente; colofón = BRAND-1. **Tag no ejecutado.**
+- AVISO encolado branding: `AVISO-VIGIA-ENC-BRANDING.md` (gobierno;
+  **no** pide gate N0-04 hoy).
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)
 
 - ▶ **Gobierno · `CHANGELOG.md` en raíz** — preparado/actualizado desde
   WPs ✅ (INITIAL-BASE + N0-01) **sin tag**. El gate del release
   (`release/numero-0`) cruzará **WPs ✅ ↔ CHANGELOG** tras secuencia
-  DA-S12 (piel). No inventar entradas fuera del backlog cerrado.
-  Notes del tag = sección **Número 0** del CHANGELOG.
+  DA-S13 (piel → re-pielado → BRAND-1). No inventar entradas fuera del
+  backlog cerrado. Notes del tag = sección **Número 0** del CHANGELOG.
 
 ## Vetos del arco
 
@@ -81,8 +103,11 @@ Orden literal: **N0-02 → N0-03 → tag `release/numero-0`**. Tag hoy **NO**.
 - N0-01: escritura solo `docs/**` + reporte (piel fuera).
 - N0-02: escritura en checkout librería declarado + reporte.
 - N0-03: escritura `theme/**` (+ pin skill si aplica) + reporte.
+- N0-04: escritura branding/public/licencia/LICENSE/CONTRIBUTING + reporte.
+- BRAND-2: escritura en checkout librería declarado + reporte.
 - Paquete: siempre `@alephscript/skills-scriptorium` (alias corto = 404).
 - Cero arqueología · cero force · network-sdk solo remote epsylon ·
   PORT NO REWRITE · cero bump gitlinks sin GO.
+- MIGAS intactas (IOCANDI a cola de su dueño; ya-licenciados no se tocan).
 - C8 post-deploy: lo re-chequea el **Vigilante-S** (no fingir C8 deploy).
 - Gates = AVISO → Vigilante-S; **sin PASS no hay 🔶** de WPs nuevos.
