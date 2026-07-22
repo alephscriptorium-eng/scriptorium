@@ -45,13 +45,15 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   _Brief:_ `BRIEFS/IB-10.md` · merge `wp/ib-10-estructura-scriptorium`
   · reporte `REPORTES/IB-10-estructura-scriptorium.md`
   · gitlinks `<pendiente>` → IB-11
-- 🔶 **IB-11 · Submodules mapa de letras** — codebase/: z-sdk (Z_SDK) ·
+- ✅ **IB-11 · Submodules mapa de letras** — codebase/: z-sdk (Z_SDK) ·
   g-sdk (Z_SDK-games-library) · s-sdk (S_SDK) · e-sdk (E_SDK) · o-sdk
   (O_SDK post-IB-01) · a-sdk (aleph-scriptorium). DS-5: apuntar, no
   contener (gitlinks, cero inflar).
   **CA:** 6 gitlinks a tips remotos reales · `git submodule status` limpio.
-  _Brief:_ `BRIEFS/IB-11.md` · rama `wp/ib-11-submodules-mapa-letras`
-  · o-sdk tip `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9` · gate R2-S PASS
+  _Brief:_ `BRIEFS/IB-11.md` · merge `wp/ib-11-submodules-mapa-letras`
+  · o-sdk tip `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`
+  · a-sdk remoto `escrivivir-co/aleph-scriptorium`
+  · reporte `REPORTES/IB-11-submodules-mapa-letras.md`
 - ⬜ **IB-12 · Skills + estación de vigilancia** — devDep
   @alephscript/skills-scriptorium@0.x (resuelve 0.5.1+) + skills:sync
   espejo `.claude/skills/` · calibración estación: OUT_DIR persistente +
@@ -115,8 +117,7 @@ propio.
   `BRIEFS/IB-11.md`
 - Aviso vigía: `AVISO-VIGIA-R1-S.md` · informe `INFORME-VIGIA-R1-S.md` (PASS)
 - **Lote IB-01 ∥ IB-02 ∥ IB-10: ✅ cerrado** 2026-07-22 (merges post-aceptación).
-- Gate vigía **R2-S:** informe `INFORME-VIGIA-R2-S.md` · **PASS** · tip
-  `2869030e97766912b72ab5eedc83c207a1fbae72`.
-- **En curso:** **IB-11** 🔶 (gitlinks; o-sdk tip
-  `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`). **IB-12 fuera de alcance**
-  en este despacho.
+- Gate vigía **R2-S:** informe `INFORME-VIGIA-R2-S.md` · **PASS**.
+- **IB-11: ✅ aceptado** 2026-07-22 (merge post-aceptación; 6 gitlinks).
+- **Próximo:** gate vigía **R3-S** antes de despachar **IB-12** (skills +
+  estación) / **IB-13** (web + dominios). No despachar IB-12 sin R3-S PASS.

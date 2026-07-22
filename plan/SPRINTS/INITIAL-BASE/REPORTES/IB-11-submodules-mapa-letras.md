@@ -105,3 +105,27 @@ workspace. `codebase/codebase` = False.
 ## Dudas / bloqueos
 
 Ninguno bloqueante para CA IB-11.
+
+---
+
+## Revisión del orquestador
+
+**Aceptado ✅** · 2026-07-22 · orquestador carril S
+
+### CA
+- [x] 6 gitlinks mode `160000` a tips remotos reales
+- [x] `git submodule status` limpio (sin `+`/`-`/`U`)
+- [x] o-sdk = `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`
+- [x] DS-5: solo gitlinks + `.gitmodules` (cero inflar)
+- [x] a-sdk remoto real: `escrivivir-co/aleph-scriptorium` @
+  `e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b`
+
+### Nota (no bloquea CA)
+`git submodule update --init --recursive` falla al entrar en nests de
+a-sdk (`OnthologyEditor` sin url en su `.gitmodules`). CA de IB-11 =
+top-level 6 gitlinks + status limpio. Nests rotos → inventario/forense;
+no excavación (§F3a / vetos). Usar `--init` sin `--recursive` en este
+workspace hasta saneamiento de a-sdk.
+
+### Merge
+`wp/ib-11-submodules-mapa-letras` → `main` post-aceptación.
