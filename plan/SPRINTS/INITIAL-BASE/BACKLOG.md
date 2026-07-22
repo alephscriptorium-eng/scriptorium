@@ -64,15 +64,17 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   _Brief:_ `BRIEFS/IB-12.md` · merge `wp/ib-12-skills-estacion`
   · obra `d9ffc10753309ea3a2f4310ce1b1fce9c5a4578c`
   · reporte `REPORTES/IB-12-skills-estacion.md`
-- 🔶 **IB-13 · Web + dominios** — docs/ site-web overall esqueleto ·
+- ✅ **IB-13 · Web + dominios** — docs/ site-web overall esqueleto ·
   dominio **aleph-null.escrivivir.co** (CNAME + DNS = tick custodio) ·
   redirect scriptorium.escrivivir.co → pub.escrivivir.co (tick DNS
   custodio; hoy 404).
   **CA:** docs:build verde · Pages vivo en aleph-null (tras tick DNS) ·
   redirect verificado C8.
-  _Brief:_ `BRIEFS/IB-13.md` · rama `wp/ib-13-web-dominios`
-  · worktree `C:\S\.worktrees\wp-ib-13`
-  · gate DNS externo: no bloquea 🔶; sí condiciona ✅ final.
+  _Brief:_ `BRIEFS/IB-13.md` · merge `wp/ib-13-web-dominios`
+  · obra `0354884032a6461d712b05cafa41fb8796b34880`
+  · reporte `REPORTES/IB-13-web-dominios.md`
+  · **residual DNS:** Pages + redirect BLOQUEADOS (tick custodio);
+    CA in-repo docs:build ✅; re-verificar en R4-S.
 
 ## Ola IB-2 · Port de planes y doctrina
 
@@ -126,5 +128,7 @@ propio.
 - Gate vigía **R2-S:** informe `INFORME-VIGIA-R2-S.md` · **PASS**.
 - **IB-11: ✅ aceptado** 2026-07-22 (merge post-aceptación; 6 gitlinks).
 - Gate vigía **R3-S:** informe `INFORME-VIGIA-R3-S.md` · **PASS**.
-- **Lote IB-12 ∥ IB-13: 🔶 en curso** 2026-07-22 (post R3-S PASS).
-  No abrir IB-20+ hasta cierre de este lote + gate posterior.
+- **Lote IB-12 ∥ IB-13: ✅ cerrado** 2026-07-22 (merges post-aceptación).
+  Residual: tick DNS custodio (aleph-null Pages + redirect scriptorium→pub).
+  **Próximo:** gate vigía **R4-S** (re-verificar CA + DNS) antes de IB-20.
+  No abrir IB-20+ sin R4-S PASS.
