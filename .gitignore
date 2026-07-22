@@ -11,9 +11,16 @@ VIGILANCIA/
 _fuentes/
 .cuadernos/
 
+# OUT_DIR estación (calibración plan/ESTACION.md → C:\S\vigilancia)
+# si se materializa bajo el repo por error:
+vigilancia-out/
+.vigilancia/
+
 # IDE session residue (regla 15) — config funcional OK
+# .claude/skills/ = espejo skills:sync (commiteado; auditable)
 .cursor/*.md
 .claude/*.md
+!.claude/skills/**
 
 # locks
 *.lock
