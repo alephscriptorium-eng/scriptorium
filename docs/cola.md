@@ -15,12 +15,13 @@ Lo que viene, con GO propio y sin prisa — del
 [registro público de joyas](https://github.com/alephscriptorium-eng/scriptorium/blob/main/plan/REGISTRO-DE-JOYAS.md)
 y de la cola post-cierre del número 0:
 
-- **Residual banner-scriptorium** — fuente en cantera/branding = blob
-  de ceros (R14-S). Re-depósito custodio + WP menor de sustitución;
-  **no** reabre N0-04. Cabecera hoy: fallback fundación.
-- **WP-BRAND-2 / 0.7.0** — pack marca en
-  `@alephscript/skills-scriptorium` (#16+#17); checkout librería →
-  destino `C:\S_LAB` cuando el handle vivo lo permita.
+- **WP-BRAND-2 / 0.7.0** — arco librería · pack marca + #16 + #17 +
+  lecciones · checkout `C:\S_LAB\S_SDK-skills-library` · **espera PASS
+  R16-S** (sin PASS no hay 🔶 ni publish).
+- **SKILLS-EN-MUNDOS** — z·g·s·e·a (o-sdk excluido) · **bloqueado hasta
+  tip 0.7.0 publicado**.
+- **Residual banner-scriptorium · WP-XS** — GO 2026-07-23 (∥ gobierno
+  0.7.0): fuente WebP cantera; cabecera scriptorium. No reabre N0-04.
 - **El sidecar del puerto** (arco F3) — la fontanería L1↔L2: el pub y
   las ciudades hablándose por partes firmados.
 - **La ciudad en Docker** (arco F4) — perfiles listos para levantar

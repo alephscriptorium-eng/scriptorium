@@ -73,23 +73,19 @@ cerrado R15-S.
   merge `de52ba6` · **Aceptado** · AVISO **R14-S** emitido (C8 marca
   post-deploy; **sin PASS no hay tag**).
 
-## COLA hermano · librería (mismo GO branding · no bloquea tag solo)
+## COLA hermano · librería → **arco nuevo LIBRERIA-0.7.0**
 
-- ⬜ **WP-BRAND-2 · pack marca en `@alephscript/skills-scriptorium`**
-  — minor **0.7.0** · bundle issues **#16+#17** · site-web
-  BRAND_* · montar-plan docs-FOSS opcional · vigilancia «marca
-  renderiza» + layout `cantera/` · ceguera delta 5 = 0 · publish +
-  npm view + C8. Checkout **DECLARADO**: `C:\S\S_SDK-skills-library`
-  (destino legislado `C:\S_LAB\…` — move pendiente por handle vivo).
-  _Brief:_ `BRIEFS/BRAND-2.md` · **PRE-🔶** · sin gate propio no hay 🔶.
+- ⬜ **WP-BRAND-2 / LIB-070** — **migrado** a sprint
+  [`../LIBRERIA-0.7.0/`](../LIBRERIA-0.7.0/BACKLOG.md) · brief
+  `../LIBRERIA-0.7.0/BRIEFS/LIB-070.md` · checkout
+  **`C:\S_LAB\S_SDK-skills-library`** (clone nuevo; no move) · AVISO
+  **R16-S** · **sin PASS no hay 🔶**. Brief histórico
+  `BRIEFS/BRAND-2.md` = superseded.
 
-- ⬜ **Residual · banner-scriptorium fuente corrupta** — tip cantera /
-  branding: blob de ceros (declarado R14-S; cabecera usa fallback
-  `banner-fundacion-web.png`). **No reabre N0-04.** Cola: (a) tick
-  custodio = re-depositar banner real en cantera; (b) WP menor
-  (numero-0.1 o gobierno / 0.7.0) = sustituir fuente + derivar web +
-  decidir cabecera. Fuente: `INFORME-VIGIA-R14-S.md` ·
-  `branding/PROCEDENCIA.md`.
+- ⬜ **Residual · banner-scriptorium · WP-XS** — GO 2026-07-23 (∥
+  gobierno LIB-070): fuente cantera `@39caef4` WebP · sustituir blob
+  ceros + derivado web + cabecera **scriptorium** (decisión PO). **No
+  reabre N0-04.** _Brief:_ `BRIEFS/WP-XS-banner-scriptorium.md`.
 
 ## Gate / estado lote
 
@@ -119,9 +115,10 @@ cerrado R15-S.
   `69bbc098b91d8e09c15873d5ffbffa6b9c5589be` · notes = CHANGELOG
   §Número 0 · release GitHub publicada.
 - AVISO **R15-S** · cierre de arco (`AVISO-VIGIA-R15-S.md`).
-- BRAND-2: **sin 🔶** (carril librería · aparte).
-- Residual banner-scriptorium: **encolado** (re-depósito + WP menor;
-  no reabre N0-04).
+- BRAND-2 / LIB-070: arco **LIBRERIA-0.7.0** · AVISO R16-S · **sin 🔶**
+  hasta PASS.
+- Residual banner-scriptorium: **WP-XS** GO 2026-07-23 (∥) · no reabre
+  N0-04.
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)
 

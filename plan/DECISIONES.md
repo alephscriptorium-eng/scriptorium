@@ -164,8 +164,9 @@ hasta BRAND-1 (recomendación vigía: sellar con colofón).
 
 Carril hermano (no bloquea el tag por sí, pero se encola):
 **WP-BRAND-2** · librería · minor `0.7.0` · bundle `#16+#17` · brief
-`BRIEFS/BRAND-2.md` · checkout `C:\S\S_SDK-skills-library` DECLARADO ·
-sin 🔶 sin gate propio.
+histórico `BRIEFS/BRAND-2.md` (**superseded** 2026-07-23 →
+`LIBRERIA-0.7.0/BRIEFS/LIB-070.md` · checkout
+`C:\S_LAB\S_SDK-skills-library`) · sin 🔶 sin gate propio.
 
 PRE-TICK cantera: `script_sdk-addenda` @
 `0567a2481db5cc85c8eaac613754f35061587988` · `cantera/branding/`.
@@ -200,10 +201,30 @@ carril); **`C:\S\scriptorium\codebase/*`** = gitlinks del atlas, SOLO
 LECTURA (bump solo con GO · DA-S11). Canónico: `plan/S-LAB.md`.
 Copia-release FS: `C:\S_LAB\README.md`.
 
-Checkout de librería hoy en `C:\S\S_SDK-skills-library` — reubicación a
-`C:\S_LAB\…` **pendiente** (bloqueada por handle vivo; no forzar). Se
-ejecuta en quietud o con WP 0.7.0 / BRAND-2. Atlas `C:\S` queda
-solo-mapa + estación + fuentes.
+Checkout de librería: **actualizado 2026-07-23** (corrección R15-S + GO
+doble post-cierre). El checkout en `C:\S\S_SDK-skills-library` fue
+**borrado** por custodio (veredicto desechable); **no hay move**.
+Checkout de obra del arco 0.7.0 = **clone nuevo** path exacto
+`C:\S_LAB\S_SDK-skills-library` (brief `LIBRERIA-0.7.0/BRIEFS/LIB-070.md`).
+Atlas `C:\S` = solo-mapa + estación + fuentes.
+
+### DA-S16 · Arco librería 0.7.0 + encadenamiento SKILLS-EN-MUNDOS (2026-07-23 · custodio)
+
+Arco **nuevo** post-cierre PORTAL-NUMERO-0. Sprint
+`plan/SPRINTS/LIBRERIA-0.7.0/`. Alcance release **0.7.0**: BRAND-2
+(pack marca parametrizado + DE-8 + CA medible + advertencia
+licencia-lore) · issue **#16** (sync bin multi-runtime) · issue **#17**
+(`cantera/` + layout backstage + worktree por rol) · lecciones vNext
+documentadas (sucesión vigía · checkout declarado ×3 · worktree por rol
+· raíz por constelación). Gate **R16-S** por AVISO · **sin PASS no hay
+🔶 ni publish**. Paquete: `@alephscript/skills-scriptorium`.
+
+**SKILLS-EN-MUNDOS** (z·g·s·e·a; o-sdk EXCLUIDO F3): activación
+**encadenada tras publish 0.7.0** — hoy solo COLA con dependencia
+explícita. Obra por-mundo en `C:\S_LAB\<letra>-sdk`.
+
+Aparcados (cero acción): carril Z · F3 · F4 · redirect · para-la-voz ·
+pasada-2 OASIS · limpieza mundo legado · IOCANDI.
 
 ## Abiertas
 

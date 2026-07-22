@@ -5,7 +5,7 @@
 | Territorio | `C:\S_LAB` |
 | Canónico | este fichero (`plan/S-LAB.md` en repo `scriptorium`) |
 | Copia-release FS | `C:\S_LAB\README.md` (fuera de git; cabecera de procedencia) |
-| Fecha asiento | 2026-07-22 · cierre arco PORTAL-NUMERO-0 / R15-S |
+| Fecha asiento | 2026-07-23 · gobierno post-R15-S · arco librería 0.7.0 |
 | Fuente | addenda Vigilante-S · fundación S-LAB · mapa provisional |
 
 **Decisión del custodio (2026-07-22):** toda obra de los mundos x-sdk
@@ -15,8 +15,8 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
 
 ## Mapa
 
-| entrada | rol | remoto | HEAD al fundar (= pin del atlas) |
-| ------- | --- | ------ | -------------------------------- |
+| entrada | rol | remoto | HEAD al fundar / pin |
+| ------- | --- | ------ | -------------------- |
 | `z-sdk/` | mundo zeus (carril Z) | alephscriptorium-eng/Z_SDK | `d0d9de1` |
 | `g-sdk/` | juego ciudad / games library | alephscriptorium-eng/Z_SDK-games-library | `d178364` |
 | `s-sdk/` | techy-devops (mundo legado) | alephscriptorium-eng/S_SDK | `7db1d49` |
@@ -25,7 +25,7 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
 | `a-sdk/` | el scriptorium (atril) | escrivivir-co/aleph-scriptorium | `e5573f8` |
 | `.worktrees/<letra>/` | worktrees de obra del carril de esa letra | — | — |
 | `vigilancia/<letra>/` | OUT_DIR de la estación del vigía de esa letra | — | — |
-| `S_SDK-skills-library/` (pendiente) | checkout de obra de la librería del método | alephscriptorium-eng/S_SDK-skills-library | tip atlas `64883a9` |
+| `S_SDK-skills-library/` | checkout de obra de la librería del método · **NUEVO clone** (no move) | alephscriptorium-eng/S_SDK-skills-library | tip atlas `64883a9` · path exacto `C:\S_LAB\S_SDK-skills-library` |
 
 ## Regla del LAB
 
@@ -45,14 +45,14 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
    `C:\S_LAB\.worktrees\<letra>` · backstage = cuadernos rama
    `<letra>_sdk-vigilancia` (worktree propio) · rondas `Rn-<letra>`.
 
-## Pendiente · reubicación checkout librería
+## Checkout librería · brief 0.7.0 (retoca «pendiente reubicación»)
 
 | dato | valor |
 | ---- | ----- |
-| Hoy | `C:\S\S_SDK-skills-library` (declarado en `plan/RAIZ-C-S.md`) |
-| Destino | `C:\S_LAB\S_SDK-skills-library` (o path declarado en brief 0.7.0) |
-| Bloqueo | **handle vivo** (proceso con cwd dentro del checkout) — **no** forzar move |
-| Cuándo | quietud · cierre de este arco o WP **0.7.0 / BRAND-2** |
+| Path exacto | **`C:\S_LAB\S_SDK-skills-library`** |
+| Modo | **checkout NUEVO** (clone) — el viejo en `C:\S` fue borrado; **no hay move** |
+| Bloqueo handle | **extinguido** (no aplica) |
+| Declarado por | brief `SPRINTS/LIBRERIA-0.7.0/BRIEFS/LIB-070.md` · GO 2026-07-23 |
 | Doctrina | `C:\S` = atlas; `C:\S_LAB` = taller de obra |
 
 ## Relación

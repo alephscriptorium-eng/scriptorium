@@ -2,8 +2,9 @@
 
 Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
-Sprint activo: **ninguno** (PORTAL-NUMERO-0 **cerrado** · R15-S · tag
-`release/numero-0` sellado · INITIAL-BASE **cerrado** · R8-S).
+Sprint activo de gobierno: **LIBRERIA-0.7.0** (PRE-🔶 · espera PASS
+R16-S). PORTAL-NUMERO-0 **cerrado** · R15-S · tag `release/numero-0`.
+INITIAL-BASE **cerrado** · R8-S.
 
 Proyección a issues: **local-only** por defecto (DC-15). Sin petición
 explícita del usuario, no se proyecta.
@@ -13,16 +14,18 @@ explícita del usuario, no se proyecta.
 | sprint | estado | ruta |
 | ------ | ------ | ---- |
 | INITIAL-BASE | ✅ cerrado · 9 WPs · R8-S | `plan/SPRINTS/INITIAL-BASE/` |
-| PORTAL-NUMERO-0 | ✅ cerrado · N0-01…04 ✅ · tag `release/numero-0` · R15-S · residual banner + BRAND-2 en cola | `plan/SPRINTS/PORTAL-NUMERO-0/` |
+| PORTAL-NUMERO-0 | ✅ cerrado · N0-01…04 ✅ · tag `release/numero-0` · R15-S · WP-XS banner ∥ | `plan/SPRINTS/PORTAL-NUMERO-0/` |
+| LIBRERIA-0.7.0 | ⬜ PRE-🔶 · AVISO R16-S · **sin PASS no hay 🔶** | `plan/SPRINTS/LIBRERIA-0.7.0/` |
 
-## Cola (fuera de sprints activos — GO propio)
+## Cola (fuera de despacho — GO / encadenamiento)
 
-Ver `SPRINTS/INITIAL-BASE/BACKLOG.md` §COLA,
-`SPRINTS/PORTAL-NUMERO-0/BACKLOG.md` §COLA hermano y
-`plan/REGISTRO-DE-JOYAS.md` (F3 o-sdk/L1-L2, F4 playground + Docker Hub,
-tipos-del-FOSS, pasada-2 auditoría OASIS, arco para-la-voz, lección
-sucesión vigía vNext, lección checkout declarado vNext — **3 casos**,
-arco **SKILLS-EN-MUNDOS**). Arco portal número 0 **cerrado** (R15-S ·
-tag `release/numero-0` @ `40598f0e307921d613dacf1c324415eb4a1b5d32`).
-Cola post-cierre: residual banner-scriptorium · WP-BRAND-2 (0.7.0) ·
-move checkout librería → `C:\S_LAB` (handle vivo).
+- **LIB-070 / 0.7.0** — brief + AVISO R16-S · espera PASS · checkout
+  `C:\S_LAB\S_SDK-skills-library`.
+- **SKILLS-EN-MUNDOS** — COLA · **bloqueado hasta tip 0.7.0 publicado**
+  · mundos z·g·s·e·a · o-sdk EXCLUIDO.
+- Aparcados (cero acción): carril Z · F3 · F4 · redirect · para-la-voz ·
+  pasada-2 OASIS · limpieza mundo legado · IOCANDI.
+- Lecciones vNext (dentro del alcance 0.7.0): sucesión vigía · checkout
+  declarado ×3 · worktree por rol · raíz por constelación.
+
+Ver también `plan/REGISTRO-DE-JOYAS.md`.

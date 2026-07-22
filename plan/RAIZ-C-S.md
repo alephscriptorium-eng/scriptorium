@@ -5,7 +5,7 @@
 | Territorio | `C:\S` (raíz compartida del carril S) |
 | Canónico | este fichero (`plan/RAIZ-C-S.md` en repo `scriptorium`) |
 | Copia-release FS | `C:\S\README.md` (fuera de git; cabecera de procedencia) |
-| Fecha asiento | 2026-07-22 · gobierno post-R10-S |
+| Fecha asiento | 2026-07-23 · gobierno post-R15-S · arco librería 0.7.0 |
 
 ## Mapa de la raíz (entradas declaradas)
 
@@ -15,9 +15,14 @@
 | `vigilancia/` | `OUT_DIR` estación Vigilante-S (fuera de git público) | DA-S07 · ESTACION |
 | `_fuentes/` | checkouts de lectura/fuente (p.ej. cuadernos) | IB-01 / gobierno |
 | `.worktrees/` | `WORKTREE_BASE` de obra del carril S | ESTACION · PRACTICAS |
-| `S_SDK-skills-library/` | checkout de obra de la librería · vivo mientras haya WPs de librería en curso — hoy: 0.7.0 pendiente — · **destino legislado** `C:\S_LAB\…` (move bloqueado por handle vivo; no forzar) | brief N0-02 · R12-S · DA-S11 · `plan/S-LAB.md` |
 | `LLM.md` | broche acuerdo agentes (fuera de git) | IB-23 · `plan/BROCHE-C-S.md` |
 | `README.md` | copia-release de **este** mapa (fuera de git) | este asiento |
+
+> **Retoque R15-S:** el checkout de obra de la librería **ya no** vive
+> en `C:\S` (borrado por custodio · veredicto desechable R12/R14 ·
+> corrección de registro en `INFORME-VIGIA-R15-S.md`). Obra de librería
+> = **checkout NUEVO** en `C:\S_LAB\S_SDK-skills-library` (brief 0.7.0).
+> `C:\S` = **atlas puro**.
 
 Cualquier otra entrada en `C:\S\` **no** está en el mapa = residuo o
 obra sin declarar.

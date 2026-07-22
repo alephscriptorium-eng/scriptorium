@@ -8,8 +8,14 @@ Registro derivado del backlog cerrado de facto del workspace
 
 Tag `release/numero-0` **SELLADO** 2026-07-22 sobre
 `40598f0e307921d613dacf1c324415eb4a1b5d32` (R14-S PASS-con-residual ·
-notes = sección Número 0 al momento del tag). Residual
-banner-scriptorium → cola (no reabre N0-04).
+notes = sección Número 0 al momento del tag).
+
+Gobierno 2026-07-23 (post-R15-S): retoques registro checkout librería ·
+arco **LIBRERIA-0.7.0** encolado (BRIEF LIB-070 · AVISO R16-S · **sin
+PASS no hay 🔶 ni publish 0.7.0**) · checkout obra
+`C:\S_LAB\S_SDK-skills-library` (clone nuevo) · SKILLS-EN-MUNDOS en
+COLA bloqueado hasta tip 0.7.0 publicado · residual banner-scriptorium
+= WP-XS (∥; no reabre N0-04).
 
 ## Número 0 · portal aleph-null (2026-07-22)
 

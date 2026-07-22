@@ -138,14 +138,14 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
 - ✅ **Contenido portal aleph-null (número 0)** — cerrado R15-S · tag
   `release/numero-0` @ `40598f0e307921d613dacf1c324415eb4a1b5d32` ·
   sprint [`PORTAL-NUMERO-0`](../PORTAL-NUMERO-0/BACKLOG.md).
-- ⬜ **WP-BRAND-2 · pack marca librería** — encolado · brief
-  [`BRAND-2.md`](../PORTAL-NUMERO-0/BRIEFS/BRAND-2.md) · checkout
-  `C:\S\S_SDK-skills-library` DECLARADO (destino `C:\S_LAB\…`
-  pendiente) · paquete `@alephscript/skills-scriptorium` · **sin PASS
-  de gate propio no hay 🔶**.
-- ⬜ **Residual · banner-scriptorium fuente corrupta** — blob de ceros
-  (R14-S) · re-depósito custodio + WP menor · **no reabre N0-04** ·
-  ver `PORTAL-NUMERO-0/BACKLOG.md` §COLA.
+- ⬜ **WP-BRAND-2 / LIB-070 · pack marca librería 0.7.0** — arco
+  [`LIBRERIA-0.7.0`](../LIBRERIA-0.7.0/BACKLOG.md) · brief
+  [`LIB-070.md`](../LIBRERIA-0.7.0/BRIEFS/LIB-070.md) · checkout
+  **`C:\S_LAB\S_SDK-skills-library`** (clone nuevo) · AVISO **R16-S** ·
+  paquete `@alephscript/skills-scriptorium` · **sin PASS no hay 🔶**.
+- ⬜ **Residual · banner-scriptorium · WP-XS** — GO 2026-07-23 (∥
+  gobierno) · fuente WebP cantera `@39caef4` · cabecera scriptorium ·
+  **no reabre N0-04**.
 - ⬜ **Lección · sucesión de vigía** (skill `vigilancia` vNext) — PORT al
   método: vigía del carril = estación viva Vigilante-* (OUT_DIR), no
   subagente del orquestador; gates `Rn-*` por AVISO + veredicto vía
@@ -160,12 +160,14 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
   brief). Encolada junto a «sucesión de vigía»; PORT a skill vNext con
   GO propio — no reescribe el resto del backlog.
 - ⬜ **Arco · SKILLS-EN-MUNDOS** — inicializar paquete skills en
-  **z·g·s·e·a** (**o-sdk EXCLUIDO**: F3-01). Por mundo: devDep `@latest`
-  + espejo `skills:sync` + asiento en SU plan («la estación se activa
-  desde aquí»). Obra por-mundo en territorio hermano con checkout
-  declarado; bumps de gitlink en el índice con GO al cierre. Prepara
-  g-sdk para parlament (F3-09). **ACTIVACIÓN: tras cierre del arco
-  portal** — hoy **solo encolado** (sin GO de despacho).
+  **z·g·s·e·a** (**o-sdk EXCLUIDO**: F3). Por mundo: devDep
+  **`@alephscript/skills-scriptorium@0.7.0`** + espejo + asiento en SU
+  plan. Obra por-mundo en `C:\S_LAB\<letra>-sdk` (checkout ya clonado;
+  worktrees `.worktrees\<letra>`). Gates por ola. Prepara g-sdk para
+  parlament (F3-09).
+  **DEPENDENCIA EXPLÍCITA:** bloqueado hasta **tip 0.7.0 publicado**
+  (npm `@0.7.0` + tip librería). **ACTIVACIÓN ENCADENADA: tras publish
+  0.7.0** — hoy **solo encolado** (GO B · sin despacho).
 
 ## Orden y paralelismo
 
