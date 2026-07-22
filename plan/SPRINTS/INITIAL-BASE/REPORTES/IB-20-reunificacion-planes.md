@@ -1,11 +1,11 @@
-﻿# IB-20 · reunificacion-planes ? reporte
+# IB-20 · reunificacion-planes ? reporte
 
 | dato | valor |
 | ---- | ----- |
 | agente | orquestador-consolidación (worker stallado; mandato cierre punta-a-punta) |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-20-reunificacion-planes` |
-| commits | `8c3b490ff6e82c5c8a7e4719e77fa3f08b58871c` · `8869c299e5fb301c341355ab4a84886a109003ed` |
+| commits | `1ad68ac0fc45c0507348475e65edb82a1efd1081` (plan) / `65f97ce96b4fc091e9a399ba0a2e8973f20e00fb` (reporte) / `e187c3b6744a67ffada2a099ad8bcc31e10c4176` + `dfaa30af2c173db6ed0b894b500d7324d665fcc5` (hashes) |
 | eje(s) CA | III (auditoría / layout · reunificación) |
 | estado propuesto | listo para revisión |
 
