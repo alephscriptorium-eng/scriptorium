@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (post-merge N0-01 · sin subagente vigía)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-22  
-**Estado gate:** ⏳ pendiente veredicto Vigilante-S
+**Estado gate:** ✅ **PASS-con-residual** — ver `INFORME-VIGIA-R10-S.md` (OK de sellado concedido)
 
 > R9-S = PASS autorizó 🔶. N0-01 obra + ✅ + merge a `main` hechos.
 > Este aviso pide la ronda de **aceptación de facto**, **C8 de las 5
