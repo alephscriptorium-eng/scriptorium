@@ -101,7 +101,7 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   · skills-library tip `6512e27dd11c4d84192d4a66035ede609ba97523`
   · tag `v0.6.0` · Publish CI `29947333933` · npm `@0.6.0`
   · reporte `REPORTES/IB-21-skill-holarquia.md`
-- 🔶 **IB-22 · Archivo del cascarón + reubicación de joyas** — genealogía
+- ✅ **IB-22 · Archivo del cascarón + reubicación de joyas** — genealogía
   07-holones → archivo «partida de nacimiento» (cuaderno o docs
   histórico) · dossiers 16-07 → e-sdk (mundo de papel, decisión A-23) ·
   REGISTRO DE JOYAS como backlog-cola del workspace: para-la-voz/@voz
@@ -109,7 +109,12 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   cartógrafo Hilbert · conversor liturgias · NETWORK-ENGINE AOS.
   **CA:** DEVOPS/ cerrada sin pérdida (todo apuntado o archivado) ·
   joyas en cola con puntero verificado · e-sdk recibe dossiers.
-  _Brief:_ `BRIEFS/IB-22.md` · vía **(a) handoff** · DA-S08 · cero writes fuera
+  _Brief:_ `BRIEFS/IB-22.md` · vía **(a) handoff** · DA-S08
+  · merge `wp/ib-22-archivo-joyas-handoff`
+  · obra tip `bf5edd070598a35ba47813b483772a7ca26a54c7`
+  · handoff `plan/HANDOFF-IB-22-cascaron-joyas.md`
+  · joyas `plan/REGISTRO-DE-JOYAS.md`
+  · reporte `REPORTES/IB-22-archivo-joyas-handoff.md`
 - ⬜ **IB-23 · Limpieza final S_SDK** — WEBS/ borrar (subsumida por
   site-web) · LLM.md → broche en C:\S raíz · HOLONES/ paths largos
   mueren (los submodules nuevos son la vía) · S_SDK queda como s-sdk:
@@ -160,7 +165,8 @@ propio.
   `AVISO-VIGIA-R6-S.md` · gate **R6-S = PASS**
   (`INFORME-VIGIA-R6-S.md` · tip pulso previo `82606b1` · main
   post-informe `609439a`).
-- **Lote IB-21 ∥ IB-22: 🔶 en curso** 2026-07-22 (briefs emitidos;
-  condiciones R6-S: secrets PRE-tag · ceguera 0 PRE-publish · C8
-  post-publish · IB-22 vía handoff DA-S08). **No abrir IB-23** sin
-  PASS R7-S.
+- **Lote IB-21 ∥ IB-22: ✅ cerrado** 2026-07-22 (merges post-aceptación).
+  IB-21: skills-library `@0.6.0` publicado · C8 verde.
+  IB-22: handoff DA-S08 emitido · cero writes fuera · REGISTRO JOYAS.
+  AVISO `AVISO-VIGIA-R7-S.md` · gate **R7-S** pendiente.
+  **No 🔶 IB-23** sin PASS R7-S.
