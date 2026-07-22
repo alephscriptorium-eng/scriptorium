@@ -8,7 +8,8 @@ Registro derivado del backlog cerrado de facto del workspace
 
 Tag `release/numero-0` **SELLADO** 2026-07-22 sobre
 `40598f0e307921d613dacf1c324415eb4a1b5d32` (R14-S PASS-con-residual ·
-notes = sección Número 0 al momento del tag).
+notes = sección Número 0 al momento del tag). **Sello intacto** — no se
+retoca en post-tag.
 
 Gobierno 2026-07-23 (post-R15-S): retoques registro checkout librería ·
 arco **LIBRERIA-0.7.0** encolado (BRIEF LIB-070 · AVISO R16-S · **sin
@@ -18,6 +19,20 @@ COLA bloqueado hasta tip 0.7.0 publicado.
 
 WP-XS banner-scriptorium ✅ (cantera `@39caef4` WebP · cabecera
 scriptorium · no reabre N0-04).
+
+### Post-tag · corrección de piel (DA-S18 · 2026-07-23)
+
+- **DA-S18:** piel del portal del workspace = **familia codebase**
+  (shell VitePress + tokens zine), no fanzine standalone. Corrige la
+  dirección de N0-03 en la instancia; **no** reabre arcos ni toca
+  `release/numero-0`.
+- **WP-REST-SHELL** encolado (BRIEF + AVISO **R20-S** · **sin PASS no
+  hay 🔶**): restaurar shell familia en aleph-null · PORT exacto
+  `codebase/z-sdk/docs` · conservar N0-01 / CNAME / favicon / `/licencia`
+  / banner (patrón o-sdk).
+- **LIB-080** encolado (issue #18 · `piel:` `familia-vp` DEFAULT ·
+  `fanzine` OPT-IN · candidato 0.8.0) — activar tras cierre olas / R19
+  o GO PO; **hoy solo COLA**.
 
 ## Número 0 · portal aleph-null (2026-07-22)
 

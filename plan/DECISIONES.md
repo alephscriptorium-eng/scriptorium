@@ -245,6 +245,32 @@ Solo **registro/encolado** en gobierno S · COLA del plan (junto a
 lecciones vNext / skill). **No** implementa el parser en este asiento;
 obra = WP futuro en `skills-library` / paquete.
 
+### DA-S18 · Piel del portal = familia codebase (2026-07-23 · custodio)
+
+Corrige la dirección de **N0-03** en la INSTANCIA (portal aleph-null):
+el look canónico de los portales del índice **no** es el layout fanzine
+standalone; es la **familia codebase**.
+
+**Look canónico (portales del índice / workspace):**
+`codebase/{z,g,s,o}-sdk` y `skills-library` — shell VitePress
+(`themeConfig` · nav + `socialLinks` GitHub + footer) con tokens zine
+en `custom.css`. Referencia visual EXACTA (PORT):
+`codebase/z-sdk/docs`.
+
+**Layout fanzine standalone** (`Layout.vue` + stamp/washi) = **NO** es
+destino del portal del workspace. Queda **opt-in del método** para
+zines puros estilo pub / Vestíbulo.
+
+**Post-tag:** la corrección de piel es WP residual del carril S
+(`WP-REST-SHELL` · gate **R20-S**). **NO** reabre el arco
+PORTAL-NUMERO-0 · **NO** toca el sello `release/numero-0`
+(deref `40598f0e307921d613dacf1c324415eb4a1b5d32` · tag obj
+`69bbc098b91d8e09c15873d5ffbffa6b9c5589be`).
+
+Método (issue **#18** / LIB-080 · encolado): dos pieles canónicas en
+`site-web` — `familia-vp` (**DEFAULT**) · `fanzine` (**OPT-IN**). Hoy
+solo gobierno; sin mezclar DA-S17/parser ni bump de gitlinks atlas.
+
 ## Abiertas
 
 _(las resuelve el custodio)_

@@ -33,6 +33,18 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 - ✅ Gitlink `codebase/skills-library` →
   `fb980984e5faa979247afa43054e52cfd4e07c3e` (tip 0.7.0).
 
+## COLA siguiente · LIB-080 (issue #18 · hoy solo encolar)
+
+- ⬜ **LIB-080 · site-web `piel:` DECLARADA** — issue **#18** ·
+  canónicos **`familia-vp` (DEFAULT)** · **`fanzine` (OPT-IN)** ·
+  regla 13 reescrita · CA estructural «piel DECLARADA renderiza» ·
+  CA contraste · candidato **0.8.0** · checkout
+  **`C:\S_LAB\skills-library`** · publish triangulado + secrets +
+  ceguera 0. **Activar** tras cierre olas de mundos (R19-S) **o**
+  antes si el PO lo pide. **Hoy solo COLA · sin 🔶 · sin gate aún.**
+  Post-0.8.0: mini-tick aleph-null `piel: familia-vp` (aparte).
+  DA instancia: **DA-S18**. _Brief:_ `BRIEFS/LIB-080.md`.
+
 ## Aparcados (cero acción en este arco)
 
 carril Z · F3 · F4 · redirect · para-la-voz · pasada-2 OASIS ·
