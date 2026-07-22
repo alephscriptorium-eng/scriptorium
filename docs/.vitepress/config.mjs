@@ -45,14 +45,21 @@ export default defineConfig({
     backLinks,
     nav: [
       { text: 'Portada', link: '/' },
-      { text: 'Proyecto', link: '/proyecto' },
-      { text: 'Repo', link: BACK.repo }
+      { text: 'Constelación', link: '/constelacion' },
+      { text: 'Método', link: '/metodo' },
+      { text: 'Ciudad', link: '/ciudad' },
+      { text: 'Cola', link: '/cola' },
+      { text: 'Proyecto', link: '/proyecto' }
     ],
     sidebar: [
       {
         text: 'aleph-null',
         items: [
           { text: 'Portada', link: '/' },
+          { text: 'Constelación', link: '/constelacion' },
+          { text: 'Método', link: '/metodo' },
+          { text: 'Ciudad', link: '/ciudad' },
+          { text: 'Cola', link: '/cola' },
           { text: 'Proyecto', link: '/proyecto' }
         ]
       }
