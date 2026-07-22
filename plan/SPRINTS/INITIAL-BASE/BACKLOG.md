@@ -78,20 +78,20 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## Ola IB-2 · Port de planes y doctrina
 
-- ⬜ **IB-20 · Reunificación de planes** — recopilar plan/ de los 6 sdk
+- 🔶 **IB-20 · Reunificación de planes** — recopilar plan/ de los 6 sdk
   → asentar protocolo multi-orquestador (contrato v1.1/método v0.6) en
   el plan del workspace · verificar skills@latest en cada sdk ·
   histórico → cuadernos (rama por mundo).
   **CA:** tabla de mundos con versión skill + estado plan · cero
   histórico perdido (cuadernos) · partición de territorios declarada.
-  _Brief (borrador HOLD):_ `BRIEFS/IB-20.md` · rama aparcada
-  `wp/ib-20-reunificacion-planes` · worktree aparcado
-  `C:\S\.worktrees\wp-ib-20` (sin obra; no borrar sin veredicto
-  desechable).
-  **Espera R5-S Vigilante-S** — 🔶 prematuro en tip
-  `32c8150376f3e672f8a3c5dfd785743151df9002` reconciliado a ⬜
-  (mark-waiting; no force; no despacho). Brief de despacho exigirá
-  partición declarada (territorio 6 SDKs). Residual DNS = tick custodio.
+  _Brief:_ `BRIEFS/IB-20.md` (re-emitido post R5-S · **PARTICIÓN
+  DECLARADA**) · rama `wp/ib-20-reunificacion-planes` · worktree
+  `C:\S\.worktrees\wp-ib-20` (reutilizados tras aparcamiento).
+  **Gate R5-S = PASS-con-residual** (`INFORME-VIGIA-R5-S.md`). Escritura
+  solo `plan/` workspace + punteros cuadernos; `codebase/*-sdk` SOLO
+  LECTURA (cero edits / cero bump gitlinks). Residual DNS: aleph-null
+  Pages VIVO (no obra); redirect scriptorium→pub DIFERIDO sine die
+  (no verde; no obra worker).
 - ⬜ **IB-21 · Skill `holarquia`** (destilación DEVOPS — veredicto del
   destilador): A) dos leyes + junturas + plantilla holón · B) DS-5 ·
   C) acuerdo LLM.md (memoria→codebase · regla de oro «no inventes
@@ -124,7 +124,9 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
   método: vigía del carril = estación viva Vigilante-* (OUT_DIR), no
   subagente del orquestador; gates `Rn-*` por AVISO + veredicto vía
   custodio; sin PASS no hay 🔶. Caso fundante carril S · 2026-07-22
-  (DA-S07). No reescribe el resto del backlog.
+  (DA-S07) · ratificado en R5-S (`INFORME-VIGIA-R5-S.md` PASS-con-residual
+  · backstage `scriptorium-vigilancia` tip `03f09a9`). Encolada; PORT
+  a skill vNext con GO propio — no reescribe el resto del backlog.
 
 ## Orden y paralelismo
 
@@ -142,11 +144,14 @@ propio.
 - **IB-11: ✅ aceptado** 2026-07-22 (merge post-aceptación; 6 gitlinks).
 - Gate vigía **R3-S:** informe `INFORME-VIGIA-R3-S.md` · **PASS**.
 - **Lote IB-12 ∥ IB-13: ✅ cerrado** 2026-07-22 (merges post-aceptación).
-  Residual DNS (tick custodio): Pages aleph-null + redirect scriptorium→pub
-  — bloquea CA dominios; **no** bloquea IB-20.
+  Residual DNS: aleph-null Pages **VIVO** (R5-S; CA Pages IB-13 de
+  facto); redirect scriptorium→pub **DIFERIDO** sine die (custodio) —
+  cerrado a planificación sin verde; **no** bloquea IB-20.
 - Gate vigía **R4-S:** informe `INFORME-VIGIA-R4-S.md` · **PASS-con-residual**
   (era ratificada; tip auditado `4e193bc…`).
 - **Sucesión vigía (DA-S07):** Vigilante-S en `C:\S\vigilancia` · AVISO
-  `AVISO-VIGIA-R5-S.md` · gate **R5-S** pendiente.
-- **IB-20: ⬜ espera R5-S** (🔶 prematuro reconciliado; brief HOLD;
-  worktree aparcado). No despachar. No abrir IB-21+.
+  `AVISO-VIGIA-R5-S.md` · gate **R5-S = PASS-con-residual**
+  (`INFORME-VIGIA-R5-S.md` · tip pulso previo `797662e` · main post-informe
+  `68d078d`). Backstage `scriptorium-vigilancia` @ `03f09a9`.
+- **IB-20: 🔶 en curso** (brief re-emitido con partición declarada;
+  worktree/rama aparcados reutilizados). No abrir IB-21+ sin PASS R6-S.
