@@ -9,6 +9,7 @@
     "@alephscript/skills-scriptorium": "0.5.1"
   },
   "scripts": {
+    "skills:sync": "node scripts/sync-claude-skills.mjs",
     "skills:ceguera": "bash node_modules/@alephscript/skills-scriptorium/skills/swarm-orquestacion/scripts/comprobar-ceguera.sh"
   },
   "repository": {
