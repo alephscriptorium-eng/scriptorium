@@ -8,9 +8,11 @@
 | worktree | `C:\S\.worktrees\wp-n0-03` |
 | tip PRE 🔶 | `ddbea1a` (= origin/main · R12-S PASS) |
 | tip despacho 🔶 | `1bd7998` (RAIZ-C-S ciclo vida + brief/BACKLOG) |
+| obra | `985eaa9` |
+| merge | `72e1330` |
 | paquete | `@alephscript/skills-scriptorium@0.6.1` |
 | gitlink skills-library | `64883a9` (= tip v0.6.1) |
-| estado propuesto | listo para revisión / merge |
+| estado | ✅ aceptado · AVISO R13-S emitido |
 
 ## Qué se hizo
 

@@ -54,12 +54,15 @@ Tag hoy **NO**.
   · reporte `REPORTES/N0-02-site-web-piel-fanzine.md`
   · **Aceptado** · AVISO **R12-S** emitido (gate pre N0-03).
 
-- 🔶 **N0-03 · Re-pielado portal aleph-null** — carril S · alcance
-  `docs/.vitepress/theme/**` (+ pin `@0.6.1` + `skills:sync` + gitlink
-  `64883a9`) · R12-S **PASS** autoriza.
-  **CA:** ver `BRIEFS/N0-03.md`.
-  _Brief:_ `BRIEFS/N0-03.md` · rama `wp/n0-03-repielado-portal` ·
-  worktree `C:\S\.worktrees\wp-n0-03` · tip PRE `ddbea1a`.
+- ✅ **N0-03 · Re-pielado portal aleph-null** — carril S · alcance
+  `docs/.vitepress/theme/**` · pin `@0.6.1` + `skills:sync` + gitlink
+  `64883a9` · piel fanzine real (CA estructural local verde).
+  **CA:** ver `BRIEFS/N0-03.md` · reporte
+  `REPORTES/N0-03-repielado-portal.md`.
+  _Brief:_ `BRIEFS/N0-03.md` · merge `wp/n0-03-repielado-portal`
+  · obra `985eaa9` · merge `72e1330` · tip PRE `ddbea1a` · 🔶
+  `1bd7998` · **Aceptado** · AVISO **R13-S** emitido (C8 post-deploy
+  + aceptación).
 
 - ⬜ **N0-04 · WP-BRAND-1 · marca / colofón aleph-null** — carril S ·
   `scriptorium/branding/` desde cantera tip `0567a24` · derivados
@@ -92,7 +95,11 @@ Tag hoy **NO**.
 - ✅ **N0-02** aceptado · `@alephscript/skills-scriptorium@0.6.1`
   publicado · AVISO **R12-S** emitido (`AVISO-VIGIA-R12-S.md`).
 - Gate R12-S: **PASS** · `INFORME-VIGIA-R12-S.md` · tip PRE-🔶
-  `ddbea1a` · 🔶 N0-03 despachado.
+  `ddbea1a` · 🔶 N0-03 despachado · merge hecho.
+- ✅ **N0-03** aceptado · portal consume `@0.6.1` · piel fanzine ·
+  AVISO **R13-S** emitido (`AVISO-VIGIA-R13-S.md`).
+- Gate R13-S: **pendiente** · aceptación N0-03 + C8 estructural
+  post-deploy · **sin PASS no hay 🔶 N0-04**.
 - **Tag `release/numero-0` RETENIDO** (PO · DA-S13) hasta post **N0-04**
   — OK de sellado vigente; colofón = BRAND-1. **Tag no ejecutado.**
 - AVISO encolado branding: `AVISO-VIGIA-ENC-BRANDING.md` (gobierno;
