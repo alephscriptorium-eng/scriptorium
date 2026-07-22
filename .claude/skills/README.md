@@ -6,10 +6,10 @@ es la dependencia versionada (fijada en `package-lock.json`), no este directorio
 
 | dato | valor |
 | ---- | ----- |
-| procedencia | `@alephscript/skills-scriptorium@0.5.1` |
+| procedencia | `@alephscript/skills-scriptorium@0.6.1` |
 | origen | `node_modules/@alephscript/skills-scriptorium/skills/` |
 | generador | `scripts/sync-claude-skills.mjs` (`npm run skills:sync`) |
-| skills | `estacion-viva`, `site-web`, `swarm-orquestacion`, `vigilancia` |
+| skills | `estacion-viva`, `holarquia`, `site-web`, `swarm-orquestacion`, `vigilancia` |
 
 Actualizar: `npm install` (resuelve la versión del lock) y luego
 `npm run skills:sync`. No edites estos ficheros a mano — cada dir se

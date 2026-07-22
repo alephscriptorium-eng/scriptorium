@@ -6,7 +6,7 @@
     "node": ">=22"
   },
   "devDependencies": {
-    "@alephscript/skills-scriptorium": "0.5.1",
+    "@alephscript/skills-scriptorium": "0.6.1",
     "vitepress": "1.6.4"
   },
   "scripts": {
