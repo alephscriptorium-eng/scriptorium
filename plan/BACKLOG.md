@@ -2,7 +2,8 @@
 
 Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
-Sprint activo: **[INITIAL-BASE](SPRINTS/INITIAL-BASE/BACKLOG.md)**
+Sprint activo: **[PORTAL-NUMERO-0](SPRINTS/PORTAL-NUMERO-0/BACKLOG.md)**
+(INITIAL-BASE **cerrado** · R8-S).
 
 Proyección a issues: **local-only** por defecto (DC-15). Sin petición
 explícita del usuario, no se proyecta.
@@ -11,10 +12,13 @@ explícita del usuario, no se proyecta.
 
 | sprint | estado | ruta |
 | ------ | ------ | ---- |
-| INITIAL-BASE | 🔶 activo · IB-01…13 ✅ · R5-S PASS-con-residual · IB-20 ✅ · R6-S ⏳ | `plan/SPRINTS/INITIAL-BASE/` |
+| INITIAL-BASE | ✅ cerrado · 9 WPs · R8-S | `plan/SPRINTS/INITIAL-BASE/` |
+| PORTAL-NUMERO-0 | ⬜ encolado · N0-01 · R9-S ⏳ | `plan/SPRINTS/PORTAL-NUMERO-0/` |
 
-## Cola (fuera de INITIAL-BASE — GO propio)
+## Cola (fuera de sprints activos — GO propio)
 
-Ver cola al pie de `SPRINTS/INITIAL-BASE/BACKLOG.md` (F3 o-sdk/L1-L2,
-F4 playground + Docker Hub, tipos-del-FOSS, pasada-2 auditoría OASIS,
-arco para-la-voz).
+Ver `SPRINTS/INITIAL-BASE/BACKLOG.md` §COLA y
+`plan/REGISTRO-DE-JOYAS.md` (F3 o-sdk/L1-L2, F4 playground + Docker Hub,
+tipos-del-FOSS, pasada-2 auditoría OASIS, arco para-la-voz, lección
+sucesión vigía vNext). Arco contenido portal número 0 = sprint
+PORTAL-NUMERO-0 (GO 2026-07-22 · DA-S10).

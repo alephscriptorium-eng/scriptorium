@@ -135,6 +135,10 @@ el pub») · F4 playground + Docker Hub scriptorium-city (solarnet ·
 lurker · founder) · tipos-del-FOSS (peer-card-seat primero) · pasada-2
 auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
 
+- ▶ **Contenido portal aleph-null (número 0)** — GO custodio 2026-07-22
+  · **NO reabre IB-13** · sprint propio
+  [`PORTAL-NUMERO-0`](../PORTAL-NUMERO-0/BACKLOG.md) · WP **N0-01** ⬜ ·
+  gate **R9-S** ⏳ (`AVISO-VIGIA-R9-S.md`). Sin PASS no hay 🔶.
 - ⬜ **Lección · sucesión de vigía** (skill `vigilancia` vNext) — PORT al
   método: vigía del carril = estación viva Vigilante-* (OUT_DIR), no
   subagente del orquestador; gates `Rn-*` por AVISO + veredicto vía
@@ -181,4 +185,10 @@ propio.
 - **IB-23: ✅ aceptado** 2026-07-22 (merge post-aceptación). Vía handoff
   DA-S09 · cero writes/borrados en hermano · broche `C:\S\LLM.md` ·
   C8 post-cambio declarado al dueño. Sprint INITIAL-BASE **cerrado** —
-  AVISO `AVISO-VIGIA-R8-S.md` (cierre de sprint).
+  AVISO `AVISO-VIGIA-R8-S.md` (cierre de sprint) · informe
+  `INFORME-VIGIA-R8-S.md` (PASS cierre).
+- Arco siguiente (fuera de este sprint): **PORTAL-NUMERO-0** / N0-01 —
+  gate `../PORTAL-NUMERO-0/AVISO-VIGIA-R9-S.md` (R9-S).
+- Pre-tag release numero-0 (práctica R8-S): derivar `CHANGELOG.md` raíz
+  de WPs ✅ (este sprint + N0-01 al cerrar) **antes** del tag — ver
+  `../PORTAL-NUMERO-0/BACKLOG.md` §Pre-tag.

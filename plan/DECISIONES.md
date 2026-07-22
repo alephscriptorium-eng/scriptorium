@@ -39,12 +39,14 @@ Carril de este mundo: **S** (rondas `Rn-S`). Asiento PORT (IB-20):
 
 - **Vigía del carril S** = ventana **Vigilante-S** (estación viva
   `C:\S\vigilancia`, watcher activo). Calibración: `plan/ESTACION.md`.
-- Gates `Rn-S` (R5-S en adelante): pedido por **AVISO** en
-  `plan/SPRINTS/INITIAL-BASE/`; veredicto lo emite Vigilante-S **vía
-  custodio**. **Sin PASS no hay 🔶.**
+- Gates `Rn-S` (R5-S en adelante): pedido por **AVISO** bajo el sprint
+  vigente del carril (`plan/SPRINTS/<sprint>/AVISO-VIGIA-Rn-S.md`);
+  veredicto lo emite Vigilante-S **vía custodio**. **Sin PASS no hay 🔶.**
 - **Prohibido** generar o invocar subagentes con rol de vigía.
 - R4-S y era previa ratificadas (tip auditado
   `4e193bcb8b2d4ea1de9179f45de6a67ce5268a7b`). Cierre limpio de esa era.
+- R8-S = cierre INITIAL-BASE; R9-S+ = arcos siguientes (p. ej.
+  PORTAL-NUMERO-0).
 - Lección método «sucesión de vigía» → cola del sprint (vigilancia
   vNext); PORT, no rewrite del resto.
 
@@ -85,6 +87,21 @@ vía es **(a) handoff**.
 - **Cero bump de gitlink** del mundo legado en IB-23 (GO propio).
 - Sin esta declaración el worker S no borra ni escribe fuera; con ella,
   la vía queda fijada = handoff (no GO puntual de escritura/borrado).
+
+### DA-S10 · GO arco contenido portal número 0 (2026-07-22 · custodio)
+
+GO del custodio para encolar WP **nuevo** del carril S: contenido del
+portal aleph-null «número 0» (sprint `PORTAL-NUMERO-0` · WP **N0-01**).
+
+- **NO reabre IB-13** (esqueleto web cerrado; este arco = contenido).
+- Fuentes: entrega Vigilante-S + complemento Fable; fusión = base V-S
+  manda · **C-1 CORE** siempre; C-6 fuera.
+- Piel NO se toca (issue #15 librería; re-pielado = WP futuro).
+- Gate R9-S por AVISO → Vigilante-S; **sin PASS no hay 🔶**.
+- Sugerencia post-cierre: tag `release/numero-0` (vigía-sesión; no
+  ejecutar en el encolado).
+- Pre-tag (R8-S / Vigilante-S): `CHANGELOG.md` en raíz derivado de WPs
+  ✅ de facto **antes** del tag; gate release cruzará WPs ✅ ↔ CHANGELOG.
 
 ## Abiertas
 
