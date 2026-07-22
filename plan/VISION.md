@@ -32,7 +32,9 @@ entran al público.**
 - Nada se borra sin veredicto desechable.
 - No tocar `alephscript-network-sdk` salvo el remote `oasis-upstream`
   (epsylon/oasis).
-- Convivencia multi-orquestador v1.1 / método v0.6 vigente.
+- Convivencia multi-orquestador v1.1 / método v0.6 vigente
+  (fuente: skill `convivencia-multi-orquestador.md`; asiento local
+  `plan/PARTICION.md` · inventario `plan/MUNDOS.md`).
 - Gate `Rn-S` PASS antes de despachar obra en este carril.
 - Activación regla 13: agente fresco opera solo con el skill.
 

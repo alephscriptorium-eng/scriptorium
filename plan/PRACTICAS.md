@@ -31,7 +31,9 @@ Ver `plan/roles/ejes-ca.md` (copiado del skill swarm-orquestacion):
 ## Convivencia + vigía
 
 Contrato v1.1 / método v0.6: `roles/` enlaza al skill
-`reference/convivencia-multi-orquestador.md`.
+`reference/convivencia-multi-orquestador.md`. Partición de territorios
+del carril S: `plan/PARTICION.md`. Tabla de mundos / skill / cuadernos:
+`plan/MUNDOS.md`.
 
 **Sucesión (DA-S07):** vigía del carril S = **Vigilante-S** en
 `C:\S\vigilancia` (vía custodio). Gates `Rn-S` (R5-S+) se piden por
