@@ -87,7 +87,8 @@ PASS-con-residual sobre:
 | registry | `https://npm.scriptorium.escrivivir.co` |
 | reportes | `REPORTES/SEM-{z,g,s,e,a}.md` |
 | briefs | `BRIEFS/SEM-{z,g,s,e,a}.md` |
-| tip main POST-push (HEAD real) | _(tip-literal siguiente)_ |
+| tip tip-literal (931cdad) | `8fec7fb508dcc9b6d0f7146e7c58252f7a31abec` |
+| tip main POST-push (HEAD real = origin/main) | `8fec7fb508dcc9b6d0f7146e7c58252f7a31abec` |
 | paquete | `@alephscript/skills-scriptorium@0.7.0` |
 | registry | `https://npm.scriptorium.escrivivir.co` |
 | reportes | `REPORTES/SEM-{z,g,s,e,a}.md` |
