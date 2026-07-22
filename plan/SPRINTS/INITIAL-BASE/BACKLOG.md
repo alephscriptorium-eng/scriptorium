@@ -115,14 +115,18 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   · handoff `plan/HANDOFF-IB-22-cascaron-joyas.md`
   · joyas `plan/REGISTRO-DE-JOYAS.md`
   · reporte `REPORTES/IB-22-archivo-joyas-handoff.md`
-- 🔶 **IB-23 · Limpieza final S_SDK** — WEBS/ borrar (subsumida por
+- ✅ **IB-23 · Limpieza final S_SDK** — WEBS/ borrar (subsumida por
   site-web) · LLM.md → broche en C:\S raíz · HOLONES/ paths largos
   mueren (los submodules nuevos son la vía) · S_SDK queda como s-sdk:
   pieza techy-devops del workspace.
   **CA:** nada borrado sin veredicto desechable · webs S siguen verdes.
   _Brief:_ `BRIEFS/IB-23.md` · vía **(a) handoff** · DA-S09
-  · rama `wp/ib-23-limpieza-final-handoff`
-  · gate R7-S PASS (`INFORME-VIGIA-R7-S.md` · tip PRE-🔶 `76fdce3`)
+  · merge `wp/ib-23-limpieza-final-handoff`
+  · obra tip `759b724f94db8e5c9fba2621b7b61e6ff53edecb`
+  · handoff `plan/HANDOFF-IB-23-limpieza-final-s-sdk.md`
+  · acta `REPORTES/IB-23-ACTA-candidatos-desechables.md`
+  · broche `C:\S\LLM.md` + puntero `plan/BROCHE-C-S.md`
+  · reporte `REPORTES/IB-23-limpieza-final-handoff.md`
 
 ## COLA del workspace (NO es INITIAL-BASE — arcos futuros con GO propio)
 
@@ -174,5 +178,7 @@ propio.
   AVISO `AVISO-VIGIA-R7-S.md` · gate **R7-S = PASS**
   (`INFORME-VIGIA-R7-S.md` · tip pulso previo `d4115b5` · main
   post-informe `76fdce3`).
-- **IB-23: 🔶 despachado** 2026-07-22 · vía handoff DA-S09 · brief
-  `BRIEFS/IB-23.md` · tip PRE-🔶 `76fdce3`.
+- **IB-23: ✅ aceptado** 2026-07-22 (merge post-aceptación). Vía handoff
+  DA-S09 · cero writes/borrados en hermano · broche `C:\S\LLM.md` ·
+  C8 post-cambio declarado al dueño. Sprint INITIAL-BASE **cerrado** —
+  AVISO `AVISO-VIGIA-R8-S.md` (cierre de sprint).
