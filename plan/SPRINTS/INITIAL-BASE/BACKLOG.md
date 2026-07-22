@@ -158,6 +158,12 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
   issue #15** (GO 2026-07-22 · checkout `C:\S\S_SDK-skills-library` en
   brief). Encolada junto a «sucesión de vigía»; PORT a skill vNext con
   GO propio — no reescribe el resto del backlog.
+- ⬜ **GO al parser** (DA-S17 · skill / `skills-library` vNext) —
+  flexibilizar `proyectar-backlog.mjs` + fallar ruidoso ante IDs mixtos
+  (cierra triaje DC-25 del paquete). **No** normalizar backlogs S a
+  `WP-<alnum>`. Encolada junto a lecciones vNext; obra en
+  `@alephscript/skills-scriptorium` con GO de implementación propio —
+  **solo registro aquí**.
 - ⬜ **Arco · SKILLS-EN-MUNDOS** — inicializar paquete skills en
   **z·g·s·e·a** (**o-sdk EXCLUIDO**: F3). Por mundo: devDep
   **`@alephscript/skills-scriptorium@0.7.0`** + espejo + asiento en SU

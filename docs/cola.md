@@ -20,6 +20,9 @@ y de la cola post-cierre del número 0:
   R16-S** (sin PASS no hay 🔶 ni publish).
 - **SKILLS-EN-MUNDOS** — z·g·s·e·a (o-sdk excluido) · **bloqueado hasta
   tip 0.7.0 publicado**.
+- **GO al parser** (DA-S17) — `@alephscript/skills-scriptorium`:
+  flexibilizar parser de proyección + fallar ruidoso ante IDs mixtos;
+  **no** normalizar IDs S. Solo encolado (sin obra aún).
 - **Residual banner-scriptorium · WP-XS ✅** — fuente WebP real;
   cabecera scriptorium. No reabre N0-04.
 - **El sidecar del puerto** (arco F3) — la fontanería L1↔L2: el pub y

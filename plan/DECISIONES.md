@@ -227,6 +227,24 @@ explícita. Obra por-mundo en `C:\S_LAB\<letra>-sdk`.
 Aparcados (cero acción): carril Z · F3 · F4 · redirect · para-la-voz ·
 pasada-2 OASIS · limpieza mundo legado · IOCANDI.
 
+### DA-S17 · GO al parser (proyección · 2026-07-23 · custodio)
+
+Cierra la elección aparcada en R17-S (cara PO · «DC-15» en el informe
+del Vigilante-S: *GO al parser, no renombrar historia*). En el mundo del
+paquete `@alephscript/skills-scriptorium` el intake del parser estricto
+vive como **DC-25** (Punto 4); **DC-15** del paquete sigue siendo
+LOCAL-ONLY (opt-in GitHub) — no se reabre.
+
+**Elección:** **GO al parser** — flexibilizar el parser de
+`proyectar-backlog.mjs` (aceptar formatos mixtos de bullet / ID) y
+**fallar ruidoso** ante IDs que no se puedan proyectar (cero omisión
+silenciosa). **No** normalizar backlogs del carril S (ni historia) a
+`WP-<alnum>` como sustituto del arreglo.
+
+Solo **registro/encolado** en gobierno S · COLA del plan (junto a
+lecciones vNext / skill). **No** implementa el parser en este asiento;
+obra = WP futuro en `skills-library` / paquete.
+
 ## Abiertas
 
 _(las resuelve el custodio)_
