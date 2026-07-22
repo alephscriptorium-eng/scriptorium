@@ -137,8 +137,8 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
 
 - ▶ **Contenido portal aleph-null (número 0)** — GO custodio 2026-07-22
   · **NO reabre IB-13** · sprint propio
-  [`PORTAL-NUMERO-0`](../PORTAL-NUMERO-0/BACKLOG.md) · WP **N0-01** ⬜ ·
-  gate **R9-S** ⏳ (`AVISO-VIGIA-R9-S.md`). Sin PASS no hay 🔶.
+  [`PORTAL-NUMERO-0`](../PORTAL-NUMERO-0/BACKLOG.md) · WP **N0-01** ✅ ·
+  gate R9-S PASS · AVISO **R10-S** (aceptación + C8 5 rutas).
 - ⬜ **Lección · sucesión de vigía** (skill `vigilancia` vNext) — PORT al
   método: vigía del carril = estación viva Vigilante-* (OUT_DIR), no
   subagente del orquestador; gates `Rn-*` por AVISO + veredicto vía

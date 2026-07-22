@@ -21,35 +21,36 @@ siempre). C-6 = semillas número 1 — **fuera de este WP**.
 
 ## Ola N0-1 · Contenido del portal (número 0)
 
-- 🔶 **N0-01 · Contenido portal aleph-null (número 0)** — ejecutar la
+- ✅ **N0-01 · Contenido portal aleph-null (número 0)** — ejecutar la
   entrega fusionada (base V-S + C-1 CORE + insertos C-2…C-5 aplicables)
   sobre el esqueleto IB-13: portada renovada, 4 páginas nuevas
   (`/constelacion`, `/metodo`, `/ciudad`, `/cola`), enriquecimiento de
   `/proyecto`, nav/sidebar 6 entradas. **Piel NO se toca** (issue #15
   librería; re-pielado = WP futuro tras 0.6.x del skill).
   **CA:** ver `BRIEFS/N0-01.md` (fusión aplicada).
-  _Brief:_ `BRIEFS/N0-01.md` · rama `wp/n0-01-contenido-portal-numero-0`
-  · worktree `C:\S\.worktrees\wp-n0-01` · gate R9-S PASS (`3c1c97f`).
-  _Reporte:_ `REPORTES/N0-01-contenido-portal-numero-0.md`
+  _Brief:_ `BRIEFS/N0-01.md` · merge `wp/n0-01-contenido-portal-numero-0`
+  · obra `eee068524a681eeb52622804b067b04706fd2a44`
+  · reporte `REPORTES/N0-01-contenido-portal-numero-0.md`
+  · **Aceptado** post obra local verde (docs:build/verificar); C8
+    post-deploy 5 rutas → re-chequeo Vigilante-S en **R10-S**.
 
 ## Gate / estado lote
 
 - Sprint INITIAL-BASE **cerrado** (R8-S · INFORME-VIGIA-R8-S.md · tip
   cierre ratificado en main).
 - Gate R9-S: **PASS** · `INFORME-VIGIA-R9-S.md` · tip despacho `3c1c97f`.
-- 🔶 **N0-01** despachado · worktree `wp-n0-01` · fusión brief TAL CUAL.
+- ✅ **N0-01** aceptado · merge post-aceptación · AVISO **R10-S** emitido.
 - Sugerencia post-cierre (vigía-sesión; **no ejecutar aún**): sellar
   resultado como tag **`release/numero-0`** (primer release del repo) —
-  acta del cero; solo tras PASS + obra + OK vigía + CHANGELOG (abajo).
+  acta del cero; solo tras R10-S OK + CHANGELOG (abajo). **Tag no
+  ejecutado** en este cierre de obra.
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)
 
-- ⬜ **Gobierno · `CHANGELOG.md` en raíz** — **antes** del tag
-  `release/numero-0` (o homólogo): derivar `CHANGELOG.md` del backlog
-  cerrado de facto (WPs ✅ de INITIAL-BASE + N0-01 al cerrar). El gate
-  del release cruzará **WPs ✅ ↔ CHANGELOG**. No inventar entradas; no
-  tag sin changelog. (Gobierno/orquestador al sellar — no es obra del
-  worker de portal; no se escribe el fichero en este encolado.)
+- ▶ **Gobierno · `CHANGELOG.md` en raíz** — preparado/actualizado desde
+  WPs ✅ (INITIAL-BASE + N0-01) **sin tag**. El gate del release
+  (`release/numero-0`) cruzará **WPs ✅ ↔ CHANGELOG** tras R10-S OK.
+  No inventar entradas fuera del backlog cerrado.
 
 ## Vetos del arco
 
