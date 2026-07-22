@@ -14,8 +14,10 @@ Gobierno 2026-07-23 (post-R15-S): retoques registro checkout librería ·
 arco **LIBRERIA-0.7.0** encolado (BRIEF LIB-070 · AVISO R16-S · **sin
 PASS no hay 🔶 ni publish 0.7.0**) · checkout obra
 `C:\S_LAB\S_SDK-skills-library` (clone nuevo) · SKILLS-EN-MUNDOS en
-COLA bloqueado hasta tip 0.7.0 publicado · residual banner-scriptorium
-= WP-XS (∥; no reabre N0-04).
+COLA bloqueado hasta tip 0.7.0 publicado.
+
+WP-XS banner-scriptorium ✅ (cantera `@39caef4` WebP · cabecera
+scriptorium · no reabre N0-04).
 
 ## Número 0 · portal aleph-null (2026-07-22)
 

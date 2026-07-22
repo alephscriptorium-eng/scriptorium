@@ -82,10 +82,11 @@ cerrado R15-S.
   **R16-S** · **sin PASS no hay 🔶**. Brief histórico
   `BRIEFS/BRAND-2.md` = superseded.
 
-- ⬜ **Residual · banner-scriptorium · WP-XS** — GO 2026-07-23 (∥
-  gobierno LIB-070): fuente cantera `@39caef4` WebP · sustituir blob
-  ceros + derivado web + cabecera **scriptorium** (decisión PO). **No
-  reabre N0-04.** _Brief:_ `BRIEFS/WP-XS-banner-scriptorium.md`.
+- ✅ **Residual · banner-scriptorium · WP-XS** — GO 2026-07-23: fuente
+  cantera `@39caef4` WebP · blob ceros retirado · derivado web ·
+  cabecera **scriptorium** (decisión PO). **No reabre N0-04.**
+  _Brief:_ `BRIEFS/WP-XS-banner-scriptorium.md` · reporte
+  `REPORTES/WP-XS-banner-scriptorium.md`.
 
 ## Gate / estado lote
 
@@ -117,7 +118,7 @@ cerrado R15-S.
 - AVISO **R15-S** · cierre de arco (`AVISO-VIGIA-R15-S.md`).
 - BRAND-2 / LIB-070: arco **LIBRERIA-0.7.0** · AVISO R16-S · **sin 🔶**
   hasta PASS.
-- Residual banner-scriptorium: **WP-XS** GO 2026-07-23 (∥) · no reabre
+- Residual banner-scriptorium: **WP-XS ✅** (GO 2026-07-23) · no reabre
   N0-04.
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)

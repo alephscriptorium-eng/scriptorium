@@ -14,7 +14,7 @@ explícita del usuario, no se proyecta.
 | sprint | estado | ruta |
 | ------ | ------ | ---- |
 | INITIAL-BASE | ✅ cerrado · 9 WPs · R8-S | `plan/SPRINTS/INITIAL-BASE/` |
-| PORTAL-NUMERO-0 | ✅ cerrado · N0-01…04 ✅ · tag `release/numero-0` · R15-S · WP-XS banner ∥ | `plan/SPRINTS/PORTAL-NUMERO-0/` |
+| PORTAL-NUMERO-0 | ✅ cerrado · N0-01…04 ✅ · tag `release/numero-0` · R15-S · WP-XS banner ✅ | `plan/SPRINTS/PORTAL-NUMERO-0/` |
 | LIBRERIA-0.7.0 | ⬜ PRE-🔶 · AVISO R16-S · **sin PASS no hay 🔶** | `plan/SPRINTS/LIBRERIA-0.7.0/` |
 
 ## Cola (fuera de despacho — GO / encadenamiento)

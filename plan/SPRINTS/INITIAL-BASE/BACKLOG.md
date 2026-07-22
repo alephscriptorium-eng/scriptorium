@@ -143,9 +143,8 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
   [`LIB-070.md`](../LIBRERIA-0.7.0/BRIEFS/LIB-070.md) · checkout
   **`C:\S_LAB\S_SDK-skills-library`** (clone nuevo) · AVISO **R16-S** ·
   paquete `@alephscript/skills-scriptorium` · **sin PASS no hay 🔶**.
-- ⬜ **Residual · banner-scriptorium · WP-XS** — GO 2026-07-23 (∥
-  gobierno) · fuente WebP cantera `@39caef4` · cabecera scriptorium ·
-  **no reabre N0-04**.
+- ✅ **Residual · banner-scriptorium · WP-XS** — GO 2026-07-23 · fuente
+  WebP cantera `@39caef4` · cabecera scriptorium · **no reabre N0-04**.
 - ⬜ **Lección · sucesión de vigía** (skill `vigilancia` vNext) — PORT al
   método: vigía del carril = estación viva Vigilante-* (OUT_DIR), no
   subagente del orquestador; gates `Rn-*` por AVISO + veredicto vía

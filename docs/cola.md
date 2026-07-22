@@ -20,8 +20,8 @@ y de la cola post-cierre del número 0:
   R16-S** (sin PASS no hay 🔶 ni publish).
 - **SKILLS-EN-MUNDOS** — z·g·s·e·a (o-sdk excluido) · **bloqueado hasta
   tip 0.7.0 publicado**.
-- **Residual banner-scriptorium · WP-XS** — GO 2026-07-23 (∥ gobierno
-  0.7.0): fuente WebP cantera; cabecera scriptorium. No reabre N0-04.
+- **Residual banner-scriptorium · WP-XS ✅** — fuente WebP real;
+  cabecera scriptorium. No reabre N0-04.
 - **El sidecar del puerto** (arco F3) — la fontanería L1↔L2: el pub y
   las ciudades hablándose por partes firmados.
 - **La ciudad en Docker** (arco F4) — perfiles listos para levantar

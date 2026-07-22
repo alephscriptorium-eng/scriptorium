@@ -20,7 +20,8 @@ const isFanzineHome = computed(() => {
   )
 })
 
-const bannerSrc = computed(() => withBase('/banner-fundacion-web.png'))
+/** WP-XS: cabecera = scriptorium (fuente real cantera @39caef4 · WebP). */
+const bannerSrc = computed(() => withBase('/banner-scriptorium-web.png'))
 const licenciaHref = computed(() => withBase('/licencia'))
 const footerText = computed(
   () => frontmatter.value?.footer || 'aleph-null · scriptorium'
@@ -32,7 +33,7 @@ const footerText = computed(
     <div class="brand-banner" role="banner">
       <img
         :src="bannerSrc"
-        alt="aleph-null · banner fundación"
+        alt="aleph-null · banner scriptorium"
         class="brand-banner__img"
         width="1190"
         height="auto"
