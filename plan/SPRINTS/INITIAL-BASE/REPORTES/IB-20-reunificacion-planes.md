@@ -1,12 +1,12 @@
-# IB-20 · reunificacion-planes ? reporte
+# IB-20 ï¿½ reunificacion-planes ? reporte
 
 | dato | valor |
 | ---- | ----- |
-| agente | worker swarm · IB-20 |
+| agente | worker swarm ï¿½ IB-20 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-20-reunificacion-planes` |
 | commits | ver tip de rama tras commits de obra (listados en entrega) |
-| eje(s) CA | III (auditoria / layout · reunificacion) |
+| eje(s) CA | III (auditoria / layout ï¿½ reunificacion) |
 | estado propuesto | listo para revision |
 
 ## Que se hizo
@@ -17,7 +17,7 @@ Inventario **solo lectura** de los 6 gitlinks `codebase/{z,g,s,e,o,a}-sdk`
 cuadernos rama-por-mundo) y `plan/PARTICION.md` (cita contrato
 convivencia v1.1 / metodo v0.6; particion escritura plan/ workspace vs
 sdk SOLO LECTURA; cero bump gitlinks). Enlaces PORT minimos en
-`VISION.md` · `DECISIONES.md` (DA-S06) · `PRACTICAS.md`. Documentado
+`VISION.md` ï¿½ `DECISIONES.md` (DA-S06) ï¿½ `PRACTICAS.md`. Documentado
 `npm view` latest **0.5.1** y pins/locks por sdk **sin bump masivo**.
 Cero edits en submodules; cero cambio de gitlinks. Residual DNS no
 trabajado.
@@ -33,7 +33,7 @@ trabajado.
 
 ## Evidencia
 
-> Worktree `C:\S\.worktrees\wp-ib-20` · rama `wp/ib-20-reunificacion-planes`.
+> Worktree `C:\S\.worktrees\wp-ib-20` ï¿½ rama `wp/ib-20-reunificacion-planes`.
 > Lectura de sdks desde checkout `C:\S\scriptorium` (mismos gitlinks).
 
 ### 1) Tips gitlink (MUNDO_RAIZ)
