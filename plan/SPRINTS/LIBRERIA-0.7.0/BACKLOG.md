@@ -42,17 +42,18 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   - a → `792e093c122b09fd5fc559d6f4773d780b280b24`
 - ✅ DA-S19 · espejo por mundo (z canon gitignore · g/s/e/a trackeado).
 
-## COLA siguiente · LIB-080 (issue #18 · hoy solo encolar)
+## Activación · LIB-080 (issues #18+#19 · release 0.8.0)
 
-- ⬜ **LIB-080 · site-web `piel:` DECLARADA** — issue **#18** ·
-  canónicos **`familia-vp` (DEFAULT)** · **`fanzine` (OPT-IN)** ·
-  regla 13 reescrita · CA estructural «piel DECLARADA renderiza» ·
-  CA contraste · candidato **0.8.0** · checkout
-  **`C:\S_LAB\skills-library`** · publish triangulado + secrets +
-  ceguera 0. **Activar** tras cierre olas de mundos (R19-S) **o**
-  antes si el PO lo pide. **Hoy solo COLA · sin 🔶 · sin gate aún.**
-  Post-0.8.0: mini-tick aleph-null `piel: familia-vp` (aparte).
-  DA instancia: **DA-S18**. _Brief:_ `BRIEFS/LIB-080.md`.
+- ⬜ **LIB-080 · `piel:` + mapas territorio → 0.8.0** — issues
+  **#18** + **#19** · canónicos **`familia-vp` (DEFAULT)** ·
+  **`fanzine` (OPT-IN)** · regla 13 reescrita · CA «piel DECLARADA
+  renderiza» · CA contraste · fix composición VP · montar-plan genera
+  MAPA-RAIZ/REPO(/TALLER) con regla al pie · vigilancia prescribe
+  pulso territorio==mapa · checkout **`C:\S_LAB\skills-library`** ·
+  secrets PRE-tag · ceguera 0 · publish triangulado. **AVISO R21-S**
+  · **sin PASS no hay 🔶**. Post-0.8.0: mini-tick aleph-null
+  `piel: familia-vp` (aparte). DA instancia: **DA-S18**.
+  _Brief:_ `BRIEFS/LIB-080.md` · AVISO `AVISO-VIGIA-R21-S.md`.
 
 ## Aparcados (cero acción en este arco)
 
