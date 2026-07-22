@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (LIB-070 punta a punta · 2026-07-23 · sin subagente vigía)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-23  
-**Estado gate:** ⬜ pendiente de veredicto Vigilante-S
+**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R17-S.md` (GO B desencadenado)
 
 > Publish `@alephscript/skills-scriptorium@0.7.0` **triangulado**.
 > Este aviso pide aceptación + re-triangulación. **PASS R17-S
