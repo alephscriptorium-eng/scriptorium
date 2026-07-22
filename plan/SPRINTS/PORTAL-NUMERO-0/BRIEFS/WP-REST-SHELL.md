@@ -9,14 +9,14 @@ Worktree: C:\S\.worktrees\wp-rest-shell (si ∥)
 Checkout obra: C:\S\scriptorium (carril S · docs/theme del portal índice)
 Reporte: plan/SPRINTS/PORTAL-NUMERO-0/REPORTES/WP-REST-SHELL.md
 
-ESTADO: ⬜ encolado · AVISO R20-S emitido · **sin PASS no hay 🔶**
+ESTADO: 🔶 → ✅ obra · R20-S PASS · merge pendiente/hecho en reporte
 DA: DA-S18 (piel portal = familia codebase)
 PORT visual EXACTO (= CA de look): codebase/z-sdk/docs
 ```
 
 > Residual **post-tag** · **NO** reabre arco PORTAL-NUMERO-0 · **NO**
-> toca sello `release/numero-0`. Puede ir ∥ con olas de mundos
-> (territorios distintos · R19-S = otro carril de gate; no reabrir).
+> toca sello `release/numero-0`. Autorizado por R20-S PASS. Tras merge:
+> AVISO de aceptación (C8 lado a lado vs z-sdk).
 
 ═══════════════════════════════════════════════════════════════════
 CHECKOUT / PARTICIÓN

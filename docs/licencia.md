@@ -1,6 +1,6 @@
 ---
 title: Licencia
-piel: fanzine
+piel: familia-vp
 stamp: AIPL
 sub: capas · puntero · lore
 issue: NÚMERO 0 · colofón

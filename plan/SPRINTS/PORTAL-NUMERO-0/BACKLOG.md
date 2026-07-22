@@ -90,14 +90,13 @@ cerrado R15-S.
 
 ## Residual post-tag · corrección de piel (DA-S18 · **no** reabre arco)
 
-- ⬜ **WP-REST-SHELL · restaurar shell familia en aleph-null** — GO
-  custodio 2026-07-23 · DA-S18. PORT visual **exacto**
-  `codebase/z-sdk/docs` (= CA de look). Conservar N0-01 · CNAME ·
-  favicon · `/licencia` · banner (integrado shell · patrón o-sdk).
-  Cero `Layout.vue` fanzine. Gate **R20-S** · **sin PASS no hay 🔶**.
-  **No** toca sello `release/numero-0`. ∥ olas mundos OK (R19 ≠ este
-  gate). _Brief:_ `BRIEFS/WP-REST-SHELL.md` · AVISO
-  `AVISO-VIGIA-R20-S.md`.
+- ✅ **WP-REST-SHELL · restaurar shell familia en aleph-null** — GO
+  custodio 2026-07-23 · DA-S18 · R20-S PASS. PORT visual **exacto**
+  `codebase/z-sdk/docs` · banner en shell (patrón o-sdk) · cero
+  `Layout.vue` fanzine · N0-01/CNAME/favicon/`/licencia`/banner
+  conservados · builds verdes · sello `release/numero-0` intacto.
+  _Brief:_ `BRIEFS/WP-REST-SHELL.md` · reporte
+  `REPORTES/WP-REST-SHELL.md` · AVISO aceptación post-merge.
 
 ## Gate / estado lote
 
@@ -131,8 +130,8 @@ cerrado R15-S.
   hasta PASS.
 - Residual banner-scriptorium: **WP-XS ✅** (GO 2026-07-23) · no reabre
   N0-04.
-- Residual post-tag piel: **WP-REST-SHELL ⬜** · AVISO **R20-S** ·
-  **sin PASS no hay 🔶** · sello `release/numero-0` intacto.
+- Residual post-tag piel: **WP-REST-SHELL ✅** · R20-S PASS · AVISO
+  aceptación (C8 vs z-sdk) · sello `release/numero-0` intacto.
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)
 
