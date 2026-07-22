@@ -58,6 +58,7 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
 ## Relación
 
 - Atlas raíz: `plan/RAIZ-C-S.md`
+- Mapa del repo índice: `plan/MAPA-REPO.md` (trilogía RAIZ ↔ REPO ↔ LAB)
 - Partición: `plan/PARTICION.md`
 - Addenda fuente: `_fuentes/cuadernos-vigia-S/ADDENDA-VIGILANTE-S-fundacion-S-LAB-2026-07-22.md`
 - DA: `plan/DECISIONES.md` · DA-S15

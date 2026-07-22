@@ -50,5 +50,6 @@ obra sin declarar.
 - Inventario mundos: `plan/MUNDOS.md`
 - Partición: `plan/PARTICION.md`
 - Taller de obra (S_LAB): `plan/S-LAB.md` · DA-S15
+- Mapa del repo índice: `plan/MAPA-REPO.md` (trilogía RAIZ ↔ REPO ↔ LAB)
 - Acta barrido residuo #3 + bootstrap génesis:
   `plan/REPORTES/ACTA-RAIZ-barrido-residuo-3-2026-07-22.md`
