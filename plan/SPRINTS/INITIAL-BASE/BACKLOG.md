@@ -90,14 +90,15 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   · artefactos `plan/MUNDOS.md` · `plan/PARTICION.md`.
   **Aceptado** post R5-S; partición declarada; gitlinks invariantes.
   Residual DNS: aleph-null Pages VIVO; redirect DIFERIDO (no verde).
-- ⬜ **IB-21 · Skill `holarquia`** (destilación DEVOPS — veredicto del
+- 🔶 **IB-21 · Skill `holarquia`** (destilación DEVOPS — veredicto del
   destilador): A) dos leyes + junturas + plantilla holón · B) DS-5 ·
   C) acuerdo LLM.md (memoria→codebase · regla de oro «no inventes
   observaciones» · notaría describir-no-prescribir). Publicar en
   skills-library (minor DC-22).
   **CA:** ceguera delta 5 = 0 · agente fresco aplica las dos leyes solo
   con el skill · npm view nueva versión.
-- ⬜ **IB-22 · Archivo del cascarón + reubicación de joyas** — genealogía
+  _Brief:_ `BRIEFS/IB-21.md` · gate R6-S PASS · condición secrets/ceguera/C8
+- 🔶 **IB-22 · Archivo del cascarón + reubicación de joyas** — genealogía
   07-holones → archivo «partida de nacimiento» (cuaderno o docs
   histórico) · dossiers 16-07 → e-sdk (mundo de papel, decisión A-23) ·
   REGISTRO DE JOYAS como backlog-cola del workspace: para-la-voz/@voz
@@ -105,6 +106,7 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   cartógrafo Hilbert · conversor liturgias · NETWORK-ENGINE AOS.
   **CA:** DEVOPS/ cerrada sin pérdida (todo apuntado o archivado) ·
   joyas en cola con puntero verificado · e-sdk recibe dossiers.
+  _Brief:_ `BRIEFS/IB-22.md` · vía **(a) handoff** · DA-S08 · cero writes fuera
 - ⬜ **IB-23 · Limpieza final S_SDK** — WEBS/ borrar (subsumida por
   site-web) · LLM.md → broche en C:\S raíz · HOLONES/ paths largos
   mueren (los submodules nuevos son la vía) · S_SDK queda como s-sdk:
@@ -152,5 +154,10 @@ propio.
   (`INFORME-VIGIA-R5-S.md` · tip pulso previo `797662e` · main post-informe
   `68d078d`). Backstage `scriptorium-vigilancia` @ `03f09a9`.
 - **IB-20: ✅ aceptado** 2026-07-22 (merge post-aceptación). AVISO
-  `AVISO-VIGIA-R6-S.md` · gate **R6-S** pendiente. No 🔶 IB-21∥IB-22
-  sin PASS R6-S.
+  `AVISO-VIGIA-R6-S.md` · gate **R6-S = PASS**
+  (`INFORME-VIGIA-R6-S.md` · tip pulso previo `82606b1` · main
+  post-informe `609439a`).
+- **Lote IB-21 ∥ IB-22: 🔶 en curso** 2026-07-22 (briefs emitidos;
+  condiciones R6-S: secrets PRE-tag · ceguera 0 PRE-publish · C8
+  post-publish · IB-22 vía handoff DA-S08). **No abrir IB-23** sin
+  PASS R7-S.

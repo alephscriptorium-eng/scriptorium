@@ -48,6 +48,21 @@ Carril de este mundo: **S** (rondas `Rn-S`). Asiento PORT (IB-20):
 - Lección método «sucesión de vigía» → cola del sprint (vigilancia
   vNext); PORT, no rewrite del resto.
 
+### DA-S08 · IB-22 vía handoff (2026-07-22 · custodio/PO)
+
+Decisión ya tomada por custodio/PO (condición 3 · INFORME-VIGIA-R6-S):
+para el alcance de **IB-22** (archivo del cascarón + reubicación de
+joyas / dossiers al mundo de papel), la vía es **(a) handoff**.
+
+- El WP del carril S **prepara** el material y **emite nota formal** al
+  carril dueño.
+- **No** escribe fuera del workspace `C:\S\scriptorium` (ni
+  `codebase/e-sdk`, ni archivo del cascarón en territorio hermano, ni
+  otros `codebase/*-sdk`).
+- Sin esta declaración el worker S no escribe fuera; con ella, la vía
+  queda fijada = handoff (no GO puntual de escritura).
+- Cero borrados sin veredicto desechable (sigue vigente).
+
 ## Abiertas
 
 _(las resuelve el custodio)_
