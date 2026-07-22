@@ -63,6 +63,29 @@ joyas / dossiers al mundo de papel), la vía es **(a) handoff**.
   queda fijada = handoff (no GO puntual de escritura).
 - Cero borrados sin veredicto desechable (sigue vigente).
 
+### DA-S09 · IB-23 vía handoff (2026-07-22 · custodio/PO)
+
+Decisión ya tomada por custodio/PO (condición 2 · INFORME-VIGIA-R7-S):
+para el alcance de **IB-23** (limpieza final en mundo legado S_SDK /
+territorio hermano: WEBS/, HOLONES/ paths largos, LLM.md→broche), la
+vía es **(a) handoff**.
+
+- El WP del carril S **prepara** el inventario/candidatos y **emite
+  nota formal** al carril dueño (s-sdk / mundo legado).
+- **No** escribe ni borra fuera del workspace `C:\S\scriptorium` (ni en
+  `codebase/s-sdk`, ni otros `codebase/*-sdk`).
+- Los **borrados** quedan al carril dueño: **veredicto desechable POR
+  ELEMENTO** (con acta) antes de cada borrado — regla del CA del
+  backlog; el handoff no la ejecuta.
+- CA «webs S siguen verdes» = **C8 real post-cambio** a cargo del dueño
+  tras materializar borrados; el carril S declara baseline y no finge
+  C8 post-borrado.
+- Broche documental `LLM.md` en raíz `C:\S` (fuera de git) + **puntero
+  trazado** en repo/cuadernos.
+- **Cero bump de gitlink** del mundo legado en IB-23 (GO propio).
+- Sin esta declaración el worker S no borra ni escribe fuera; con ella,
+  la vía queda fijada = handoff (no GO puntual de escritura/borrado).
+
 ## Abiertas
 
 _(las resuelve el custodio)_

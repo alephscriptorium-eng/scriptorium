@@ -115,11 +115,14 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   · handoff `plan/HANDOFF-IB-22-cascaron-joyas.md`
   · joyas `plan/REGISTRO-DE-JOYAS.md`
   · reporte `REPORTES/IB-22-archivo-joyas-handoff.md`
-- ⬜ **IB-23 · Limpieza final S_SDK** — WEBS/ borrar (subsumida por
+- 🔶 **IB-23 · Limpieza final S_SDK** — WEBS/ borrar (subsumida por
   site-web) · LLM.md → broche en C:\S raíz · HOLONES/ paths largos
   mueren (los submodules nuevos son la vía) · S_SDK queda como s-sdk:
   pieza techy-devops del workspace.
   **CA:** nada borrado sin veredicto desechable · webs S siguen verdes.
+  _Brief:_ `BRIEFS/IB-23.md` · vía **(a) handoff** · DA-S09
+  · rama `wp/ib-23-limpieza-final-handoff`
+  · gate R7-S PASS (`INFORME-VIGIA-R7-S.md` · tip PRE-🔶 `76fdce3`)
 
 ## COLA del workspace (NO es INITIAL-BASE — arcos futuros con GO propio)
 
@@ -168,5 +171,8 @@ propio.
 - **Lote IB-21 ∥ IB-22: ✅ cerrado** 2026-07-22 (merges post-aceptación).
   IB-21: skills-library `@0.6.0` publicado · C8 verde.
   IB-22: handoff DA-S08 emitido · cero writes fuera · REGISTRO JOYAS.
-  AVISO `AVISO-VIGIA-R7-S.md` · gate **R7-S** pendiente.
-  **No 🔶 IB-23** sin PASS R7-S.
+  AVISO `AVISO-VIGIA-R7-S.md` · gate **R7-S = PASS**
+  (`INFORME-VIGIA-R7-S.md` · tip pulso previo `d4115b5` · main
+  post-informe `76fdce3`).
+- **IB-23: 🔶 despachado** 2026-07-22 · vía handoff DA-S09 · brief
+  `BRIEFS/IB-23.md` · tip PRE-🔶 `76fdce3`.
