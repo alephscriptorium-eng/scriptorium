@@ -11,7 +11,7 @@ explícita del usuario, no se proyecta.
 
 | sprint | estado | ruta |
 | ------ | ------ | ---- |
-| INITIAL-BASE | 🔶 activo · IB-01…13 ✅ · R4-S PASS-con-residual · IB-20 🔶 | `plan/SPRINTS/INITIAL-BASE/` |
+| INITIAL-BASE | 🔶 activo · IB-01…13 ✅ · R4-S ratificado · R5-S ⏳ · IB-20 ⬜ espera | `plan/SPRINTS/INITIAL-BASE/` |
 
 ## Cola (fuera de INITIAL-BASE — GO propio)
 

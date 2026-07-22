@@ -4,6 +4,16 @@ Instancia del consumidor. El método vive en el paquete
 `@alephscript/skills-scriptorium` (skills `vigilancia` + `estacion-viva`).
 **Esta calibración NO va en el skill** — solo aquí en `plan/`.
 
+## Vigía del carril S (sucesión · DA-S07)
+
+| dato | valor |
+| ---- | ----- |
+| rol | **Vigilante-S** — único vigía del carril S |
+| estación | `C:\S\vigilancia` (ventana viva; watcher activo) |
+| mediación | custodio (cara §interna ↔ orquestador) |
+| gates `Rn-S` | pedido por AVISO en `plan/SPRINTS/INITIAL-BASE/`; emite Vigilante-S vía custodio |
+| veto | **no** subagentes vigía del orquestador |
+
 ## Params
 
 | param | valor |

@@ -33,14 +33,18 @@ Ver `plan/roles/ejes-ca.md` (copiado del skill swarm-orquestacion):
 Contrato v1.1 / método v0.6: `roles/` enlaza al skill
 `reference/convivencia-multi-orquestador.md`.
 
+**Sucesión (DA-S07):** vigía del carril S = **Vigilante-S** en
+`C:\S\vigilancia` (vía custodio). Gates `Rn-S` (R5-S+) se piden por
+AVISO en `plan/SPRINTS/INITIAL-BASE/`. **No** subagentes vigía.
+
 Antes de 🔶 / BRIEF / worker:
 
 ```text
 [ ] higiene pre-despacho (§8)
-[ ] ronda Rn-S en PASS (vigía; informe dual PO/scrum)
+[ ] ronda Rn-S en PASS (Vigilante-S vía custodio; informe dual PO/scrum)
 ```
 
-FAIL o silencio ≠ autorización.
+FAIL o silencio ≠ autorización. Sin PASS del Vigilante-S **no hay 🔶**.
 
 ## Auto-revisión
 

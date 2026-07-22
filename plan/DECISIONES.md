@@ -32,6 +32,19 @@ INITIAL-BASE = PORT del backlog-semilla. No rewrite.
 Contrato multi-orquestador v1.1 vigente si coexisten otros orquestadores.
 Carril de este mundo: **S** (rondas `Rn-S`).
 
+### DA-S07 · Sucesión de vigía (2026-07-22 · mandato Vigilante-S)
+
+- **Vigía del carril S** = ventana **Vigilante-S** (estación viva
+  `C:\S\vigilancia`, watcher activo). Calibración: `plan/ESTACION.md`.
+- Gates `Rn-S` (R5-S en adelante): pedido por **AVISO** en
+  `plan/SPRINTS/INITIAL-BASE/`; veredicto lo emite Vigilante-S **vía
+  custodio**. **Sin PASS no hay 🔶.**
+- **Prohibido** generar o invocar subagentes con rol de vigía.
+- R4-S y era previa ratificadas (tip auditado
+  `4e193bcb8b2d4ea1de9179f45de6a67ce5268a7b`). Cierre limpio de esa era.
+- Lección método «sucesión de vigía» → cola del sprint (vigilancia
+  vNext); PORT, no rewrite del resto.
+
 ## Abiertas
 
 _(las resuelve el custodio)_

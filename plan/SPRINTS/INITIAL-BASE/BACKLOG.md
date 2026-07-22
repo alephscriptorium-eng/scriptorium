@@ -78,15 +78,20 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## Ola IB-2 · Port de planes y doctrina
 
-- 🔶 **IB-20 · Reunificación de planes** — recopilar plan/ de los 6 sdk
+- ⬜ **IB-20 · Reunificación de planes** — recopilar plan/ de los 6 sdk
   → asentar protocolo multi-orquestador (contrato v1.1/método v0.6) en
   el plan del workspace · verificar skills@latest en cada sdk ·
   histórico → cuadernos (rama por mundo).
   **CA:** tabla de mundos con versión skill + estado plan · cero
   histórico perdido (cuadernos) · partición de territorios declarada.
-  _Brief:_ `BRIEFS/IB-20.md` · rama `wp/ib-20-reunificacion-planes`
-  · worktree `C:\S\.worktrees\wp-ib-20`
-  · gate R4-S PASS-con-residual (DNS residual no bloquea este WP)
+  _Brief (borrador HOLD):_ `BRIEFS/IB-20.md` · rama aparcada
+  `wp/ib-20-reunificacion-planes` · worktree aparcado
+  `C:\S\.worktrees\wp-ib-20` (sin obra; no borrar sin veredicto
+  desechable).
+  **Espera R5-S Vigilante-S** — 🔶 prematuro en tip
+  `32c8150376f3e672f8a3c5dfd785743151df9002` reconciliado a ⬜
+  (mark-waiting; no force; no despacho). Brief de despacho exigirá
+  partición declarada (territorio 6 SDKs). Residual DNS = tick custodio.
 - ⬜ **IB-21 · Skill `holarquia`** (destilación DEVOPS — veredicto del
   destilador): A) dos leyes + junturas + plantilla holón · B) DS-5 ·
   C) acuerdo LLM.md (memoria→codebase · regla de oro «no inventes
@@ -115,6 +120,12 @@ el pub») · F4 playground + Docker Hub scriptorium-city (solarnet ·
 lurker · founder) · tipos-del-FOSS (peer-card-seat primero) · pasada-2
 auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
 
+- ⬜ **Lección · sucesión de vigía** (skill `vigilancia` vNext) — PORT al
+  método: vigía del carril = estación viva Vigilante-* (OUT_DIR), no
+  subagente del orquestador; gates `Rn-*` por AVISO + veredicto vía
+  custodio; sin PASS no hay 🔶. Caso fundante carril S · 2026-07-22
+  (DA-S07). No reescribe el resto del backlog.
+
 ## Orden y paralelismo
 
 IB-0 ∥ IB-10 → IB-11 → (IB-12 ∥ IB-13) → IB-20 → (IB-21 ∥ IB-22) →
@@ -133,5 +144,9 @@ propio.
 - **Lote IB-12 ∥ IB-13: ✅ cerrado** 2026-07-22 (merges post-aceptación).
   Residual DNS (tick custodio): Pages aleph-null + redirect scriptorium→pub
   — bloquea CA dominios; **no** bloquea IB-20.
-- Gate vigía **R4-S:** informe `INFORME-VIGIA-R4-S.md` · **PASS-con-residual**.
-- **IB-20: 🔶 en curso** (despacho post R4-S; brief emitido). No abrir IB-21+.
+- Gate vigía **R4-S:** informe `INFORME-VIGIA-R4-S.md` · **PASS-con-residual**
+  (era ratificada; tip auditado `4e193bc…`).
+- **Sucesión vigía (DA-S07):** Vigilante-S en `C:\S\vigilancia` · AVISO
+  `AVISO-VIGIA-R5-S.md` · gate **R5-S** pendiente.
+- **IB-20: ⬜ espera R5-S** (🔶 prematuro reconciliado; brief HOLD;
+  worktree aparcado). No despachar. No abrir IB-21+.
