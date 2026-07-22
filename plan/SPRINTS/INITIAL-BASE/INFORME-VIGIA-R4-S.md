@@ -207,11 +207,12 @@ Calibración de esta ronda: rg local sobre cara scrum = 0.
 
 ## Hashes POST-push
 
-> Rellenar tras `git push` de este informe + aviso.
-
 | ref | SHA |
 | --- | --- |
-| tip main PRE-push | `f6e448068a7a60e9144eab056a1f40d8b2593034` |
-| commit R4-S (aviso+informe) | `<POST-PUSH>` |
-| tip main POST-push | `<POST-PUSH>` |
-| origin/main POST-push | `<POST-PUSH>` |
+| tip main PRE (lote cerrado) | `f6e448068a7a60e9144eab056a1f40d8b2593034` |
+| 🔶 lote IB-12∥IB-13 | `4a0ea1fa00e69923f311a492c2a67ca82ef9e952` |
+| commit R4-S (aviso+informe) | `b36be9bdd4708124ddee856e13c54204a8db1556` |
+| origin/main tras push R4-S | `b36be9bdd4708124ddee856e13c54204a8db1556` |
+
+> Tip final tras pin de esta tabla = SHA del commit que la fija (ver
+> `git log -1` en main tras push del pin).
