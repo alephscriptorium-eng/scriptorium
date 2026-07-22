@@ -5,7 +5,7 @@
 | agente | worker swarm · IB-02 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-02-higiene-oasis-minima` |
-| commits | _(SHA tip post-push en cierre)_ |
+| commits | `9241dcac8acef050a17c1242d0cb99b955bc8692` |
 | eje(s) CA | II (demolición mínima con destino canónico) / III (layout higiene) |
 | estado propuesto | listo para revisión |
 
