@@ -77,6 +77,8 @@ PASS-con-residual sobre:
 | tip scriptorium PRE (R18-S PASS) | `2eef9cbbeb1a40f46096208864da7d1e052da27b` |
 | tip olas 1+ + AVISO R19-S | `5e717a9e2f7a04144a65aa6ccdf684336890fb32` |
 | tip tip-literal (5e717a9) | `0eb5f341fa7d948a14f8d6443688ddebc5528f61` |
+| tip tip-literal (572f61a) | `72a519525c3131c2cf9c659fe8811a8350e3d671` |
+| tip main POST-push (HEAD real = origin/main) | `72a519525c3131c2cf9c659fe8811a8350e3d671` |
 | tip z PRE → POST | `d0d9de1d3af0e75a9f5d7d7b4c2b4d3762beb90c` → `f295dc9b0604f9786046391070572eb4c99a99ad` |
 | tip g PRE → POST | `d1783646f4364fce49ae9b421c863bc51bfad4aa` → `e139b850ca932dab79ba0ea4abaf1372bd6db8f4` |
 | tip s PRE → POST | `7db1d4941267d857d93ab4005dcc4ecd0e49ecfb` → `d2378b695f54c578af022422db0a54ed32635a29` |
