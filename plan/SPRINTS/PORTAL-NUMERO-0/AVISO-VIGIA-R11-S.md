@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (encolado post-R10-S · secuencia PO · sin subagente vigía)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-22  
-**Estado gate:** ⏳ pendiente de informe Vigilante-S
+**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R11-S.md`
 
 > R10-S = PASS-con-residual. Tag `release/numero-0` **RETENIDO** por PO
 > (OK de sellado vigente; cambia el cuándo). Secuencia: **N0-02 → N0-03 →
