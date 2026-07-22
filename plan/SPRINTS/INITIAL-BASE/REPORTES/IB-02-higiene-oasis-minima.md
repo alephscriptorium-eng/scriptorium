@@ -151,4 +151,15 @@ Ninguno bloqueante. IB-02 cerrado en el alcance pedido.
 
 ## Revisión del orquestador
 
-_(la rellena el orquestador: aceptado ✅ / devuelto con lista numerada)_
+**Aceptado ✅** · 2026-07-22 · orquestador carril S
+
+### CA
+- [x] SCRIPTORIUM_V0 sin `.git` (rename → `.git.ACCIDENTAL-REMOVED-IB-02`; verificado en consolidación)
+- [x] Acta descarte GL `wp/u70` ahead-2 (sin push de esa obra; repo GL intacto)
+- [x] Nada más tocado · vetos respetados
+
+### Ejes II / III
+Demolición mínima con destino canónico (rename) + higiene layout contenedor.
+
+### Merge
+`wp/ib-02-higiene-oasis-minima` → `main` post-aceptación.

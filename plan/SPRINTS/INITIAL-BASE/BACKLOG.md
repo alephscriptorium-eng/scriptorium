@@ -21,12 +21,14 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   _Brief:_ `BRIEFS/IB-01.md` · merge `wp/ib-01-push-osdk-salvaguarda`
   · O_SDK tip `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`
   · reporte `REPORTES/IB-01-push-osdk-salvaguarda.md`
-- 🔶 **IB-02 · Higiene OASIS mínima** — retirar .git accidental de
+- ✅ **IB-02 · Higiene OASIS mínima** — retirar .git accidental de
   SCRIPTORIUM_V0 (contenedor; anidados independientes verificados) ·
   acta de descarte de GL wp/u70 ahead-2 (obra U-sprint vieja; canon en
   hub). **Cero arqueología** — dudas → nota-a-forense.
   **CA:** SCRIPTORIUM_V0 sin .git · acta u70 · nada más tocado.
-  _Brief:_ `BRIEFS/IB-02.md` · rama `wp/ib-02-higiene-oasis-minima`
+  _Brief:_ `BRIEFS/IB-02.md` · merge `wp/ib-02-higiene-oasis-minima`
+  · reportes `REPORTES/IB-02-higiene-oasis-minima.md` +
+  `REPORTES/IB-02-ACTA-descarte-gl-u70.md`
 
 ## Ola IB-1 · Génesis del workspace
 
