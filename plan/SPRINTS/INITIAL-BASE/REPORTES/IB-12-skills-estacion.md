@@ -5,7 +5,7 @@
 | agente | worker swarm · IB-12 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-12-skills-estacion` |
-| commits | `d9ffc10753309ea3a2f4310ce1b1fce9c5a4578c` · _(este reporte)_ |
+| commits | `d9ffc10753309ea3a2f4310ce1b1fce9c5a4578c` (obra) · `12a0814cb8e9fccdd11b9bfdede6638c372b58b9` (CA report) |
 | eje(s) CA | III (auditoría / layout · calibración) |
 | estado propuesto | listo para revisión |
 
