@@ -80,4 +80,4 @@ PASS-con-residual sobre:
 | ---- | ----- |
 | tip main PRE-gobierno (fetch) | `5a7f37293348f96e386d6cfc5d7324c5542bd3cd` |
 | gate previo | R10-S PASS-con-residual · tip informe `5a7f372` |
-| tip main POST-push este aviso | _(rellenar tras push)_ |
+| tip main POST-push este aviso | `a683782762627538a0922300aff888fb108ea346` (gobierno; tip literal AVISO abajo) |
