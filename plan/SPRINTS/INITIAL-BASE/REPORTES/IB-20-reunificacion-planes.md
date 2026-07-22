@@ -1,12 +1,12 @@
-# IB-20  |  reunificacion-planes ? reporte
+# IB-20 - reunificacion-planes - reporte
 
 | dato | valor |
 | ---- | ----- |
-| agente | worker swarm  |  IB-20 |
+| agente | worker swarm - IB-20 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-20-reunificacion-planes` |
-| commits | 1ad68ac0fc45c0507348475e65edb82a1efd1081 (obra) / 6adf8b0fb976be3ca38e33a73aedfe47ffa43d88 (MUNDOS+PARTICION) / 24e88a0fbf046c2dfd33df6bf5758ee8ed86c27c (reporte CA) |
-| eje(s) CA | III (auditoria / layout  |  reunificacion) |
+| commits | `1ad68ac0fc45c0507348475e65edb82a1efd1081` (obra) / `6adf8b0fb976be3ca38e33a73aedfe47ffa43d88` (MUNDOS+PARTICION) / `24e88a0fbf046c2dfd33df6bf5758ee8ed86c27c` (reporte) / tip post-fix abajo |
+| eje(s) CA | III (auditoria / layout - reunificacion) |
 | estado propuesto | listo para revision |
 
 ## Que se hizo
@@ -24,16 +24,16 @@ trabajado.
 
 ## Archivos tocados
 
-- `plan/MUNDOS.md` ? tabla 6 mundos + workspace + skills@latest
-- `plan/PARTICION.md` ? protocolo multi-orquestador + ALCANCE_DIFF
-- `plan/VISION.md` ? enlace PORT a PARTICION/MUNDOS
-- `plan/DECISIONES.md` ? DA-S06: puntero PORT IB-20
-- `plan/PRACTICAS.md` ? puntero PARTICION/MUNDOS
-- `plan/SPRINTS/INITIAL-BASE/REPORTES/IB-20-reunificacion-planes.md` ? este reporte
+- `plan/MUNDOS.md` - tabla 6 mundos + workspace + skills@latest
+- `plan/PARTICION.md` - protocolo multi-orquestador + ALCANCE_DIFF
+- `plan/VISION.md` - enlace PORT a PARTICION/MUNDOS
+- `plan/DECISIONES.md` - DA-S06: puntero PORT IB-20
+- `plan/PRACTICAS.md` - puntero PARTICION/MUNDOS
+- `plan/SPRINTS/INITIAL-BASE/REPORTES/IB-20-reunificacion-planes.md` - este reporte
 
 ## Evidencia
 
-> Worktree `C:\S\.worktrees\wp-ib-20`  |  rama `wp/ib-20-reunificacion-planes`.
+> Worktree `C:\S\.worktrees\wp-ib-20` - rama `wp/ib-20-reunificacion-planes`.
 > Lectura de sdks desde checkout `C:\S\scriptorium` (mismos gitlinks).
 
 ### 1) Tips gitlink (MUNDO_RAIZ)
@@ -65,7 +65,7 @@ e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b
 | a-sdk | presente (12 files) | ausente | n/a |
 | workspace | presente | `0.5.1` | 0.5.1 |
 
-### 3) npm view (canal real) ? sin bump
+### 3) npm view (canal real) - sin bump
 
 ```text
 $ npm view @alephscript/skills-scriptorium version --registry https://npm.scriptorium.escrivivir.co
@@ -116,25 +116,20 @@ legado remoto: script_sdk-addenda / script_sdk-vigilancia (no volcado)
 
 ## Hallazgos fuera de alcance
 
-- g-sdk / a-sdk / e-sdk sin pin skills-scriptorium ? candidato WP por
-  carril dueno (no instalar aqui).
-- z/s/o-sdk locks detras de latest 0.5.1 ? bump requiere GO (PORT).
-- o-sdk plan/ ausente en tip ? nota-a-forense / dueno o-sdk; F3a no
-  excavacion.
-- a-sdk nests (F3a) = forense; no abierto IB-21+.
-- Residual DNS: aleph-null Pages VIVO / redirect DIFERIDO ? no obra.
+- g-sdk / a-sdk / e-sdk sin pin skills-scriptorium - candidato WP por carril dueno.
+- z/s/o-sdk locks detras de latest 0.5.1 - bump requiere GO (PORT).
+- o-sdk plan/ ausente en tip - nota-a-forense; F3a no excavacion.
+- a-sdk nests (F3a) = forense; no abierto IB-21+ por este worker.
+- Residual DNS: aleph-null Pages VIVO / redirect DIFERIDO - no obra.
 
 ## Dudas / bloqueos
 
-Ninguno bloqueante para CA IB-20. Destinos `z_sdk`/`g_sdk`/`s_sdk`/
-`e_sdk`/`a_sdk` en cuadernos estan **declarados**; creacion de ramas
-vacias queda bajo GO del custodio (no volcado en este WP).
-
-Nota: hubo commits concurrentes en la misma rama durante el stall;
-contenido CA consolidado en tip. Worker no edito BACKLOG ni mergeo.
+Ninguno bloqueante para CA IB-20. Durante el stall hubo commits concurrentes
+y merge post-aceptacion del orquestador a main; este commit solo corrige
+encoding del reporte (UTF-8 ASCII-safe). Worker no edita BACKLOG ni mergea.
 
 ---
 
 ## Revision del orquestador
 
-_(la rellena el orquestador: aceptado / devuelto con lista numerada)_
+_(ya hubo aceptacion en main; este commit es higiene de encoding del reporte)_
