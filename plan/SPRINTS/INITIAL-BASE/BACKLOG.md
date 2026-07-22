@@ -54,15 +54,16 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   · o-sdk tip `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`
   · a-sdk remoto `escrivivir-co/aleph-scriptorium`
   · reporte `REPORTES/IB-11-submodules-mapa-letras.md`
-- 🔶 **IB-12 · Skills + estación de vigilancia** — devDep
+- ✅ **IB-12 · Skills + estación de vigilancia** — devDep
   @alephscript/skills-scriptorium@0.x (resuelve 0.5.1+) + skills:sync
   espejo `.claude/skills/` · calibración estación: OUT_DIR persistente +
   BACKSTAGE_GIT (rama scriptorium-vigilancia en cuadernos) + watcher con
   whitelist materialización.
   **CA:** npm view C8 · espejo íntegro · watcher arranca · calibración
   en plan (no en el skill).
-  _Brief:_ `BRIEFS/IB-12.md` · rama `wp/ib-12-skills-estacion`
-  · worktree `C:\S\.worktrees\wp-ib-12`
+  _Brief:_ `BRIEFS/IB-12.md` · merge `wp/ib-12-skills-estacion`
+  · obra `d9ffc10753309ea3a2f4310ce1b1fce9c5a4578c`
+  · reporte `REPORTES/IB-12-skills-estacion.md`
 - 🔶 **IB-13 · Web + dominios** — docs/ site-web overall esqueleto ·
   dominio **aleph-null.escrivivir.co** (CNAME + DNS = tick custodio) ·
   redirect scriptorium.escrivivir.co → pub.escrivivir.co (tick DNS

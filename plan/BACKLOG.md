@@ -11,7 +11,7 @@ explícita del usuario, no se proyecta.
 
 | sprint | estado | ruta |
 | ------ | ------ | ---- |
-| INITIAL-BASE | 🔶 activo · IB-01∥02∥10∥11 ✅ · IB-12∥13 🔶 (post R3-S PASS) | `plan/SPRINTS/INITIAL-BASE/` |
+| INITIAL-BASE | 🔶 activo · IB-01∥02∥10∥11∥12 ✅ · IB-13 🔶 (DNS residual) | `plan/SPRINTS/INITIAL-BASE/` |
 
 ## Cola (fuera de INITIAL-BASE — GO propio)
 

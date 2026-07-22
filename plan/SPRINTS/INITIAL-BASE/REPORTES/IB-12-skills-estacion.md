@@ -129,4 +129,7 @@ Ninguno bloqueante para CA IB-12.
 
 ## Revisión del orquestador
 
-_(pendiente)_
+**Aceptado ✅** 2026-07-22. CA re-verificados de facto: npm view C8
+(registry npm.scriptorium.escrivivir.co) · espejo 4 skills sync OK ·
+`plan/ESTACION.md` presente · merge `0e7bc76`. Residual forense a-sdk
+nests / README `--recursive` no reabre IB-12.
