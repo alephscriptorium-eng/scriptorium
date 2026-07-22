@@ -271,6 +271,25 @@ Método (issue **#18** / LIB-080 · encolado): dos pieles canónicas en
 `site-web` — `familia-vp` (**DEFAULT**) · `fanzine` (**OPT-IN**). Hoy
 solo gobierno; sin mezclar DA-S17/parser ni bump de gitlinks atlas.
 
+### DA-S19 · Política de espejo de skills declarada por mundo (2026-07-23 · custodio)
+
+Post R19-S **PASS-con-observaciones**: la familia quedó heterogénea.
+**PORT — no unificar a la fuerza.** Ambas vías son legales:
+
+| mundo | política espejo `.claude/skills/` | calificación |
+| ----- | --------------------------------- | ------------ |
+| **z** | gitignore (regenera con `skills:sync`) | **canon** (guide: materializa al instalar) |
+| **g** | trackeado (commit auditable) | **desviación auditable** |
+| **s** | trackeado (commit auditable) | **desviación auditable** |
+| **e** | trackeado (commit auditable) | **desviación auditable** |
+| **a** | trackeado (commit auditable) | **desviación auditable** |
+
+Cada mundo asienta la línea en SU `plan/ESTACION.md`. El atlas inventaría
+en `plan/MUNDOS.md` · no impone unificación. Bump gitlinks
+`codebase/{z,g,s,e,a}-sdk` = GO custodio (este asiento · DA-S11).
+**o-sdk / skills-library** fuera de este GO. DA-S17 / WP-REST-SHELL (R20)
+no mezclados.
+
 ## Abiertas
 
 _(las resuelve el custodio)_

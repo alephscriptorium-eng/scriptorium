@@ -1,24 +1,35 @@
 # MUNDOS — inventario de holones (carril S · IB-20)
 
 Fuente de lectura: tips gitlink en `MUNDO_RAIZ` (`C:\S\scriptorium`) via
-`git rev-parse HEAD:codebase/<letra>-sdk`. **SOLO LECTURA** de
-`codebase/*-sdk` en este WP: cero edits, cero bump de gitlinks.
-
-Cuadernos = repo privado `scriptorium-cuadernos` (fuera del publico).
-Punteros abajo = destino rama-por-mundo; **no** se vuelca historico crudo
-aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
-`plan/ESTACION.md`).
+`git rev-parse HEAD:codebase/<letra>-sdk`. Bumps de gitlink = **GO**
+(DA-S11). Cuadernos = repo privado `scriptorium-cuadernos` (fuera del
+publico). Punteros abajo = destino rama-por-mundo; **no** se vuelca
+historico crudo aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia`
+(ver `plan/ESTACION.md`).
 
 ## Tabla de mundos
 
-| mundo | tip gitlink (HEAD:codebase/...) | plan/ | skill pin (package.json) | skill resuelta (lock) | cuadernos (rama destino) |
-| ----- | ------------------------------- | ----- | ------------------------ | --------------------- | ------------------------ |
-| z-sdk | `d0d9de1d3af0e75a9f5d7d7b4c2b4d3762beb90c` | **presente** (233 ficheros; VISION/BACKLOG/DECISIONES/PRACTICAS/REPORTES/roles) | `@alephscript/skills-scriptorium`: `0.x` | lock **0.3.4** (registry canal) | `z_sdk` (declarada; crear bajo GO si falta) |
-| g-sdk | `d1783646f4364fce49ae9b421c863bc51bfad4aa` | **parcial** (5 ficheros: README/PRACTICAS/REPORTES; sin VISION/BACKLOG/DECISIONES) | **ausente** | n/a | `g_sdk` (declarada; crear bajo GO si falta) |
-| s-sdk | `7db1d4941267d857d93ab4005dcc4ecd0e49ecfb` | **presente** (486 ficheros; gobierno + SPRINTS + REPORTES) | `@alephscript/skills-scriptorium`: `0.x` | lock **0.4.0** (registry canal) | `s_sdk` (canonica; legado remoto `script_sdk-*` — no volcar) |
-| e-sdk | `90e53544e8b78722ec8e22230740bfa107fa2cc8` | **presente** (8 ficheros; VISION/BACKLOG/DECISIONES/PRACTICAS/REPORTES/roles) | **ausente** (sin package.json) | n/a | `e_sdk` (declarada; crear bajo GO si falta) |
-| o-sdk | `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9` | **ausente** (sin plan/ en tip; F3a: no excavar) | `@alephscript/skills-scriptorium`: `0.x` | lock **0.3.4** (registry canal) | `o_sdk` (existe; tip `cd4175a`) |
-| a-sdk | `e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b` | **presente** (12 ficheros; VISION/BACKLOG/DECISIONES/PRACTICAS/REPORTES/roles) | **ausente** | n/a | `a_sdk` (declarada; nests F3a → forense, no excavacion) |
+| mundo | tip gitlink (HEAD:codebase/...) | plan/ | skill pin | espejo (DA-S19) | cuadernos (rama destino) |
+| ----- | ------------------------------- | ----- | --------- | --------------- | ------------------------ |
+| z-sdk | `f295dc9b0604f9786046391070572eb4c99a99ad` | **presente** (ESTACION declara política) | `0.7.0` | **canon** · gitignore | `z_sdk` |
+| g-sdk | `e139b850ca932dab79ba0ea4abaf1372bd6db8f4` | **presente** (mínimo + ESTACION) | `0.7.0` | **desviación auditable** · trackeado | `g_sdk` |
+| s-sdk | `d2378b695f54c578af022422db0a54ed32635a29` | **presente** | `0.7.0` | **desviación auditable** · trackeado | `s_sdk` |
+| e-sdk | `13da04c19b30344eda72f981c014d7c7218c5ad6` | **presente** | `0.7.0` | **desviación auditable** · trackeado | `e_sdk` |
+| o-sdk | `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9` | **ausente** (F3a: no excavar) | `0.x` / lock 0.3.4 | n/a (EXCLUIDO F3) | `o_sdk` (existe; tip `cd4175a`) |
+| a-sdk | `792e093c122b09fd5fc559d6f4773d780b280b24` | **presente** (ESTACION declara política) | `0.7.0` | **desviación auditable** · trackeado | `a_sdk` |
+
+Rama pin a-sdk (`.gitmodules`): `integration/beta/scriptorium`.
+Tips z·g·s·e = `origin/main` post olas 1+. Tip a = post asiento DA-S19
+(política espejo; tip ola era `3afdf96…`).
+
+## Política de espejo (DA-S19 · por mundo · PORT)
+
+| mundo | política | por qué legal |
+| ----- | -------- | ------------- |
+| z | gitignora `.claude/` · regenera con `skills:sync` | **canon** del guide |
+| g / s / e / a | committean `.claude/skills/` | **desviación auditable** de scriptorium |
+
+**No unificar a la fuerza.** Cada mundo declara en SU `plan/ESTACION.md`.
 
 ## Método (categoría · sin letra · no es un mundo)
 
@@ -39,17 +50,18 @@ aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
 | plan/ | presente (gobierno del carril) |
 | cuadernos vigia | `scriptorium-vigilancia` @ `03f09a9` (BACKSTAGE_GIT) |
 
-## skills@latest (documentar · sin bump mundos)
+## skills@latest (post GO bump gitlinks z·g·s·e·a)
 
-| sujeto | pin | resuelta / latest canal | accion |
-| ------ | --- | ----------------------- | ------ |
-| workspace scriptorium | `0.7.0` | `0.7.0` = latest | OLA 0 hecha |
-| z-sdk | `0.7.0` | tip remoto `f295dc9` | ola 1+ hecha · gitlink atlas **sin bump** |
-| g-sdk | `0.7.0` | tip remoto `e139b85` | ola 1+ hecha · plan mínimo · gitlink **sin bump** |
-| s-sdk | `0.7.0` | tip remoto `d2378b6` | ola 1+ hecha · gitlink **sin bump** |
-| e-sdk | `0.7.0` | tip remoto `13da04c` | ola 1+ hecha · gitlink **sin bump** |
-| a-sdk | `0.7.0` | tip remoto `3afdf96` | ola 1+ hecha · gitlink **sin bump** |
-| o-sdk | `0.x` | lock 0.3.4 · latest 0.7.0 | **EXCLUIDO** (F3) · tip intacto |
+| sujeto | pin | tip gitlink atlas | accion |
+| ------ | --- | ----------------- | ------ |
+| workspace scriptorium | `0.7.0` | n/a | OLA 0 hecha |
+| z-sdk | `0.7.0` | `f295dc9b0604f9786046391070572eb4c99a99ad` | ola 1+ · gitlink bumpeado (GO) |
+| g-sdk | `0.7.0` | `e139b850ca932dab79ba0ea4abaf1372bd6db8f4` | ola 1+ · gitlink bumpeado (GO) |
+| s-sdk | `0.7.0` | `d2378b695f54c578af022422db0a54ed32635a29` | ola 1+ · gitlink bumpeado (GO) |
+| e-sdk | `0.7.0` | `13da04c19b30344eda72f981c014d7c7218c5ad6` | ola 1+ · gitlink bumpeado (GO) |
+| a-sdk | `0.7.0` | `792e093c122b09fd5fc559d6f4773d780b280b24` | ola 1+ + asiento espejo · gitlink bumpeado (GO) |
+| o-sdk | `0.x` | `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9` | **EXCLUIDO** (F3) · tip intacto |
+| skills-library | `0.7.0` | `fb980984e5faa979247afa43054e52cfd4e07c3e` | pin 0.7.0 · **no** tocado en este GO |
 
 ## Cero historico perdido
 
@@ -67,3 +79,4 @@ aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
 - Convivencia: skill `convivencia-multi-orquestador.md` (contrato v1.1 /
   metodo v0.6) — citar, no reescribir
 - Estacion / BACKSTAGE: `plan/ESTACION.md`
+- Política espejo: `plan/DECISIONES.md` · DA-S19

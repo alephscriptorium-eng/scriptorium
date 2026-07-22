@@ -25,13 +25,22 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 - ✅ **Olas 1+** mundos **z·g·s·e·a** — R18-S PASS · CA por mundo
   (devDep `0.7.0` + espejo bin + ESTACION; g plan mínimo) · tips POST
   z `f295dc9` · g `e139b85` · s `d2378b6` · e `13da04c` · a `3afdf96`
-  · **AVISO R19-S** · **o-sdk EXCLUIDO** (F3) · gitlinks atlas **sin**
-  bump (cierre arco = GO custodio). Reportes `REPORTES/SEM-*.md`.
+  (+ asiento espejo a → `792e093`) · **R19-S PASS-con-obs** ·
+  **o-sdk EXCLUIDO** (F3). Reportes `REPORTES/SEM-*.md`.
+- ✅ **Cierre arco GO custodio** — DA-S19 política espejo · poda
+  worktrees SEM · bump 5 gitlinks atlas (z·g·s·e·a).
 
 ## Gobierno gitlink (DA-S11 · GO)
 
 - ✅ Gitlink `codebase/skills-library` →
   `fb980984e5faa979247afa43054e52cfd4e07c3e` (tip 0.7.0).
+- ✅ Gitlinks mundos (GO 2026-07-23):
+  - z → `f295dc9b0604f9786046391070572eb4c99a99ad`
+  - g → `e139b850ca932dab79ba0ea4abaf1372bd6db8f4`
+  - s → `d2378b695f54c578af022422db0a54ed32635a29`
+  - e → `13da04c19b30344eda72f981c014d7c7218c5ad6`
+  - a → `792e093c122b09fd5fc559d6f4773d780b280b24`
+- ✅ DA-S19 · espejo por mundo (z canon gitignore · g/s/e/a trackeado).
 
 ## COLA siguiente · LIB-080 (issue #18 · hoy solo encolar)
 

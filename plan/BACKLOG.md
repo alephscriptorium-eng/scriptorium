@@ -22,10 +22,12 @@ explícita del usuario, no se proyecta.
 - **LIB-070 / 0.7.0** — ✅ publicado · checkout
   `C:\S_LAB\skills-library` · R17-S **PASS** · GO B desencadenado.
 - **SKILLS-EN-MUNDOS** — GO B · **OLA 0 + olas 1+ hechas** (z·g·s·e·a)
-  · AVISO R19-S · o-sdk EXCLUIDO (F3) · gitlinks mundos **sin bump**
-  (pendiente GO cierre de arco).
+  · R19-S PASS-con-obs · o-sdk EXCLUIDO (F3) · **gitlinks z·g·s·e·a
+  bumpeados** (GO custodio · DA-S19 + DA-S11) · poda worktrees SEM ✅.
 - **Gitlink** `codebase/skills-library` → `fb98098` (0.7.0) · ✅ GO
-  DA-S11.
+  DA-S11 · **intacto** en GO bump mundos.
+- **Política espejo** · DA-S19: z = canon gitignore · g/s/e/a =
+  trackeado (desviación auditable) · PORT · no unificar.
 - Aparcados (cero acción): carril Z · F3 · F4 · redirect · para-la-voz ·
   pasada-2 OASIS · limpieza mundo legado · IOCANDI.
 - Lecciones vNext (dentro del alcance 0.7.0): sucesión vigía · checkout

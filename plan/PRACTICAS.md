@@ -48,6 +48,16 @@ Antes de 🔶 / BRIEF / worker:
 
 FAIL o silencio ≠ autorización. Sin PASS del Vigilante-S **no hay 🔶**.
 
+## Espejo de skills (por mundo · DA-S19)
+
+Política **declarada por mundo** — no unificar a la fuerza (PORT):
+
+- **z** = gitignore del espejo → **canon**
+- **g · s · e · a** = espejo trackeado → **desviación auditable**
+
+Inventario y tips: `plan/MUNDOS.md`. Cada mundo declara en SU
+`plan/ESTACION.md`.
+
 ## Auto-revisión
 
 Antes de reportar: releer el diff contra este fichero y los ejes aplicables.
