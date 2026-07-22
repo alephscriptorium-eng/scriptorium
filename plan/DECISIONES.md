@@ -201,12 +201,13 @@ carril); **`C:\S\scriptorium\codebase/*`** = gitlinks del atlas, SOLO
 LECTURA (bump solo con GO · DA-S11). Canónico: `plan/S-LAB.md`.
 Copia-release FS: `C:\S_LAB\README.md`.
 
-Checkout de librería: **actualizado 2026-07-23** (corrección R15-S + GO
-doble post-cierre). El checkout en `C:\S\S_SDK-skills-library` fue
+Checkout de librería: **actualizado 2026-07-23** (🔶 LIB-070 · rename
+custodio post-R16-S). El checkout en `C:\S\S_SDK-skills-library` fue
 **borrado** por custodio (veredicto desechable); **no hay move**.
-Checkout de obra del arco 0.7.0 = **clone nuevo** path exacto
-`C:\S_LAB\S_SDK-skills-library` (brief `LIBRERIA-0.7.0/BRIEFS/LIB-070.md`).
-Atlas `C:\S` = solo-mapa + estación + fuentes.
+Checkout de obra del arco 0.7.0 = **clone materializado** path exacto
+`C:\S_LAB\skills-library` (path viejo `S_SDK-skills-library` ya no
+aplica · brief `LIBRERIA-0.7.0/BRIEFS/LIB-070.md`). Atlas `C:\S` =
+solo-mapa + estación + fuentes.
 
 ### DA-S16 · Arco librería 0.7.0 + encadenamiento SKILLS-EN-MUNDOS (2026-07-23 · custodio)
 

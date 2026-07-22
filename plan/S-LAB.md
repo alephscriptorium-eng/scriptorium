@@ -25,7 +25,7 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
 | `a-sdk/` | el scriptorium (atril) | escrivivir-co/aleph-scriptorium | `e5573f8` |
 | `.worktrees/<letra>/` | worktrees de obra del carril de esa letra | — | — |
 | `vigilancia/<letra>/` | OUT_DIR de la estación del vigía de esa letra | — | — |
-| `S_SDK-skills-library/` | checkout de obra de la librería del método · **NUEVO clone** (no move) | alephscriptorium-eng/S_SDK-skills-library | tip atlas `64883a9` · path exacto `C:\S_LAB\S_SDK-skills-library` |
+| `skills-library/` | checkout de obra de la librería del método · **clone materializado** (rename custodio post-R16-S; viejo `S_SDK-skills-library` ya no aplica) | alephscriptorium-eng/S_SDK-skills-library | tip atlas `64883a9` · path exacto `C:\S_LAB\skills-library` |
 
 ## Regla del LAB
 
@@ -45,14 +45,14 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
    `C:\S_LAB\.worktrees\<letra>` · backstage = cuadernos rama
    `<letra>_sdk-vigilancia` (worktree propio) · rondas `Rn-<letra>`.
 
-## Checkout librería · brief 0.7.0 (retoca «pendiente reubicación»)
+## Checkout librería · brief 0.7.0 (materializado)
 
 | dato | valor |
 | ---- | ----- |
-| Path exacto | **`C:\S_LAB\S_SDK-skills-library`** |
-| Modo | **checkout NUEVO** (clone) — el viejo en `C:\S` fue borrado; **no hay move** |
+| Path exacto | **`C:\S_LAB\skills-library`** |
+| Modo | **clone materializado** — rename custodio post-R16-S; path viejo `S_SDK-skills-library` **ya no aplica**; el checkout en `C:\S` fue borrado (no move) |
 | Bloqueo handle | **extinguido** (no aplica) |
-| Declarado por | brief `SPRINTS/LIBRERIA-0.7.0/BRIEFS/LIB-070.md` · GO 2026-07-23 |
+| Declarado por | brief `SPRINTS/LIBRERIA-0.7.0/BRIEFS/LIB-070.md` · 🔶 LIB-070 · GO 2026-07-23 |
 | Doctrina | `C:\S` = atlas; `C:\S_LAB` = taller de obra |
 
 ## Relación

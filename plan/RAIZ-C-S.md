@@ -18,11 +18,12 @@
 | `LLM.md` | broche acuerdo agentes (fuera de git) | IB-23 · `plan/BROCHE-C-S.md` |
 | `README.md` | copia-release de **este** mapa (fuera de git) | este asiento |
 
-> **Retoque R15-S:** el checkout de obra de la librería **ya no** vive
-> en `C:\S` (borrado por custodio · veredicto desechable R12/R14 ·
-> corrección de registro en `INFORME-VIGIA-R15-S.md`). Obra de librería
-> = **checkout NUEVO** en `C:\S_LAB\S_SDK-skills-library` (brief 0.7.0).
-> `C:\S` = **atlas puro**.
+> **Retoque R15-S / 🔶 LIB-070:** el checkout de obra de la librería
+> **ya no** vive en `C:\S` (borrado por custodio · veredicto desechable
+> R12/R14). Obra de librería = **clone materializado** en
+> **`C:\S_LAB\skills-library`** (rename custodio post-R16-S; path viejo
+> `S_SDK-skills-library` ya no aplica · brief 0.7.0). `C:\S` = **atlas
+> puro**.
 
 Cualquier otra entrada en `C:\S\` **no** está en el mapa = residuo o
 obra sin declarar.
