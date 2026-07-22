@@ -15,3 +15,35 @@
   --vp-c-text-1: var(--zine-ink);
   --vp-c-brand-1: var(--zine-ink);
 }
+
+/* N0-04 · marca (mínimo cableado · no reabre piel N0-03) */
+.brand-banner {
+  margin: 0 0 10px;
+  border: 3px solid #000;
+  overflow: hidden;
+  line-height: 0;
+}
+.brand-banner__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: cover;
+  object-position: center;
+}
+.brand-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.35rem;
+  align-items: baseline;
+  justify-content: center;
+}
+.brand-footer__license {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.brand-footer__spdx {
+  opacity: 0.75;
+  font-size: 0.85em;
+}

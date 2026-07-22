@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress';
 /**
  * Site-web overall · aleph-null (DA-S02).
  * Método: skill site-web · protocolo-ghpages (base + guard MSYS = frágil #2).
+ * N0-04: favicon explícito + nav /licencia + footer marca.
  */
 function resolveDocsBase() {
   const raw = process.env.DOCS_BASE?.trim();
@@ -21,7 +22,8 @@ const BACK = {
   actions: 'https://github.com/alephscriptorium-eng/scriptorium/actions',
   pages: 'https://aleph-null.escrivivir.co',
   changelog: 'https://github.com/alephscriptorium-eng/scriptorium/blob/main/CHANGELOG.md',
-  issues: 'https://github.com/alephscriptorium-eng/scriptorium/issues'
+  issues: 'https://github.com/alephscriptorium-eng/scriptorium/issues',
+  license: 'https://github.com/alephscriptorium-eng/scriptorium/blob/main/LICENSE.md'
 };
 
 const backLinks = [
@@ -40,6 +42,10 @@ export default defineConfig({
   base: resolveDocsBase(),
   cleanUrls: true,
   ignoreDeadLinks: false,
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }]
+  ],
   themeConfig: {
     back: BACK,
     backLinks,
@@ -49,7 +55,8 @@ export default defineConfig({
       { text: 'Método', link: '/metodo' },
       { text: 'Ciudad', link: '/ciudad' },
       { text: 'Cola', link: '/cola' },
-      { text: 'Proyecto', link: '/proyecto' }
+      { text: 'Proyecto', link: '/proyecto' },
+      { text: 'Licencia', link: '/licencia' }
     ],
     sidebar: [
       {
@@ -60,7 +67,8 @@ export default defineConfig({
           { text: 'Método', link: '/metodo' },
           { text: 'Ciudad', link: '/ciudad' },
           { text: 'Cola', link: '/cola' },
-          { text: 'Proyecto', link: '/proyecto' }
+          { text: 'Proyecto', link: '/proyecto' },
+          { text: 'Licencia', link: '/licencia' }
         ]
       }
     ],
@@ -68,13 +76,16 @@ export default defineConfig({
     outline: { level: [2, 3] },
     search: { provider: 'local' },
     footer: {
-      message: backLinks
-        .map(
+      message: [
+        '<span class="brand-mark">aleph-null · scriptorium</span>',
+        `<a href="/licencia">Licencia</a>`,
+        `<a href="${BACK.license}" target="_blank" rel="noreferrer">LICENSE.md</a>`,
+        ...backLinks.map(
           (l) =>
             `<a href="${l.link}" target="_blank" rel="noreferrer">${l.text}</a>`
         )
-        .join('<span aria-hidden="true"> · </span>'),
-      copyright: 'aleph-null · scriptorium'
+      ].join('<span aria-hidden="true"> · </span>'),
+      copyright: 'aleph-null · GPL-3.0-or-later + Animus Iocandi'
     }
   }
 });

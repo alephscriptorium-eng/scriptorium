@@ -13,7 +13,10 @@ sección Número 0 (sin inventar).
 
 ## Número 0 · portal aleph-null (2026-07-22)
 
-Sprint `PORTAL-NUMERO-0` · WP **N0-01** ✅.
+Sprint `PORTAL-NUMERO-0` · WPs **N0-01…N0-04** (colofón). Tag
+`release/numero-0` **aún RETENIDO** hasta PASS R14-S.
+
+### N0-01 · contenido portal ✅
 
 - Contenido del portal índice: portada renovada; páginas
   `/constelacion`, `/metodo`, `/ciudad`, `/cola`; enriquecimiento de
@@ -23,6 +26,27 @@ Sprint `PORTAL-NUMERO-0` · WP **N0-01** ✅.
   intacto.
 - Paquete citado: `@alephscript/skills-scriptorium`.
 - Evidencia: `plan/SPRINTS/PORTAL-NUMERO-0/REPORTES/N0-01-contenido-portal-numero-0.md`.
+
+### N0-02 · site-web piel fanzine (librería) ✅
+
+- Issue #15: piel fanzine canónica como asset del skill `site-web`
+  (`fanzine.css` + `Layout.vue` + CA estructural).
+- Publish `@alephscript/skills-scriptorium@0.6.1` (patch; 0.7.0 = BRAND-2).
+- Evidencia: `plan/SPRINTS/PORTAL-NUMERO-0/REPORTES/N0-02-site-web-piel-fanzine.md`.
+
+### N0-03 · re-pielado portal ✅
+
+- Portal consume `@alephscript/skills-scriptorium@0.6.1`; theme fanzine
+  real; body N0-01 intacto (PORT).
+- Evidencia: `plan/SPRINTS/PORTAL-NUMERO-0/REPORTES/N0-03-repielado-portal.md`.
+
+### N0-04 · WP-BRAND-1 colofón ✅
+
+- Cantera pineada `0567a24` → `branding/`; derivados `*-web.png` <150KB;
+  favicon.ico/png + `<link rel="icon">`; banner cabecera; footer
+  marca+licencia; `/licencia` por capas; `LICENSE.md` puntero GL
+  (**≠** lore); CONTRIBUTING + plantilla PR.
+- Evidencia: `plan/SPRINTS/PORTAL-NUMERO-0/REPORTES/N0-04-brand-1.md`.
 
 ## INITIAL-BASE · génesis del workspace (2026-07-22)
 
