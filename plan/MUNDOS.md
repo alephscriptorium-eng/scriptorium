@@ -43,11 +43,13 @@ aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
 
 | sujeto | pin | resuelta / latest canal | accion |
 | ------ | --- | ----------------------- | ------ |
-| workspace scriptorium | `0.7.0` | `0.7.0` = latest | OLA 0 hecha (este GO) |
-| z-sdk | `0.x` | lock 0.3.4 · latest 0.7.0 | **sin bump** (ola 1+ · tras PASS R18-S) |
-| s-sdk | `0.x` | lock 0.4.0 · latest 0.7.0 | **sin bump** (ola 1+) |
-| o-sdk | `0.x` | lock 0.3.4 · latest 0.7.0 | **EXCLUIDO** (F3) |
-| g-sdk / e-sdk / a-sdk | ausente | n/a | ola 1+ · tras PASS R18-S |
+| workspace scriptorium | `0.7.0` | `0.7.0` = latest | OLA 0 hecha |
+| z-sdk | `0.7.0` | tip remoto `f295dc9` | ola 1+ hecha · gitlink atlas **sin bump** |
+| g-sdk | `0.7.0` | tip remoto `e139b85` | ola 1+ hecha · plan mínimo · gitlink **sin bump** |
+| s-sdk | `0.7.0` | tip remoto `d2378b6` | ola 1+ hecha · gitlink **sin bump** |
+| e-sdk | `0.7.0` | tip remoto `13da04c` | ola 1+ hecha · gitlink **sin bump** |
+| a-sdk | `0.7.0` | tip remoto `3afdf96` | ola 1+ hecha · gitlink **sin bump** |
+| o-sdk | `0.x` | lock 0.3.4 · latest 0.7.0 | **EXCLUIDO** (F3) · tip intacto |
 
 ## Cero historico perdido
 

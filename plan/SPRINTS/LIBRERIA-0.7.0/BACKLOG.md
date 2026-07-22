@@ -22,8 +22,11 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 - ✅ **SKILLS-EN-MUNDOS · OLA 0** (workspace) — bump 0.6.1→0.7.0 +
   `skills:sync` (bin) + migración #16 (script local borrado · acta) ·
   **AVISO R18-S** (aceptación · sin PASS no hay olas 1+).
-- ⬜ **Olas 1+** mundos **z·g·s·e·a** — **bloqueadas hasta PASS
-  R18-S**. **o-sdk EXCLUIDO** (F3). Obra en `C:\S_LAB\<letra>-sdk`.
+- ✅ **Olas 1+** mundos **z·g·s·e·a** — R18-S PASS · CA por mundo
+  (devDep `0.7.0` + espejo bin + ESTACION; g plan mínimo) · tips POST
+  z `f295dc9` · g `e139b85` · s `d2378b6` · e `13da04c` · a `3afdf96`
+  · **AVISO R19-S** · **o-sdk EXCLUIDO** (F3) · gitlinks atlas **sin**
+  bump (cierre arco = GO custodio). Reportes `REPORTES/SEM-*.md`.
 
 ## Gobierno gitlink (DA-S11 · GO)
 

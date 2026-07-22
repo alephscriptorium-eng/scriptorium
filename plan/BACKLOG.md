@@ -2,9 +2,9 @@
 
 Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
-Sprint activo de gobierno: **LIBRERIA-0.7.0** (LIB-070 ✅ · R17-S
-PASS · GO B OLA 0 · AVISO R18-S). PORTAL-NUMERO-0 **cerrado** · R15-S ·
-tag `release/numero-0`. INITIAL-BASE **cerrado** · R8-S.
+Sprint activo de gobierno: **LIBRERIA-0.7.0** (LIB-070 ✅ · OLA 0 ✅ ·
+olas 1+ z·g·s·e·a ✅ · AVISO R19-S). PORTAL-NUMERO-0 **cerrado** ·
+R15-S · tag `release/numero-0`. INITIAL-BASE **cerrado** · R8-S.
 
 Proyección a issues: **local-only** por defecto (DC-15). Sin petición
 explícita del usuario, no se proyecta.
@@ -15,14 +15,15 @@ explícita del usuario, no se proyecta.
 | ------ | ------ | ---- |
 | INITIAL-BASE | ✅ cerrado · 9 WPs · R8-S | `plan/SPRINTS/INITIAL-BASE/` |
 | PORTAL-NUMERO-0 | ✅ cerrado · N0-01…04 ✅ · tag `release/numero-0` · R15-S · WP-XS banner ✅ | `plan/SPRINTS/PORTAL-NUMERO-0/` |
-| LIBRERIA-0.7.0 | LIB-070 ✅ · @0.7.0 tip `fb98098` · GO B OLA 0 · AVISO R18-S | `plan/SPRINTS/LIBRERIA-0.7.0/` |
+| LIBRERIA-0.7.0 | LIB-070 ✅ · OLA 0 ✅ · olas 1+ ✅ · AVISO R19-S | `plan/SPRINTS/LIBRERIA-0.7.0/` |
 
 ## Cola (fuera de despacho — GO / encadenamiento)
 
 - **LIB-070 / 0.7.0** — ✅ publicado · checkout
   `C:\S_LAB\skills-library` · R17-S **PASS** · GO B desencadenado.
-- **SKILLS-EN-MUNDOS** — GO B · **OLA 0 hecha** · AVISO R18-S · olas
-  1+ (z·g·s·e·a) **bloqueadas hasta PASS R18-S** · o-sdk EXCLUIDO (F3).
+- **SKILLS-EN-MUNDOS** — GO B · **OLA 0 + olas 1+ hechas** (z·g·s·e·a)
+  · AVISO R19-S · o-sdk EXCLUIDO (F3) · gitlinks mundos **sin bump**
+  (pendiente GO cierre de arco).
 - **Gitlink** `codebase/skills-library` → `fb98098` (0.7.0) · ✅ GO
   DA-S11.
 - Aparcados (cero acción): carril Z · F3 · F4 · redirect · para-la-voz ·
