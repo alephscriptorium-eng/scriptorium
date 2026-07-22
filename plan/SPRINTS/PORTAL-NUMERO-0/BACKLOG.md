@@ -42,15 +42,17 @@ siempre). C-6 = semillas número 1 — **fuera de este WP**.
 Orden literal: **N0-02 → N0-03 → N0-04 (= BRAND-1) → tag `release/numero-0`**.
 Tag hoy **NO**.
 
-- 🔶 **N0-02 · FAST-TRACK issue #15 · piel fanzine en skill `site-web`**
+- ✅ **N0-02 · FAST-TRACK issue #15 · piel fanzine en skill `site-web`**
   — carril librería (`S_SDK-skills-library`): elevar piel canónica a
   asset del skill + **CA estructural C8 anti-regresión** · release
-  `0.6.1`/`0.7.0` (secrets sembrados; publish triangulado IB-21).
+  **`0.6.1`** (secrets + publish triangulado IB-21).
   Checkout de obra **DECLARADO**: `C:\S\S_SDK-skills-library`.
   **CA:** ver `BRIEFS/N0-02.md`.
-  _Brief:_ `BRIEFS/N0-02.md` · **🔶 DESPACHO** · gate **R11-S PASS**
-  (`INFORME-VIGIA-R11-S.md`) · tip PRE-🔶
-  `6dbf5adfd1f3961f5aab80c94ddc32de87e79432`.
+  _Brief:_ `BRIEFS/N0-02.md` · merge `wp/n0-02-site-web-piel-fanzine`
+  · obra librería `64883a9f1d525d6ad14759efa13cb788ab68542c` · tag
+  `v0.6.1` · Publish CI `29957370542` · npm `@0.6.1`
+  · reporte `REPORTES/N0-02-site-web-piel-fanzine.md`
+  · **Aceptado** · AVISO **R12-S** emitido (gate pre N0-03).
 
 - ⬜ **N0-03 · Re-pielado portal aleph-null** — carril S · alcance
   `docs/.vitepress/theme/**` · consume versión nueva del skill.
@@ -86,10 +88,14 @@ Tag hoy **NO**.
 - Gate R11-S: **PASS** · `INFORME-VIGIA-R11-S.md` · tip PRE-🔶
   `6dbf5adfd1f3961f5aab80c94ddc32de87e79432` · 🔶 N0-02 despachado
   (GO orquestador post branding).
+- ✅ **N0-02** aceptado · `@alephscript/skills-scriptorium@0.6.1`
+  publicado · AVISO **R12-S** emitido (`AVISO-VIGIA-R12-S.md`).
+- Gate R12-S: **pendiente** · pre 🔶 N0-03 · **sin PASS no hay 🔶**.
 - **Tag `release/numero-0` RETENIDO** (PO · DA-S13) hasta post **N0-04**
   — OK de sellado vigente; colofón = BRAND-1. **Tag no ejecutado.**
 - AVISO encolado branding: `AVISO-VIGIA-ENC-BRANDING.md` (gobierno;
   **no** pide gate N0-04 hoy).
+- N0-03 / N0-04 / BRAND-2: **sin 🔶**.
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)
 
