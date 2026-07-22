@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (post merge N0-04 · WP-BRAND-1 colofón)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-22  
-**Estado gate:** ⏳ pendiente veredicto Vigilante-S
+**Estado gate:** ✅ **PASS-con-residual** — ver `INFORME-VIGIA-R14-S.md` (OK de sellado concedido)
 
 > N0-04 = mergeado · tip PRE `f276690` · obra `18168a2` · merge
 > `de52ba6`. Cantera `0567a24`. `LICENSE.md` = puntero GL (**≠** lore).
