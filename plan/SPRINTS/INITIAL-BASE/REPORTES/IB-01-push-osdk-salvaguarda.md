@@ -159,4 +159,16 @@ Ninguno bloqueante para el CA de IB-01.
 
 ## Revisión del orquestador
 
-_(la rellena el orquestador: aceptado ✅ / devuelto con lista numerada)_
+**Aceptado ✅** · 2026-07-22 · orquestador carril S
+
+### CA
+- [x] Push limpio NO-FORCE o nota-a-forense: push FF a `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`
+- [x] Evidencia fechas/log pre-push (ahead 7 / behind 0)
+- [x] Untracked → cuadernos (`o_sdk` `cd4175aa1de89aaf162d53f16c535162d9f80798`), no al O_SDK
+- [x] Cero force · network-sdk intocado
+
+### Eje III + ops
+Comparación remotes + tip `ls-remote` verificado en consolidación.
+
+### Merge
+`wp/ib-01-push-osdk-salvaguarda` → `main` post-aceptación.

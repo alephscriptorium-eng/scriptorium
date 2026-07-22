@@ -10,7 +10,7 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## Ola IB-0 · Rescates F0 (ops · pueden ir ∥ con IB-1)
 
-- 🔶 **IB-01 · Push O_SDK con salvaguarda** — repo alephscriptorium-eng/
+- ✅ **IB-01 · Push O_SDK con salvaguarda** — repo alephscriptorium-eng/
   O_SDK, rama upgrade/oasis-0.8.8 local en OASIS/_RECOVERY-20260721/
   alephscript-clean (7 commits ahead). ANTES de push: comparar log/fechas
   contra remoto; si el remoto tiene fixes posteriores (equipo forense) →
@@ -18,7 +18,9 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   docker-compose.override) → cuaderno, NO al repo.
   **CA:** push limpio o nota-a-forense emitida · cero force · evidencia
   fechas en reporte.
-  _Brief:_ `BRIEFS/IB-01.md` · rama `wp/ib-01-push-osdk-salvaguarda`
+  _Brief:_ `BRIEFS/IB-01.md` · merge `wp/ib-01-push-osdk-salvaguarda`
+  · O_SDK tip `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`
+  · reporte `REPORTES/IB-01-push-osdk-salvaguarda.md`
 - 🔶 **IB-02 · Higiene OASIS mínima** — retirar .git accidental de
   SCRIPTORIUM_V0 (contenedor; anidados independientes verificados) ·
   acta de descarte de GL wp/u70 ahead-2 (obra U-sprint vieja; canon en
