@@ -83,7 +83,8 @@ PASS-con-residual sobre:
 | tip gobierno gitlink (DA-S11) | `cc537c7c322b33815866e3d25713cae288b96bb9` |
 | tip OLA 0 + AVISO R18-S | `abb6ebf1c2bb777522824bfea40023226701d01e` |
 | tip tip-literal (abb6ebf) | `76dcb3156a6a6d50c456039b978f8b33fcc160cc` |
-| tip main POST-push (HEAD real = origin/main) | `76dcb3156a6a6d50c456039b978f8b33fcc160cc` |
+| tip tip-literal (76dcb31) + DA-S17 intercalado | `cd88a29a746e09bdd37349d8aeb61a9e7e6c8703` |
+| tip main POST-push (HEAD real = origin/main) | `cd88a29a746e09bdd37349d8aeb61a9e7e6c8703` |
 | tip lib / gitlink | `fb980984e5faa979247afa43054e52cfd4e07c3e` |
 | tag lib | `v0.7.0` |
 | npm gitHead @0.7.0 | `fb980984e5faa979247afa43054e52cfd4e07c3e` |
