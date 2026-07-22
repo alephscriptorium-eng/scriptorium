@@ -78,12 +78,15 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## Ola IB-2 · Port de planes y doctrina
 
-- ⬜ **IB-20 · Reunificación de planes** — recopilar plan/ de los 6 sdk
+- 🔶 **IB-20 · Reunificación de planes** — recopilar plan/ de los 6 sdk
   → asentar protocolo multi-orquestador (contrato v1.1/método v0.6) en
   el plan del workspace · verificar skills@latest en cada sdk ·
   histórico → cuadernos (rama por mundo).
   **CA:** tabla de mundos con versión skill + estado plan · cero
   histórico perdido (cuadernos) · partición de territorios declarada.
+  _Brief:_ `BRIEFS/IB-20.md` · rama `wp/ib-20-reunificacion-planes`
+  · worktree `C:\S\.worktrees\wp-ib-20`
+  · gate R4-S PASS-con-residual (DNS residual no bloquea este WP)
 - ⬜ **IB-21 · Skill `holarquia`** (destilación DEVOPS — veredicto del
   destilador): A) dos leyes + junturas + plantilla holón · B) DS-5 ·
   C) acuerdo LLM.md (memoria→codebase · regla de oro «no inventes
@@ -119,16 +122,16 @@ IB-23. Gates del vigía por ola (rondas Rn-S). Regla de oro: PORT, NO
 REWRITE — todo lo que huela a reescritura se devuelve a cola con GO
 propio.
 
-## Gate / estado lote (ola IB-0 + IB-10 → IB-11 · lote IB-12 ∥ IB-13)
+## Gate / estado lote (ola IB-0 + IB-10 → IB-11 · lote IB-12 ∥ IB-13 · IB-20)
 
-- Briefs: `BRIEFS/IB-01.md`, `BRIEFS/IB-02.md`, `BRIEFS/IB-10.md`,
-  `BRIEFS/IB-11.md`, `BRIEFS/IB-12.md`, `BRIEFS/IB-13.md`
+- Briefs: `BRIEFS/IB-01.md` … `BRIEFS/IB-13.md`, `BRIEFS/IB-20.md`
 - Aviso vigía: `AVISO-VIGIA-R1-S.md` · informe `INFORME-VIGIA-R1-S.md` (PASS)
 - **Lote IB-01 ∥ IB-02 ∥ IB-10: ✅ cerrado** 2026-07-22 (merges post-aceptación).
 - Gate vigía **R2-S:** informe `INFORME-VIGIA-R2-S.md` · **PASS**.
 - **IB-11: ✅ aceptado** 2026-07-22 (merge post-aceptación; 6 gitlinks).
 - Gate vigía **R3-S:** informe `INFORME-VIGIA-R3-S.md` · **PASS**.
 - **Lote IB-12 ∥ IB-13: ✅ cerrado** 2026-07-22 (merges post-aceptación).
-  Residual: tick DNS custodio (aleph-null Pages + redirect scriptorium→pub).
-  **Próximo:** gate vigía **R4-S** (re-verificar CA + DNS) antes de IB-20.
-  No abrir IB-20+ sin R4-S PASS.
+  Residual DNS (tick custodio): Pages aleph-null + redirect scriptorium→pub
+  — bloquea CA dominios; **no** bloquea IB-20.
+- Gate vigía **R4-S:** informe `INFORME-VIGIA-R4-S.md` · **PASS-con-residual**.
+- **IB-20: 🔶 en curso** (despacho post R4-S; brief emitido). No abrir IB-21+.
