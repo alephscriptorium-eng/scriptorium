@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (GO CUSTODIO · DOBLE POST-CIERRE · 2026-07-23 · sin subagente vigía)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-23  
-**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R16-S.md` (condición: path renombrado C:S_LABskills-library)
+**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R16-S.md` (condición: path renombrado `C:\S_LAB\skills-library`)
 
 > Arco portal PORTAL-NUMERO-0 = **cerrado** (R15-S). Este aviso abre el
 > gate del arco **nuevo** librería 0.7.0. Gobierno + retoques R15-S
