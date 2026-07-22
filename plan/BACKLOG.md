@@ -20,5 +20,5 @@ explícita del usuario, no se proyecta.
 Ver `SPRINTS/INITIAL-BASE/BACKLOG.md` §COLA y
 `plan/REGISTRO-DE-JOYAS.md` (F3 o-sdk/L1-L2, F4 playground + Docker Hub,
 tipos-del-FOSS, pasada-2 auditoría OASIS, arco para-la-voz, lección
-sucesión vigía vNext). Arco contenido portal número 0 = sprint
-PORTAL-NUMERO-0 (GO 2026-07-22 · DA-S10).
+sucesión vigía vNext, lección checkout declarado vNext). Arco contenido
+portal número 0 = sprint PORTAL-NUMERO-0 (GO 2026-07-22 · DA-S10).

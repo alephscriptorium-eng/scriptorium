@@ -1,8 +1,9 @@
 # VISION — Scriptorium workspace (`C:\S\scriptorium`)
 
 Workspace índice de holones hermanos (mapa de letras z·g·s·e·o·a-sdk).
-Método en paquete (`@alephscript/skills-scriptorium`); mundos como
-submodules bajo `codebase/`. **PORT, no rewrite.**
+Método en paquete (`@alephscript/skills-scriptorium`); su fuente,
+apuntado en `codebase/skills-library`. Mundos como submodules bajo
+`codebase/`. **PORT, no rewrite.**
 
 ## Doctrina L1/L2 (A-23 v2)
 

@@ -146,6 +146,11 @@ auditoría OASIS (inventario) · arco para-la-voz (despierta e-sdk).
   (DA-S07) · ratificado en R5-S (`INFORME-VIGIA-R5-S.md` PASS-con-residual
   · backstage `scriptorium-vigilancia` tip `03f09a9`). Encolada; PORT
   a skill vNext con GO propio — no reescribe el resto del backlog.
+- ⬜ **Lección · checkout declarado** (skill método / `vigilancia` vNext)
+  — brief con obra en repo externo → ubicación del checkout
+  **DECLARADA**. Casos fundantes **IB-01 · IB-21** (2026-07-22).
+  Encolada junto a «sucesión de vigía»; PORT a skill vNext con GO
+  propio — no reescribe el resto del backlog.
 
 ## Orden y paralelismo
 

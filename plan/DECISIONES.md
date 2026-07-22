@@ -103,6 +103,21 @@ portal aleph-null «número 0» (sprint `PORTAL-NUMERO-0` · WP **N0-01**).
 - Pre-tag (R8-S / Vigilante-S): `CHANGELOG.md` en raíz derivado de WPs
   ✅ de facto **antes** del tag; gate release cruzará WPs ✅ ↔ CHANGELOG.
 
+### DA-S11 · Librería de skills al índice (2026-07-22 · custodio)
+
+`S_SDK-skills-library` entra al índice como submodule
+`codebase/skills-library` — categoría **método** (sin letra; no es un
+mundo).
+
+- Remoto: `alephscriptorium-eng/S_SDK-skills-library`
+- Paquete: `@alephscript/skills-scriptorium` (nombre completo)
+- Gitlink pineado al publish **0.6.0**:
+  `6512e27dd11c4d84192d4a66035ede609ba97523`
+- Inventario: fila en `plan/MUNDOS.md` · fuente citada en
+  `plan/VISION.md`
+- **Bumps futuros del gitlink = GO**, como todo gitlink del índice
+- No declara checkout futuro de issue #15 (piel); eso = su brief
+
 ## Abiertas
 
 _(las resuelve el custodio)_

@@ -22,3 +22,7 @@
 	path = codebase/a-sdk
 	url = https://github.com/escrivivir-co/aleph-scriptorium.git
 	branch = integration/beta/scriptorium
+[submodule "codebase/skills-library"]
+	path = codebase/skills-library
+	url = https://github.com/alephscriptorium-eng/S_SDK-skills-library.git
+	branch = main

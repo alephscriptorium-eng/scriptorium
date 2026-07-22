@@ -20,6 +20,16 @@ aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia` (ver
 | o-sdk | `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9` | **ausente** (sin plan/ en tip; F3a: no excavar) | `@alephscript/skills-scriptorium`: `0.x` | lock **0.3.4** (registry canal) | `o_sdk` (existe; tip `cd4175a`) |
 | a-sdk | `e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b` | **presente** (12 ficheros; VISION/BACKLOG/DECISIONES/PRACTICAS/REPORTES/roles) | **ausente** | n/a | `a_sdk` (declarada; nests F3a → forense, no excavacion) |
 
+## Método (categoría · sin letra · no es un mundo)
+
+| dato | valor |
+| ---- | ----- |
+| submodule | `codebase/skills-library` |
+| tip gitlink | `6512e27dd11c4d84192d4a66035ede609ba97523` |
+| versión | `@alephscript/skills-scriptorium@0.6.0` (publish pin) |
+| rol | fuente del método en paquete; bumps = GO (como todo gitlink) · DA-S11 |
+| remoto | `alephscriptorium-eng/S_SDK-skills-library` |
+
 ## Workspace (carril S · no es un sdk)
 
 | dato | valor |
