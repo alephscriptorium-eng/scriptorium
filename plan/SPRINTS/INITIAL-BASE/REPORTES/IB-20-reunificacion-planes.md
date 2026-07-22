@@ -5,7 +5,7 @@
 | agente | orquestador-consolidación (worker stallado; mandato cierre punta-a-punta) |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-20-reunificacion-planes` |
-| commits | $obra1 (+ report pin commit if any) |
+| commits | `8c3b490ff6e82c5c8a7e4719e77fa3f08b58871c` · `8869c299e5fb301c341355ab4a84886a109003ed` |
 | eje(s) CA | III (auditoría / layout · reunificación) |
 | estado propuesto | listo para revisión |
 
