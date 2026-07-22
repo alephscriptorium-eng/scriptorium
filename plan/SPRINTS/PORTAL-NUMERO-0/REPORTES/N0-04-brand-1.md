@@ -7,9 +7,11 @@
 | rama | `wp/n0-04-brand-1` |
 | worktree | `C:\S\.worktrees\wp-n0-04` |
 | tip PRE 🔶 | `f276690` (= origin/main · R13-S PASS) |
+| 🔶 / obra | `18168a2` (gobierno+obra en mismo commit de rama) |
+| merge | `de52ba6` |
 | cantera | `scriptorium-cuadernos` `script_sdk-addenda` @ `0567a2481db5cc85c8eaac613754f35061587988` |
 | paquete | `@alephscript/skills-scriptorium` (citado; sin bump) |
-| estado | obra lista · merge orquestador · AVISO R14-S |
+| estado | ✅ mergeado · AVISO R14-S emitido · tag RETENIDO |
 
 ## Qué se hizo
 

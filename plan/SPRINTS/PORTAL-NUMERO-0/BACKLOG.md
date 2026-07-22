@@ -64,13 +64,13 @@ Tag hoy **NO**.
   `1bd7998` · **Aceptado** · AVISO **R13-S** emitido (C8 post-deploy
   + aceptación).
 
-- 🔶 **N0-04 · WP-BRAND-1 · marca / colofón aleph-null** — carril S ·
+- ✅ **N0-04 · WP-BRAND-1 · marca / colofón aleph-null** — carril S ·
   `scriptorium/branding/` desde cantera tip `0567a24` · derivados
   `*-web.png` + favicon · LICENSE puntero GL · `/licencia` explicada ·
   CONTRIBUTING/.github desde plantillas. **CA:** ver `BRIEFS/N0-04.md`.
-  _Brief:_ `BRIEFS/N0-04.md` · gate **R13-S PASS** · tip PRE
-  `f276690` · rama `wp/n0-04-brand-1` · worktree
-  `C:\S\.worktrees\wp-n0-04`.
+  _Brief:_ `BRIEFS/N0-04.md` · tip PRE `f276690` · obra `18168a2` ·
+  merge `de52ba6` · **Aceptado** · AVISO **R14-S** emitido (C8 marca
+  post-deploy; **sin PASS no hay tag**).
 
 ## COLA hermano · librería (mismo GO branding · no bloquea tag solo)
 
@@ -100,9 +100,12 @@ Tag hoy **NO**.
   AVISO **R13-S** emitido (`AVISO-VIGIA-R13-S.md`).
 - Gate R13-S: **PASS** · `INFORME-VIGIA-R13-S.md` · tip PRE-🔶
   `f276690` · autoriza 🔶 N0-04.
-- 🔶 **N0-04** en curso · colofón BRAND-1 · post-merge pide **R14-S**.
-- **Tag `release/numero-0` RETENIDO** (PO · DA-S13) hasta **PASS R14-S**
-  — colofón mergeado no basta; sin R14-S no hay tag. **Tag no ejecutado.**
+- ✅ **N0-04** aceptado · colofón BRAND-1 · AVISO **R14-S** emitido
+  (`AVISO-VIGIA-R14-S.md`).
+- Gate R14-S: **pendiente** · C8 marca post-deploy · **sin PASS no hay
+  tag `release/numero-0`**.
+- **Tag `release/numero-0` RETENIDO** (PO · DA-S13) hasta **PASS R14-S**.
+  **Tag no ejecutado.**
 - BRAND-2: **sin 🔶** (carril librería · aparte).
 
 ## Pre-tag · CHANGELOG (nota Vigilante-S · R8-S · práctica método)
