@@ -86,6 +86,8 @@ PASS-con-residual sobre:
 | checkout obra | `C:\S_LAB\skills-library` |
 | reporte | `REPORTES/LIB-070-release-0.7.0.md` |
 | tip scriptorium PRE-cierre (fetch) | `c19eb5ca53e33710dd125bc9995d8a3aeab81d91` |
-| tip scriptorium POST-push (HEAD = origin/main) | `96d176153eacbf0ffd3f70ce34e1364f0f57c47e` |
+| tip merge cierre LIB-070 | `96d176153eacbf0ffd3f70ce34e1364f0f57c47e` |
+| tip tip-literal (96d1761) | `9c59353708f2a0c7ef8d6a3138a4c6ed69ad00d2` |
+| tip main POST-push (HEAD real = origin/main) | `9c59353708f2a0c7ef8d6a3138a4c6ed69ad00d2` |
 | SHA AVISO+reporte (pre-merge) | `011c1c97ec58d83d82e644518fcebce4c9b62a59` |
 | SHA 🔶 path materializado | `64dbbd46d6538bdf25928485cf4429d8919c4a07` |
