@@ -10,7 +10,7 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## Ola IB-0 · Rescates F0 (ops · pueden ir ∥ con IB-1)
 
-- ⬜ **IB-01 · Push O_SDK con salvaguarda** — repo alephscriptorium-eng/
+- 🔶 **IB-01 · Push O_SDK con salvaguarda** — repo alephscriptorium-eng/
   O_SDK, rama upgrade/oasis-0.8.8 local en OASIS/_RECOVERY-20260721/
   alephscript-clean (7 commits ahead). ANTES de push: comparar log/fechas
   contra remoto; si el remoto tiene fixes posteriores (equipo forense) →
@@ -18,15 +18,17 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   docker-compose.override) → cuaderno, NO al repo.
   **CA:** push limpio o nota-a-forense emitida · cero force · evidencia
   fechas en reporte.
-- ⬜ **IB-02 · Higiene OASIS mínima** — retirar .git accidental de
+  _Brief:_ `BRIEFS/IB-01.md` · rama `wp/ib-01-push-osdk-salvaguarda`
+- 🔶 **IB-02 · Higiene OASIS mínima** — retirar .git accidental de
   SCRIPTORIUM_V0 (contenedor; anidados independientes verificados) ·
   acta de descarte de GL wp/u70 ahead-2 (obra U-sprint vieja; canon en
   hub). **Cero arqueología** — dudas → nota-a-forense.
   **CA:** SCRIPTORIUM_V0 sin .git · acta u70 · nada más tocado.
+  _Brief:_ `BRIEFS/IB-02.md` · rama `wp/ib-02-higiene-oasis-minima`
 
 ## Ola IB-1 · Génesis del workspace
 
-- ⬜ **IB-10 · Estructura `C:\S` + repo `scriptorium`** — repo
+- 🔶 **IB-10 · Estructura `C:\S` + repo `scriptorium`** — repo
   alephscriptorium-eng/scriptorium (público). Layout: `codebase/`
   (submodules) · `playground/` (semillas) · `docs/` (site-web overall) ·
   `plan/` (montar-plan del skill). Cuadernos = repo privado
@@ -36,6 +38,7 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   paths cortos (C:\S\...).
   _Nota génesis:_ esqueleto + plan montados en sesión de génesis; este WP
   verifica CA de facto y cierra huecos — no reescribe alcance.
+  _Brief:_ `BRIEFS/IB-10.md` · rama `wp/ib-10-estructura-scriptorium`
 - ⬜ **IB-11 · Submodules mapa de letras** — codebase/: z-sdk (Z_SDK) ·
   g-sdk (Z_SDK-games-library) · s-sdk (S_SDK) · e-sdk (E_SDK) · o-sdk
   (O_SDK post-IB-01) · a-sdk (aleph-scriptorium). DS-5: apuntar, no
@@ -102,5 +105,6 @@ propio.
 
 - Briefs: `BRIEFS/IB-01.md`, `BRIEFS/IB-02.md`, `BRIEFS/IB-10.md`
 - Aviso vigía: `AVISO-VIGIA-R1-S.md`
-- **No marcar 🔶 ni lanzar workers** hasta `Rn-S` PASS (informe dual
-  PO/scrum del vigía).
+- **R1-S PASS** (`INFORME-VIGIA-R1-S.md`) — 🔶 marcado 2026-07-22;
+  lote IB-01 ∥ IB-02 ∥ IB-10 en curso. **No** abrir IB-11 hasta
+  cierre/aceptación de IB-10 (+ o-sdk post IB-01 para gitlink).
