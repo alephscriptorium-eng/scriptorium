@@ -26,13 +26,15 @@ scriptorium · no reabre N0-04).
   (shell VitePress + tokens zine), no fanzine standalone. Corrige la
   dirección de N0-03 en la instancia; **no** reabre arcos ni toca
   `release/numero-0`.
-- **WP-REST-SHELL** encolado (BRIEF + AVISO **R20-S** · **sin PASS no
-  hay 🔶**): restaurar shell familia en aleph-null · PORT exacto
-  `codebase/z-sdk/docs` · conservar N0-01 / CNAME / favicon / `/licencia`
-  / banner (patrón o-sdk).
-- **LIB-080** encolado (issue #18 · `piel:` `familia-vp` DEFAULT ·
-  `fanzine` OPT-IN · candidato 0.8.0) — activar tras cierre olas / R19
-  o GO PO; **hoy solo COLA**.
+- **WP-REST-SHELL ✅** (R20-S PASS · obra): shell familia restaurada en
+  aleph-null · PORT visual exacto `codebase/z-sdk/docs` · banner en
+  shell (patrón o-sdk · slot `layout-top`) · cero `Layout.vue` /
+  `fanzine.css` · conservados N0-01 (cuerpo) · CNAME · favicon ·
+  `/licencia` · banner asset · `docs:build` + `docs:verificar` verdes ·
+  sello `release/numero-0` intacto. AVISO aceptación post-merge (C8
+  lado a lado vs z-sdk).
+- **LIB-080** activado en gate (issues **#18+#19** · candidato
+  **0.8.0**) — AVISO **R21-S** · **sin PASS no hay 🔶**.
 
 ## Número 0 · portal aleph-null (2026-07-22)
 

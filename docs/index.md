@@ -1,13 +1,22 @@
 ---
 layout: home
-piel: fanzine
+piel: familia-vp
 title: aleph-null
-stamp: ℵ₀
-sub: portal índice del workspace scriptorium
-sub2: seis mundos · z·g·s·e·o·a · método instalable
-callout: ℵ₀ · el cardinal del primer infinito contable
-issue: NÚMERO 0 · 2026
-footer: aleph-null · scriptorium
+hero:
+  name: aleph-null
+  text: portal índice del workspace scriptorium
+  tagline: |-
+    seis mundos · z·g·s·e·o·a · método instalable
+  actions:
+    - theme: brand
+      text: Constelación
+      link: /constelacion
+    - theme: alt
+      text: Método
+      link: /metodo
+    - theme: alt
+      text: Licencia
+      link: /licencia
 ---
 
 # aleph-null · número 0
