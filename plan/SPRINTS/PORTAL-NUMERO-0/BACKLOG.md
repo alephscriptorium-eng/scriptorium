@@ -21,22 +21,23 @@ siempre). C-6 = semillas número 1 — **fuera de este WP**.
 
 ## Ola N0-1 · Contenido del portal (número 0)
 
-- ⬜ **N0-01 · Contenido portal aleph-null (número 0)** — ejecutar la
+- 🔶 **N0-01 · Contenido portal aleph-null (número 0)** — ejecutar la
   entrega fusionada (base V-S + C-1 CORE + insertos C-2…C-5 aplicables)
   sobre el esqueleto IB-13: portada renovada, 4 páginas nuevas
   (`/constelacion`, `/metodo`, `/ciudad`, `/cola`), enriquecimiento de
   `/proyecto`, nav/sidebar 6 entradas. **Piel NO se toca** (issue #15
   librería; re-pielado = WP futuro tras 0.6.x del skill).
   **CA:** ver `BRIEFS/N0-01.md` (fusión aplicada).
-  _Brief:_ `BRIEFS/N0-01.md` · **PRE-🔶** — sin despacho hasta PASS R9-S.
-  _Reporte (placeholder):_ `REPORTES/N0-01-contenido-portal-numero-0.md`
+  _Brief:_ `BRIEFS/N0-01.md` · rama `wp/n0-01-contenido-portal-numero-0`
+  · worktree `C:\S\.worktrees\wp-n0-01` · gate R9-S PASS (`3c1c97f`).
+  _Reporte:_ `REPORTES/N0-01-contenido-portal-numero-0.md`
 
 ## Gate / estado lote
 
 - Sprint INITIAL-BASE **cerrado** (R8-S · INFORME-VIGIA-R8-S.md · tip
   cierre ratificado en main).
-- AVISO gate: `AVISO-VIGIA-R9-S.md` · receptor **Vigilante-S**.
-- **Sin PASS R9-S no hay 🔶 N0-01** · no worker de obra · no merge docs.
+- Gate R9-S: **PASS** · `INFORME-VIGIA-R9-S.md` · tip despacho `3c1c97f`.
+- 🔶 **N0-01** despachado · worktree `wp-n0-01` · fusión brief TAL CUAL.
 - Sugerencia post-cierre (vigía-sesión; **no ejecutar aún**): sellar
   resultado como tag **`release/numero-0`** (primer release del repo) —
   acta del cero; solo tras PASS + obra + OK vigía + CHANGELOG (abajo).
