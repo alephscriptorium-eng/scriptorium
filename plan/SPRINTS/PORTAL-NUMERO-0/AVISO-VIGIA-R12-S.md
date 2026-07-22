@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (post cierre N0-02 · publish 0.6.1)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-22  
-**Estado gate:** ⏳ pendiente de informe
+**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R12-S.md`
 
 > N0-02 = ✅ · `@alephscript/skills-scriptorium@0.6.1` en canal real
 > (Publish CI `29957370542` · tip librería `64883a9`). Tag
