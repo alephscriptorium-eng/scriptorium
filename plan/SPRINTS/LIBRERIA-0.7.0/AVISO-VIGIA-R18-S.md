@@ -81,7 +81,7 @@ PASS-con-residual sobre:
 | ---- | ----- |
 | tip scriptorium PRE (fetch · R17-S tip) | `e81834658e23e88fb3d3a29ae1fb756fb625cf65` |
 | tip gobierno gitlink (DA-S11) | `cc537c7c322b33815866e3d25713cae288b96bb9` |
-| tip OLA 0 + AVISO R18-S | _(POST-push · tip-literal)_ |
+| tip OLA 0 + AVISO R18-S (PRE tip-literal) | `abb6ebf1c2bb777522824bfea40023226701d01e` |
 | tip lib / gitlink | `fb980984e5faa979247afa43054e52cfd4e07c3e` |
 | tag lib | `v0.7.0` |
 | npm gitHead @0.7.0 | `fb980984e5faa979247afa43054e52cfd4e07c3e` |
