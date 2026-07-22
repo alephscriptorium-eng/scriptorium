@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (pedido de gate · post R8-S cierre INITIAL-BASE)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`, watcher activo) vía **custodio**  
 **Fecha:** 2026-07-22  
-**Estado gate:** ⏳ **PENDIENTE** — espera informe Vigilante-S (PASS | FAIL | PASS-con-residual)
+**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R9-S.md`
 
 > R8-S cerró el sprint INITIAL-BASE (no gate de despacho). Este aviso
 > abre la **primera ronda de gate del arco PORTAL-NUMERO-0**. Naming:
