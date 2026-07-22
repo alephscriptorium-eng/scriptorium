@@ -84,8 +84,8 @@ PASS-con-residual sobre:
 | dato | valor |
 | ---- | ----- |
 | tip scriptorium PRE (fetch · HEAD real) | `7a4fb1d2ec074cd01af1cd6d112779beb8952b4a` |
-| tip gobierno DA-S18 + REST-SHELL + LIB-080 + AVISO R20-S | _(POST-push · tip-literal)_ |
-| tip main POST-push (HEAD real = origin/main) | _(POST-push · tip-literal)_ |
+| tip gobierno DA-S18 + REST-SHELL + LIB-080 + AVISO R20-S | `e21a4e316fc398dd4e681e29c257bb03cde3fb94` |
+| tip main POST-push (HEAD real = origin/main) | `e21a4e316fc398dd4e681e29c257bb03cde3fb94` |
 | tag `release/numero-0` → commit | `40598f0e307921d613dacf1c324415eb4a1b5d32` |
 | tag `release/numero-0` (objeto) | `69bbc098b91d8e09c15873d5ffbffa6b9c5589be` |
 | tip lib / gitlink skills-library | `fb980984e5faa979247afa43054e52cfd4e07c3e` |
