@@ -1,39 +1,39 @@
-# IB-20 Â· reunificacion-planes â€” reporte
+# IB-20 · reunificacion-planes ? reporte
 
 | dato | valor |
 | ---- | ----- |
-| agente | worker swarm Â· IB-20 |
+| agente | worker swarm · IB-20 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-20-reunificacion-planes` |
-| commits | `1ad68ac0fc45c0507348475e65edb82a1efd1081` (plan) · _(reporte en commit siguiente)_ |
-| eje(s) CA | III (auditorÃ­a / layout Â· reunificaciÃ³n) |
-| estado propuesto | listo para revisiÃ³n |
+| commits | `1ad68ac0fc45c0507348475e65edb82a1efd1081` (plan) · `65f97ce96b4fc091e9a399ba0a2e8973f20e00fb` (reporte) |
+| eje(s) CA | III (auditoría / layout · reunificación) |
+| estado propuesto | listo para revisión |
 
-## QuÃ© se hizo
+## Qué se hizo
 
 Inventario **solo lectura** de los 6 gitlinks `codebase/{z,g,s,e,o,a}-sdk`
-(tip vÃ­a `git rev-parse HEAD:codebase/â€¦` en `MUNDO_RAIZ`). Asentados
+(tip vía `git rev-parse HEAD:codebase/?` en `MUNDO_RAIZ`). Asentados
 `plan/MUNDOS.md` (tabla skill pin/resuelta + estado `plan/` + destino
 cuadernos rama-por-mundo) y `plan/PARTICION.md` (cita contrato
-convivencia v1.1 / mÃ©todo v0.6; particiÃ³n escritura `plan/` workspace vs
-sdk SOLO LECTURA; cero bump gitlinks). Enlaces PORT mÃ­nimos en
-`VISION.md` Â· `DECISIONES.md` (DA-S06) Â· `PRACTICAS.md`. Documentado
+convivencia v1.1 / método v0.6; partición escritura `plan/` workspace vs
+sdk SOLO LECTURA; cero bump gitlinks). Enlaces PORT mínimos en
+`VISION.md` · `DECISIONES.md` (DA-S06) · `PRACTICAS.md`. Documentado
 `npm view` latest **0.5.1** y pins/locks por sdk **sin bump masivo**.
 Cero edits en submodules; cero cambio de gitlinks. Residual DNS no
 trabajado.
 
 ## Archivos tocados
 
-- `plan/MUNDOS.md` â€” creado: tabla 6 mundos + workspace + skills@latest
-- `plan/PARTICION.md` â€” creado: protocolo multi-orquestador + ALCANCE_DIFF
-- `plan/VISION.md` â€” enlace PORT a PARTICION/MUNDOS
-- `plan/DECISIONES.md` â€” DA-S06: puntero PORT IB-20
-- `plan/PRACTICAS.md` â€” puntero PARTICION/MUNDOS
-- `plan/SPRINTS/INITIAL-BASE/REPORTES/IB-20-reunificacion-planes.md` â€” este reporte
+- `plan/MUNDOS.md` ? creado: tabla 6 mundos + workspace + skills@latest
+- `plan/PARTICION.md` ? creado: protocolo multi-orquestador + ALCANCE_DIFF
+- `plan/VISION.md` ? enlace PORT a PARTICION/MUNDOS
+- `plan/DECISIONES.md` ? DA-S06: puntero PORT IB-20
+- `plan/PRACTICAS.md` ? puntero PARTICION/MUNDOS
+- `plan/SPRINTS/INITIAL-BASE/REPORTES/IB-20-reunificacion-planes.md` ? este reporte
 
 ## Evidencia
 
-> Worktree `C:\S\.worktrees\wp-ib-20` Â· rama `wp/ib-20-reunificacion-planes`.
+> Worktree `C:\S\.worktrees\wp-ib-20` · rama `wp/ib-20-reunificacion-planes`.
 > Lectura de sdks desde checkout `C:\S\scriptorium` (mismos gitlinks).
 
 ### 1) Tips gitlink (MUNDO_RAIZ)
@@ -65,7 +65,7 @@ e5573f8e5b248aff6e19aee5cd51b0fe7b086c1b
 | a-sdk | presente (12 files) | ausente | n/a |
 | workspace | presente | `0.5.1` | 0.5.1 |
 
-### 3) npm view (canal real) â€” sin bump
+### 3) npm view (canal real) ? sin bump
 
 ```text
 $ npm view @alephscript/skills-scriptorium version --registry https://npm.scriptorium.escrivivir.co
@@ -75,7 +75,7 @@ $ npm view @alephscript/skills-scriptorium version --registry https://npm.script
 Workspace ya en 0.5.1. Sdks con lock 0.3.4 / 0.4.0: documentados; **no**
 bump en IB-20 (PORT / GO propio).
 
-### 4) Gitlinks pre/post obra (idÃ©nticos)
+### 4) Gitlinks pre/post obra (idénticos)
 
 ```text
 # worktree ls-tree HEAD codebase/ (post-obra = mismos tips)
@@ -99,17 +99,17 @@ legado remoto: script_sdk-addenda / script_sdk-vigilancia (no volcado)
 
 ### 6) Eje III (dedup / layout)
 
-- Un asiento de particiÃ³n (`PARTICION.md`) + una tabla (`MUNDOS.md`);
+- Un asiento de partición (`PARTICION.md`) + una tabla (`MUNDOS.md`);
   VISION/DECISIONES/PRACTICAS solo **enlazan** (PORT).
 - Contrato convivencia: **cita** al skill; cuerpo no reescrito.
-- Cero duplicaciÃ³n de Ã¡rbol `plan/` de sdks al workspace pÃºblico.
+- Cero duplicación de árbol `plan/` de sdks al workspace público.
 
-## Auto-revisiÃ³n (PRACTICAS del mundo â€” con honestidad)
+## Auto-revisión (PRACTICAS del mundo ? con honestidad)
 
 - [x] Diff solo dentro de `ALCANCE_DIFF`: `plan/**` + este reporte
-- [x] Cero Ã¡rboles/ficheros copiados de otros mundos sin procedencia
+- [x] Cero árboles/ficheros copiados de otros mundos sin procedencia
 - [x] Sellos con fuente; rutas citadas existentes (skill convivencia, tips)
-- [x] Sin fluff ni promesa de futuro sin `<pendiente>` / Â«crear bajo GOÂ»
+- [x] Sin fluff ni promesa de futuro sin `<pendiente>` / «crear bajo GO»
 - [x] Eje III evidenciado (dedup asiento + cita skill)
 - [x] Gates: inventario + npm view + ls-tree gitlinks ejecutados de verdad
 - [x] Commits convencionales en rama wp
@@ -117,22 +117,22 @@ legado remoto: script_sdk-addenda / script_sdk-vigilancia (no volcado)
 
 ## Hallazgos fuera de alcance
 
-- g-sdk / a-sdk / e-sdk sin pin skills-scriptorium â€” candidato WP por
-  carril dueÃ±o (no instalar aquÃ­).
-- z/s/o-sdk locks detrÃ¡s de latest 0.5.1 â€” bump requiere GO (PORT).
-- o-sdk `plan/` ausente en tip â€” nota-a-forense / dueÃ±o o-sdk; Â§F3a no
-  excavaciÃ³n.
-- a-sdk nests (Â§F3a) = forense; no abierto IB-21+.
-- Residual DNS: aleph-null Pages VIVO / redirect DIFERIDO â€” no obra.
+- g-sdk / a-sdk / e-sdk sin pin skills-scriptorium ? candidato WP por
+  carril dueño (no instalar aquí).
+- z/s/o-sdk locks detrás de latest 0.5.1 ? bump requiere GO (PORT).
+- o-sdk `plan/` ausente en tip ? nota-a-forense / dueño o-sdk; §F3a no
+  excavación.
+- a-sdk nests (§F3a) = forense; no abierto IB-21+.
+- Residual DNS: aleph-null Pages VIVO / redirect DIFERIDO ? no obra.
 
 ## Dudas / bloqueos
 
 Ninguno bloqueante para CA IB-20. Destinos `z_sdk`/`g_sdk`/`s_sdk`/
-`e_sdk`/`a_sdk` en cuadernos estÃ¡n **declarados**; creaciÃ³n de ramas
-vacÃ­as queda bajo GO del custodio (no volcado en este WP).
+`e_sdk`/`a_sdk` en cuadernos están **declarados**; creación de ramas
+vacías queda bajo GO del custodio (no volcado en este WP).
 
 ---
 
-## RevisiÃ³n del orquestador
+## Revisión del orquestador
 
-_(la rellena el orquestador: aceptado âœ… / devuelto con lista numerada)_
+_(la rellena el orquestador: aceptado ? / devuelto con lista numerada)_
