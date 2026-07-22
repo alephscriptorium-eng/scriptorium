@@ -94,4 +94,5 @@ PASS de LIB-070 salvo higiene §8.
 | checkout librería HEAD al clonar | `64883a9f1d525d6ad14759efa13cb788ab68542c` |
 | tip gobierno (AVISO+BRIEF+retoques R15-S) | `2b8f4b45566c49e4c320f3c716327025f5ba65dc` |
 | tip WP-XS (obra banner) | `68d98ec4c2f514e29b8e6bd7faac00cecda3cc3a` |
-| tip main POST-push (HEAD real = origin/main) | `68d98ec4c2f514e29b8e6bd7faac00cecda3cc3a` |
+| tip tip-literal (68d98ec) | `db47a3fcb5ea698a9ef85695d0f54bc1450b9b0a` |
+| tip main POST-push (HEAD real = origin/main) | `db47a3fcb5ea698a9ef85695d0f54bc1450b9b0a` |
