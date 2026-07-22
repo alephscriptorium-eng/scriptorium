@@ -31,8 +31,7 @@ Ver `plan/roles/ejes-ca.md` (copiado del skill swarm-orquestacion):
 ## Convivencia + vigía
 
 Contrato v1.1 / método v0.6: `roles/` enlaza al skill
-`reference/convivencia-multi-orquestador.md`. Calibración del workspace:
-`plan/PARTICION.md` · inventario `plan/MUNDOS.md` (IB-20). Partición de territorios
+`reference/convivencia-multi-orquestador.md`. Partición de territorios
 del carril S: `plan/PARTICION.md`. Tabla de mundos / skill / cuadernos:
 `plan/MUNDOS.md`.
 
