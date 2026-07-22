@@ -27,12 +27,17 @@ submodules bajo `codebase/`. **PORT, no rewrite.**
 Cuadernos = repo privado `scriptorium-cuadernos` (rama por mundo). **No
 entran al público.**
 
+Mapa inventariado (IB-20): `plan/MUNDOS.md`. Partición de obra/gobierno:
+`plan/PARTICION.md` (cita contrato v1.1; no lo reescribe).
+
 ## Candados
 
 - Nada se borra sin veredicto desechable.
 - No tocar `alephscript-network-sdk` salvo el remote `oasis-upstream`
   (epsylon/oasis).
-- Convivencia multi-orquestador v1.1 / método v0.6 vigente.
+- Convivencia multi-orquestador v1.1 / método v0.6 vigente
+  (fuente: skill `convivencia-multi-orquestador.md`; asiento local
+  `plan/PARTICION.md` · inventario `plan/MUNDOS.md`).
 - Gate `Rn-S` PASS antes de despachar obra en este carril.
 - Activación regla 13: agente fresco opera solo con el skill.
 

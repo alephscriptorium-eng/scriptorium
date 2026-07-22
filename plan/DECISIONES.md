@@ -30,7 +30,10 @@ INITIAL-BASE = PORT del backlog-semilla. No rewrite.
 ### DA-S06 · Convivencia
 
 Contrato multi-orquestador v1.1 vigente si coexisten otros orquestadores.
-Carril de este mundo: **S** (rondas `Rn-S`).
+Carril de este mundo: **S** (rondas `Rn-S`). Asiento PORT (IB-20):
+`plan/PARTICION.md` cita
+`.claude/skills/swarm-orquestacion/reference/convivencia-multi-orquestador.md`
+(método v0.6); inventario de holones en `plan/MUNDOS.md`.
 
 ### DA-S07 · Sucesión de vigía (2026-07-22 · mandato Vigilante-S)
 
