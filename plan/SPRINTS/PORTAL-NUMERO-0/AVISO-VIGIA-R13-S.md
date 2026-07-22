@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (post merge N0-03 · re-pielado 0.6.1)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-22  
-**Estado gate:** ⏳ pendiente veredicto Vigilante-S
+**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R13-S.md`
 
 > N0-03 = ✅ mergeado · tip PRE `ddbea1a` · 🔶 `1bd7998` · obra
 > `985eaa9` · merge `72e1330`. Portal consume
