@@ -58,7 +58,8 @@ Tag hoy **NO**.
   `docs/.vitepress/theme/**` · consume versión nueva del skill.
   Brief **stub** OK. 🔶 solo tras N0-02 publicado + gate propio.
   **CA:** ver `BRIEFS/N0-03.md` (cerrar al despacho).
-  _Brief:_ `BRIEFS/N0-03.md` · stub encolado · sin AVISO de 🔶 aún.
+  _Brief:_ `BRIEFS/N0-03.md` · stub encolado · AVISO **R12-S** pedida ·
+  **sin 🔶** hasta PASS.
 
 - ⬜ **N0-04 · WP-BRAND-1 · marca / colofón aleph-null** — carril S ·
   `scriptorium/branding/` desde cantera tip `0567a24` · derivados
