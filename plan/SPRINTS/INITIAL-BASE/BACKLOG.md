@@ -78,20 +78,18 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## Ola IB-2 · Port de planes y doctrina
 
-- 🔶 **IB-20 · Reunificación de planes** — recopilar plan/ de los 6 sdk
+- ✅ **IB-20 · Reunificación de planes** — recopilar plan/ de los 6 sdk
   → asentar protocolo multi-orquestador (contrato v1.1/método v0.6) en
   el plan del workspace · verificar skills@latest en cada sdk ·
   histórico → cuadernos (rama por mundo).
   **CA:** tabla de mundos con versión skill + estado plan · cero
   histórico perdido (cuadernos) · partición de territorios declarada.
-  _Brief:_ `BRIEFS/IB-20.md` (re-emitido post R5-S · **PARTICIÓN
-  DECLARADA**) · rama `wp/ib-20-reunificacion-planes` · worktree
-  `C:\S\.worktrees\wp-ib-20` (reutilizados tras aparcamiento).
-  **Gate R5-S = PASS-con-residual** (`INFORME-VIGIA-R5-S.md`). Escritura
-  solo `plan/` workspace + punteros cuadernos; `codebase/*-sdk` SOLO
-  LECTURA (cero edits / cero bump gitlinks). Residual DNS: aleph-null
-  Pages VIVO (no obra); redirect scriptorium→pub DIFERIDO sine die
-  (no verde; no obra worker).
+  _Brief:_ `BRIEFS/IB-20.md` · merge `wp/ib-20-reunificacion-planes`
+  · obra tip `53573e22ca11dfe943a49d63716f93be5a05cabf`
+  · reporte `REPORTES/IB-20-reunificacion-planes.md`
+  · artefactos `plan/MUNDOS.md` · `plan/PARTICION.md`.
+  **Aceptado** post R5-S; partición declarada; gitlinks invariantes.
+  Residual DNS: aleph-null Pages VIVO; redirect DIFERIDO (no verde).
 - ⬜ **IB-21 · Skill `holarquia`** (destilación DEVOPS — veredicto del
   destilador): A) dos leyes + junturas + plantilla holón · B) DS-5 ·
   C) acuerdo LLM.md (memoria→codebase · regla de oro «no inventes
