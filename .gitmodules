@@ -1,0 +1,24 @@
+[submodule "codebase/z-sdk"]
+	path = codebase/z-sdk
+	url = https://github.com/alephscriptorium-eng/Z_SDK.git
+	branch = main
+[submodule "codebase/g-sdk"]
+	path = codebase/g-sdk
+	url = https://github.com/alephscriptorium-eng/Z_SDK-games-library.git
+	branch = main
+[submodule "codebase/s-sdk"]
+	path = codebase/s-sdk
+	url = https://github.com/alephscriptorium-eng/S_SDK.git
+	branch = main
+[submodule "codebase/e-sdk"]
+	path = codebase/e-sdk
+	url = https://github.com/alephscriptorium-eng/E_SDK.git
+	branch = main
+[submodule "codebase/o-sdk"]
+	path = codebase/o-sdk
+	url = https://github.com/alephscriptorium-eng/O_SDK.git
+	branch = main
+[submodule "codebase/a-sdk"]
+	path = codebase/a-sdk
+	url = https://github.com/escrivivir-co/aleph-scriptorium.git
+	branch = integration/beta/scriptorium
