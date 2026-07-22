@@ -85,4 +85,7 @@ PASS-con-residual sobre:
 | registry | `https://npm.scriptorium.escrivivir.co` |
 | checkout obra | `C:\S_LAB\skills-library` |
 | reporte | `REPORTES/LIB-070-release-0.7.0.md` |
-| tip scriptorium PRE-cierre (fetch) | _(rellenar POST-push del cierre)_ |
+| tip scriptorium PRE-cierre (fetch) | `c19eb5ca53e33710dd125bc9995d8a3aeab81d91` |
+| tip scriptorium POST-push (HEAD = origin/main) | `96d176153eacbf0ffd3f70ce34e1364f0f57c47e` |
+| SHA AVISO+reporte (pre-merge) | `011c1c97ec58d83d82e644518fcebce4c9b62a59` |
+| SHA 🔶 path materializado | `64dbbd46d6538bdf25928485cf4429d8919c4a07` |
