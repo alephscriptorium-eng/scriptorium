@@ -1,5 +1,13 @@
 ---
+layout: home
+piel: fanzine
 title: aleph-null
+stamp: ℵ₀
+sub: portal índice del workspace scriptorium
+sub2: seis mundos · z·g·s·e·o·a · método instalable
+callout: ℵ₀ · el cardinal del primer infinito contable
+issue: NÚMERO 0 · 2026
+footer: aleph-null · scriptorium
 ---
 
 # aleph-null · número 0
