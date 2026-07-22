@@ -54,19 +54,24 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   · o-sdk tip `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9`
   · a-sdk remoto `escrivivir-co/aleph-scriptorium`
   · reporte `REPORTES/IB-11-submodules-mapa-letras.md`
-- ⬜ **IB-12 · Skills + estación de vigilancia** — devDep
+- 🔶 **IB-12 · Skills + estación de vigilancia** — devDep
   @alephscript/skills-scriptorium@0.x (resuelve 0.5.1+) + skills:sync
   espejo `.claude/skills/` · calibración estación: OUT_DIR persistente +
   BACKSTAGE_GIT (rama scriptorium-vigilancia en cuadernos) + watcher con
   whitelist materialización.
   **CA:** npm view C8 · espejo íntegro · watcher arranca · calibración
   en plan (no en el skill).
-- ⬜ **IB-13 · Web + dominios** — docs/ site-web overall esqueleto ·
+  _Brief:_ `BRIEFS/IB-12.md` · rama `wp/ib-12-skills-estacion`
+  · worktree `C:\S\.worktrees\wp-ib-12`
+- 🔶 **IB-13 · Web + dominios** — docs/ site-web overall esqueleto ·
   dominio **aleph-null.escrivivir.co** (CNAME + DNS = tick custodio) ·
   redirect scriptorium.escrivivir.co → pub.escrivivir.co (tick DNS
   custodio; hoy 404).
   **CA:** docs:build verde · Pages vivo en aleph-null (tras tick DNS) ·
   redirect verificado C8.
+  _Brief:_ `BRIEFS/IB-13.md` · rama `wp/ib-13-web-dominios`
+  · worktree `C:\S\.worktrees\wp-ib-13`
+  · gate DNS externo: no bloquea 🔶; sí condiciona ✅ final.
 
 ## Ola IB-2 · Port de planes y doctrina
 
@@ -111,13 +116,14 @@ IB-23. Gates del vigía por ola (rondas Rn-S). Regla de oro: PORT, NO
 REWRITE — todo lo que huela a reescritura se devuelve a cola con GO
 propio.
 
-## Gate / estado lote (ola IB-0 + IB-10 → IB-11)
+## Gate / estado lote (ola IB-0 + IB-10 → IB-11 · lote IB-12 ∥ IB-13)
 
 - Briefs: `BRIEFS/IB-01.md`, `BRIEFS/IB-02.md`, `BRIEFS/IB-10.md`,
-  `BRIEFS/IB-11.md`
+  `BRIEFS/IB-11.md`, `BRIEFS/IB-12.md`, `BRIEFS/IB-13.md`
 - Aviso vigía: `AVISO-VIGIA-R1-S.md` · informe `INFORME-VIGIA-R1-S.md` (PASS)
 - **Lote IB-01 ∥ IB-02 ∥ IB-10: ✅ cerrado** 2026-07-22 (merges post-aceptación).
 - Gate vigía **R2-S:** informe `INFORME-VIGIA-R2-S.md` · **PASS**.
 - **IB-11: ✅ aceptado** 2026-07-22 (merge post-aceptación; 6 gitlinks).
-- **Próximo:** gate vigía **R3-S** antes de despachar **IB-12** (skills +
-  estación) / **IB-13** (web + dominios). No despachar IB-12 sin R3-S PASS.
+- Gate vigía **R3-S:** informe `INFORME-VIGIA-R3-S.md` · **PASS**.
+- **Lote IB-12 ∥ IB-13: 🔶 en curso** 2026-07-22 (post R3-S PASS).
+  No abrir IB-20+ hasta cierre de este lote + gate posterior.
