@@ -90,14 +90,17 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
   · artefactos `plan/MUNDOS.md` · `plan/PARTICION.md`.
   **Aceptado** post R5-S; partición declarada; gitlinks invariantes.
   Residual DNS: aleph-null Pages VIVO; redirect DIFERIDO (no verde).
-- 🔶 **IB-21 · Skill `holarquia`** (destilación DEVOPS — veredicto del
+- ✅ **IB-21 · Skill `holarquia`** (destilación DEVOPS — veredicto del
   destilador): A) dos leyes + junturas + plantilla holón · B) DS-5 ·
   C) acuerdo LLM.md (memoria→codebase · regla de oro «no inventes
   observaciones» · notaría describir-no-prescribir). Publicar en
   skills-library (minor DC-22).
   **CA:** ceguera delta 5 = 0 · agente fresco aplica las dos leyes solo
   con el skill · npm view nueva versión.
-  _Brief:_ `BRIEFS/IB-21.md` · gate R6-S PASS · condición secrets/ceguera/C8
+  _Brief:_ `BRIEFS/IB-21.md` · merge `wp/ib-21-skill-holarquia`
+  · skills-library tip `6512e27dd11c4d84192d4a66035ede609ba97523`
+  · tag `v0.6.0` · Publish CI `29947333933` · npm `@0.6.0`
+  · reporte `REPORTES/IB-21-skill-holarquia.md`
 - 🔶 **IB-22 · Archivo del cascarón + reubicación de joyas** — genealogía
   07-holones → archivo «partida de nacimiento» (cuaderno o docs
   histórico) · dossiers 16-07 → e-sdk (mundo de papel, decisión A-23) ·
