@@ -5,7 +5,7 @@
 | agente | worker swarm � IB-20 |
 | fecha | 2026-07-22 |
 | rama | `wp/ib-20-reunificacion-planes` |
-| commits | ver tip de rama tras commits de obra (listados en entrega) |
+| commits | `1ad68ac0fc45c0507348475e65edb82a1efd1081` (obra inicial) / `6adf8b0fb976be3ca38e33a73aedfe47ffa43d88` (UTF-8 + reporte CA) |
 | eje(s) CA | III (auditoria / layout � reunificacion) |
 | estado propuesto | listo para revision |
 
