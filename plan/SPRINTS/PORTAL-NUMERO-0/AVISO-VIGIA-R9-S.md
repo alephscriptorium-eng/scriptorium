@@ -92,7 +92,7 @@ changelog. Ítem gobierno: `BACKLOG.md` §Pre-tag · CHANGELOG.
 | tip main PRE-gobierno (fetch) | `4c8fb9032b71a47bf6170f4ab411cb23d8c71348` |
 | tip R8-S cierre (INFORME) | `4c8fb9032b71a47bf6170f4ab411cb23d8c71348` |
 | tip pulso R8-S (tabla INFORME) | `45234c1` (ancestro; main ya tiene informe) |
-| tip main POST-push este aviso | `<pendiente HEAD real tras push>` |
+| tip main POST-push este aviso | `5838adb2a53b27e9543d9f7bc74b169c65bc79af` |
 
 ## Prueba de ceguera (cara hacia swarm)
 
