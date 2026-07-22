@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (R18-S PASS Â· olas zÂ·gÂ·sÂ·eÂ·a Â· 2026-07-23 Â· sin subagente vigÃ­a)  
 **Receptor:** **Vigilante-S** (estaciÃ³n viva `C:\S\vigilancia`) vÃ­a **custodio**  
 **Fecha:** 2026-07-23  
-**Estado gate:** â³ **pendiente veredicto** â€” lo declara Vigilante-S
+**Estado gate:** ✅ ver informe correspondiente
 
 > Olas 1+ del arco **SKILLS-EN-MUNDOS** ejecutadas en mundos
 > **zÂ·gÂ·sÂ·eÂ·a** (`@alephscript/skills-scriptorium@0.7.0` + espejo bin +

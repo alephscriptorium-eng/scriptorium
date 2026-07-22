@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (GO CUSTODIO · DA-S18 + WP restauración · 2026-07-23 · sin subagente vigía)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-23  
-**Estado gate:** ⏳ **pendiente veredicto** — lo declara Vigilante-S
+**Estado gate:** ✅ ver informe correspondiente
 
 > Gate **propio** del WP residual post-tag **WP-REST-SHELL** (restaurar
 > shell familia en aleph-null). **No** es R19-S (olas mundos · otro
