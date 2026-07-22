@@ -5,7 +5,7 @@
 **Emisor:** orquestador S  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio** · archivo del sprint  
 **Fecha:** 2026-07-22  
-**Estado:** sprint INITIAL-BASE **cerrado** tras IB-23
+**Estado:** sprint INITIAL-BASE **cerrado** tras IB-23 · **cierre ratificado por Vigilante-S** — ver `INFORME-VIGIA-R8-S.md`
 
 > Este aviso **cierra** el sprint. No abre IB-24+. No pide PASS para
 > despacho de lote siguiente del INITIAL-BASE (no hay más WPs).
