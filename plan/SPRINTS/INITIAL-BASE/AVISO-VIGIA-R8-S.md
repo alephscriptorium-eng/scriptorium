@@ -73,9 +73,10 @@ Orden ejecutado: IB-0 ∥ IB-10 → IB-11 → (IB-12 ∥ IB-13) → IB-20 →
 | tip PRE-🔶 IB-23 (fetch) | `76fdce32ff8df6b85ec7294cd901aef83d8b2e64` |
 | 🔶 IB-23 | `e3c813cb35ebc2cf18eeacad28236f43b646e2dc` |
 | obra IB-23 | `759b724f94db8e5c9fba2621b7b61e6ff53edecb` |
-| accept IB-23 | `059da2d…` (ver log) |
+| accept IB-23 | `059da2dbb70700581f76b29261a1a6d2d31a75cd` |
 | merge IB-23 | `5d3a264033499f20ab66cee0ed89d361a292b3b7` |
-| tip main POST-push este aviso | *(rellenar tras push = HEAD real)* |
+| AVISO R8-S | `795562165ea7882b8d45f9200fdb437da71c85db` |
+| tip main POST-push | *(HEAD real tras último push)* |
 
 ## Vetos respetados en el cierre
 
