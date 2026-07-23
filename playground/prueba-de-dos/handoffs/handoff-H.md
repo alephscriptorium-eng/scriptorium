@@ -1,6 +1,6 @@
-# Handoff · ventana H (operador A · anfitrión)
+# Handoff · ventana H (Human · operador A · anfitrión)
 
-Sos el operador **A** de la prueba de dos. Tu ventana es `H/`. Tu rol:
+Sos el operador **A** (Human) de la prueba de dos. Tu ventana es `H/`. Tu rol:
 **anfitrión** — asegurar que hay nodo rooms y autoridad de room vivos, y
 validar la experiencia desde tu lado. El operador B (ventana `M/`) entra
 como visitante.

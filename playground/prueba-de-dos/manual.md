@@ -1,6 +1,6 @@
 # Manual · prueba de dos
 
-Dos ventanas-operador — **H** (operador A) y **M** (operador B) — entran
+Dos ventanas-operador — **Human** (operador A) y **Machine** (operador B) — entran
 a la misma room de un nodo rooms con el stack `@zeus` y **validan la
 experiencia**. Redefinición 2026-07-23: el cableado previo (H
 inicializada a mano) constó por bueno, pero la prueba ya no es cablear;
@@ -26,10 +26,10 @@ npm run generate A_B
 
 El generador crea:
 
-| carpeta | operador | contenido |
-| ------- | -------- | --------- |
-| `H/` | A | `package.json` con el stack, `.npmrc`, `handoff.md` |
-| `M/` | B | `package.json` con el stack, `.npmrc`, `handoff.md` |
+| carpeta | ventana | operador | contenido |
+| ------- | ------- | -------- | --------- |
+| `H/` | **Human** | A | `package.json` con el stack, `.npmrc`, `handoff.md` |
+| `M/` | **Machine** | B | `package.json` con el stack, `.npmrc`, `handoff.md` |
 
 y corre `npm install` en cada una (omitir con `-- --sin-install`).
 No pisa ficheros existentes con contenido: es seguro re-ejecutarlo.
@@ -43,10 +43,10 @@ Stack de cada ventana (el que validó la inicialización de H):
 
 Cada operador abre **su** carpeta y sigue **su** `handoff.md`:
 
-- `H/handoff.md` — operador A: anfitrión. Asegura el nodo rooms
-  (externo o local) y la autoridad de la room.
-- `M/handoff.md` — operador B: visitante. Resuelve su identidad y
-  entra a la room.
+- `H/handoff.md` — ventana Human, operador A: anfitrión. Asegura el
+  nodo rooms (externo o local) y la autoridad de la room.
+- `M/handoff.md` — ventana Machine, operador B: visitante. Resuelve su
+  identidad y entra a la room.
 
 El `handoff.md` de cada carpeta es además el **cuaderno del operador**:
 ahí queda el registro de la corrida (sección «Registro»).

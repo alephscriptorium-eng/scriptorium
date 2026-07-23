@@ -10,8 +10,10 @@ import { spawnSync } from 'node:child_process';
 
 const RAIZ = dirname(dirname(fileURLToPath(import.meta.url)));
 
-// Mapa operador → carpeta (contrato de la prueba: A vive en H, B en M)
+// Mapa operador → carpeta (contrato de la prueba: A vive en H = Human, B en M = Machine)
 const OPERADORES = { A: 'H', B: 'M' };
+// Semántica de las ventanas
+const NOMBRES = { H: 'Human', M: 'Machine' };
 
 // Stack que validó la inicialización de H (2026-07-23)
 const STACK = {
@@ -56,7 +58,7 @@ for (const op of operadores) {
     name: carpeta.toLowerCase(),
     private: true,
     version: '1.0.0',
-    description: `Ventana ${carpeta} (operador ${op}) · prueba de dos`,
+    description: `Ventana ${carpeta} (${NOMBRES[carpeta]} · operador ${op}) · prueba de dos`,
     main: 'index.js',
     scripts: { test: 'echo "Error: no test specified" && exit 1' },
     license: 'ISC',

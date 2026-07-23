@@ -1,6 +1,6 @@
-# Handoff · ventana M (operador B · visitante)
+# Handoff · ventana M (Machine · operador B · visitante)
 
-Sos el operador **B** de la prueba de dos. Tu ventana es `M/`. Tu rol:
+Sos el operador **B** (Machine) de la prueba de dos. Tu ventana es `M/`. Tu rol:
 **visitante** — entrar a la room que sostiene el operador A (ventana
 `H/`) y validar la experiencia desde tu lado.
 

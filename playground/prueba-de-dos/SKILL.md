@@ -2,7 +2,7 @@
 name: prueba-de-dos
 description: >-
   Starter kit reproducible de la «prueba de dos»: dos ventanas-operador
-  (H = A · M = B) entran a una room del nodo rooms con el stack @zeus y
+  (H = Human = A · M = Machine = B) entran a una room del nodo rooms con el stack @zeus y
   validan la experiencia — no el cableado. Incluye manual, dos handoff.md,
   generador `npm run generate A_B` (carpetas H y M npm-inicializadas con su
   stack) y submanual de identidad (peercard: tenerla, pedirla, o anónimo).
@@ -27,9 +27,9 @@ la experiencia** de dos peers conviviendo en la misma room.
 | pieza | rol |
 | ----- | --- |
 | `manual.md` | Manual de la prueba: recrear, correr, validar |
-| `handoffs/handoff-H.md` | Plantilla handoff del operador A (ventana H) |
-| `handoffs/handoff-M.md` | Plantilla handoff del operador B (ventana M) |
-| `scripts/generar.mjs` | Generador: crea `H/` (A) y `M/` (B) con su stack |
+| `handoffs/handoff-H.md` | Plantilla handoff del operador A (ventana H = Human) |
+| `handoffs/handoff-M.md` | Plantilla handoff del operador B (ventana M = Machine) |
+| `scripts/generar.mjs` | Generador: crea `H/` (Human = A) y `M/` (Machine = B) con su stack |
 | `reference/PEERCARD.md` | Submanual identidad: peercard u anonimato (spike) |
 | `package.json` · `.npmrc` | `npm run generate A_B` + registry `@zeus` |
 
