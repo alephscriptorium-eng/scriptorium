@@ -42,7 +42,7 @@ explícita del usuario, no se proyecta.
   `Rn-Z` en su carril.
 - Skill `vigilancia` — **modo de lenguaje dual** encolado a Apolo
   (apertura del sprint PRUEBA-DE-DOS) + valoración merge/deslinde con
-  `estacion-viva`.
+  `estacion-viva` **cerrada: NO merge (DA-S20)**.
 - Lecciones vNext (dentro del alcance 0.7.0): sucesión vigía · checkout
   declarado ×3 · worktree por rol · raíz por constelación.
 - ⬜ **GO al parser** (DA-S17 · 2026-07-23) —
@@ -53,9 +53,10 @@ explícita del usuario, no se proyecta.
   este tip.**
 - ⬜ **Mini-tick portal** `piel: familia-vp` (post-0.8.0 · GO propio;
   no forzado en el GO de consumo).
-- ⬜ **Skill `operador-rooms`** (spike PD-02 · PRUEBA-DE-DOS): valorar
-  skill para el operador-admin del nodo rooms (emisión de peercard,
-  ACL, salud del nodo). Decisión del custodio; hoy solo submanual
+- ⬜ **Skill `operador-rooms`** (spike PD-02 · PRUEBA-DE-DOS): skill
+  para el operador-admin del nodo rooms (emisión de peercard, ACL,
+  salud del nodo). **GO custodio (DA-S20 · obra en librería, ventana
+  Apolo)**; fuente inicial
   `playground/prueba-de-dos/reference/PEERCARD.md`.
 
 Ver también `plan/REGISTRO-DE-JOYAS.md`.

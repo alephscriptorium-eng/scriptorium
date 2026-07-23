@@ -291,6 +291,26 @@ en `plan/MUNDOS.md` · no impone unificación. Bump gitlinks
 **o-sdk / skills-library** fuera de este GO. DA-S17 / WP-REST-SHELL (R20)
 no mezclados.
 
+### DA-S20 · GOs librería post-re-plan PRUEBA-DE-DOS (2026-07-23 · custodio)
+
+- **GO skill `operador-rooms`**: pasa de spike a OBRA en la librería
+  (`C:\S_LAB\skills-library`): skill para el operador-admin de un nodo
+  rooms (emisión de peercard vía `issuePeerCard`/`onPeerCard` de
+  `@zeus/authority-kit`, ACL, salud del nodo). Fuente inicial:
+  `playground/prueba-de-dos/reference/PEERCARD.md`.
+- **GO intake `prueba-de-dos`**: el boilerplate
+  `playground/prueba-de-dos/` del workspace asciende a skill del
+  paquete `@alephscript/skills-scriptorium`; obra en la librería. El
+  boilerplate del workspace queda como instancia consumidora hasta el
+  consumo de la versión nueva.
+- **NO merge `vigilancia` ↔ `estacion-viva`**: los dos skills siguen
+  separados. La valoración de fusión queda cerrada en negativo;
+  documentar la frontera entre ambos es opcional dentro de la obra del
+  modo dual (d), no un WP propio.
+
+Cierre: gates de esta obra = AVISO en el plan del checkout de la
+librería; bump del gitlink del atlas = GO custodio (DA-S11).
+
 ## Abiertas
 
 _(las resuelve el custodio)_

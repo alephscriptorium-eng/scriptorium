@@ -18,7 +18,7 @@ los dos `handoff.md`. La prueba pasa a ser: **inicializar el skill** en
 | WP | qué | estado |
 | -- | --- | ------ |
 | PD-01 | Skill/boilerplate `prueba-de-dos`: SKILL.md + `manual.md` + dos handoffs plantilla + `npm run generate A_B` (crea `H/` (A) y `M/` (B) npm-inicializadas con su stack) + entra a git | 🔶 entregado — gate pendiente (AVISO R25-S) |
-| PD-02 | **Spike peercard**: submanual `reference/PEERCARD.md` (tres vías: card vigente / emisión por operador-admin del nodo rooms / anónimo) + instrucciones de emisión para el admin | 🔶 entregado (submanual) · **decisión abierta**: ¿skill `operador-rooms` para el admin del nodo? → custodio |
+| PD-02 | **Spike peercard**: submanual `reference/PEERCARD.md` (tres vías: card vigente / emisión por operador-admin del nodo rooms / anónimo) + instrucciones de emisión para el admin | 🔶 entregado (submanual) · **decisión cerrada — GO (DA-S20)**: skill `operador-rooms` = obra en la librería |
 | PD-03 | **Corrida de la experiencia**: dos operadores reales siguen sus handoffs, room compartida, CA §5 del manual con evidencia literal; asentar en los handoffs las invocaciones exactas hoy `<pendiente>` | ⬜ |
 
 ## Evidencia PD-01 (smoke de esta sesión)
