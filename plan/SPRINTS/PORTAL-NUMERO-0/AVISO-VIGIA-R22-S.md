@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (GO post-cierre mundos · merge REST-SHELL · 2026-07-23 · sin subagente vigía)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-23  
-**Estado gate:** ⬜ pendiente veredicto (aceptación post-obra)
+**Estado gate:** ✅ ver informe correspondiente
 
 > Aceptación de **WP-REST-SHELL** tras merge. Pedido del INFORME R20-S:
 > C8 del vigía **lado a lado contra z-sdk** (referencia viva del PORT).

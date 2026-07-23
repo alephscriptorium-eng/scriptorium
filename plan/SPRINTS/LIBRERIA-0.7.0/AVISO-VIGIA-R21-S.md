@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (GO VIGILANTE-S + CUSTODIO · post-cierre mundos · 2026-07-23 · sin subagente vigía)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-23  
-**Estado gate:** ⬜ pendiente veredicto
+**Estado gate:** ✅ ver informe correspondiente
 
 > Gate **propio** de activación **LIB-080** (bundle issues **#18+#19** ·
 > release **0.8.0**). Cadena cumplida: cierre arco mundos @ tip base
