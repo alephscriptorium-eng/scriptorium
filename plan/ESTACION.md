@@ -66,8 +66,27 @@ WORLD_ROOT=<worktree-o-mundo> OUT_DIR=C:/S/vigilancia INTERVAL=45 \
 ```
 
 Espejo de skills: `npm run skills:sync` tras `npm install`
-(`@alephscript/skills-scriptorium@0.5.1`, registry
+(`@alephscript/skills-scriptorium@0.8.0`, registry
 `https://npm.scriptorium.escrivivir.co`).
+
+## Pulso territorio == mapa (#19 · consumo 0.8.0)
+
+El Vigilante-S adopta en el ritual de rondas `Rn-S` el check del
+paquete (skill `vigilancia` @0.8.0), cuando existan `plan/MAPA-*.md`:
+
+```text
+# Desde MUNDO_RAIZ (espejo sync) — path del paquete 0.8.0
+bash .claude/skills/vigilancia/scripts/verificar-territorio-mapa.sh --root "$WORLD_ROOT"
+
+# Equivalente vía node_modules (misma pieza del paquete)
+bash node_modules/@alephscript/skills-scriptorium/skills/vigilancia/scripts/verificar-territorio-mapa.sh --root "$WORLD_ROOT"
+```
+
+Sin `plan/MAPA-*.md` el script hace SKIP (mundo pre-#19). Hoy el
+workspace tiene `plan/MAPA-REPO.md`; ampliar trilogía = commit de
+gobierno. Fuente método: skill vigilancia `reference/ESTACION.md`
+(ritual pulso paso 6). Evidencia consumo: script OK sobre
+`MAPA-REPO` (Git Bash).
 
 ## Relación con VISION
 

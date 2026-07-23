@@ -33,11 +33,12 @@ scriptorium · no reabre N0-04).
   `/licencia` · banner asset · `docs:build` + `docs:verificar` verdes ·
   sello `release/numero-0` intacto. AVISO aceptación post-merge (C8
   lado a lado vs z-sdk).
-- **LIB-080** activado en gate (issues **#18+#19** · candidato
-  **0.8.0**) — AVISO **R21-S** PASS · 🔶 publicado
-  `@alephscript/skills-scriptorium@0.8.0` @ `cc59e4e` · tag
-  `v0.8.0` · #18+#19 closed · AVISO aceptación **R23-S** · sin ola
-  consumo mundos · gitlink índice bump **pendiente GO**.
+- **LIB-080** (issues **#18+#19** · **0.8.0**) — AVISO **R21-S** PASS ·
+  publicado `@alephscript/skills-scriptorium@0.8.0` @ `cc59e4e` · tag
+  `v0.8.0` · #18+#19 closed · R23-S **PASS** · **ola consumo 0.8.0**
+  workspace+z·g·s·e·a · gitlink skills-library → `cc59e4e` ·
+  Vigilante-S adopta pulso mapa · **AVISO R24-S** cierre arco
+  librería.
 
 ## Número 0 · portal aleph-null (2026-07-22)
 

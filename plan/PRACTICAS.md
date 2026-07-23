@@ -58,7 +58,15 @@ Política **declarada por mundo** — no unificar a la fuerza (PORT):
 Inventario y tips: `plan/MUNDOS.md`. Cada mundo declara en SU
 `plan/ESTACION.md`.
 
+## Pulso territorio == mapa (Vigilante-S · @0.8.0)
+
+Tras consumo `@alephscript/skills-scriptorium@0.8.0`, el pulso de
+rondas del Vigilante-S incluye
+`.claude/skills/vigilancia/scripts/verificar-territorio-mapa.sh`
+cuando hay `plan/MAPA-*.md` (calibración: `plan/ESTACION.md`).
+
 ## Auto-revisión
 
 Antes de reportar: releer el diff contra este fichero y los ejes aplicables.
 Evidencia literal; lo no comprobado = `<pendiente>`.
+
