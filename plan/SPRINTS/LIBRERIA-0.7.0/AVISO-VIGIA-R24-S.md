@@ -92,7 +92,7 @@ Paquete: `@alephscript/skills-scriptorium`.
 | checkout obra | `C:\S_LAB\skills-library` |
 | GO citado | `GO CUSTODIO + VIGILANTE-S · R23-S PASS · post-0.8.0 · 2026-07-23` |
 | AVISO R24-S (cuerpo · commit gobierno) | `2879013f9506764da8b8e46c8884b2ba82b87c86` |
-| tip main POST-push | `6ff80b0ffc8d8c62128d31402ae8d091a1345648` |
+| tip main POST-push | `cc7accdca08ab0906ac517ab0a01a1bc95481ff3` |
 
 ## Vetos respetados en el cierre
 
