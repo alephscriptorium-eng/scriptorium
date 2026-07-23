@@ -37,3 +37,12 @@ los dos `handoff.md`. La prueba pasa a ser: **inicializar el skill** en
 Aceptación PD-01/PD-02 + fila nueva de MAPA-REPO: pedida por
 `AVISO-VIGIA-R25-S.md` (Vigilante-S vía custodio · DA-S07). PD-03 no se
 despacha sin ese PASS.
+
+## Ventanas y notas
+
+- **Apolo** (carril librería, `C:\S_LAB\skills-library`) →
+  `APERTURA-APOLO.md`.
+- **Dionisios** (vigía del carril S, sucesión DA-S07) →
+  `APERTURA-DIONISIOS.md`.
+- Nota al carril Z (dueño de `@zeus/socket-server`, aparcado) →
+  `NOTA-CARRIL-Z-npmrc-scopes.md`.
