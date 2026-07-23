@@ -1,0 +1,22 @@
+{
+  "name": "cronista",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Ventana cronista (dj · narra) · playground ciudad",
+  "scripts": {
+    "mcp": "node --env-file=.env node_modules/@zeus/ciudad/src/player-mcp/start.mjs",
+    "env": "node -p \"require('fs').readFileSync('.env','utf8')\"",
+    "salud": "npm view @zeus/protocol version"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@zeus/authority-kit": "^0.4.1",
+    "@zeus/ciudad": "^0.1.0",
+    "@zeus/presets-sdk": "^0.1.2",
+    "@zeus/protocol": "^0.4.0",
+    "@zeus/rooms": "^0.1.1",
+    "@zeus/socket-server": "^0.1.1",
+    "@zeus/startpack-ciudad": "^0.1.0",
+    "@zeus/startpack-kit": "^0.1.0"
+  }
+}

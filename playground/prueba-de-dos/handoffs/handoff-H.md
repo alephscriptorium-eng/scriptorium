@@ -20,25 +20,25 @@ npm install        # si el generador no lo hizo ya
 - **Si hay nodo externo:** anotá su URL en el Registro y exportá
   `ZEUS_SCRIPTORIUM_URL=<url>` (así resuelve `@zeus/rooms`, sin URLs
   hardcodeadas).
-- **Si no hay:** levantá uno local con `@zeus/socket-server`
-  (`node node_modules/@zeus/socket-server/src/index.mjs`). Puerto y
-  detalles: README/`presets-sdk` del stack. `<pendiente>` documentar
-  aquí el puerto por defecto tras la primera corrida.
+- **Si no hay:** levantá uno local con `npm start` (script del
+  `package.json` de la ventana). Puerto por defecto **3017**: el nodo
+  escucha en `http://localhost:3017/runtime`, con Admin UI en
+  `/admin/` (alias `/ui/`). Evidencia custodio 2026-07-23 (arranque
+  VERDE, bridge mode local).
 
 ## 3. Autoridad de la room (juego: ciudad)
 
 La room necesita **una** autoridad (patrón «una room, una autoridad» de
-`@zeus/ciudad`). Vías, del README del paquete:
+`@zeus/ciudad`). Con el nodo ya vivo (§2):
 
 ```bash
-# smoke local del dominio (sin room):
-npm exec --prefix node_modules/@zeus/ciudad -- npm run smoke
-
-# autoridad real (requiere nodo + startpack):
-# forma monorepo: `npm run authority -w @zeus/ciudad`
-# desde esta ventana instalada: <pendiente> fijar la invocación exacta
-# en la primera corrida y asentarla aquí.
+npm run autoridad
 ```
+
+Verificado 2026-07-23: carga `@zeus/startpack-ciudad` del propio stack
+(scene `ciudad-v0`), conecta al nodo (`/runtime.onConnect`) y sostiene
+la room `CIUDAD_DEMO` por defecto. No hay smoke desde ventana
+instalada: el paquete publicado de `@zeus/ciudad` no trae `fixtures/`.
 
 Overrides útiles: `ZEUS_CIUDAD_ROOM` (nombre de room),
 `ZEUS_STARTPACK_CIUDAD`, `ZEUS_PORT_SCRIPTORIUM`.

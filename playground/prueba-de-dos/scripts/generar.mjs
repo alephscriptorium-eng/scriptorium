@@ -27,6 +27,15 @@ const STACK = {
   '@zeus/startpack-kit': '^0.1.0'
 };
 
+// Scripts consagrados con evidencia (PD-04, 2026-07-23):
+// - start: verificado por el custodio — nodo VERDE en http://localhost:3017/runtime.
+// - autoridad: verificada — carga startpack-ciudad del propio stack y conecta al nodo.
+// `smoke` NO se consagra: el tarball de @zeus/ciudad solo publica src/ (sin fixtures/).
+const SCRIPTS = {
+  start: 'node node_modules/@zeus/socket-server/src/index.mjs',
+  autoridad: 'node node_modules/@zeus/ciudad/src/authority.mjs'
+};
+
 const args = process.argv.slice(2).filter((a) => a !== '--');
 const sinInstall = args.includes('--sin-install') || args.includes('--no-install');
 const spec = args.find((a) => !a.startsWith('--')) ?? 'A_B';
@@ -48,6 +57,25 @@ function escribirSiFalta(ruta, contenido, etiqueta) {
   console.log(`  + escrito: ${etiqueta}`);
 }
 
+// package.json: si no existe se escribe entero; si existe, fusión suave de
+// SOLO la clave scripts (añade los que falten, no pisa nada, no toca deps).
+function asegurarPackageJson(ruta, pkgNuevo, etiqueta) {
+  if (!existsSync(ruta) || statSync(ruta).size === 0) {
+    writeFileSync(ruta, JSON.stringify(pkgNuevo, null, 2) + '\n');
+    console.log(`  + escrito: ${etiqueta}`);
+    return;
+  }
+  const actual = JSON.parse(readFileSync(ruta, 'utf8'));
+  const faltantes = Object.keys(SCRIPTS).filter((k) => !(k in (actual.scripts ?? {})));
+  if (faltantes.length === 0) {
+    console.log(`  · ya existe: ${etiqueta} (scripts al día)`);
+    return;
+  }
+  actual.scripts = { ...(actual.scripts ?? {}), ...Object.fromEntries(faltantes.map((k) => [k, SCRIPTS[k]])) };
+  writeFileSync(ruta, JSON.stringify(actual, null, 2) + '\n');
+  console.log(`  ~ actualizado: scripts (${faltantes.join(', ')}) en ${etiqueta}`);
+}
+
 for (const op of operadores) {
   const carpeta = OPERADORES[op];
   const destino = join(RAIZ, carpeta);
@@ -60,11 +88,11 @@ for (const op of operadores) {
     version: '1.0.0',
     description: `Ventana ${carpeta} (${NOMBRES[carpeta]} · operador ${op}) · prueba de dos`,
     main: 'index.js',
-    scripts: { test: 'echo "Error: no test specified" && exit 1' },
+    scripts: { ...SCRIPTS, test: 'echo "Error: no test specified" && exit 1' },
     license: 'ISC',
     dependencies: STACK
   };
-  escribirSiFalta(join(destino, 'package.json'), JSON.stringify(pkg, null, 2) + '\n', `${carpeta}/package.json`);
+  asegurarPackageJson(join(destino, 'package.json'), pkg, `${carpeta}/package.json`);
   escribirSiFalta(join(destino, '.npmrc'), readFileSync(join(RAIZ, '.npmrc')), `${carpeta}/.npmrc`);
 
   const plantilla = join(RAIZ, 'handoffs', `handoff-${carpeta}.md`);

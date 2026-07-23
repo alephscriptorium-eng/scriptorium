@@ -1,0 +1,16 @@
+{
+  "name": "ciudad",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Kit del playground ciudad: una ventana-operador por rol del juego @zeus/ciudad (autoridad, residente, visitante, corriente, cronista), cada una npm-inicializada con su stack y control total por scripts de package.json",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "generate": "node scripts/generar.mjs",
+    "generate:sin-install": "node scripts/generar.mjs --sin-install",
+    "roles": "node scripts/generar.mjs --listar"
+  },
+  "license": "UNLICENSED"
+}
