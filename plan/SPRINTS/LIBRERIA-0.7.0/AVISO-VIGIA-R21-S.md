@@ -88,6 +88,7 @@ PASS-con-residual sobre:
 | ---- | ----- |
 | tip cierre mundos (base GO) | `e436d5ad64d6ab50875c66a7e959e27070042dc4` |
 | tip MAPA-REPO asentado (POST-push) | `30367e885f654b5bcf66af918aedba9602c5e91c` |
+| tip este AVISO R21-S (POST-push) | `39a1e373ca87c3b68bcdf93309d684945b0a03ed` |
 | tip lib / gitlink (0.7.0) | `fb980984e5faa979247afa43054e52cfd4e07c3e` |
 | issues | #18 · #19 |
 | semver candidato | `0.8.0` |

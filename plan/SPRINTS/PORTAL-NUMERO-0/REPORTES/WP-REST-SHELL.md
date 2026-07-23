@@ -8,6 +8,8 @@
 | DA | DA-S18 |
 | Fecha | 2026-07-23 |
 | Tip PRE (base) | `30367e885f654b5bcf66af918aedba9602c5e91c` (MAPA-REPO) |
+| Tip obra rama | `170138bef9e63ba283809711a77d16430e28d754` |
+| Tip merge main | `bd560b718abc4b870e9ffbae57a779c46f42ecbf` |
 
 ## Hecho
 
