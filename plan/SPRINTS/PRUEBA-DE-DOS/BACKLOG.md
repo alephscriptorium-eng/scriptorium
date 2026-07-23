@@ -20,7 +20,7 @@ los dos `handoff.md`. La prueba pasa a ser: **inicializar el skill** en
 | PD-01 | Skill/boilerplate `prueba-de-dos`: SKILL.md + `manual.md` + dos handoffs plantilla + `npm run generate A_B` (crea `H/` (A) y `M/` (B) npm-inicializadas con su stack) + entra a git | ✅ aceptado · R25-S PASS |
 | PD-02 | **Spike peercard**: submanual `reference/PEERCARD.md` (tres vías: card vigente / emisión por operador-admin del nodo rooms / anónimo) + instrucciones de emisión para el admin | ✅ aceptado (spike) · R25-S PASS · GO skill operador-rooms cerrado aparte (DA-S20) |
 | PD-03 | **Corrida de la experiencia**: dos operadores reales siguen sus handoffs, room compartida, CA §5 del manual con evidencia literal; asentar en los handoffs las invocaciones exactas hoy `<pendiente>` | 🔶 despachado (post-PASS R25-S) — dos operadores: H = Human (custodio) · M = Machine (agente fresco, regla 13); brief en BRIEFS/PD-03.md |
-| PD-04 | Ergonomía npm de las ventanas (scripts start/smoke/autoridad verificados en el generador y handoffs) — hallazgo custodio 2026-07-23 | ⬜ encolado (brief en BRIEFS/PD-04.md; puede absorberse en PD-03) |
+| PD-04 | Ergonomía npm de las ventanas (scripts start/smoke/autoridad verificados en el generador y handoffs) — hallazgo custodio 2026-07-23 | 🔶 despachado 2026-07-23 (evidencia custodio: nodo VERDE :3017; smoke sugerido inválido) — brief en BRIEFS/PD-04.md |
 
 ## Evidencia PD-01 (smoke de esta sesión)
 
