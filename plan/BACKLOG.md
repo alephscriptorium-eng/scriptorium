@@ -2,9 +2,10 @@
 
 Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
-Sprint activo de gobierno: **LIBRERIA-0.7.0** (**cerrado** · R24-S ·
-consumo 0.8.0). PORTAL-NUMERO-0 **cerrado** · R15-S · tag
-`release/numero-0`. INITIAL-BASE **cerrado** · R8-S.
+Sprint activo: **PRUEBA-DE-DOS** (re-plan custodio 2026-07-23 · dual
+PO/scrum). LIBRERIA-0.7.0 **cerrado** · R24-S · consumo 0.8.0.
+PORTAL-NUMERO-0 **cerrado** · R15-S · tag `release/numero-0`.
+INITIAL-BASE **cerrado** · R8-S.
 
 Proyección a issues: **local-only** por defecto (DC-15). Sin petición
 explícita del usuario, no se proyecta.
@@ -16,6 +17,7 @@ explícita del usuario, no se proyecta.
 | INITIAL-BASE | ✅ cerrado · 9 WPs · R8-S | `plan/SPRINTS/INITIAL-BASE/` |
 | PORTAL-NUMERO-0 | ✅ cerrado · N0-01…04 ✅ · tag `release/numero-0` · R15-S · WP-XS banner ✅ | `plan/SPRINTS/PORTAL-NUMERO-0/` |
 | LIBRERIA-0.7.0 | ✅ cerrado · LIB-070…LIB-080 · consumo 0.8.0 · R24-S | `plan/SPRINTS/LIBRERIA-0.7.0/` |
+| PRUEBA-DE-DOS | 🔶 en curso · PD-01/PD-02 entregados (AVISO R25-S) · PD-03 ⬜ | `plan/SPRINTS/PRUEBA-DE-DOS/` |
 
 ## Cola (fuera de despacho — GO / encadenamiento)
 
@@ -43,5 +45,9 @@ explícita del usuario, no se proyecta.
   este tip.**
 - ⬜ **Mini-tick portal** `piel: familia-vp` (post-0.8.0 · GO propio;
   no forzado en el GO de consumo).
+- ⬜ **Skill `operador-rooms`** (spike PD-02 · PRUEBA-DE-DOS): valorar
+  skill para el operador-admin del nodo rooms (emisión de peercard,
+  ACL, salud del nodo). Decisión del custodio; hoy solo submanual
+  `playground/prueba-de-dos/reference/PEERCARD.md`.
 
 Ver también `plan/REGISTRO-DE-JOYAS.md`.

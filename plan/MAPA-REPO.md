@@ -57,6 +57,7 @@ Trilogía de mapas: `plan/MAPA-RAIZ.md` (atlas `C:\S`) · **este**
 | `plan/SPRINTS/` | Sprints (IB, portal, librería…) | **Sí** |
 | `plan/REPORTES/` | Actas/reportes del carril | **Sí** |
 | `playground/` | Semillas/starters del índice | **Sí** (dir; vacío OK) |
+| `playground/prueba-de-dos/` | Starter kit «prueba de dos» (skill + manual + handoffs + generador `generate A_B` + submanual peercard) | **Sí** (kit; `H/`/`M/` generadas = **No**, gitignore local) |
 | `scripts/` | vacío post-#16; el script local **NO** debe volver | **No** (dir local residual · no trackear) |
 | `.claude/skills/` | Espejo materializado del paquete | **Sí aquí** (`!.claude/skills/**`; política IB-12) |
 | `.claude/*.md` | Residuo de sesión IDE | **No** (ignore) |
