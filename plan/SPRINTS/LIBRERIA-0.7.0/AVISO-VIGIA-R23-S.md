@@ -55,7 +55,7 @@ PASS-con-residual sobre:
 [ ] Rn-S = R23-S PASS | FAIL | PASS-con-residual — lo declara Vigilante-S
 [ ] index.lock / HEAD.lock ausentes o explicados
 [ ] gitlinks 160000 ×7 (skills-library pin fb98098; bump 0.8.0 = GO)
-[ ] raíz C:\S == plan/RAIZ-C-S.md (atlas puro)
+[ ] raíz C:\S == plan/MAPA-RAIZ.md (atlas puro)
 [ ] C:\S_LAB\skills-library existe · tip = cc59e4e · path = brief
 ```
 

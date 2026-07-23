@@ -24,7 +24,7 @@
 ## Partición
 
 WORLD_ROOT=`C:\S_LAB\z-sdk` · WORKTREE_BASE=`C:\S_LAB\.worktrees\z` ·
-OUT_DIR=`C:\S_LAB\vigilancia\z` (S-LAB.md).
+OUT_DIR=`C:\S_LAB\vigilancia\z` (MAPA-TALLER.md).
 
 ## Evidencia
 

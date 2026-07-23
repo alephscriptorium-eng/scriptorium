@@ -32,7 +32,7 @@
   hueco de ciclo de vida.** `C:\S\S_SDK-skills-library` fue declarado
   día cero en el brief (la lección aplicada); verificado ahora: main =
   origin, 0 sin push, sin stash. PERO el WP cerró y el mapa de raíz no
-  lo lista → pedido al orquestador: **una línea en RAIZ-C-S.md**
+  lo lista → pedido al orquestador: **una línea en MAPA-RAIZ.md**
   («checkout de obra de la librería · vivo mientras haya WPs de
   librería en curso — hoy: 0.7.0 pendiente — · se limpia al cierre del
   arco») en el próximo commit de gobierno. `_fuentes/` está declarado
@@ -98,7 +98,7 @@ estación: watcher vivo · ticks limpios
    defecto AUSENTE; las 5 rutas 200 + título; contenido N0-01 intacto
    (la piel no pisa el copy). El vigía re-checa en R13-S.
 4. En el commit de gobierno del 🔶: añadir la línea del checkout de
-   librería al mapa `RAIZ-C-S.md` (ciclo de vida declarado).
+   librería al mapa `MAPA-RAIZ.md` (ciclo de vida declarado).
 5. Tras merge N0-03: **AVISO R13-S** (aceptación + C8 estructural) →
    luego N0-04 (colofón) con su gate → tag al final (DA-S13).
 6. No tocar `docs/**` de contenido (solo `theme/`/config de piel);

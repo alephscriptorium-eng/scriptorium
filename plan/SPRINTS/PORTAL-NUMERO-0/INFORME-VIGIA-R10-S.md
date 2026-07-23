@@ -45,7 +45,7 @@
   queda autorizado a sellar `release/numero-0` sobre el tip que
   contiene la obra publicada.
 - **Residual (no bloquea):** punto 5 del GO — gobierno de la raíz —
-  sin ejecutar: falta `plan/RAIZ-C-S.md` + `README.md` raíz
+  sin ejecutar: falta `plan/MAPA-RAIZ.md` + `README.md` raíz
   (copia-release) + barrido del residuo #3
   (`README-scriptorium-vigilancia.md`, duplicado de cuadernos
   `e603412`) y del bootstrap del génesis (`package.json` +
@@ -102,7 +102,7 @@ estación: watcher vivo · ticks limpios
    CHANGELOG (no inventar texto nuevo); tras el tag, mover Unreleased
    según práctica. Reportar tag + SHA POST-push.
 2. **Ejecutar el punto 5 del GO (gobierno de la raíz)** cuando el
-   custodio lo re-entregue: `plan/RAIZ-C-S.md` + `README.md` raíz +
+   custodio lo re-entregue: `plan/MAPA-RAIZ.md` + `README.md` raíz +
    barrido residuo #3 y bootstrap. Re-chequeo del vigía en la ronda
    siguiente: raíz == mapa, ni una entrada más.
 3. Arco PORTAL-NUMERO-0: tras el tag, cierre del sprint por AVISO

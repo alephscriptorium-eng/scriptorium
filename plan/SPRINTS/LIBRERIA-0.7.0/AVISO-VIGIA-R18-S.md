@@ -50,7 +50,7 @@ PASS-con-residual sobre:
 [ ] Rn-S = R18-S PASS | FAIL | PASS-con-residual — lo declara Vigilante-S
 [ ] index.lock / HEAD.lock ausentes o explicados
 [ ] gitlinks 160000 ×7 (skills-library = fb98098)
-[ ] raíz C:\S == plan/RAIZ-C-S.md (atlas puro)
+[ ] raíz C:\S == plan/MAPA-RAIZ.md (atlas puro)
 [ ] C:\S_LAB\skills-library existe · tip = fb98098 · path = brief
 [ ] scripts/sync-claude-skills.mjs ausente · acta presente
 [ ] package.json pin 0.7.0 · lock 0.7.0 · espejo @ 0.7.0

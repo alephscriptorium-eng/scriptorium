@@ -10,7 +10,7 @@ Worktree: C:\S_LAB\.worktrees\g\wp-sem-g-skills-0.7.0
 Reporte (scriptorium): plan/SPRINTS/LIBRERIA-0.7.0/REPORTES/SEM-g.md
 Asiento (mundo): plan mínimo + ESTACION (plan parcial → crear mínimo)
 
-Partición día cero (S-LAB.md):
+Partición día cero (MAPA-TALLER.md):
 - WORLD_ROOT = C:\S_LAB\g-sdk
 - WORKTREE_BASE = C:\S_LAB\.worktrees\g
 - OUT_DIR = C:\S_LAB\vigilancia\g

@@ -142,8 +142,9 @@ válido**; cambia el cuándo, no el qué.
 > antes del tag). El OK de sellado y el orden N0-02 → N0-03 siguen
 > vigentes; cambia solo el colofón previo al tag.
 
-Gobierno de raíz (residual R10-S) en el mismo GO: `plan/RAIZ-C-S.md` +
-`C:\S\README.md` copia-release + barrido residuo #3/bootstrap con acta.
+Gobierno de raíz (residual R10-S) en el mismo GO: `plan/MAPA-RAIZ.md`
+(alias histórico `RAIZ-C-S.md`) + `C:\S\README.md` copia-release +
+barrido residuo #3/bootstrap con acta.
 Arco **SKILLS-EN-MUNDOS** (z·g·s·e·a; o-sdk excluido F3-01) = solo COLA
 hasta cierre del arco portal.
 
@@ -198,8 +199,8 @@ puntero.
 Eleva a doctrina lo que PARTICION ya insinuaba y la addenda Vigilante-S
 fundó en FS: **`C:\S_LAB`** = taller de la constelación (obra por
 carril); **`C:\S\scriptorium\codebase/*`** = gitlinks del atlas, SOLO
-LECTURA (bump solo con GO · DA-S11). Canónico: `plan/S-LAB.md`.
-Copia-release FS: `C:\S_LAB\README.md`.
+LECTURA (bump solo con GO · DA-S11). Canónico: `plan/MAPA-TALLER.md`
+(alias histórico `S-LAB.md`). Copia-release FS: `C:\S_LAB\README.md`.
 
 Checkout de librería: **actualizado 2026-07-23** (🔶 LIB-070 · rename
 custodio post-R16-S). El checkout en `C:\S\S_SDK-skills-library` fue

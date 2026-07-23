@@ -100,7 +100,7 @@ estación: watcher vivo · ticks limpios
 3. Tras el tag: **AVISO R15-S de CIERRE del arco PORTAL-NUMERO-0**
    (verificación batch del arco, gates externos, retro — patrón R8-S).
 4. En el cierre o el 0.7.0: reubicar el checkout de librería a S_LAB
-   (hoy bloqueado por handle) y asentar `plan/S-LAB.md` (nota de
+   (hoy bloqueado por handle) y asentar `plan/MAPA-TALLER.md` (nota de
    gobierno ya entregada al custodio).
 
 ### Bloqueos

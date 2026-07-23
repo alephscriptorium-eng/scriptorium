@@ -33,7 +33,7 @@
   de obra pasa de `C:\S_LAB\S_SDK-skills-library` a
   **`C:\S_LAB\skills-library`** — mismo nombre que el gitlink del
   atlas (`codebase/skills-library`); verificado limpio antes y después
-  (main = origin @ `64883a9`). Condición 1: brief + S-LAB.md + RAIZ
+  (main = origin @ `64883a9`). Condición 1: brief + MAPA-TALLER.md + RAIZ
   actualizan el path en el commit del 🔶.
 - **Observación menor (no bloquea):** el clone se materializó ANTES
   del 🔶 (el brief decía «tras 🔶»). Inocuo — solo lectura hasta el
@@ -72,8 +72,8 @@
 ### Condiciones para 🔶 LIB-070 (orquestador — no vigía)
 
 1. **En el commit del 🔶**: actualizar el path del checkout en
-   `BRIEFS/LIB-070.md` + `plan/S-LAB.md` (+ copia-release) + línea de
-   `RAIZ-C-S.md` → **`C:\S_LAB\skills-library`** (rename ya ejecutado
+   `BRIEFS/LIB-070.md` + `plan/MAPA-TALLER.md` (+ copia-release) + línea de
+   `MAPA-RAIZ.md` → **`C:\S_LAB\skills-library`** (rename ya ejecutado
    en FS; declarar también «clone materializado»).
 2. Release **0.7.0** con la plantilla completa: secrets PRE-tag ·
    ceguera 0 pre-publish · publish triangulado (npm gitHead = tip =

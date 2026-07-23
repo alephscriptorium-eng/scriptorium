@@ -48,7 +48,7 @@ sobre:
 [ ] ramas wp/* mergeadas o justificadas · locks ausentes · stash vacío
 [ ] tip = origin/main (0/0)
 [ ] gitlinks 7/7 invariantes (skills-library = 64883a9 salvo GO)
-[ ] raíz FS == RAIZ-C-S
+[ ] raíz FS == MAPA-RAIZ
 [ ] Rn-S = R14-S PASS | FAIL | PASS-con-residual — lo declara Vigilante-S
 ```
 

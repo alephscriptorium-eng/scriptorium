@@ -7,10 +7,10 @@
 | Fecha asiento | 2026-07-23 · GO gobierno post-cierre mundos · tip base `e436d5a` |
 | Fuente | tabla custodio · auditoría Vigilante-S (ADDENDA mapa-repo 2026-07-23) |
 
-Trilogía de mapas: `plan/RAIZ-C-S.md` (atlas `C:\S`) · **este**
-(repo índice) · `plan/S-LAB.md` (taller `C:\S_LAB`).
+Trilogía de mapas: `plan/MAPA-RAIZ.md` (atlas `C:\S`) · **este**
+(repo índice) · `plan/MAPA-TALLER.md` (taller `C:\S_LAB`).
 
-## `C:\S` (atlas · contexto; canónico = `RAIZ-C-S`)
+## `C:\S` (atlas · contexto; canónico = `MAPA-RAIZ`)
 
 | path | misión | ¿en git? |
 | ---- | ------ | -------- |
@@ -51,7 +51,7 @@ Trilogía de mapas: `plan/RAIZ-C-S.md` (atlas `C:\S`) · **este**
 | `plan/` | Gobierno del swarm S | **Sí** |
 | `plan/VISION.md` … `PRACTICAS.md` | Doctrina viva del mundo | **Sí** |
 | `plan/DECISIONES.md` / `BACKLOG.md` | GO custodio + cola del índice | **Sí** |
-| `plan/ESTACION.md` / `RAIZ-C-S.md` / `S-LAB.md` / `MAPA-REPO.md` | Calibración estación, atlas, taller, mapa-repo | **Sí** |
+| `plan/ESTACION.md` / `MAPA-RAIZ.md` / `MAPA-TALLER.md` / `MAPA-REPO.md` | Calibración estación, atlas, taller, mapa-repo | **Sí** |
 | `plan/BROCHE-C-S.md` | **Puntero** al broche `C:\S\LLM.md` (no es el canónico del acuerdo) | **Sí** |
 | `plan/roles/` | Prompts orquestador/worker | **Sí** |
 | `plan/SPRINTS/` | Sprints (IB, portal, librería…) | **Sí** |
@@ -82,8 +82,9 @@ ronda; ampliar el mapa = commit de gobierno.**
 
 ## Relación
 
-- Atlas raíz: `plan/RAIZ-C-S.md`
-- Taller: `plan/S-LAB.md`
+- Atlas raíz: `plan/MAPA-RAIZ.md`
+- Taller: `plan/MAPA-TALLER.md`
+- Trilogía: `MAPA-RAIZ` ↔ `MAPA-REPO` ↔ `MAPA-TALLER`
 - Broche (puntero): `plan/BROCHE-C-S.md`
 - Inventario mundos: `plan/MUNDOS.md`
 - Addenda auditoría: `_fuentes/cuadernos-vigia-S/ADDENDA-VIGILANTE-S-auditoria-mapa-repo-2026-07-23.md`

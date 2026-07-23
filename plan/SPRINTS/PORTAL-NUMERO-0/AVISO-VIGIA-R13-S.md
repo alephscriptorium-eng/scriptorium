@@ -36,7 +36,7 @@ PASS | FAIL | PASS-con-residual sobre:
    - pin `@alephscript/skills-scriptorium@0.6.1` + espejo sync
    - theme: `fanzine.css` + `Layout.vue` (no solo variables)
    - body N0-01 intacto (PORT)
-   - RAIZ-C-S: línea ciclo vida `S_SDK-skills-library/` presente
+   - MAPA-RAIZ: línea ciclo vida `S_SDK-skills-library/` presente
 3. **C8 estructural post-deploy (issue #15 en prod):**
    - 5 rutas 200: `/` · `/constelacion` · `/metodo` · `/ciudad` · `/cola`
    - título portada
@@ -53,7 +53,7 @@ PASS | FAIL | PASS-con-residual sobre:
 [ ] ramas wp/* mergeadas o justificadas · locks ausentes · stash vacío
 [ ] tip = origin/main (0/0)
 [ ] gitlinks 7/7 · skills-library = 64883a9 (bump autorizado GO N0-03)
-[ ] raíz FS == RAIZ-C-S (incl. S_SDK-skills-library ciclo vida)
+[ ] raíz FS == MAPA-RAIZ (incl. S_SDK-skills-library ciclo vida)
 [ ] Rn-S = R13-S PASS | FAIL | PASS-con-residual — lo declara Vigilante-S
 ```
 

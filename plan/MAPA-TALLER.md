@@ -1,11 +1,12 @@
-# S_LAB — taller de la constelación (raíz de obra por carril)
+# MAPA-TALLER — taller de la constelación (`C:\S_LAB`)
 
 | dato | valor |
 | ---- | ----- |
 | Territorio | `C:\S_LAB` |
-| Canónico | este fichero (`plan/S-LAB.md` en repo `scriptorium`) |
+| Canónico | este fichero (`plan/MAPA-TALLER.md` en repo `scriptorium`) |
 | Copia-release FS | `C:\S_LAB\README.md` (fuera de git; cabecera de procedencia) |
-| Fecha asiento | 2026-07-23 · gobierno post-R15-S · arco librería 0.7.0 |
+| Fecha asiento | 2026-07-23 · gobierno post-R24-S · cobertura trilogía `MAPA-*` |
+| Alias histórico | `plan/S-LAB.md` (renombrado post-R24-S · patrón paquete 0.8.0) |
 | Fuente | addenda Vigilante-S · fundación S-LAB · mapa provisional |
 
 **Decisión del custodio (2026-07-22):** toda obra de los mundos x-sdk
@@ -25,7 +26,7 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
 | `a-sdk/` | el scriptorium (atril) | escrivivir-co/aleph-scriptorium | `e5573f8` |
 | `.worktrees/<letra>/` | worktrees de obra del carril de esa letra | — | — |
 | `vigilancia/<letra>/` | OUT_DIR de la estación del vigía de esa letra | — | — |
-| `skills-library/` | checkout de obra de la librería del método · **clone materializado** (rename custodio post-R16-S; viejo `S_SDK-skills-library` ya no aplica) | alephscriptorium-eng/S_SDK-skills-library | tip atlas `64883a9` · path exacto `C:\S_LAB\skills-library` |
+| `skills-library/` | checkout de obra de la librería del método · **clone materializado** (rename custodio post-R16-S; path viejo `S_SDK-skills-library` retirado) | alephscriptorium-eng/S_SDK-skills-library | tip atlas `64883a9` · path exacto `C:\S_LAB\skills-library` |
 
 ## Regla del LAB
 
@@ -50,15 +51,16 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
 | dato | valor |
 | ---- | ----- |
 | Path exacto | **`C:\S_LAB\skills-library`** |
-| Modo | **clone materializado** — rename custodio post-R16-S; path viejo `S_SDK-skills-library` **ya no aplica**; el checkout en `C:\S` fue borrado (no move) |
-| Bloqueo handle | **extinguido** (no aplica) |
+| Modo | **clone materializado** — rename custodio post-R16-S; path viejo `S_SDK-skills-library` **retirado**; el checkout en `C:\S` fue borrado (no move) |
+| Bloqueo handle | **extinguido** (sin efecto) |
 | Declarado por | brief `SPRINTS/LIBRERIA-0.7.0/BRIEFS/LIB-070.md` · 🔶 LIB-070 · GO 2026-07-23 |
 | Doctrina | `C:\S` = atlas; `C:\S_LAB` = taller de obra |
 
 ## Relación
 
-- Atlas raíz: `plan/RAIZ-C-S.md`
-- Mapa del repo índice: `plan/MAPA-REPO.md` (trilogía RAIZ ↔ REPO ↔ LAB)
+- Atlas raíz: `plan/MAPA-RAIZ.md`
+- Mapa del repo índice: `plan/MAPA-REPO.md`
+- Trilogía: `MAPA-RAIZ` ↔ `MAPA-REPO` ↔ `MAPA-TALLER`
 - Partición: `plan/PARTICION.md`
 - Addenda fuente: `_fuentes/cuadernos-vigia-S/ADDENDA-VIGILANTE-S-fundacion-S-LAB-2026-07-22.md`
 - DA: `plan/DECISIONES.md` · DA-S15

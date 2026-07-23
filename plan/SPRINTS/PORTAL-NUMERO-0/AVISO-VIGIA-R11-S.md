@@ -23,14 +23,14 @@
 ## Pedido
 
 Tras encolar N0-02 + N0-03 (gobierno: backlog + briefs + este aviso) y
-ejecutar gobierno de raíz (RAIZ-C-S + barrido #3), el orquestador pide
+ejecutar gobierno de raíz (MAPA-RAIZ + barrido #3), el orquestador pide
 informe dual PO/scrum de ronda **R11-S** con veredicto PASS | FAIL |
 PASS-con-residual sobre:
 
 1. **Higiene §8** en `C:\S\scriptorium` (worktrees / `wp/*` / locks /
    tip = origin/main / gitlinks 7/7).
 2. **Gobierno de la raíz `C:\S`** (residual R10-S):
-   - `plan/RAIZ-C-S.md` presente + REGLA DE LA RAÍZ
+   - `plan/MAPA-RAIZ.md` presente + REGLA DE LA RAÍZ
    - `C:\S\README.md` copia-release
    - residuo #3 + bootstrap génesis **ausentes** (acta)
    - raíz FS == mapa, ni una entrada más
@@ -53,7 +53,7 @@ PASS-con-residual sobre:
 [ ] Rn-S = R11-S PASS | FAIL | PASS-con-residual — lo declara Vigilante-S
 [ ] index.lock / HEAD.lock ausentes o explicados
 [ ] gitlinks 160000 ×7 (6 mundos + skills-library @ 6512e27)
-[ ] raíz C:\S == plan/RAIZ-C-S.md (ni una entrada más)
+[ ] raíz C:\S == plan/MAPA-RAIZ.md (ni una entrada más)
 ```
 
 ## Vetos / doctrina a cruzar en el gate

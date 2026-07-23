@@ -49,7 +49,7 @@ PASS-con-residual sobre:
 [ ] Rn-S = R19-S PASS | FAIL | PASS-con-residual â€” lo declara Vigilante-S
 [ ] index.lock / HEAD.lock ausentes o explicados
 [ ] gitlinks 160000 Ã—7 (mundos = pins PRE; skills-library = fb98098)
-[ ] raÃ­z C:\S == plan/RAIZ-C-S.md (atlas puro)
+[ ] raÃ­z C:\S == plan/MAPA-RAIZ.md (atlas puro)
 [ ] o-sdk tip invariante 632ee2a
 [ ] reportes SEM-z/g/s/e/a presentes bajo LIBRERIA-0.7.0/REPORTES/
 ```

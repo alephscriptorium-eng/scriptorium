@@ -51,5 +51,5 @@ scripts/sync-claude-skills.mjs → ausente
 ## Relación
 
 - Issue #16 · release `v0.7.0` / `@alephscript/skills-scriptorium@0.7.0`
-- Doctrina: cero borrados sin veredicto desechable + acta (`plan/RAIZ-C-S.md`)
+- Doctrina: cero borrados sin veredicto desechable + acta (`plan/MAPA-RAIZ.md`)
 - Gate siguiente: **AVISO R18-S** (aceptación OLA 0 · antes de olas 1+)

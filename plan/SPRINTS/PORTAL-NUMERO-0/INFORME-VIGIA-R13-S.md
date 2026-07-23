@@ -30,7 +30,7 @@
   `codebase/skills-library` @ `64883a9` (= v0.6.1). El bump del
   gitlink estaba **declarado en el brief** (GO de gobierno día cero —
   DA-S11 cumplida como debe: por declaración, no por hecho consumado).
-- **Condición 4 de R12 cumplida:** `RAIZ-C-S.md` ya lista el checkout
+- **Condición 4 de R12 cumplida:** `MAPA-RAIZ.md` ya lista el checkout
   de la librería con ciclo de vida declarado («vivo mientras haya WPs
   de librería — 0.7.0 pendiente»).
 - **Alcance limpio:** obra = `theme/**` (Layout.vue · fanzine.css ·

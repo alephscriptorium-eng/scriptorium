@@ -18,7 +18,7 @@
 
 ## Cara PO (custodio)
 
-- **Gobierno de la raíz: EJECUTADO Y VERIFICADO.** `plan/RAIZ-C-S.md`
+- **Gobierno de la raíz: EJECUTADO Y VERIFICADO.** `plan/MAPA-RAIZ.md`
   canónico con la REGLA DE LA RAÍZ; `C:\S\README.md` copia-release con
   cabecera de procedencia; residuo #3 y bootstrap del génesis
   **ausentes**; la raíz FS es **exactamente** el mapa declarado
@@ -50,14 +50,14 @@
 [x] ramas wp/*: ausentes · locks ausentes · stash vacío
 [x] git status limpio; tip = origin/main (0/0)
 [x] gitlinks 7/7 (6 mundos + skills-library, invariantes)
-[x] raíz C:\S == mapa RAIZ-C-S.md (verificación literal, ni una más)
+[x] raíz C:\S == mapa MAPA-RAIZ.md (verificación literal, ni una más)
 ```
 
 ### Gobierno verificado (puntos del aviso)
 
 | check | evidencia | ¿OK? |
 | ----- | --------- | ---- |
-| RAIZ-C-S.md + REGLA | presente en plan/ con regla literal | sí |
+| MAPA-RAIZ.md + REGLA | presente en plan/ con regla literal | sí |
 | README.md raíz copia-release | cabecera de procedencia verificada | sí |
 | Residuo #3 + bootstrap ausentes | ls raíz: 6 entradas = mapa | sí |
 | Tag NO ejecutado | sin tags en repo; backlog «Tag hoy NO» | sí |
@@ -70,7 +70,7 @@
 ```text
 HEAD=0fa1152 (= origin/main; 0/0) · ancestry desde 5a7f372 OK (cero force)
 raíz C:\S: .worktrees LLM.md README.md _fuentes scriptorium vigilancia
-  == mapa RAIZ-C-S.md ✓
+  == mapa MAPA-RAIZ.md ✓
 favicon (dato para WPs de marca): pub declara <link> + /ico.png ·
   la web hermana del carril responde /favicon.ico 200 sin <link> ·
   aleph-null /favicon.ico → 404

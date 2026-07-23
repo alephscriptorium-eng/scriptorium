@@ -39,7 +39,7 @@ PASS-con-residual sobre:
 6. **Release 0.8.0** plantilla: secrets PRE-tag · ceguera 0 ·
    triangulación (tag · npm · CI · gitHead).
 7. **Caso fundante mapas:** `plan/MAPA-REPO.md` asentado en índice
-   (trilogía con RAIZ-C-S · S-LAB) — referencia, no obra de librería.
+   (trilogía con MAPA-RAIZ · MAPA-TALLER) — referencia, no obra de librería.
 8. **Partición:** obra futura solo en `C:\S_LAB\skills-library` ·
    portal/docs = WP-REST-SHELL (otro gate) · no mezclar.
 9. Autorización táctica para **🔶 LIB-080**. **Sin PASS R21-S no hay
@@ -54,7 +54,7 @@ PASS-con-residual sobre:
 [ ] Rn-S = R21-S PASS | FAIL | PASS-con-residual — lo declara Vigilante-S
 [ ] index.lock / HEAD.lock ausentes o explicados
 [ ] gitlinks 160000 ×7 (skills-library = fb98098 · sin bump sin GO)
-[ ] raíz C:\S == plan/RAIZ-C-S.md (atlas puro)
+[ ] raíz C:\S == plan/MAPA-RAIZ.md (atlas puro)
 [ ] C:\S_LAB\skills-library existe · tip = fb98098 · path = brief
 [ ] plan/MAPA-REPO.md presente (caso fundante #19)
 [ ] BRIEF LIB-080 #18+#19 · ⬜ PRE-🔶 · cero obra librería aún

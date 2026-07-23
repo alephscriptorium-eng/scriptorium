@@ -52,7 +52,7 @@ PASS-con-residual sobre:
 [ ] Rn-S = R20-S PASS | FAIL | PASS-con-residual — lo declara Vigilante-S
 [ ] index.lock / HEAD.lock ausentes o explicados
 [ ] gitlinks 160000 ×7 (sin bump mundos; skills-library = fb98098)
-[ ] raíz C:\S == plan/RAIZ-C-S.md (atlas puro)
+[ ] raíz C:\S == plan/MAPA-RAIZ.md (atlas puro)
 [ ] tag release/numero-0 deref = 40598f0e307921d613dacf1c324415eb4a1b5d32
 [ ] BRIEF WP-REST-SHELL ⬜ · cero Layout.vue fanzine como destino
 [ ] R19-S no reabierto / no confundido con este gate

@@ -54,7 +54,7 @@ tag. Regla de oro: PORT, NO REWRITE. Paquete:
 4. **C8 real:** no fingir Pages; R14-S re-trianguló canal real.
 5. **S_LAB:** raíz de obra legislada; checkout librería sigue en
    `C:\S\S_SDK-skills-library` (handle vivo bloquea move) — pendiente
-   quietud / 0.7.0. Canónico: `plan/S-LAB.md`.
+   quietud / 0.7.0. Canónico: `plan/MAPA-TALLER.md`.
 6. **Vigilante-S vivo** (DA-S07): gates por AVISO + PASS vía custodio;
    cero subagente vigía.
 

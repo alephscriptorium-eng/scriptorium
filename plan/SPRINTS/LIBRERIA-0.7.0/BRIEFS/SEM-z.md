@@ -10,7 +10,7 @@ Worktree: C:\S_LAB\.worktrees\z\wp-sem-z-skills-0.7.0
 Reporte (scriptorium): plan/SPRINTS/LIBRERIA-0.7.0/REPORTES/SEM-z.md
 Asiento (mundo): plan/ESTACION.md (PORT · «la estación se activa desde aquí»)
 
-Partición día cero (S-LAB.md):
+Partición día cero (MAPA-TALLER.md):
 - WORLD_ROOT = C:\S_LAB\z-sdk
 - WORKTREE_BASE = C:\S_LAB\.worktrees\z
 - OUT_DIR = C:\S_LAB\vigilancia\z

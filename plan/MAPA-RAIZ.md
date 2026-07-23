@@ -1,11 +1,12 @@
-# RAIZ-C-S — mapa canónico de `C:\S`
+# MAPA-RAIZ — mapa canónico de `C:\S`
 
 | dato | valor |
 | ---- | ----- |
 | Territorio | `C:\S` (raíz compartida del carril S) |
-| Canónico | este fichero (`plan/RAIZ-C-S.md` en repo `scriptorium`) |
+| Canónico | este fichero (`plan/MAPA-RAIZ.md` en repo `scriptorium`) |
 | Copia-release FS | `C:\S\README.md` (fuera de git; cabecera de procedencia) |
-| Fecha asiento | 2026-07-23 · gobierno post-R15-S · arco librería 0.7.0 |
+| Fecha asiento | 2026-07-23 · gobierno post-R24-S · cobertura trilogía `MAPA-*` |
+| Alias histórico | `plan/RAIZ-C-S.md` (renombrado post-R24-S · patrón paquete 0.8.0) |
 
 ## Mapa de la raíz (entradas declaradas)
 
@@ -49,7 +50,8 @@ obra sin declarar.
 - Broche LLM: `plan/BROCHE-C-S.md`
 - Inventario mundos: `plan/MUNDOS.md`
 - Partición: `plan/PARTICION.md`
-- Taller de obra (S_LAB): `plan/S-LAB.md` · DA-S15
-- Mapa del repo índice: `plan/MAPA-REPO.md` (trilogía RAIZ ↔ REPO ↔ LAB)
+- Taller de obra (S_LAB): `plan/MAPA-TALLER.md` · DA-S15
+- Mapa del repo índice: `plan/MAPA-REPO.md`
+- Trilogía: `MAPA-RAIZ` ↔ `MAPA-REPO` ↔ `MAPA-TALLER`
 - Acta barrido residuo #3 + bootstrap génesis:
   `plan/REPORTES/ACTA-RAIZ-barrido-residuo-3-2026-07-22.md`

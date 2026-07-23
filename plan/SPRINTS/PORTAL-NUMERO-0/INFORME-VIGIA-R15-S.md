@@ -32,8 +32,8 @@
   transforma en «**checkout NUEVO en `C:\S_LAB` declarado por el brief
   del 0.7.0**» — no hay nada que mover.
 - **Retoques de gobierno post-cierre (3 líneas, sin prisa):**
-  1. `RAIZ-C-S.md`: retirar la línea del checkout de librería.
-  2. `S-LAB.md` (+ copia-release): tabla «pendiente reubicación» →
+  1. `MAPA-RAIZ.md`: retirar la línea del checkout de librería.
+  2. `MAPA-TALLER.md` (+ copia-release): tabla «pendiente reubicación» →
      «checkout nuevo por brief 0.7.0» (el bloqueo por handle ya no
      existe).
   3. Retro del aviso: queda corregida por este informe (no editar el
@@ -77,7 +77,7 @@
 | Tag triangulado | `69bbc09` → `40598f0` · tagger orquestador-S | sí |
 | Release pública | página 200 · no draft · notes = CHANGELOG | sí |
 | CHANGELOG post-tag | Unreleased registra sellado + residual | sí |
-| S-LAB asentado | `plan/S-LAB.md` canónico · DA-S15 · copia-release | sí |
+| S-LAB asentado | `plan/MAPA-TALLER.md` canónico · DA-S15 · copia-release | sí |
 | Residual banner | declarado en cola; no reabre N0-04 | residual |
 | Registro checkout librería | STALE en aviso/S-LAB → corregido por este informe | corrección |
 

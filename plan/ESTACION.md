@@ -82,11 +82,12 @@ bash .claude/skills/vigilancia/scripts/verificar-territorio-mapa.sh --root "$WOR
 bash node_modules/@alephscript/skills-scriptorium/skills/vigilancia/scripts/verificar-territorio-mapa.sh --root "$WORLD_ROOT"
 ```
 
-Sin `plan/MAPA-*.md` el script hace SKIP (mundo pre-#19). Hoy el
-workspace tiene `plan/MAPA-REPO.md`; ampliar trilogía = commit de
-gobierno. Fuente método: skill vigilancia `reference/ESTACION.md`
-(ritual pulso paso 6). Evidencia consumo: script OK sobre
-`MAPA-REPO` (Git Bash).
+Sin `plan/MAPA-*.md` el script hace SKIP (mundo pre-#19). Trilogía
+canónica del workspace: `plan/MAPA-RAIZ.md` · `plan/MAPA-REPO.md` ·
+`plan/MAPA-TALLER.md` (nombres del paquete 0.8.0). Atlas FS =
+`--root` del territorio (`C:\S`); repo = `MUNDO_RAIZ` /
+`C:\S\scriptorium`. Fuente método: skill vigilancia
+`reference/ESTACION.md` (ritual pulso paso 6).
 
 ## Relación con VISION
 

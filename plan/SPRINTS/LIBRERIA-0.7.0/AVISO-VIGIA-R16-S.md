@@ -27,8 +27,8 @@ PASS-con-residual sobre:
 1. **Higiene §8** en `C:\S\scriptorium` (worktrees / `wp/*` / locks /
    tip = origin/main / gitlinks 7/7 · skills-library pin `64883a9`).
 2. **Retoques post-cierre R15-S (3)** asentados en gobierno:
-   - `plan/RAIZ-C-S.md`: línea checkout librería **retirada** · atlas puro
-   - `plan/S-LAB.md`: «pendiente reubicación» → checkout **nuevo** por brief
+   - `plan/MAPA-RAIZ.md`: línea checkout librería **retirada** · atlas puro
+   - `plan/MAPA-TALLER.md`: «pendiente reubicación» → checkout **nuevo** por brief
    - registro: corrección INFORME R15-S vigente (aviso R15 no se reescribe)
 3. **Checkout librería DECLARADO** path exacto
    `C:\S_LAB\S_SDK-skills-library` (clone nuevo; HEAD pin atlas
@@ -52,7 +52,7 @@ PASS-con-residual sobre:
 [ ] Rn-S = R16-S PASS | FAIL | PASS-con-residual — lo declara Vigilante-S
 [ ] index.lock / HEAD.lock ausentes o explicados
 [ ] gitlinks 160000 ×7 (skills-library @ 64883a9)
-[ ] raíz C:\S == plan/RAIZ-C-S.md (atlas puro · sin checkout librería)
+[ ] raíz C:\S == plan/MAPA-RAIZ.md (atlas puro · sin checkout librería)
 [ ] C:\S_LAB\S_SDK-skills-library existe · clone · path = brief
 ```
 

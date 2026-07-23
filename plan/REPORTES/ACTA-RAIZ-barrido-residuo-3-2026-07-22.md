@@ -11,7 +11,7 @@
 ## Veredicto desechable (vigía ya emitido · ejecutable)
 
 Confirmado: paths bajo `C:\S\` listados abajo = residuos de obra /
-bootstrap; **no** están en el mapa canónico `plan/RAIZ-C-S.md` ni son
+bootstrap; **no** están en el mapa canónico `plan/MAPA-RAIZ.md` ni son
 checkout declarado.
 
 Checkout declarado de cuadernos = `C:\S\_fuentes\` — **no tocado**.
@@ -51,7 +51,7 @@ Consumo real del método = `C:\S\scriptorium/package.json` (devDep +
 | `C:\S\vigilancia\` | OUT_DIR estación |
 | `C:\S\.worktrees\` | WORKTREE_BASE |
 | `C:\S\LLM.md` | broche IB-23 |
-| `C:\S\README.md` | copia-release RAIZ-C-S (creado este GO) |
+| `C:\S\README.md` | copia-release MAPA-RAIZ (creado este GO) |
 
 ## Inventario raíz POST-barrido
 
@@ -64,4 +64,4 @@ LLM.md
 README.md
 ```
 
-Criterio R10-S residual: raíz == mapa `plan/RAIZ-C-S.md`, ni una entrada más.
+Criterio R10-S residual: raíz == mapa `plan/MAPA-RAIZ.md`, ni una entrada más.

@@ -16,8 +16,8 @@
   `verificar-territorio-mapa.sh` corrido por el vigía → **OK**
   (MAPA-REPO validado). Hallazgo de alineación: el script cubre solo
   patrón `MAPA-*.md` — los pioneros locales `RAIZ-C-S.md` y `S-LAB.md`
-  quedan fuera de su radar → cola: renombre al patrón (2 renames +
-  cross-refs, gobierno de 1 commit) para cobertura 3/3.
+  quedaban fuera de su radar → cola post-R24: renombre al patrón
+  (2 renames + cross-refs, gobierno de 1 commit) para cobertura 3/3.
 - **El arco en una frase**: la librería pasó de 0.6.1 a 0.8.0 en un
   día, absorbiendo TODO lo aprendido en la instancia (sync, cantera,
   lecciones, marca, piel elegible, mapas) — y los 6 mundos + el
@@ -31,8 +31,9 @@
 [x] gitlinks 7/7 == HEADs reales (bump con GO en mensaje) · o-sdk 632ee2a
 [x] estreno verificar-territorio-mapa.sh: OK (1 mapa)
 [x] higiene §8 limpia · estación viva
-[cola] renombrar RAIZ-C-S.md→MAPA-RAIZ.md · S-LAB.md→MAPA-TALLER.md
+[x] renombrar RAIZ-C-S.md→MAPA-RAIZ.md · S-LAB.md→MAPA-TALLER.md
        (+cross-refs y copias-release) → cobertura 3/3 del script
+       (GO CUSTODIO cola menor post-R24-S)
 ```
 Declaración: arco LIBRERIA-0.7.0/0.8.0 CERRADO. Trabajo nuevo = cola
 con GO. La estación adopta el script del paquete en su §8 permanente.

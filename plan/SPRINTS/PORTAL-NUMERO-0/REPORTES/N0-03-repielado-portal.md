@@ -7,7 +7,7 @@
 | rama | `wp/n0-03-repielado-portal` |
 | worktree | `C:\S\.worktrees\wp-n0-03` |
 | tip PRE 🔶 | `ddbea1a` (= origin/main · R12-S PASS) |
-| tip despacho 🔶 | `1bd7998` (RAIZ-C-S ciclo vida + brief/BACKLOG) |
+| tip despacho 🔶 | `1bd7998` (MAPA-RAIZ ciclo vida + brief/BACKLOG) |
 | obra | `985eaa9` |
 | merge | `72e1330` |
 | paquete | `@alephscript/skills-scriptorium@0.6.1` |
@@ -40,7 +40,7 @@ C8 post-deploy Pages (notas para R13-S abajo).
 - `codebase/skills-library` — gitlink `64883a9`
 - `plan/SPRINTS/PORTAL-NUMERO-0/REPORTES/N0-03-repielado-portal.md` — este
 
-(Gobierno 🔶 ya en main `1bd7998`: brief · BACKLOG · `plan/RAIZ-C-S.md`
+(Gobierno 🔶 ya en main `1bd7998`: brief · BACKLOG · `plan/MAPA-RAIZ.md`
 línea ciclo vida `S_SDK-skills-library/`.)
 
 ## Evidencia CA
