@@ -91,8 +91,8 @@ Paquete: `@alephscript/skills-scriptorium`.
 | registry | `https://npm.scriptorium.escrivivir.co` |
 | checkout obra | `C:\S_LAB\skills-library` |
 | GO citado | `GO CUSTODIO + VIGILANTE-S · R23-S PASS · post-0.8.0 · 2026-07-23` |
-| AVISO R24-S (cuerpo) | *(este commit · SHA en tip POST)* |
-| tip main POST-push | *(rellenar tras push = HEAD real)* |
+| AVISO R24-S (cuerpo · commit gobierno) | `2879013f9506764da8b8e46c8884b2ba82b87c86` |
+| tip main POST-push | *(tip-literal tras push = HEAD real)* |
 
 ## Vetos respetados en el cierre
 
