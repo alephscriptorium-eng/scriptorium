@@ -24,8 +24,12 @@ explícita del usuario, no se proyecta.
 - **SKILLS-EN-MUNDOS** — GO B · **OLA 0 + olas 1+ hechas** (z·g·s·e·a)
   · R19-S PASS-con-obs · o-sdk EXCLUIDO (F3) · **gitlinks z·g·s·e·a
   bumpeados** (GO custodio · DA-S19 + DA-S11) · poda worktrees SEM ✅.
-- **Gitlink** `codebase/skills-library` → `fb98098` (0.7.0) · ✅ GO
-  DA-S11 · **intacto** en GO bump mundos.
+- **LIB-080 / 0.8.0** — 🔶 publicado · tip lib `cc59e4e` · tag
+  `v0.8.0` · #18+#19 closed · AVISO **R23-S** · **sin** ola consumo
+  workspace/mundos (GO propio posterior).
+- **Gitlink** `codebase/skills-library` → `fb98098` (0.7.0) · pin
+  intacto · bump a `cc59e4e` (0.8.0) = **pendiente GO** (DA-S11;
+  este mandato LIB-080 no lo autoriza).
 - **Política espejo** · DA-S19: z = canon gitignore · g/s/e/a =
   trackeado (desviación auditable) · PORT · no unificar.
 - Aparcados (cero acción): carril Z · F3 · F4 · redirect · para-la-voz ·
