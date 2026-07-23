@@ -1,0 +1,14 @@
+{
+  "name": "prueba-de-dos",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Starter kit de la prueba de dos: dos ventanas-operador (H=A, M=B) validan la experiencia de una room @zeus",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "generate": "node scripts/generar.mjs"
+  },
+  "license": "UNLICENSED"
+}
