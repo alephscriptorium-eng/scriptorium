@@ -5,7 +5,7 @@
 **Emisor:** orquestador S (LIB-080 punta a punta · 2026-07-23 · sin subagente vigía)  
 **Receptor:** **Vigilante-S** (estación viva `C:\S\vigilancia`) vía **custodio**  
 **Fecha:** 2026-07-23  
-**Estado gate:** ⬜ pendiente veredicto Vigilante-S
+**Estado gate:** ✅ **PASS** — ver `INFORME-VIGIA-R23-S.md`
 
 > Publish `@alephscript/skills-scriptorium@0.8.0` **triangulado**.
 > Este aviso pide aceptación + re-triangulación y estreno de los CA
