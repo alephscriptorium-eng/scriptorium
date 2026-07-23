@@ -32,3 +32,10 @@ El `.npmrc` del kit `playground/prueba-de-dos/` declara **dual scope**
 - Documentar el requisito de dual scope en la guía / portal del paquete.
 
 La elección queda para el dueño del carril Z cuando se desaparque.
+
+## Actualización 2026-07-23 (custodio)
+
+El «cero acción esperada» de arriba queda **superseded**: el custodio
+encarga la vía de extracción — paquete nuevo propio del carril Z que
+corta la dependencia con `@alephscript/mcp-core-sdk`. Ver
+`HANDOFF-CARRIL-Z-arranque.md` (mismo directorio).

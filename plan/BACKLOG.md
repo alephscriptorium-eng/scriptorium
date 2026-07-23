@@ -33,8 +33,16 @@ explícita del usuario, no se proyecta.
   bumpeado (GO R23-S PASS · DA-S11).
 - **Política espejo** · DA-S19: z = canon gitignore · g/s/e/a =
   trackeado (desviación auditable) · PORT · no unificar.
-- Aparcados (cero acción): carril Z · F3 · F4 · redirect · para-la-voz ·
+- Aparcados (cero acción): F3 · F4 · redirect · para-la-voz ·
   pasada-2 OASIS · limpieza mundo legado · IOCANDI.
+- **Carril Z desaparcado** (2026-07-23 · custodio) — dos frentes:
+  ts-compat (`@zeus/*` consumibles desde TypeScript) + extracción
+  mcp-core-sdk (paquete nuevo propio que corta la dep cruzada). Handoff
+  en `plan/SPRINTS/PRUEBA-DE-DOS/HANDOFF-CARRIL-Z-arranque.md` · gates
+  `Rn-Z` en su carril.
+- Skill `vigilancia` — **modo de lenguaje dual** encolado a Apolo
+  (apertura del sprint PRUEBA-DE-DOS) + valoración merge/deslinde con
+  `estacion-viva`.
 - Lecciones vNext (dentro del alcance 0.7.0): sucesión vigía · checkout
   declarado ×3 · worktree por rol · raíz por constelación.
 - ⬜ **GO al parser** (DA-S17 · 2026-07-23) —

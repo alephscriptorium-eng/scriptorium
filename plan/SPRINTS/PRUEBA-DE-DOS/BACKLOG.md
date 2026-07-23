@@ -46,3 +46,9 @@ despacha sin ese PASS.
   `APERTURA-DIONISIOS.md`.
 - Nota al carril Z (dueño de `@zeus/socket-server`, aparcado) →
   `NOTA-CARRIL-Z-npmrc-scopes.md`.
+- **Handoff de arranque del carril Z** (desaparcado 2026-07-23 por el
+  custodio: ts-compat + extracción mcp-core-sdk) →
+  `HANDOFF-CARRIL-Z-arranque.md`.
+- Apolo: entradas nuevas **d** (modo de lenguaje dual al skill
+  `vigilancia`) y **e** (valoración merge/deslinde `vigilancia` ↔
+  `estacion-viva`) en `APERTURA-APOLO.md`.
