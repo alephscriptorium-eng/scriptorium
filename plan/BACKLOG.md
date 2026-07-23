@@ -17,7 +17,7 @@ explícita del usuario, no se proyecta.
 | INITIAL-BASE | ✅ cerrado · 9 WPs · R8-S | `plan/SPRINTS/INITIAL-BASE/` |
 | PORTAL-NUMERO-0 | ✅ cerrado · N0-01…04 ✅ · tag `release/numero-0` · R15-S · WP-XS banner ✅ | `plan/SPRINTS/PORTAL-NUMERO-0/` |
 | LIBRERIA-0.7.0 | ✅ cerrado · LIB-070…LIB-080 · consumo 0.8.0 · R24-S | `plan/SPRINTS/LIBRERIA-0.7.0/` |
-| PRUEBA-DE-DOS | 🔶 en curso · PD-01/PD-02 entregados (AVISO R25-S) · PD-03 ⬜ | `plan/SPRINTS/PRUEBA-DE-DOS/` |
+| PRUEBA-DE-DOS | 🔶 en curso · PD-01/PD-02 ✅ (R25-S PASS) · PD-03 ⬜ | `plan/SPRINTS/PRUEBA-DE-DOS/` |
 
 ## Cola (fuera de despacho — GO / encadenamiento)
 
