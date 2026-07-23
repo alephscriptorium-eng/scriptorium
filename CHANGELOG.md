@@ -34,7 +34,10 @@ scriptorium · no reabre N0-04).
   sello `release/numero-0` intacto. AVISO aceptación post-merge (C8
   lado a lado vs z-sdk).
 - **LIB-080** activado en gate (issues **#18+#19** · candidato
-  **0.8.0**) — AVISO **R21-S** · **sin PASS no hay 🔶**.
+  **0.8.0**) — AVISO **R21-S** PASS · 🔶 publicado
+  `@alephscript/skills-scriptorium@0.8.0` @ `cc59e4e` · tag
+  `v0.8.0` · #18+#19 closed · AVISO aceptación **R23-S** · sin ola
+  consumo mundos · gitlink índice bump **pendiente GO**.
 
 ## Número 0 · portal aleph-null (2026-07-22)
 

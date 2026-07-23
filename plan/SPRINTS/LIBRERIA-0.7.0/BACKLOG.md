@@ -44,16 +44,16 @@ Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
 ## Activación · LIB-080 (issues #18+#19 · release 0.8.0)
 
-- ⬜ **LIB-080 · `piel:` + mapas territorio → 0.8.0** — issues
-  **#18** + **#19** · canónicos **`familia-vp` (DEFAULT)** ·
-  **`fanzine` (OPT-IN)** · regla 13 reescrita · CA «piel DECLARADA
-  renderiza» · CA contraste · fix composición VP · montar-plan genera
-  MAPA-RAIZ/REPO(/TALLER) con regla al pie · vigilancia prescribe
-  pulso territorio==mapa · checkout **`C:\S_LAB\skills-library`** ·
-  secrets PRE-tag · ceguera 0 · publish triangulado. **AVISO R21-S**
-  · **sin PASS no hay 🔶**. Post-0.8.0: mini-tick aleph-null
-  `piel: familia-vp` (aparte). DA instancia: **DA-S18**.
-  _Brief:_ `BRIEFS/LIB-080.md` · AVISO `AVISO-VIGIA-R21-S.md`.
+- 🔶 **LIB-080 · `piel:` + mapas territorio → 0.8.0** — publicado
+  `@alephscript/skills-scriptorium@0.8.0` · tip
+  `cc59e4e6ed1aa4fa3848dccaedd2bc02c6d3c6da` · tag `v0.8.0` · CI
+  `29968471387` · #18+#19 closed · checkout
+  **`C:\S_LAB\skills-library`**. AVISO aceptación **R23-S**. Sin ola
+  consumo mundos · gitlink índice pin `fb98098` (bump 0.8.0 =
+  pendiente GO). Post-0.8.0: mini-tick aleph-null `piel: familia-vp`
+  (aparte). DA instancia: **DA-S18**.
+  _Brief:_ `BRIEFS/LIB-080.md` · reporte
+  `REPORTES/LIB-080-release-0.8.0.md` · AVISO `AVISO-VIGIA-R23-S.md`.
 
 ## Aparcados (cero acción en este arco)
 
