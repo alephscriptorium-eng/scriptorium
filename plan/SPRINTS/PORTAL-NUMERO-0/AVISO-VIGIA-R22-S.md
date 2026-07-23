@@ -1,4 +1,4 @@
-# AVISO · Vigilante-S · R22-S · aceptación WP-REST-SHELL (C8 vs z-sdk)
+﻿# AVISO · Vigilante-S · R22-S · aceptación WP-REST-SHELL (C8 vs z-sdk)
 
 **Carril:** S  
 **Ronda pedida:** `R22-S`  
@@ -77,6 +77,7 @@ PASS-con-residual sobre:
 | tip LIB-080 AVISO R21-S | `39a1e373ca87c3b68bcdf93309d684945b0a03ed` |
 | tip obra REST-SHELL (rama) | `170138bef9e63ba283809711a77d16430e28d754` |
 | tip merge REST-SHELL (main) | `bd560b718abc4b870e9ffbae57a779c46f42ecbf` |
+| tip AVISO R22-S (primer asiento) | `54000f6ac945b133bdcfbbe65db229b2e6357c0f` |
 | tag release/numero-0 deref | `40598f0e307921d613dacf1c324415eb4a1b5d32` |
 | PORT look | `codebase/z-sdk/docs` |
 | reporte | `plan/SPRINTS/PORTAL-NUMERO-0/REPORTES/WP-REST-SHELL.md` |
