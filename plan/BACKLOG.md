@@ -40,6 +40,19 @@ explícita del usuario, no se proyecta.
   mcp-core-sdk (paquete nuevo propio que corta la dep cruzada). Handoff
   en `plan/SPRINTS/PRUEBA-DE-DOS/HANDOFF-CARRIL-Z-arranque.md` · gates
   `Rn-Z` en su carril.
+- ⬜ **Carril Z · tercer frente: dramaturgo + Zigurat opt-in** (GO
+  custodio 2026-07-24 · ventana vigilante-S · Camino A
+  "absorber-concepto y archivar" ratificado, veredicto sprint-game-city).
+  Dos mandatos: absorción del dominio narrativo legado (5 trozos
+  propuestos: proyector de mutaciones a tools MCP · kit de reparto ·
+  story-board con personajes · autoría gateada · migración de corpus) +
+  desbloqueo del horizonte WP-U73 (acople IDE opt-in, invariantes
+  L1/L2). Handoff en
+  `plan/SPRINTS/PRUEBA-DE-DOS/HANDOFF-CARRIL-Z-dramaturgo-zigurat.md` ·
+  el custodio lo lleva al carril · numeración y plan en
+  `C:\S_LAB\z-sdk\plan` · gates `Rn-Z`. Asiento DA-S2x a discreción del
+  orquestador de base. Fronteras: archivo del repo legado + DAS-1 → a-sdk
+  · extensión VS Code → a-sdk · sidecar/pub → o-sdk.
 - Skill `vigilancia` — **modo de lenguaje dual** encolado a Apolo
   (apertura del sprint PRUEBA-DE-DOS) + valoración merge/deslinde con
   `estacion-viva` **cerrada: NO merge (DA-S20)**.
@@ -58,5 +71,9 @@ explícita del usuario, no se proyecta.
   salud del nodo). **GO custodio (DA-S20 · obra en librería, ventana
   Apolo)**; fuente inicial
   `playground/prueba-de-dos/reference/PEERCARD.md`.
+- ⬜ **Wishlist skills · revisión/semver/idle** — **TICK custodio +
+  GO de planificación R12-Z (2026-07-24)**; intake y handoff en
+  `plan/WISHLIST-SKILLS-REVISION-R12-Z.md`. **Sin GO de implementación
+  de scriptorium** por este asiento.
 
 Ver también `plan/REGISTRO-DE-JOYAS.md`.
