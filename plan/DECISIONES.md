@@ -311,6 +311,23 @@ no mezclados.
 Cierre: gates de esta obra = AVISO en el plan del checkout de la
 librería; bump del gitlink del atlas = GO custodio (DA-S11).
 
+### DA-S21 · GO tercer frente carril Z: dramaturgo + Zigurat opt-in (2026-07-24 · custodio)
+
+- Camino A **ratificado** (veredicto sprint-game-city: absorber-concepto
+  y archivar el editor narrativo legado); ratificación custodio explícita
+  en sesión vigilante-S 2026-07-24.
+- Handoff
+  `plan/SPRINTS/PRUEBA-DE-DOS/HANDOFF-CARRIL-Z-dramaturgo-zigurat.md`
+  · commit `b515dc3`. Numeración, briefs, olas y gates `Rn-Z` del carril.
+- **Alcance: GO de planificación** del tercer frente Dramaturgo + Zigurat
+  en Z. **No autoriza** implementación, workers, publicación ni cambios
+  en a-sdk/o-sdk.
+- Fronteras: archivo del legado + DAS-1 → a-sdk · extensión VS Code →
+  a-sdk · sidecar/pub → o-sdk.
+- Este asiento cierra la cita de autoridad de la addenda R13-Z del carril
+  ("GO custodio 2026-07-24 · asiento DA-S21 pendiente"); su HOLD de
+  R13-Z se levanta al recibir el commit de gobierno de este asiento.
+
 ## Abiertas
 
 _(las resuelve el custodio)_
