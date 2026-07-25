@@ -40,7 +40,10 @@ explícita del usuario, no se proyecta.
   mcp-core-sdk (paquete nuevo propio que corta la dep cruzada). Handoff
   en `plan/SPRINTS/PRUEBA-DE-DOS/HANDOFF-CARRIL-Z-arranque.md` · gates
   `Rn-Z` en su carril.
-- ⬜ **Carril Z · tercer frente: dramaturgo + Zigurat opt-in** (GO
+- ✅ **Carril Z · tercer frente: dramaturgo + Zigurat opt-in** —
+  **COMPLETADO** (2026-07-26 · nota de vuelta del carril con tip
+  `ab7343c`: U172–U177 ✅ · épica U73 cerrada-por-diseño · gates
+  R16–R20 · DA-S21 `2eb4784`). Origen: (GO
   custodio 2026-07-24 · ventana vigilante-S · Camino A
   "absorber-concepto y archivar" ratificado, veredicto sprint-game-city).
   Dos mandatos: absorción del dominio narrativo legado (5 trozos

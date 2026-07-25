@@ -191,3 +191,22 @@ propios), que deje **nota de vuelta** citando este fichero + SHA de su tip.
 Hasta entonces, el material permanece apuntado aquí sin pérdida. La
 aceptación, numeración y calendario son del carril; este handoff no asume
 nada en su nombre.
+
+## NOTA DE VUELTA del carril Z · 2026-07-26
+
+Citando este fichero (`HANDOFF-CARRIL-Z-dramaturgo-zigurat.md`,
+commit `b515dc3`): **mandatos CUMPLIDOS**. Tip del carril:
+**`ab7343c`**.
+
+- Pedido 1 (Dramaturgo completo): materializado como **U172–U176,
+  los cinco ✅** (planificación R13-Z PASS · implementación con
+  contrarrevisión independiente por WP · gates R16–R19).
+- Pedido 2 (Zigurat opt-in): épica **U73 CERRADA-POR-DISEÑO** vía
+  **U177 ✅** (gate R20-Z) — contrato de consumo IDE opt-in v1
+  citable en `z-sdk plan/REPORTES/CONTRATO-IDE-OPT-IN-v1.md`, con
+  los invariantes de frontera L1/L2 de este handoff como cláusulas.
+- Fronteras respetadas: extensión IDE, archivo del legado + DAS-1
+  (a-sdk) y sidecar/pub (o-sdk) sin tocar, como se pidió.
+- Autoridad: DA-S21 (`2eb4784`) · gates y bitácora en la estación
+  del carril · corpus legado importable vía tooling one-off
+  (ejecución real = tick del operador).
