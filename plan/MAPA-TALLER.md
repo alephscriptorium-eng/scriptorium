@@ -24,6 +24,7 @@ El atlas apunta (gitlinks, bump con GO); el LAB construye.
 | `e-sdk/` | mundo de papel (editorial) | alephscriptorium-eng/E_SDK | `90e5354` |
 | `o-sdk/` | puerto L2→L1 (§F3a: cero arqueología) | alephscriptorium-eng/O_SDK | `632ee2a` |
 | `a-sdk/` | el scriptorium (atril) | escrivivir-co/aleph-scriptorium | `e5573f8` |
+| `v-sdk/` | host IDE Aleph-0/Zigurat (carril V) · fundado DV-00, adoptado WP-V01 | alephscriptorium-eng/V_SDK | fundación `90fffd9` · Ola F cerrada `3bffa37` (DA-S22) |
 | `.worktrees/<letra>/` | worktrees de obra del carril de esa letra | — | — |
 | `vigilancia/<letra>/` | OUT_DIR de la estación del vigía de esa letra | — | — |
 | `skills-library/` | checkout de obra de la librería del método · **clone materializado** (rename custodio post-R16-S; path viejo `S_SDK-skills-library` retirado) | alephscriptorium-eng/S_SDK-skills-library | tip atlas `64883a9` · path exacto `C:\S_LAB\skills-library` |

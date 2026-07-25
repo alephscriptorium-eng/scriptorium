@@ -17,6 +17,15 @@ historico crudo aqui. BACKSTAGE del vigia: rama `scriptorium-vigilancia`
 | e-sdk | `ef7b307602da87d8be5b8140eeb204afec16eca4` | **presente** | `0.8.0` | **desviación auditable** · trackeado | `e_sdk` |
 | o-sdk | `632ee2a2bbb10a19efbc57b2f0a847dd04333ff9` | **ausente** (F3a: no excavar) | `0.x` / lock 0.3.4 | n/a (EXCLUIDO F3) | `o_sdk` (existe; tip `cd4175a`) |
 | a-sdk | `35fd75463fe3ad58c4e9d51a81fda35da02c4ba8` | **presente** (ESTACION declara política) | `0.8.0` | **desviación auditable** · trackeado | `a_sdk` |
+| v-sdk | **sin gitlink** (WP-V11 ⬜ · DV-14: entra con R6-V PASS + acta, GO DA-S11 aparte) | **presente** (`C:\S_LAB\v-sdk\plan`) | `>=0.11.0` | espejo `.claude/skills` del carril | — |
+
+**Desfase de gitlinks declarado (DA-S22 · pendiente GO DA-S11):** los
+pins de la tabla están detrás de los tips reales del taller —
+skills-library `139aa91` (0.10.0-5) vs tip `6bedc5e` (0.11.0-13) ·
+z-sdk `ab7343c` vs tip `a4d5374` · pines de skill de la tabla dicen
+`0.8.0` pero el workspace ya consume `0.11.0` (commit `b622a18`). El
+bump es un GO explícito del custodio; esta nota evita que la tabla se
+lea como estado real.
 
 Rama pin a-sdk (`.gitmodules`): `integration/beta/scriptorium`.
 Tips z·g·s·e·a = `origin` post consumo **0.8.0** (GO R23-S PASS ·
