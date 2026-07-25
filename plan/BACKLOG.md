@@ -80,3 +80,14 @@ explícita del usuario, no se proyecta.
   de scriptorium** por este asiento.
 
 Ver también `plan/REGISTRO-DE-JOYAS.md`.
+- ⬜ **Carril V fundado: Zigurat → .vsix** (GO custodio 2026-07-26 ·
+  DV-00 · vigilante-S funda con plan mascado). Backlog WP-V01..V11 en
+  6 olas + DECISIONES DV-01..10 con propuesta + estación calibrada en
+  `C:\S_LAB\v-sdk\plan\` (semilla pre-repo). Handoff en
+  `plan/SPRINTS/PRUEBA-DE-DOS/HANDOFF-CARRIL-V-arranque-zigurat.md` ·
+  el custodio lo lleva a la ventana nueva del Lab V · gates `Rn-V`.
+- ⬜ **TICK · validación .vsix Zigurat por vigía-S** — se dispara con
+  el aviso de R5-V PASS del carril V («lista para probar»: v1
+  instalable + guía ≤10 pasos). El custodio reactiva la ventana
+  vigilante-S para la validación final contra el contrato IDE v1
+  (cláusula viva de motivos_deny incluida). Hasta entonces: en espera.
