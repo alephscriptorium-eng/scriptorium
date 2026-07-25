@@ -79,7 +79,6 @@ explícita del usuario, no se proyecta.
   `plan/WISHLIST-SKILLS-REVISION-R12-Z.md`. **Sin GO de implementación
   de scriptorium** por este asiento.
 
-Ver también `plan/REGISTRO-DE-JOYAS.md`.
 - ⬜ **Carril V fundado: Zigurat → .vsix** (GO custodio 2026-07-26 ·
   DV-00 · vigilante-S funda con plan mascado). Backlog WP-V01..V11 en
   6 olas + DECISIONES DV-01..10 con propuesta + estación calibrada en
@@ -91,3 +90,5 @@ Ver también `plan/REGISTRO-DE-JOYAS.md`.
   instalable + guía ≤10 pasos). El custodio reactiva la ventana
   vigilante-S para la validación final contra el contrato IDE v1
   (cláusula viva de motivos_deny incluida). Hasta entonces: en espera.
+
+Ver también `plan/REGISTRO-DE-JOYAS.md`.
