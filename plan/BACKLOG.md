@@ -79,16 +79,23 @@ explícita del usuario, no se proyecta.
   `plan/WISHLIST-SKILLS-REVISION-R12-Z.md`. **Sin GO de implementación
   de scriptorium** por este asiento.
 
-- ⬜ **Carril V fundado: Zigurat → .vsix** (GO custodio 2026-07-26 ·
-  DV-00 · vigilante-S funda con plan mascado). Backlog WP-V01..V11 en
-  6 olas + DECISIONES DV-01..10 con propuesta + estación calibrada en
-  `C:\S_LAB\v-sdk\plan\` (semilla pre-repo). Handoff en
-  `plan/SPRINTS/PRUEBA-DE-DOS/HANDOFF-CARRIL-V-arranque-zigurat.md` ·
-  el custodio lo lleva a la ventana nueva del Lab V · gates `Rn-V`.
-- ⬜ **TICK · validación .vsix Zigurat por vigía-S** — se dispara con
-  el aviso de R5-V PASS del carril V («lista para probar»: v1
-  instalable + guía ≤10 pasos). El custodio reactiva la ventana
-  vigilante-S para la validación final contra el contrato IDE v1
-  (cláusula viva de motivos_deny incluida). Hasta entonces: en espera.
+- ✅ **Carril V: Ola F COMPLETA · R6-V PASS · re-release local 0.2.0**
+  (DA-S22 · 2026-07-25 · sesión debug tras muerte anormal de la sesión
+  emuladora). Fundación DV-00 → v1 R5-V (histórico) → corte Ola F:
+  censo+poda+marca **Aleph-0**+namespaces+falsedad-silenciosa+puerta de
+  permisos, todos con contrarrevisión. `aleph-0-0.2.0.vsix` local
+  (sha256 `3500AC80…D8480B`) instalada; contrato verificado contra
+  servidor z-sdk VIVO. Gobierno V durable (push `3bffa37`). Acta:
+  `V_SDK plan/REPORTES/ACTA-RE-RELEASE-0.2.0.md` · handoff original:
+  `plan/SPRINTS/PRUEBA-DE-DOS/HANDOFF-CARRIL-V-arranque-zigurat.md`.
+- ⬜ **TICK DEFERRED · cierre público del carril V** (reencolado por
+  DA-S22; sustituye al tick original de validación). Se dispara con GO
+  custodio, sin prerrequisito de carril (R6-V ya PASS). Contenido:
+  (1) pasos interactivos 5–10 de la guía v2 (runtime e instalación ya
+  dejados listos por la sesión debug); (2) Release público 0.2.0 +
+  equivalencia asset↔local (anomalía ARTEFACTO-NO-EQUIVALENTE del
+  v0.1.0 se extingue con el release nuevo); (3) guardas endurecidas
+  (H-4 + F-1/F-2/F-3); (4) licencia canónica en notas de Release.
+  Instrumento: `V_SDK docs/GUIA-PRUEBA-v2.md`.
 
 Ver también `plan/REGISTRO-DE-JOYAS.md`.
