@@ -13,7 +13,8 @@
 
 | fecha | nota | tema |
 | ----- | ---- | ---- |
-| 2026-07-26 | [`notas/NOTA-S-2026-07-26-estacion-timbre-v0.md`](notas/NOTA-S-2026-07-26-estacion-timbre-v0.md) | **estación timbre v0** · GO-GIT-HUB · T-S1 · PING HILO=- |
+| 2026-07-26 | [`notas/NOTA-S-2026-07-26-mapa-ciudad-agenda-anfitrion.md`](notas/NOTA-S-2026-07-26-mapa-ciudad-agenda-anfitrion.md) | **mapa Ciudad** (7 plantas + inventario→barrios) · dudas agenda · handoff petit comité Anfitrión |
+| 2026-07-26 | [`notas/NOTA-S-2026-07-26-estacion-timbre-v0.md`](notas/NOTA-S-2026-07-26-estacion-timbre-v0.md) | estación timbre v0 · GO-GIT-HUB · T-S1 |
 | 2026-07-25 | [`notas/NOTA-S-2026-07-25-F1-indice-ciudad-park-p123.md`](notas/NOTA-S-2026-07-25-F1-indice-ciudad-park-p123.md) | **F1** · índice 4 sprints ciudad · PARK WEBS/HOLONES/DEVOPS · P1–P3 G · ui-docker · anomalía #3 |
 | 2026-07-25 | [`notas/NOTA-ANFITRION-2026-07-25-renombre-sucesion.md`](notas/NOTA-ANFITRION-2026-07-25-renombre-sucesion.md) | renombre Anfitrión ≠ S · sucesión gorro · anomalías heredadas |
 | 2026-07-25 | [`notas/NOTA-S-2026-07-25-sprint-CIUDAD-convocatoria.md`](notas/NOTA-S-2026-07-25-sprint-CIUDAD-convocatoria.md) | convocatoria sprint CIUDAD · INÉDITO · F1/F2 *[cita inerte]* |
