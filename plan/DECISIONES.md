@@ -328,6 +328,49 @@ librería; bump del gitlink del atlas = GO custodio (DA-S11).
   ("GO custodio 2026-07-24 · asiento DA-S21 pendiente"); su HOLD de
   R13-Z se levanta al recibir el commit de gobierno de este asiento.
 
+### DA-S22 · Carril V: relevo debug, Ola F completa, R6-V PASS, re-release local (2026-07-25 · custodio)
+
+- **Contexto**: la sesión que emulaba vigía-V + orquestador-V + workers
+  desde la ventana S murió anormalmente (~17:06) con el lote V12∥V16∥V17
+  a medias. GO custodio en sesión debug: completar el carril saneando en
+  el camino; release pública → **deferred**.
+- **Relevo v2 «gorro»** asentado en la estación V
+  (`C:/S_LAB/vigilancia/v/RELEVO-GORRO-2026-07-25-debug.md`); residuo de
+  emulación migrado de la estación S a la del carril
+  (`vigilancia/v/swarm/`); claim previo existente heredado y ampliado.
+- **Resultado del carril** (gobierno propio en `V_SDK`, ya durable —
+  push `d0323fb..3bffa37`): DV-11..DV-16.a cerradas con propuestas por
+  defecto · Ola F completa (V12 censo · V13 poda · V14 marca Aleph-0 ·
+  V15 espacios de nombres · V16 falsedad silenciosa · V17 puerta de
+  permisos), cada WP con contrarrevisión independiente o revisión con
+  spot-check · **R6-V PASS** · re-release **local** `aleph-0-0.2.0.vsix`
+  (28 ficheros · sha256 `3500AC80…D8480B`) instalada, con runtime z-sdk
+  vivo y **primera verificación del contrato contra servidor real**.
+  Acta: `V_SDK plan/REPORTES/ACTA-RE-RELEASE-0.2.0.md`.
+- **Tick público del vigía-S: DEFERRED reencolado** (sustituye al tick
+  original de la Cola): equivalencia asset↔local + Release 0.2.0 +
+  guardas endurecidas (H-4/F-1..F-3) + pasos interactivos de la guía v2
+  (ojo del custodio; runtime e instalación ya dejados listos).
+- **Intervención del custodio en vivo** (2 actos, registrada en
+  `vigilancia/v/anomalias.log`): licencia del carril por **regla escrita**
+  `skills/site-web/reference/pack-marca.md:46-54` (puntero canónico
+  Animus Iocandi + GPL-3.0-or-later, patrón g-sdk) — revoca la
+  directiva conservadora UNLICENSED de la sesión.
+- **Residual cross-carril (licencias)**: a-sdk y o-sdk incumplen la
+  misma regla (AIPL-broma en LICENSE.md raíz); s-sdk y e-sdk sin
+  fichero. Obra de sus carriles, no de S.
+- **Wishlist método (skills-library)**, evidencia real de la sesión:
+  supuesto un-escritor-por-worktree de `evidencia.sh` (contaminación
+  cruzada indetectable, caso doble-contrarrevisor) · identidad git por
+  sesión/rol (autoría no discrimina agentes) · sello-que-invalida-huella
+  (E-1, tercer caso) · lección `MSYS_NO_PATHCONV=1` (D21).
+- **Sin bump de gitlinks en este asiento** (DA-S11 exige GO explícito):
+  el desfase del atlas (skills-library `139aa91` vs tip real ·
+  z-sdk `ab7343c` vs `a4d5374` · v-sdk sin gitlink por DV-14/WP-V11)
+  queda declarado en `MUNDOS.md` a la espera de ese GO.
+- Identidades git placeholder saneadas en `V_SDK` (worker-V local) y en
+  este repo (vigia-S local).
+
 ## Abiertas
 
 _(las resuelve el custodio)_
