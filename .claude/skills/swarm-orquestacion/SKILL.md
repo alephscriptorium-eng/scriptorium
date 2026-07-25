@@ -36,14 +36,36 @@ consumidor). No nombra mundos reales ni el marco.
 La calibración concreta (rutas, gates, sellos) vive en el `plan/` del
 mundo, no en este skill.
 
+## Preflight antes de mutar
+
+Antes de crear directorios, escribir, arrancar watchers, ejecutar git mutable,
+editar el plan, crear ramas o worktrees, verificá la identidad de la raíz con
+el detector canónico de `vigilancia`:
+`../vigilancia/scripts/verificar-identidad-raiz.mjs`. Su contrato y parámetros
+viven en `../vigilancia/reference/ESTACION.md`; este skill no los redefine.
+
+El orquestador adjunta a cada despacho y handoff de arranque la calibración
+explícita `WORLD_ROOT`, `CANONICAL_WORLD_ROOT`, `READ_ONLY_ROOTS` y
+`DOWNSTREAM_PATTERNS`. Si falta cualquiera, no hay despacho ni boot.
+
+Orden obligatorio: `DETECTOR → PASS|LOCK → EFECTOS`. Solo
+`identidad-raiz: PASS` habilita la preparación. `LOCK identidad-raiz` es
+fail-closed y se devuelve al custodio con cero efectos: no `mkdir`, escritura,
+watcher, git mutable, plan, rama, worktree, boot, handoff ni `OUT_DIR`. Se
+solicita otro clone de trabajo, pero el orquestador no lo crea ni lo elige. El
+mismo preflight precede el handoff de arranque a `estacion-viva`
+(`../estacion-viva/reference/BOOT.md`).
+
 ## Montaje rápido (mundo nuevo)
 
-1. Copiá o generá el esqueleto con `scripts/montar-plan.sh` (ver README).
-2. Rellená `VISION.md`, `PRACTICAS.md` (reglas del mundo) y el primer
+1. Obtené `PASS` del preflight de identidad.
+2. Copiá o generá el esqueleto con `scripts/montar-plan.sh` (ver README).
+3. Rellená `VISION.md`, `PRACTICAS.md` (reglas del mundo) y el primer
    `BACKLOG.md`.
-3. Los prompts de rol viven en `plan/roles/` (copias del skill o enlace a
+4. Los prompts de rol viven en `plan/roles/` (copias del skill o enlace a
    `reference/roles/`).
-4. Arrancá el ciclo: orquestador → BRIEF → worker → reporte → revisión.
+5. Arrancá el ciclo: orquestador → BRIEF → worker → revisión selectiva →
+   aceptación → merge → gate post-merge.
 
 Detalle: `reference/ciclo.md` · roles: `reference/roles/` · ejes:
 `reference/ejes-ca.md` · re-plan: `reference/RE-PLAN-protocolo-swarm.md` ·
@@ -52,10 +74,13 @@ ejemplo: `examples/`.
 ## Ciclo (resumen)
 
 ```text
+0. Orquestador: identidad canónica PASS; si LOCK, devolver sin efectos
 1. Orquestador: estado del BACKLOG, lote paralelo, 🔶 + BRIEF por WP
 2. Worker: una rama (y worktree si hay paralelo); implementa; reporta
-3. Orquestador (revisión): ✅ + merge, o devolución numerada
-4. Si devolución: mismo worker, misma rama (corrección)
+3. Si el riesgo lo exige: contrarrevisión adversarial read-only
+4. Orquestador (revisión ordinaria): ✅ + merge, o devolución numerada
+5. Tras merge: gate del carril; no confundirlo con la contrarrevisión
+6. Si devolución: mismo worker, misma rama (corrección)
 ```
 
 ## Reglas de oro
@@ -88,6 +113,60 @@ ejemplo: `examples/`.
     carril, vigía único `Rn-<carril>`, higiene pre-despacho y e2e por
     vías permitidas — ver
     `reference/convivencia-multi-orquestador.md` (fuente única).
+15. Revisión por riesgo: clasificación, campos y protocolo viven únicamente
+    en `reference/revision-adversarial.md`; un PASS read-only precede la
+    aceptación cuando corresponda, pero no la concede.
+16. Dependencias y semver: política, inventario runtime, probes y separación
+    gate local/C8 viven en `reference/politica-dependencias-semver.md`.
+17. Idle y comunicación: `vigilancia` propone candidatos sin escribir
+    BACKLOG y entrega la salida dual de
+    `../vigilancia/reference/ADDENDA-DOS-CARAS.md`; el orquestador conserva
+    decisión y planificación.
+18. Sucesión v2 «gorro»: el relevo de estación viva usa handoff volátil,
+    ronda Q&A, herencia de anomalías **como anomalía**, rol temporal con
+    origen declarado y anclas activas vs citas históricas marcadas
+    `[cita inerte]` — `reference/lecciones-vnext.md` §Sucesión v2 +
+    `../vigilancia/reference/ESTACION.md` §sucesión.
+19. Claim de carril antes de emular: claim en canal + idle real verificado;
+    doble-conductor = anomalía registrable —
+    `reference/convivencia-multi-orquestador.md` §10.
+20. Poda segura de worktrees: chequear reparse points y **desenlazar** el
+    junction antes de podar (borrar solo el enlace) —
+    `reference/ciclo.md` §10.
+21. Hostil-omite (contrarrevisión de fronteras de confianza): probar la
+    **ausencia** —campo omitido, firma no aportada, opt-in off—, no solo el
+    envío malformado; el default de lo ausente deniega —
+    `reference/ejes-ca.md` §Hostil-omite.
+22. Evidencia enmascarada en cara pública: el patrón vetado se cita
+    **enmascarado** con **conteo literal** —
+    `../vigilancia/reference/ADDENDA-DOS-CARAS.md`.
+
+## Método v0.7 (costuras)
+
+Base v0.6 + **cinco costuras** (reglas 18–22), lecciones del relevo y del
+frente. Cada una vive en su fichero de referencia; el incremento de método
+**son** estas costuras (mismo patrón que v0.6):
+
+1. **Sucesión v2 «gorro»** — relevo de estación viva con handoff volátil,
+   ronda Q&A, herencia de anomalías como anomalía, rol temporal con origen
+   declarado y anclas activas vs citas históricas marcadas `[cita inerte]`:
+   `reference/lecciones-vnext.md` §Sucesión v2 +
+   `../vigilancia/reference/ESTACION.md` §sucesión.
+2. **Claim de carril antes de emular** — claim en canal de estación + idle
+   real; doble-conductor = anomalía registrable:
+   `reference/convivencia-multi-orquestador.md` §10.
+3. **Poda segura de worktrees** — desenlazar junctions / reparse antes de
+   podar (borrar solo el enlace); alternativa `symlinkDirectories`:
+   `reference/ciclo.md` §10.
+4. **Hostil-omite** — la contrarrevisión de fronteras de confianza prueba la
+   **ausencia** (campo omitido, firma no aportada, opt-in off), no solo el
+   malformado: `reference/ejes-ca.md` §Hostil-omite + `roles/REVISION.md`.
+5. **Evidencia enmascarada en cara pública** — el patrón vetado se cita
+   enmascarado con **conteo literal**; retroactividad a criterio de cada
+   mundo: `../vigilancia/reference/ADDENDA-DOS-CARAS.md`.
+
+No se crea `reglas-metodo-v07.md`: como en v0.6, el incremento son las
+costuras en sus ficheros vivos, no un nuevo bloque de reglas numeradas.
 
 ## Método v0.6 (costuras)
 
@@ -105,11 +184,13 @@ convivencia.)
 | ruta | contenido |
 | ---- | --------- |
 | `reference/roles/` | ORQUESTADOR, WORKER, REVISION, CORRECCION, BRIEF, README |
-| `reference/ejes-ca.md` | cinco ejes → CA por tipo (+ ceguera 13/14) |
+| `reference/ejes-ca.md` | cinco ejes → CA por tipo (+ ceguera 13/14 + hostil-omite) |
 | `reference/RE-PLAN-protocolo-swarm.md` | fuente narrativa de los ejes (doctrina) |
-| `reference/ciclo.md` | prep → merge y anti-patrones |
-| `reference/lecciones-vnext.md` | sucesión vigía · checkout declarado · worktree por rol · raíz por constelación |
-| `reference/convivencia-multi-orquestador.md` | **fuente única**: convivencia multi-orquestador (método v0.6) |
+| `reference/ciclo.md` | prep → merge, anti-patrones y poda segura de worktrees (§10) |
+| `reference/lecciones-vnext.md` | sucesión vigía · checkout declarado · worktree por rol · raíz por constelación · sucesión v2 «gorro» |
+| `reference/revision-adversarial.md` | selección por riesgo + contrarrevisión read-only pre-aceptación |
+| `reference/politica-dependencias-semver.md` | dependencias directas + políticas semver + gate local/C8 |
+| `reference/convivencia-multi-orquestador.md` | **fuente única**: convivencia multi-orquestador (v0.6) + claim de carril pre-emulación (§10) |
 | `reference/reglas-metodo-v05.md` | reglas 16–17 (run-id verde + sync-map post-apply) + checklist |
 | `reference/reglas-metodo-v04.md` | histórico v0.4: regla 15 + checklist (base de v0.5) |
 | `reference/reglas-metodo-v03.md` | 14 reglas + V2 commits gobierno + checklist ola (base de v0.4) |

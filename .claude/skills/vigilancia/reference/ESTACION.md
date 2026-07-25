@@ -1,19 +1,64 @@
 # ESTACIÓN DEL VIGÍA — protocolo (marco-agnóstico)
 
 Protocolo de vigilancia v1. Parametriza **el mundo** (`WORLD_ROOT`,
-`OUT_DIR`, `INTERVAL`). No incluye histórico de sesión: eso es dato de
-instancia.
+`CANONICAL_WORLD_ROOT`, `READ_ONLY_ROOTS`, `DOWNSTREAM_PATTERNS`, `OUT_DIR`,
+`INTERVAL`). No incluye histórico de sesión: eso es dato de instancia.
+La nota de frontera local del worktree, si existe, vive en
+`plan/ESTACION.md` y se trata como calibración local.
 
 ## Parámetros canónicos
 
 | param | rol |
 | ----- | --- |
-| `WORLD_ROOT` | Raíz del repo git vigilado (un root por proceso watcher) |
+| `WORLD_ROOT` | Raíz candidata del repo git vigilado; no acredita identidad por sí sola |
+| `CANONICAL_WORLD_ROOT` | Clone de trabajo canónico esperado |
+| `READ_ONLY_ROOTS` | Array JSON explícito de raíces que nunca pueden ser raíz de trabajo |
+| `DOWNSTREAM_PATTERNS` | Array JSON de patrones por segmentos; calibración del consumidor |
 | `OUT_DIR` | Logs/estado del vigía (`watch.log`, `anomalias.log`) |
 | `INTERVAL` | Segundos entre muestras (default 45) |
 
 Territorio hermano (p. ej. gobierno vs obra) = **otra** calibración
 `WORLD_ROOT`/`OUT_DIR`, no hardcode en el skill. Ver «Pulso multi-carril».
+
+## Preflight de identidad (antes de cualquier efecto)
+
+`scripts/verificar-identidad-raiz.mjs` es el detector canónico. El watcher lo
+ejecuta **antes** de `mkdir -p "$OUT_DIR"`, de escribir logs o de entrar en su
+bucle. Un consumidor que vaya a crear plan, rama o worktree, arrancar otro
+watcher o ejecutar git mutable invoca el mismo preflight antes de esa acción.
+
+El detector:
+
+1. exige las cuatro entradas de identidad, incluidas listas vacías explícitas
+   (`[]`), para distinguir «sin raíces» de calibración ausente;
+2. resuelve ruta absoluta, `realpath` (incluidos junction/symlink) y
+   `git rev-parse --show-toplevel` de candidata y canónica;
+3. normaliza separadores y, en Windows, el case; compara pertenencia por
+   segmentos, no por prefijo textual;
+4. resuelve también cada raíz read-only y contrasta los patrones downstream
+   contra la ruta lexical, real y git toplevel;
+5. solo emite `identidad-raiz: PASS` si candidata, canónica y git toplevel
+   identifican exactamente la misma raíz y esta queda fuera de las zonas
+   prohibidas.
+
+Cada elemento de `DOWNSTREAM_PATTERNS` es una secuencia `/` de segmentos. `*`
+representa exactamente un segmento; `**`, segmentos parciales con glob, `.`
+y `..` son ambiguos y producen LOCK. Los patrones concretos pertenecen a la
+calibración del consumidor: este skill no incluye ninguno real.
+
+Raíz inexistente, alias hacia downstream/read-only, git toplevel distinto,
+calibración ausente o ambigua y diferencia respecto del canónico producen
+`LOCK identidad-raiz` (exit `23`). Ante LOCK no se crea salida ni artefacto:
+se pide al custodio un clone canónico fuera de las raíces observadas. El vigía
+no lo crea, no lo elige y espera nueva calibración.
+
+```bash
+WORLD_ROOT=/ruta/candidata \
+CANONICAL_WORLD_ROOT=/ruta/canonica \
+READ_ONLY_ROOTS='["/ruta/solo-lectura"]' \
+DOWNSTREAM_PATTERNS='["segmento/downstream/*"]' \
+node skills/vigilancia/scripts/verificar-identidad-raiz.mjs
+```
 
 ## Rol (inviolable)
 
@@ -36,6 +81,44 @@ decide (acepta/adapta/cola) → WP → merge → **vigía re-verifica CA de fact
 (grep/curl/gh real, nunca fiarse del ✅). Entregar en QUIETUD (entre lotes,
 nunca sobre zona de worker vivo). Cruzar SIEMPRE con las colas propias del
 orquestador antes de entregar (no duplicar).
+
+Toda salida al custodio aplica además el contrato dual de
+`ADDENDA-DOS-CARAS.md`: primero vista PO/SCRUM renderizable y después handoff
+operativo copiable. La contrarrevisión read-only pre-merge intenta refutar un
+WP de riesgo; no sustituye el gate final post-merge `Rn-<carril>`.
+
+## Sucesión de estación (v2 «gorro»)
+
+La estación es **viva** (§Rol). Cuando un agente/proceso **releva** a otro en
+la misma estación, el relevo se rige por «gorro»: rol temporal que se pone y
+se quita, con **origen declarado**. Contrato de método (fuente única):
+`swarm-orquestacion` → `reference/lecciones-vnext.md` §Sucesión v2. Aquí, lo
+que hace **la estación** al relevar:
+
+1. **Handoff volátil.** El saliente entrega un arranque **efímero**; la fuente
+   de verdad sigue siendo `OUT_DIR` (bitácora / `watch.log` / `anomalias.log`)
+   y el plan trazado, no el handoff. Tras el relevo, el handoff no se cita
+   como evidencia.
+2. **Ronda breve Q&A.** El entrante pregunta estado real, gates pendientes y
+   qué es residuo vs señal; el saliente responde **antes** de soltar el gorro.
+3. **Herencia de anomalías COMO anomalía.** Cada entrada abierta de
+   `anomalias.log` pasa al entrante **marcada como anomalía**; ninguna se
+   entrega como estado normal. Un huérfano / lock heredado sin marca queda
+   normalizado y se pierde.
+4. **Rol temporal con origen declarado.** El gorro declara quién lo cede y por
+   qué. Antes de **emular** otro rol de carril, **claim previo** (convivencia
+   del swarm → `convivencia-multi-orquestador.md` §10): sin claim en el canal
+   + idle real verificado, el relevo es **doble-conductor = anomalía
+   registrable**.
+5. **Anclas activas vs citas inertes.** El handoff separa comandos / rutas
+   **literales y reproducibles** (anclas activas, ejecutables tal cual) de la
+   **evidencia histórica** que no se reproduce; esta última se marca con
+   `[cita inerte]`. Sin la marca, el entrante re-ejecuta una cita contra un
+   canal ya movido.
+
+El vigía relevado **no** hereda el `✅` ni el veredicto del saliente sin
+re-verificarlo **de facto** en el canal real (misma disciplina que la
+re-verificación post-merge del §Ciclo de trabajo).
 
 ## Doctrina calibrada (señales)
 
@@ -104,6 +187,37 @@ orquestador antes de entregar (no duplicar).
    declarar gates externos pendientes.
 4. **Invariante:** un WP ✅ jamás se reabre — trabajo nuevo = WP nuevo.
 
+## Pulso idle y fixes retroactivos
+
+Idle significa que no hay zona de worker viva sobre la que la elevación pueda
+interferir. No significa «sin trabajo»: el vigía usa esa ventana para recoger
+evidencia ya observada en gates y formar propuestas, siempre read-only.
+
+1. Recoger residuos técnicos reproducibles de gates, devoluciones y CAs de
+   facto. Una nota sin evidencia queda como observación, no como candidato.
+2. Agrupar por causa/clase del defecto y exigir control positivo más falso
+   negativo. No proponer un fix por cada síntoma.
+3. Contrastar con backlog/colas existentes para evitar duplicados.
+4. Registrar candidato, evidencia literal, alcance tentativo, dependencia,
+   CA por clase y si el probe fue automatizado o manual.
+5. Proponer al custodio olas pequeñas por independencia de archivos y
+   dependencias; la propuesta no es planificación aceptada.
+6. Elevar mediante addenda dual. El vigía no edita BACKLOG, no abre WP, no
+   implementa, no acepta y no reabre trabajo cerrado.
+
+Checklist de elevación idle:
+
+- dependencia cargada en runtime → dependencia directa declarada;
+- propiedad positiva + falsos negativos;
+- probes automatizados o evidencia marcada explícitamente como manual;
+- gate local determinista separado de C8 online;
+- contrarrevisión pre-merge separada del gate post-merge;
+- ceguera de la cara copiable = 0.
+
+Fixture: `../examples/addenda-idle-sintetica.md`. Gate documental:
+`node ../scripts/verificar-salida-dual.mjs <addenda>` desde esta carpeta, o
+las rutas equivalentes desde la raíz.
+
 ## Layout BACKSTAGE_GIT · `cantera/`
 
 El backstage (pulsos/addendas + depósitos custodiados) tiene layout
@@ -121,6 +235,38 @@ clasificar huérfano por vacío/no-vacío y exigir ≥2 ciclos antes de logar.
 
 Un proceso = un `WORLD_ROOT`. Multi-root / territorio hermano: ver
 sección siguiente (instancias paralelas o `SIBLING_ROOT` solo lectura).
+
+### Liveness del watcher por lease de timestamp (portable)
+
+Para decidir si **un** watcher (este `watcher.sh` o el `watcher-sesion.sh`
+de estación) sigue vivo, la señal **contractual** es el **último tick** de
+su `watch.log`, no el PID:
+
+| estado | condición |
+| ------ | --------- |
+| **vivo** | último tick con `edad < 2×INTERVAL` |
+| **muerto** | último tick con `edad ≥ 2×INTERVAL` |
+| **dudoso** | sin `watch.log`, vacío, o tick no parseable |
+
+El **PID** es **pista secundaria no contractual**: en Git Bash el árbol de
+procesos puede no ser verificable aunque los ticks estén frescos → el lease
+manda y el veredicto es **vivo**. Portable **Git Bash (win) + POSIX**: sin
+`tasklist`/`ps` como fuente (regla de este skill). Cada ciclo de
+`watcher.sh` ya emite un sello `[F T]`, así que el lease aplica sin cambios.
+
+Método inline (vigía solo con este skill):
+
+```bash
+# umbral = 2×INTERVAL; tick = último sello del log
+INTERVAL=45; LOG="$OUT_DIR/watch.log"
+tick="$(grep -oE '^\[[0-9-]{10} [0-9:]{8}\]' "$LOG" | tail -1 | tr -d '[]')"
+edad=$(( $(date +%s) - $(date -d "$tick" +%s) ))
+[ "$edad" -lt $(( 2*INTERVAL )) ] && echo vivo || echo muerto
+```
+
+Versión empaquetada (con salida de evidencia y pista de PID):
+`comprobar-vivo.sh` del skill `estacion-viva` (composición ya declarada en
+su `reference/WATCHER.md`).
 
 ## Supuestos de convivencia (dep blanda · shape S01)
 
