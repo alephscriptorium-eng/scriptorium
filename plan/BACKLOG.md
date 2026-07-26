@@ -2,6 +2,11 @@
 
 Estados: ⬜ pendiente · 🔶 en curso · ✅ aceptado.
 
+> **F2 vivo (2026-07-26):** proyección del hub acabado →
+> [`BACKLOG-F2.md`](BACKLOG-F2.md) · 10 lanes · 52 WPs. Pendiente
+> aprobación/descarte del custodio. Este fichero conserva el índice histórico
+> de sprints y no duplica la proyección.
+
 Sprint activo: **PRUEBA-DE-DOS** (re-plan custodio 2026-07-23 · dual
 PO/scrum). LIBRERIA-0.7.0 **cerrado** · R24-S · consumo 0.8.0.
 PORTAL-NUMERO-0 **cerrado** · R15-S · tag `release/numero-0`.

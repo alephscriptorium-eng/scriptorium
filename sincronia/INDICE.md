@@ -67,9 +67,15 @@ refresca desde el handoff/informe del orquestador en cada tick).
 | **U93 confirmada de facto por Z** (`peer-card-gate.mjs`: sin card no hay ni `room-join`) · propuesta 3 capas + CA×4 (clave: card inválida **rechaza**, no degrada) → `Z-D4` | ⏳ tick refactor (post-mesa) |
 | **Entrada al grafo — reconectada**: la ◆ de V (¿`rooms` o `signaling`?) la responde `Z-D1`: entrada por `socket-server`+`rooms` (`CLIENT_REGISTER`, 2 modalidades) → el riesgo de WP-V18 se disuelve si Z-D1 confirma en runtime | ⏳ **Z-D1 = prerequisito de las 7 marcas** |
 | **VOLUMES — mapa cerrado en el lab**: Z verificó contrato (`synthetic-fixtures-only`, 4 slots, DISK_01/04 diferidos por diseño) + host sin root ni env; Temis verificó S/G ✅ sin contradicciones. **Idea-fuerza elevada (Temis): VOLUMES son del mesh — portar UNA vez la genealogía histórica a un `ZEUS_VOLUMES_ROOT` del Scriptorium** (fuente readonly → import → root común anclado en playground → mismo contrato en VPS) | ◆ custodio declara: fuente histórica = OASIS/SCRIPTORIUM_V0 (⏳) · VPS volumen datos (⏳) · quién censa OASIS (fuera de alcance de todos) |
-| **Z-D6 reencuadrado (Temis)**: A/B era **falso dilema** — npm kit FOSS + Release pack autocontenido son complementarios desde fuente/notario únicos (evidencia: `publishConfig` ×6 + `notario-release.mjs` dual). ◆ queda la **frontera `volumes/`: C1 (★ discutir primero) vs C2** — G mide tarballs, Z define import/`loadStartPack`, O consume. C8 del README se corrige tras la frontera; nada se publica sin CA de canal limpio | ◆ G+Z+custodio |
+| **Z-D6**: falso dilema resuelto (kit npm + pack Release complementarios) · **G ya midió**: Σ 6 packs ~32 kB tgz / volumes ~50 kB; mockdatas 64 kB/656 kB; corpus histórico fuera de tarballs · **★ G propone C1 normativo** (el riesgo es el primer corpus >1 MB, no hoy) · falta la mitad de Z (`loadStartPack`/contrato import, viene en R7-Z) → cruce dentro de H-01 · C8 README tras frontera · nada se publica sin CA de canal limpio | frontera C1/C2: **decide la mesa** (en H-01, compactada) |
+| **Lectura cruzada por hilo** asentada (§8): el TICK de hilo puede conceder `LECTURA=<rutas RO>` recíproca acotada — pedida por Z (evitar «consenso sobre declaraciones mutuas»); backstop = auditor omnímodo vía informe | ✅ |
+| GATE POST-R3: **6/6 ✅** — tips remotos avanzados verificados (o `66629f0` · v `9ddc977` · z `e493d3b` · g `4d4e790` · L `c9ecd2b` · hub `e587641`) | ✅ red de seguridad completa |
+| **H-01 · circuito de compacto EN CURSO**: borrador de S ✅ (`notas/COMPACTO-volumes-concepto.md`, apto-tras-ajuste según pre-análisis meta) → **Z verifica técnico ⏳ → L notaría ⏳ → Temis contraste final** (warnings sellados en META, sin filtrar — Opción B del Anfitrión: independencia de roles se respeta y se mide) → mesa decide → custodio valida → informe R4 | 🔶 |
+| **Directriz de equilibrio (custodio)**: especificación > organización interna · consensos cuanto antes · **backlog real en `plan/` de cada world_root** = destino inmediato post-compacto (F2: DRAFT → plan/BACKLOG con check final) | vigente |
 | **Relay/payload — VEREDICTO (Z, con cita)**: contenido **NO PUEDE** (misma referencia, `relay.mjs:37,:7`) · sobre SÍ · paso SÍ (allowlist 8 + `MAKE_MASTER` suprimido, **descarte silencioso**). **El modelo de O se sostiene** en contenido; fallan 2 cosas: bridge = cuello con corte sin traza (riesgo #1 de O realizado → CA punto 5) · **colapso de identidad** (`scriptorium-bridge` único + secreto compartido: el transporte borra de quién viene) → `Z-D7` → hilo peercard | ✅ respondida · avisos al hilo/mesa |
 | **6 líneas de investigación de Temis — todas elevadas, ninguna decidida** (orden del custodio: decisión de equipo): ① genealogía OASIS (censo) ② root único local (3 ubicaciones candidatas) ③ paridad local↔VPS (contrato, no path) ④ evolución segmentador Python→U80→U81→U176 ⑤ matriz Z-D5 9 campos ⑥ S/G proyectan sus DRAFTs si se adopta la dirección | ⏳ equipo · retick Z integra ⑤ |
+| **CERCO v2** asentado (§10.8): 4 clases — histórico se porta · provenance inerte · **peer/relay del contrato = endpoint vivo permitido** · runtime local-first. Corrige la lectura amplia que aislaba la red | ✅ |
+| **HILO: VOLUMES-CONCEPTO** (mesa completa) — adaptador local-first con replicación P2P: 3 formas de root (se preservan) · contrato 10 temas · drivers por familia · **tres momentos: instalar (kit npm) → sembrar (pack Release) → sincronizar (P2P)** — absorbe el ◆ ancla-vs-volumen · 7 preguntas de apertura · shape con familia fixture, sin mover OASIS | **decide la MESA** — H-01 listo; primer acto del hilo: confirmar COMPACTADOR (★ Z o S) |
 | Mesa Z+S+G+O → L a skill: `GATE-O-CLAVES` (+ ★ W-1 de V: inspeccionar **artefacto final**, caso empírico R6-V) · federación por tramos · modelo nodo/relay | ⏳ tick mesa + COMPACTADOR |
 | Hilo peercard-reúso (`Z-D2`, con G) — reformulado tras §2.a: qué cambia si la base es anónima | ⏳ TICK + COMPACTADOR |
 | Segunda puerta / catálogo 7→51 (`Z-D3`) — aparcado tras holón-7 por el propio Z | cola |
@@ -86,13 +92,14 @@ refresca desde el handoff/informe del orquestador en cada tick).
 
 ## Estado
 
-**Informe vigente: [`informes/INFORME-R3.md`](informes/INFORME-R3.md)**
-(R1/R2 [cita inerte]). VOLUMES: mapa cerrado (lab limpio ✅✅ · fuente
-histórica OASIS censada · root VPS existe, ruta ⏳) · relay respondido ·
-O↔V **zanjado** · **cerco exterior** asentado (§10.8) · ⛔ **GATE POST-R3
-en curso**: bitácora + compactar + push × 6 carriles + hub. ◆ vivas: canal
-packs (A/B) · ancla-vs-volumen (O) · ruta root local/VPS · retick R7-Z
-(7 correcciones de censo). Grafo 0/7 (espera Z-D1). Temis: censo OASIS ✅,
-pasadas privadas con custodio entre rondas.
+**Informe vigente: [`informes/INFORME-R5.md`](informes/INFORME-R5.md)**
+(R1–R4 [cita inerte]). **SESIÓN EN CIERRE.** F2 completada y **unificada
+por el Anfitrión**: 390 WPs en 6 planes cableados
+(`plan/PLAN-SCRIPTORIUM-V1.md` = vista de conjunto · fases + test del
+operador en `plan/BACKLOG-F2.md`). Falta solo: **las 5 decisiones del
+custodio** (ratificación · licencia · nombres/semver · rutas · orden).
+Vivos para la ejecución: Z-D1/grafo 0/7 · CA canal limpio · CA local-first
+· segundo acto C-6 · anomalías menores en cola. Watchers parados · espejo
+6/6 · cadena de sellos íntegra hasta R5.
 
 — **Anfitrión**

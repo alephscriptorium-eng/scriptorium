@@ -1,0 +1,435 @@
+# BACKLOG F2 · hub Scriptorium · mundo acabado
+
+| dato | valor |
+| ---- | ----- |
+| Mundo | `C:\S\scriptorium` · hub, playground, portal y gobierno multi-mundo |
+| Fuente | INFORME-R4 · consenso H-01 · sprint CIUDAD |
+| Estado | ⬜ propuesta · custodio aprueba/descarta · INÉDITO |
+| Método | `swarm-orquestacion` · un WP/brief/rama/worktree |
+| Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **390 WPs totales** en el Scriptorium (V 71 · O 74 · Z 66 · G 54 · L 73 · HUB 52) |
+
+## Visión
+
+Scriptorium terminado es un workspace FOSS restaurable: coordina mundos sin
+poseerlos, ofrece playground real para el holón-7, mantiene un catálogo 51/51
+trazable, prueba el camino LAN→WAN y consume el método publicado sin copiarlo.
+Cada cambio tiene dueño, dependencia y evidencia; el hub no implementa la
+obra de O/V/Z/G/L ni usa `s-sdk` como cajón de gobierno.
+
+## Contrato de despacho
+
+- `ALCANCE_DIFF` siempre dentro de este repo. Obra ajena = dependencia/tick.
+- Contrato compartido: segundo consumidor (Eje IV); confianza: hostil-omite.
+- Cero credenciales/corpus vivo en git o contexto Docker.
+- P0 bloquea una experiencia integrada verificable; P2 no se ejecuta sin GO.
+
+## Lanes
+
+| lane | propósito |
+| ---- | --------- |
+| GOBIERNO | ownership, decisiones, 51/51, aprobación F2 |
+| PLAYGROUND | env, root lógico, mounts y casos reproducibles |
+| AUTH-GRAFO | barrio, siete marcas, anónimo/card opt-in |
+| METODO-MESA | consumo/calibración del skill de mesa y auditoría |
+| SINCRONIA | hilos, compactos, índice y cadena de informes |
+| VIGILANCIA | identidad, bitácora, CUADERNOS y estaciones |
+| PORTAL | casa pública, guías y mapas verificables |
+| INTEGRACION | O/V/Z/G/L, ui-docker y LAN→WAN |
+| E2E | consumidor limpio, offline y fallos ruidosos |
+| HORIZONTE | P2P continuo, emergencias y crecimiento |
+
+---
+
+## Lane · GOBIERNO
+
+### WP-HUB-001 · partición-de-ownership-F2
+- **BRIEF:** mapa repo→lane→WP→dueño; ningún plan escribe obra ajena.
+- **CA:** cada WP tiene `ALCANCE_DIFF`; dependencias externas citan tick/WP;
+  gate falla ante path de otro WORLD_ROOT. **Ejes III+V.**
+- **Pri:** P0 · BLOQUEA despacho F2
+
+### WP-HUB-002 · registro-dependencias-multiworld
+- **BRIEF:** registro regenerable de dependencias G10, Z-D1, L skill mesa,
+  O storage y V Zigurat, sin duplicar sus backlogs.
+- **CA:** cada dependencia tiene owner/estado/evidencia; cero pseudo-WP del hub
+  para implementar otro mundo.
+- **Pri:** P0
+
+### WP-HUB-003 · censo-51-matriz-viva
+- **BRIEF:** catálogo 51/51: pieza, capacidad, canal, consumidor, estado y CA.
+- **CA:** derivado de manifests; 51 denominador trazable; desconocido = ⏳,
+  nunca «hecho» por presencia en repo.
+- **Pri:** P0 · core
+
+### WP-HUB-004 · ledger-decisiones-y-sellos
+- **BRIEF:** decisión→informe→sello CUADERNOS→restauración, sin blockchain
+  nominal ni memoria de chat como fuente.
+- **CA:** restauración desde último sello reproduce informe vigente y abiertos.
+- **Pri:** P1
+
+### WP-HUB-005 · ratificacion-backlogs-F2
+- **BRIEF:** custodio aprueba/descarta WPs de seis mundos y hub; generar vista
+  de seleccionados sin mutar backlogs ajenos.
+- **CA:** tabla decisión por WP; descartado no aparece como pendiente; conteos
+  reconciliados por prioridad.
+- **Pri:** P0 · gobierno
+
+### WP-HUB-006 · linter-backlog-multi-serie
+- **BRIEF:** validar lanes, IDs configurables, BRIEF, CA, P, deps, ownership y
+  ciclos antes de proyectar issues.
+- **CA:** fixtures S/G/L y HUB; 0 WPs o dependencia circular falla ruidoso.
+- **Pri:** P1 · coord L
+
+---
+
+## Lane · PLAYGROUND
+
+### WP-HUB-010 · layout-root-datos-playground
+- **BRIEF:** decidir/anclar namespace lógico de VOLUMES y mounts físicos sin
+  hardcodear path de máquina.
+- **CA:** contrato funciona con dos paths físicos; no depende de cwd;
+  `volumes.json` ambiguo falla.
+- **Pri:** P0 · dep Z contrato/O mounts
+
+### WP-HUB-011 · env-demo-fuente-unica
+- **BRIEF:** fichero env real de demo generado desde contrato Z, consumido por
+  casos y futuro editor V.
+- **CA:** ausencia de env obligatorio falla claro; cero defaults silenciosos a
+  fixtures; secretos excluidos.
+- **Pri:** P0 · BLOQUEA demo integrada
+
+### WP-HUB-012 · no-root-vivo-en-node-modules
+- **BRIEF:** ningún caso monta `node_modules/.../volumes` como root de ronda.
+- **CA:** probe producto = 0; import a mount externo; omitir import falla.
+- **Pri:** P0 · dep G10
+
+### WP-HUB-013 · import-shape-pozo-forces
+- **BRIEF:** fixture C-5 para probar semilla/import/manifiesto/estado/corpus.
+- **CA:** import, offline, reimport no-op, corrupción falla, cero secretos.
+- **Pri:** P1 · dep G31/Z validación
+
+### WP-HUB-014 · CA-local-first
+- **BRIEF:** ejecutar CA post-H-01 con root A y snapshot B; documentar qué no
+  demuestra sobre P2P continuo.
+- **CA:** A/B integridad igual; red cortada; B no consulta A; T9 evidencia
+  externa queda resuelta o ⏳ explícita.
+- **Pri:** P1 · tick propio
+
+### WP-HUB-015 · catalogo-mounts-experimento
+- **BRIEF:** comparar root físico único, catálogo de mounts y adaptador plural
+  sin elegir por intuición.
+- **CA:** misma API de lectura en 3 fixtures; resolver no depende de cwd.
+- **Pri:** P1 · coord Z/O
+
+### WP-HUB-016 · docker-desktop-storage-safety
+- **BRIEF:** mounts de datos separados de runtime e imagen; gitignore y
+  dockerignore/contexts seguros.
+- **CA:** inspección de imagen/contexto = 0 corpus/secretos; recrear contenedor
+  conserva datos.
+- **Pri:** P0 · coord O
+
+---
+
+## Lane · AUTH-GRAFO
+
+### WP-HUB-020 · auth-barrio-estructura
+- **BRIEF:** nodo barrio de encuentro en `prueba-de-dos`; no padre obligatorio.
+- **CA:** transporte anónimo base; capacidades card opt-in; card inválida no
+  degrada; cero secretos. **Hostil-omite.**
+- **Pri:** P0 · BLOQUEA holón-7
+
+### WP-HUB-021 · A3-evidencia
+- **BRIEF:** prueba reproducible de la fila S/auth barrio.
+- **CA:** comando+salida literal; marca solo tras entrada real.
+- **Pri:** P0 · dep HUB-020
+
+### WP-HUB-022 · grafo-siete-marcas
+- **BRIEF:** orquestar siete entradas con ownership y deps Z-D1.
+- **CA:** 7/7 evidencias, ninguna heredada; cada actor escribe solo su fila.
+- **Pri:** P0 · core
+
+### WP-HUB-023 · contrato-anonimo-optin
+- **BRIEF:** política transversal de conexión anónima y capacidad opt-in.
+- **CA:** controles positivo, omitido, inválido y expirado; cable permanece
+  abierto cuando se deniega acción.
+- **Pri:** P0 · coord Z/G/V/O
+
+### WP-HUB-024 · scopes-federacion-sin-mando
+- **BRIEF:** ámbitos solapados/horizontales; barrio/ciudad facilitan alcance,
+  no autoridad.
+- **CA:** dos peers directos sobreviven a caída de tercero; relay no reescribe
+  payload; descarte deja traza.
+- **Pri:** P1
+
+### WP-HUB-025 · hilo-peercard-reuso
+- **BRIEF:** abrir/compactar hilo Z+G sobre emisión por contexto de autoridad.
+- **CA:** ◆/★/⏳; no promover scopes por topología; compacto validado.
+- **Pri:** P1 · tick
+
+---
+
+## Lane · METODO-MESA
+
+### WP-HUB-030 · consumir-skill-mesa
+- **BRIEF:** instalar release L y calibrar esta sala sin copiar el método.
+- **CA:** agente fresco levanta fixture y sala hub; segundo consumidor; ceguera.
+- **Pri:** P0 · dep L-A01/L-A12
+
+### WP-HUB-031 · calibracion-protocolo-instancia
+- **BRIEF:** mover parámetros/roster/rutas a instancia fuera del tarball.
+- **CA:** actualizar método no pisa calibración; 0 nombres de mesa en skill.
+- **Pri:** P1
+
+### WP-HUB-032 · compactar-y-reemplazar
+- **BRIEF:** automatizar archivo/punteros con control de no-pérdida.
+- **CA:** ED sintética conserva hechos/candidatas/abiertos; rollback por sello.
+- **Pri:** P1
+
+### WP-HUB-033 · indice-hilos-regenerables
+- **BRIEF:** reconstruir índice/HILOS desde buzones/ticks sin pisar roster.
+- **CA:** hilo fantasma=0; H-01 reproducido; escritura atómica.
+- **Pri:** P1
+
+### WP-HUB-034 · auditor-meta-integracion
+- **BRIEF:** activar auditor §11 con frontera nota vs DRAFT y entrega META.
+- **CA:** auditor cura nota autorizada, no backlog; forma/fondo trazadas;
+  Anfitrión puede aceptar/devolver.
+- **Pri:** P1 · dep L-A12/L-A13
+
+### WP-HUB-035 · identidad-y-aborto-tick
+- **BRIEF:** firma, nombre cruzado y `NO_TICK_VALIDADO=NO_PROCESAR`.
+- **CA:** tick a identidad errónea aborta sin leer alcance ni producir efectos.
+- **Pri:** P1
+
+---
+
+## Lane · SINCRONIA
+
+### WP-HUB-040 · informe-vigente-unico
+- **BRIEF:** un informe normativo; anteriores a archivo/cita inerte.
+- **CA:** índice apunta uno; restauración no relee histórico.
+- **Pri:** P1
+
+### WP-HUB-041 · timbre-ping-seguro
+- **BRIEF:** formato append UTF-8, rutas seguras y pull-on-tick.
+- **CA:** path con barras no parte línea; PING no autoriza procesamiento.
+- **Pri:** P2
+
+### WP-HUB-042 · compactos-verificador-forma
+- **BRIEF:** gate ◆/★/⏳, propuesta≠decisión y no-pérdida.
+- **CA:** fugas F1/F2 sintéticas fallan; ED2 H-01 pasa.
+- **Pri:** P1 · coord L
+
+### WP-HUB-043 · cadena-sellos-ronda
+- **BRIEF:** informe cita sello anterior y S publica snapshot de sala.
+- **CA:** cadena verificable; nada de obra/secrets en CUADERNOS.
+- **Pri:** P0
+
+---
+
+## Lane · VIGILANCIA
+
+### WP-HUB-050 · bitacora-manual-apunta
+- **BRIEF:** bitácora de sesión apunta a sala sin duplicarla.
+- **CA:** restore usa índice+informe; tamaño acotado; cero decisiones huérfanas.
+- **Pri:** P1
+
+### WP-HUB-051 · boot-estacion-identidad
+- **BRIEF:** estación solo con GO y preflight canónico.
+- **CA:** PASS arranca; LOCK deja cero efectos; watchers siguen parados hasta GO.
+- **Pri:** P1
+
+### WP-HUB-052 · CUADERNOS-sellos-higiene
+- **BRIEF:** snapshot sala+referencias plan F2+bitácora, no obra inflada.
+- **CA:** push rama; secrets=0; hash registrado.
+- **Pri:** P0
+
+### WP-HUB-053 · claims-y-doble-conductor
+- **BRIEF:** claims de carril y resolución de anomalía doble conductor.
+- **CA:** segundo conductor sin claim se detecta antes de efecto.
+- **Pri:** P1
+
+---
+
+## Lane · PORTAL
+
+### WP-HUB-060 · licencia-package-coherente
+- **BRIEF:** `package.json` hoy UNLICENSED debe alinearse con LICENSE canónica
+  GPL-3.0-or-later + Animus Iocandi.
+- **CA:** custodio valida; package/LICENSE/docs/tarball coherentes.
+- **Pri:** P0 · FOSS
+
+### WP-HUB-061 · portal-scriptorium
+- **BRIEF:** casa pública del producto, no marketing: mundos, playground,
+  estado verificable y entrada a demos.
+- **CA:** docs build+links; claims derivados; cero CDN.
+- **Pri:** P1
+
+### WP-HUB-062 · guia-ciudad-playground
+- **BRIEF:** guía operativa de casos, roles y datos sin rutas de máquina.
+- **CA:** un usuario fresco ejecuta prueba mínima; huecos honestos.
+- **Pri:** P1
+
+### WP-HUB-063 · mapa-51-capacidades
+- **BRIEF:** vista de piezas→capacidades→consumidores→estado.
+- **CA:** deriva HUB-003; no confunde publicado con usado.
+- **Pri:** P1
+
+### WP-HUB-064 · cerco-v2-operadores
+- **BRIEF:** código histórico, provenance, storage externo, peers vivos y boot offline.
+- **CA:** ejemplos positivo/negativo; cero «todo dentro del repo».
+- **Pri:** P1
+
+### WP-HUB-065 · picture-LAN-WAN
+- **BRIEF:** arquitectura literal LAN→WAN con fronteras O/V/Z/G/S/L.
+- **CA:** cada flecha tiene contrato/owner; ninguna compatibilidad ficticia.
+- **Pri:** P1
+
+---
+
+## Lane · INTEGRACION
+
+### WP-HUB-070 · interfaz-env-O-V
+- **BRIEF:** contrato nuevo env demo: O propone, Z valida, V edita opt-in.
+- **CA:** lectura/escritura atómica; validación; sin settings competidores.
+- **Pri:** P0 · coord O/V/Z
+
+### WP-HUB-071 · molde-ui-docker
+- **BRIEF:** caso integrado Docker Desktop sobre storage separado y piezas Z/G.
+- **CA:** compose config; offline tras siembra; no conceptos de dominio hardcoded.
+- **Pri:** P1 · owner O
+
+### WP-HUB-072 · zigurat-estructura-antes-UI
+- **BRIEF:** materializar estructura G en playground antes del mapa V.
+- **CA:** contrato navegable; lienzo vacío preservado; UI no inventa dominio.
+- **Pri:** P1 · coord G/V
+
+### WP-HUB-073 · adaptador-volumenes-cruce
+- **BRIEF:** coordinar contrato Z, mounts O y packs G sin implementar aquí.
+- **CA:** decisiones/deps aterrizan en WPs propietarios; hub solo prueba integración.
+- **Pri:** P1
+
+### WP-HUB-074 · segunda-puerta-7-a-51
+- **BRIEF:** plan de ampliación catálogo/puertas hasta 51/51.
+- **CA:** cada pieza tiene puerta y consumidor o hueco; cero clientes ad hoc invisibles.
+- **Pri:** P1
+
+---
+
+## Lane · E2E
+
+### WP-HUB-080 · prueba-de-dos-registry-clean
+- **BRIEF:** starter-kit desde canales limpios, sin sibling paths.
+- **CA:** temp limpio; dos peers; mensaje reconciliado; evidencia literal.
+- **Pri:** P0
+
+### WP-HUB-081 · ciudad-roles-e2e
+- **BRIEF:** autoridad/jugadores/cronista y miradores sin jugar.
+- **CA:** roles reales, intent+state, salida reproducible.
+- **Pri:** P1
+
+### WP-HUB-082 · offline-after-seed
+- **BRIEF:** red se usa para instalar/sembrar/sync explícita, no para boot.
+- **CA:** desconectar y arrancar; falta local falla antes del boot.
+- **Pri:** P1
+
+### WP-HUB-083 · failure-matrix
+- **BRIEF:** card omitida/inválida, root ausente, hash roto, relay caído,
+  registry offline y corpus desconocido.
+- **CA:** cada ausencia falla en frontera correcta sin estado parcial.
+- **Pri:** P1 · hostil-omite
+
+### WP-HUB-084 · external-observer-evidence
+- **BRIEF:** evidencia verificable por tercero para snapshot/réplica sin consultar A/B.
+- **CA:** tercero valida manifests/hashes/sellos; no autocertificación.
+- **Pri:** P1 · T9
+
+---
+
+## Lane · HORIZONTE
+
+### WP-HUB-090 · C6-P2P-segundo-acto
+- **BRIEF:** contrato futuro de descubrimiento, anuncio, pull/push/cursor,
+  divergencia y reconciliación por driver.
+- **CA:** BRIEF/fixture listos; cero implementación sin tick.
+- **Pri:** P2
+
+### WP-HUB-091 · emergencia-reproducible
+- **BRIEF:** convocatoria y restauración de mesa mediante skill publicado.
+- **CA:** agente fresco recupera desde sello y espera tick.
+- **Pri:** P2
+
+### WP-HUB-092 · primer-amigo-friccion
+- **BRIEF:** acta de experiencia de una persona externa entrando al sistema.
+- **CA:** consentimiento; cero datos personales en repo; hallazgos a backlog.
+- **Pri:** P2
+
+---
+
+## FASES · camino crítico de Scriptorium v1 (los 6 planes, una secuencia)
+
+*El hub no posee estos WPs: los **ordena**. Cada fase cierra con su gate;
+ninguna fase abre sin la anterior en verde. IDs = ediciones F2-unificadas.*
+
+```text
+FASE 0 · GOBIERNO Y FOSS (todo lo demás se despacha sobre esto)
+  HUB-001·005·052 · O07·O08·O09 · V81·V77·V78 · U232·U237 · G03·G74·G01 · L-F08·L-F01
+  ★ LICENCIA = UNA SOLA ACTA del custodio que cubre L-F08 + U237 + O08 + G74 + HUB-060
+
+FASE 1 · CONTRATOS BASE (datos y puertas)
+  G10·G16 · U199·U200·U201·U233 · O20·O30·O70 · V28·V26(schema) · HUB-010·011·012
+
+FASE 2 · RUNTIME MÍNIMO (el cable y las piezas)
+  U186(con paso 0)·U187·U192·U202–U206·U227·U228·U234
+  G20·G21·G31·G40 · O10·O11·O22·O31 · V20·V21·V29·V30
+
+FASE 3 · HOLÓN-7 Y CIUDAD (la prueba de la mesa)
+  HUB-020·021·022 · G50·G52 · O12 · V18 · U218 · L-G01 · fila del custodio
+
+FASE 4 · PRODUCTIZACIÓN (que lo use un desconocido)
+  G12·G13·G82·G83·G84 · O55·O62·O66·O76·O77 · V66·V83·V84·V86 · U214·U238·U239
+
+FASE 5 · ACEPTACIÓN SCRIPTORIUM v1
+  HUB-080–084 · O94·O95 · U235 · G84 · V86(DoD) → TEST DEL OPERADOR (abajo)
+```
+
+### DoD de Scriptorium v1 — el test del operador externo (10 pasos)
+
+Un operador **ajeno al equipo**, desde canales limpios: ① instala método y
+piezas FOSS con licencias coherentes · ② siembra un pack Release en storage
+separado · ③ arranca O+Z con un comando, sin secretos embebidos · ④ abre V
+en VS Code limpio y ve configuración/estado honestos · ⑤ carga un juego G
+(o crea uno con el kit) y entra anónimo o con card opt-in · ⑥ ejecuta un
+intent, observa state/ledger y completa las 7 marcas · ⑦ reinicia offline
+sin perder lo que el contrato declara durable · ⑧ verifica artefactos,
+provenance y salud · ⑨ hace backup/restore/rollback sin la máquina autora ·
+⑩ apaga sin procesos, mounts ni credenciales huérfanos.
+
+**Diez pasos, seis mundos, un producto.** Cada paso mapea a WPs concretos
+de las fases 4–5; ninguno se autocertifica.
+
+## Conteo
+
+| prioridad | n |
+| --------- | -: |
+| P0 | 18 |
+| P1 | 30 |
+| P2 | 4 |
+| **Total** | **52** (hub) · **390** (Scriptorium completo) |
+
+## Dependencias maestras
+
+```text
+HUB-001 → HUB-005
+G10 → HUB-012
+Z-D1 → HUB-022
+L-A01/A12 → HUB-030/HUB-034
+O storage + Z contrato + G packs → HUB-010/HUB-073
+HUB-010·011·012 → HUB-071·080·082
+HUB-020·021 + entradas externas → HUB-022
+HUB-003 + puertas propietarias → HUB-074
+```
+
+Nada se despacha hasta ratificación del custodio.
+
+— **S** · proyección F2 del hub

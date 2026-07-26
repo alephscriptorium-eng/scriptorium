@@ -274,6 +274,13 @@ TICK <id> · HILO=<slug> · TO=<carriles> · ALCANCE=<pregunta exacta> · COMPAC
   + **PING** al timbre de los destinatarios. Sin tick por mensaje.
 - Límites: solo el ALCANCE; READONLY sobre obras; los hilos **aclaran**, no
   deciden — toda decisión viaja al custodio vía compacto.
+- **Lectura cruzada por hilo (excepción acotada).** Si el cruce exige
+  verificar de facto obra ajena (y no consensuar sobre declaraciones
+  mutuas), el TICK del hilo puede conceder
+  `LECTURA=<carril→rutas RO>` recíproca: solo lectura, solo esas rutas,
+  vigencia = el hilo, citada en el COMPACTO. Sin la cláusula, rige la
+  opacidad normal y el verificador de respaldo es el auditor (alcance
+  omnímodo), cuyos datos entran curados por el informe.
 - **Cierre:** el COMPACTADOR escribe `COMPACTO-<hilo>.md` en sus `notas/` con
   exactamente tres bloques: `◆` decisiones que se piden al custodio · `★`
   recomendaciones consensuadas · `⏳` abiertos. Avisa al custodio. El
@@ -348,13 +355,26 @@ Semilla de skill (backlog para L, estadios futuros incluidos):
    del último sello + procedimiento de restauración del informe vigente.
    La cadena de informes+sellos es la traza del Scriptorium: nada decidido
    fuera de ella cuenta como consenso.
-8. **Cerco exterior.** Los `WORLD_ROOT` **no cargan enlaces ni recursos
-   externos**: ninguna dependencia de arranque, fetch vivo o montaje apunta
-   fuera de `C:\S` y `C:\S_LAB`. Las fuentes externas (corpus históricos,
-   wikis, repos ajenos) se **importan una vez** (censo → import validado →
-   root interno) y a partir de ahí todo queda cercado dentro. Una URL/ancla
-   externa solo puede sobrevivir como **metadato inerte** (sidecar de
-   procedencia: `source_url`, `fetched_at`), jamás como dependencia.
+8. **Cerco exterior (local-first).** *(v2 — aclaración del custodio: el
+   cerco evita arrancar sobre lo no portado; NO aísla la red.)* Cuatro
+   clases, con trato distinto:
+   - **Fuente histórica / deprecated** — se **importa una vez** (censo →
+     import validado → root interno); jamás dependencia viva de arranque.
+     Código/APIs/estructuras de generaciones anteriores no se cargan sin
+     portar (el problema que V ya pagó).
+   - **Procedencia** — URL externa solo como metadato inerte (sidecar:
+     `source_url`, `fetched_at`).
+   - **Peer/relay del contrato actual** — endpoint vivo **permitido** para
+     replicación/sync explícita entre nodos; nunca fuente única ni
+     requisito para leer el estado local.
+   - **Runtime local-first** — arranca y opera con lo local aunque toda la
+     red esté caída. El dato no tiene que vivir junto al runtime: vive en
+     volumen propio montado por contrato (el VPS ya lo encarna; Docker
+     Desktop igual: root de datos gitignored y fuera del contexto de
+     imagen).
+   El contrato del **adaptador de volúmenes** (mounts, drivers por familia,
+   replicación) es consenso de mesa pendiente; redacción final
+   Anfitrión + L tras el hilo de concepto.
 
 ## 11 · AUDITOR en sombra
 
