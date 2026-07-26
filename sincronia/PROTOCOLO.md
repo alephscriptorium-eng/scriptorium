@@ -5,6 +5,34 @@
 | Mantiene | **Anfitrión** (hub `C:\S`) |
 | Vigencia | desde 2026-07-25 · toda la mesa (S · O · V · Z · G · L) |
 | Rango | convención de mesa — complementa `INDICE.md`; no toca el método de los skills |
+| Destino | al cierre de sesión, **L lo porta a skill** — ver §0 y regla de skillización |
+
+---
+
+## 0 · Parámetros del mundo (contrato skillizable)
+
+El cuerpo normativo (§1–§10) se lee con estos nombres como **parámetros**.
+La columna «calibración» es dato de instancia de ESTA mesa y **no entra al
+skill** (mismo patrón protocolo ≠ datos del skill `vigilancia`).
+
+| parámetro | rol | calibración de esta mesa |
+| --------- | --- | ------------------------ |
+| `CUSTODIO` | humano que valida ticks y da GO | el custodio |
+| `HUB` | sesión neutra que mantiene sala, índice y protocolo | Anfitrión · `C:\S` |
+| `SALA` | carpeta de sincronía del hub | `C:\S\scriptorium\sincronia\` |
+| `CARRILES` | consolas con mundo propio | S · O · V · Z · G · L |
+| `WORLD_ROOT(X)` | raíz del mundo del carril X | tabla en `INDICE.md` |
+| `BUZON(X)` | puntero + notas del carril | `<WORLD_ROOT(X)>\sincronia\` |
+| `TIMBRE(X)` | campanilla append-only | `<WORLD_ROOT(X)>\sincronia\TIMBRE.md` |
+| `OUT_DIR(X)` | estación/bitácora del carril | declarado por cada carril |
+| `INTERVAL` | muestreo del watcher | 45 s |
+| `PLAYGROUND` | terreno común de pruebas (lectura malla) | `C:\S\scriptorium\playground\` |
+| `CUADERNOS` | repo git durable de bitácoras, sincronización y handoffs | `github.com/alephscriptorium-eng/scriptorium-cuadernos` · worktrees en `C:\S\_fuentes\` |
+| `RAMA(X)` | canal del carril X en `CUADERNOS` | patrón `<mundo>-vigilancia` |
+
+**Regla de skillización (para L):** cambios de protocolo se acumulan AQUÍ,
+no en peticiones sueltas a L. Al cierre, L porta §1–§10 parametrizados por
+§0; los valores calibrados quedan como fixture/ejemplo sintético.
 
 ---
 
@@ -115,6 +143,19 @@ Formato mínimo:
 TICK <id> · TO=<identidad> · ALCANCE=<acción o pregunta exacta>
 ```
 
+### Jerarquía de fuentes — lo curado manda
+
+1. **Fuente normativa** = la nota de tick / el informe de ronda del `HUB`,
+   **validado por el `CUSTODIO`**. Eso es lo curado; sobre eso se trabaja.
+2. Las notas de otros carriles son **evidencia**, no fuente: solo se leen
+   las que el informe/tick vigente **cite**, y solo como detalle de lo ya
+   curado. No extraen premisas nuevas.
+3. **Discrepancia** entre una nota cruda y el informe → **no se adopta la
+   cruda**: se eleva en tu siguiente nota (`⚠️ discrepancia` + rutas) y
+   decide el custodio.
+4. Lo que otro carril dijo y **no** está en informe/tick **no existe como
+   premisa** para tu trabajo — aunque lo hayas visto en la malla.
+
 ## 6 · Reparto de la reunión
 
 | voz | función en esta ronda |
@@ -152,9 +193,12 @@ liveness del método):
 
 ```bash
 # estación-timbre v0 · correr desde el WORLD_ROOT propio
-T="sincronia/TIMBRE.md"; OUT="<OUT_DIR>/watch.log"; N=0
+# v0.1 — corrige defecto timbre-vacío (grep -c exit 1 duplicaba el 0 → watcher ciego)
+T="sincronia/TIMBRE.md"; OUT="<OUT_DIR>/timbre-watch.log"
+N=0; [ -f "$T" ] && N=$(grep -c '^PING ' "$T" || true)
+echo "[$(date '+%F %T')] estacion-timbre v0: arranque · base=$N ping(s)" | tee -a "$OUT"
 while :; do
-  M=$( [ -f "$T" ] && grep -c '^PING ' "$T" || echo 0 )
+  M=0; [ -f "$T" ] && M=$(grep -c '^PING ' "$T" || true)
   if [ "$M" -gt "$N" ]; then
     echo "[$(date '+%F %T')] TIMBRE: $((M-N)) ping(s) nuevos" | tee -a "$OUT"
     N="$M"
@@ -164,6 +208,42 @@ while :; do
   sleep 45
 done
 ```
+
+Reglas añadidas tras T-\*1 (casos fundantes O y Z, 2026-07-26):
+
+- **Log propio:** si el `OUT_DIR` ya aloja otro watcher, el log se llama
+  `timbre-watch.log` — un log por proceso o el lease deja de identificar
+  quién está vivo (patrón V).
+- **Línea de arranque obligatoria** con `base=N`: separa pings históricos de
+  nuevos y sirve de evidencia de boot.
+- **Encoding:** el timbre es **UTF-8 sin BOM**. Append desde Git Bash (`>>`)
+  o `Add-Content -Encoding utf8`; **jamás** reescribir el fichero entero ni
+  líneas ajenas. Quien rompa el timbre de otro lo declara con ⚠️ y el
+  **dueño** repara/rota (caso fundante: O sobre timbre hub; reparación del
+  dueño = reescritura legítima, ya ejercida por S).
+
+### Fallback del timbre (v0.2 — el timbre es best-effort, el tick es el canal)
+
+La escucha continua cuesta combinarla con el trabajo y hay pings que no
+llegan. Regla:
+
+1. **El canal garantizado es el TICK del custodio**, no el timbre. Un PING
+   no entregado nunca pierde un mensaje: la nota sigue en el buzón del autor
+   y el custodio avisa por consola.
+2. **Pull-on-tick (obligatorio):** al recibir CUALQUIER tick, antes de
+   procesar su alcance, el carril lee su `TIMBRE.md` **entero desde `base`**
+   y reconcilia lo no visto (reporta pings pendientes; no los procesa sin
+   autorización, §5).
+3. **La estación puede caerse sin culpa.** Estación muerta = fila ⚠️ en el
+   parte del Anfitrión, no incidente; se relanza con el siguiente tick.
+4. Ritmo de esta sesión: **lento a propósito** — una nota por turno (§9);
+   nadie necesita escucha en tiempo real.
+
+**Horizonte CAMPANA (registrado, sin GO de ejecución):** cuando los carriles
+estén dentro de la Ciudad (cliente MCP + nodo), la campanilla FS se sustituye
+por la campana del propio dominio — `@zeus/parte-kit` (`campanasDesdeParte`)
+sobre el mesh, vía `operator-bridge`. La mesa pasaría a notificarse con las
+piezas que está censando: el mecanismo de reunión se vuelve caso de uso.
 
 **Recibir un PING no autoriza a procesarlo** (§5 sigue intacto):
 
@@ -206,9 +286,63 @@ TICK <id> · HILO=<slug> · TO=<carriles> · ALCANCE=<pregunta exacta> · COMPAC
 Semilla de skill (backlog para L, estadios futuros incluidos):
 [`SEMILLA-SKILL-MESA.md`](SEMILLA-SKILL-MESA.md).
 
+## 9 · Dinámica de sesión dirigida (vigente desde 2026-07-26)
+
+1. **El custodio hila.** Los temas de cada ronda los fija el custodio; el
+   Anfitrión **orquesta sin contenido**: registra, verifica, rutea preguntas
+   al carril que corresponda y prepara ticks — no opina sobre el fondo ni
+   decide agenda.
+2. **Nada de conversaciones paralelas sin tick.** Los hilos planificados no
+   existen hasta su TICK.
+3. **Una nota por turno.** Cada consola emite como máximo una nota por tick
+   recibido. Aclaraciones extra = siguiente turno o pregunta al custodio.
+4. **Nada que reporte un participante se asienta sin GO explícito** del
+   custodio. El Anfitrión lo registra como `⏳ reportado` y lo eleva.
+5. **DRAFT permanente:** cada carril mantiene `sincronia/DRAFT.md` — su
+   borrador de backlog encolable (formato compatible con `swarm-orquestacion`
+   / estación: candidatos WP con alcance y CA tentativo). Se actualiza en
+   cada turno que genere material. **Nada se encola sin check final del
+   custodio.** El Anfitrión verifica ronda a ronda que los DRAFT estén al
+   día: si el custodio dice «exportamos backlog», los seis drafts deben estar
+   listos para ticks **sin ronda extra**. Los candidatos que **bloquean el
+   hilado común** llevan marca literal `BLOQUEA:` (qué desbloquean y a
+   quién) — son los primeros en el cherry-pick del custodio.
+
+## 10 · CUADERNOS — memoria durable y gate de cierre
+
+1. **`CUADERNOS` es donde se asienta lo que debe sobrevivir a las ventanas:**
+   snapshot de la `SALA` (sincronización), handoffs de restauración y
+   bitácoras de estación. La sala es trabajo vivo; el cuaderno es piedra.
+2. **Push a `CUADERNOS` es la excepción declarada** a la norma no-push — es
+   el canal de bitácora, no un mundo de obra.
+3. **Custodia del asiento hub: S.** Tras cada ronda, S actualiza
+   `sprint-CIUDAD/` (snapshot de sala + handoffs) en su rama y hace push.
+   El punto de restauración 0 lo dejó el Anfitrión (`d399230`); desde ahí,
+   la pluma es de S.
+4. **Rama por carril** (`RAMA(X)`, patrón `<mundo>-vigilancia`): cada carril
+   publica ahí su bitácora de estación. La bitácora **apunta** a la sala,
+   no la repite.
+5. **⛔ GATE DE CIERRE DE SESIÓN:** la sesión no se cierra hasta que **todos
+   los carriles hayan publicado** su bitácora en su rama de `CUADERNOS`.
+   Quien ya tiene rama puede subir cuando quiera; quien no, la crea ahora o
+   al cierre — el gate no se negocia.
+6. **Invariante «nada abajo que no esté arriba».** Todo artefacto
+   meta-devops — sala, `sincronia/` de cada carril, bitácoras de estación,
+   handoffs, informes — existe en `CUADERNOS` al cierre de cada ronda.
+   Únicas excepciones (de cajón): `.env`, secrets, credenciales — **jamás**
+   suben. Los mundos de código siguen sin push: `CUADERNOS` existe
+   precisamente para que el meta no se mezcle con la obra.
+7. **Cadena de sellos.** Cada ronda termina en un commit de snapshot en
+   `CUADERNOS` = **sello de consenso**. El informe de la ronda *n* cita el
+   hash del sello de la ronda *n−1*. Restaurar cualquier ventana = checkout
+   del último sello + procedimiento de restauración del informe vigente.
+   La cadena de informes+sellos es la traza del Scriptorium: nada decidido
+   fuera de ella cuenta como consenso.
+
 ---
 
 *Cambios a este protocolo: nota al Anfitrión vía custodio; el Anfitrión
-actualiza y hace broadcast. Versión viva — sin numerar (INÉDITO).*
+actualiza y hace broadcast — L lo porta a skill al cierre (§0). Versión
+viva — sin numerar (INÉDITO).*
 
 — **Anfitrión**

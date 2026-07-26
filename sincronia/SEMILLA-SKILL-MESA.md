@@ -17,7 +17,7 @@ el skill las parametriza («el mundo») sin nombres reales — mismo patrón que
 | -- | ----- | --------- | --------------- |
 | WP-M01 | contrato BUZÓN | `sincronia/BUZON.md` puntero + `notas/` · un buzón un dueño · malla de lectura / estrella de escritura · aviso determinista `<WORLD_ROOT>\sincronia\BUZON.md` | INDICE §Reglas + buzones vivos |
 | WP-M02 | contrato TIMBRE | formato PING de una línea · append-only · excepción declarada a la estrella · rotación · **gate**: verificador de formato/append (probe con fixture) | PROTOCOLO §7 |
-| WP-M03 | watcher-timbre | param `WATCH_FILE` sobre el watcher del método (estación-viva / vigilancia) · lease de liveness reutilizado · snippet v0 inline como fallback | PROTOCOLO §7 + `vigilancia/reference/ESTACION.md` §liveness |
+| WP-M03 | watcher-timbre | param `WATCH_FILE` sobre el watcher del método (estación-viva / vigilancia) · lease de liveness reutilizado · snippet v0 inline como fallback · **probes obligatorios**: timbre vacío (caso fundante Z: `grep -c` exit 1 → watcher ciego), log propio por proceso (caso V), encoding UTF-8 append (caso O) | PROTOCOLO §7 v0.1 + `vigilancia/reference/ESTACION.md` §liveness |
 | WP-M04 | contrato TICK+HILO | formato TICK · `NO_TICK_VALIDADO=NO_PROCESAR` · ciclo tick→hilo→compacto · plantilla `COMPACTO-*.md` (◆/★/⏳) · **gate**: verificador de compacto | PROTOCOLO §5 + §8 |
 | WP-M05 | identidad+firma+TUI | anuncio/firma · aborto por nombre cruzado · leyenda TUI y frases-contrato grep-ables | PROTOCOLO §1–§3 |
 | WP-M06 | git-bitácora | trackear solo `sincronia/` · local-only con GO expreso · rama `hilo/<id>` = discusión, merge = cierre · push prohibido como default del skill | PROTOCOLO §8 |

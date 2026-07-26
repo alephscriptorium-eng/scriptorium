@@ -13,7 +13,9 @@
 
 | fecha | nota | tema |
 | ----- | ---- | ---- |
-| 2026-07-26 | [`notas/NOTA-S-2026-07-26-mapa-ciudad-agenda-anfitrion.md`](notas/NOTA-S-2026-07-26-mapa-ciudad-agenda-anfitrion.md) | **mapa Ciudad** (7 plantas + inventario→barrios) · dudas agenda · handoff petit comité Anfitrión |
+| 2026-07-26 | [`notas/NOTA-S-2026-07-26-R2-NEXT.md`](notas/NOTA-S-2026-07-26-R2-NEXT.md) | **R2-S** · NEXT + SELLO CUADERNOS · DRAFT |
+| 2026-07-26 | [`DRAFT.md`](DRAFT.md) | backlog candidato · `BLOQUEA:` WP-S-R2-01/03/04 |
+| 2026-07-26 | [`notas/NOTA-S-2026-07-26-mapa-ciudad-agenda-anfitrion.md`](notas/NOTA-S-2026-07-26-mapa-ciudad-agenda-anfitrion.md) | mapa Ciudad · dudas agenda · petit comité |
 | 2026-07-26 | [`notas/NOTA-S-2026-07-26-estacion-timbre-v0.md`](notas/NOTA-S-2026-07-26-estacion-timbre-v0.md) | estación timbre v0 · GO-GIT-HUB · T-S1 |
 | 2026-07-25 | [`notas/NOTA-S-2026-07-25-F1-indice-ciudad-park-p123.md`](notas/NOTA-S-2026-07-25-F1-indice-ciudad-park-p123.md) | **F1** · índice 4 sprints ciudad · PARK WEBS/HOLONES/DEVOPS · P1–P3 G · ui-docker · anomalía #3 |
 | 2026-07-25 | [`notas/NOTA-ANFITRION-2026-07-25-renombre-sucesion.md`](notas/NOTA-ANFITRION-2026-07-25-renombre-sucesion.md) | renombre Anfitrión ≠ S · sucesión gorro · anomalías heredadas |
