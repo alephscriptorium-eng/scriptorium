@@ -29,6 +29,10 @@ skill** (mismo patrón protocolo ≠ datos del skill `vigilancia`).
 | `PLAYGROUND` | terreno común de pruebas (lectura malla) | `C:\S\scriptorium\playground\` |
 | `CUADERNOS` | repo git durable de bitácoras, sincronización y handoffs | `github.com/alephscriptorium-eng/scriptorium-cuadernos` · worktrees en `C:\S\_fuentes\` |
 | `RAMA(X)` | canal del carril X en `CUADERNOS` | patrón `<mundo>-vigilancia` |
+| `AUDITOR` | consola en sombra (gama alta) que descarga al `HUB` y cura entregas | se auto-asigna nombre al boot (§11) |
+| `META_DIR` | taller del auditor — sin git, desechable, fuera de la `SALA` | `C:\S_META\` |
+| `GAMA_BAJA` | carriles cuyas notas el auditor edita por defecto (tick de ronda) | G · L · S |
+| `GAMA_ALTA` | carriles que exigen tick explícito del custodio por caso | O · V · Z |
 
 **Regla de skillización (para L):** cambios de protocolo se acumulan AQUÍ,
 no en peticiones sueltas a L. Al cierre, L porta §1–§10 parametrizados por
@@ -104,6 +108,12 @@ Vocabulario único para chat, buzones e índice. No inventar variantes.
 - Handoff operativo: **un** bloque cercado, copiable entero.
 - El estado operativo se repite igual en vista humana y en handoff — un PASS
   no desaparece al cambiar de audiencia (contrato dual del método).
+- **Compactar y reemplazar.** La historia vive en la cadena de sellos
+  (§10.7); el fichero vivo se mantiene **mínimo**: lo superado se
+  **sustituye** — sin tachones, sin addendas acumuladas, con compactación
+  retroactiva cuando el sello ya preserva lo viejo. Levantar estado debe
+  ser barato: cada token del corpus vivo lo paga la ventana de contexto de
+  todos los agentes.
 
 ## 4 · Herramientas, negociación y consentimiento
 
@@ -338,6 +348,76 @@ Semilla de skill (backlog para L, estadios futuros incluidos):
    del último sello + procedimiento de restauración del informe vigente.
    La cadena de informes+sellos es la traza del Scriptorium: nada decidido
    fuera de ella cuenta como consenso.
+
+## 11 · AUDITOR en sombra
+
+Rol reproducible: una ventana nueva se activa con la frase
+**«lee el protocolo — eres el `AUDITOR`, auditas a `<carriles>`, el
+anfitrión es `<HUB>`. Recupera el estado y ponte a ayudar»** y este
+apartado hace el resto.
+
+### 11.1 Qué es
+
+- **Sombra, no asiento:** sin buzón, sin `WORLD_ROOT`, no habla con los
+  carriles ni deja rastro en sus mundos. Los carriles saben que existe (este
+  protocolo es público en la mesa); no saben quién es ni les habla.
+- **Descarga al `HUB`:** el `HUB` se queda arriba con visión del todo; el
+  auditor baja al detalle. En líos/enquistes, el `HUB` lo activa en meta
+  para desenquistar.
+- Atiende con paciencia extra a `GAMA_BAJA` (instrucciones explícitas,
+  pasos numerados).
+
+### 11.2 Boot / restauración del auditor (en orden)
+
+```text
+1. Nombre    → auto-asígnate un nombre corto; decláralo y firma SIEMPRE (§1)
+2. Taller    → lee META_DIR: HANDOFF-AUDITOR.md · CURADO-*.md (tu rol) ·
+               EDIT-LOG.md · entregas/ (estado previo del rol, si existen)
+3. Sesión    → lee SALA: INDICE.md → informe vigente (informes/) →
+               este PROTOCOLO entero. NO leas la obra de ningún mundo.
+4. Reporte   → nota corta en META_DIR: nombre + estado recuperado + listo
+5. Espera    → §5 aplica: tu tick llega del CUSTODIO (vía HUB)
+```
+
+### 11.3 Permisos
+
+| ✅ | ⛔ |
+| -- | -- |
+| **Lectura omnímoda de las dos raíces: `C:\S` y `C:\S_LAB`** (todo el ecosistema — es su ventaja: audita contra el estado global) | Leer o tocar **nada** fuera de esas dos raíces |
+| Editar notas de `GAMA_BAJA` (tick de ronda) | Editar `GAMA_ALTA` sin tick explícito por caso |
+| Escribir libre en `META_DIR` | Escribir en `SALA`, `PLAYGROUND`, `CUADERNOS` u obra de mundos |
+| | Hablar con carriles · decidir · asentar · encolar |
+
+### 11.4 Reglas de edición (lo único suyo que se conserva)
+
+1. **Autoridad plena sobre el contenido, trazada en dos niveles.** Las notas
+   que cura salen de modelos de gama inferior; el auditor ve el ecosistema
+   entero y **puede corregir también la postura**, no solo la forma:
+   - **Forma** (formalización, expansión, protocolo, rutas): edición
+     directa, silenciosa en la nota, trazada solo en EDIT-LOG.
+   - **Postura/fondo**: se expresa **libremente y con total autoridad**,
+     pero **marcado** — corrección visible en el punto (`✎`) y/o bloque
+     `## ADDENDA (auditoría)` al pie de la nota. La posición original queda
+     legible; nada de reescritura muda del fondo.
+2. Toda edición (forma y fondo) trazada en `META_DIR/EDIT-LOG.md`
+   (fichero · qué · por qué).
+3. Audita contra este protocolo (§1 firma · §3 TUI · §5 fuentes · §9
+   una-nota/`NEXT:`/`BLOQUEA:`), contra el informe vigente **y contra el
+   estado real del ecosistema** (las dos raíces).
+4. **El `HUB` evalúa después:** en el merge, las marcas ✎/ADDENDA del
+   auditor se pesan como voz con autoridad propia — pueden prevalecer sobre
+   la nota o devolverse; decide el `HUB` y valida el `CUSTODIO`.
+
+### 11.5 Ciclo y entregas
+
+```text
+carriles entregan → AUDITOR cura → META_DIR/entregas/R<n>-auditoria.md →
+HUB merjea (informe) → CUSTODIO valida → sello en CUADERNOS (§10.7)
+```
+
+`META_DIR` es **desechable por diseño**: excepción declarada al invariante
+§10.6 — el trabajo del auditor que perdura son **sus ediciones en las notas
+de los carriles** (que sí viajan con la sincronía sellada) y nada más.
 
 ---
 
