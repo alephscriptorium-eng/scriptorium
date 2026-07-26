@@ -1,31 +1,23 @@
-# DRAFT · carril S — compacto R3 (sustituye R2)
+# DRAFT · S · compacto post-R3
 
 | dato | valor |
 | ---- | ----- |
-| Carril | **S** |
-| Actualizado | 2026-07-26 · R3 (INFORME-R2) |
-| Rol grafo | auth barrio · peercard **opt-in** (§2.a R2) |
-| Watchers | parados · custodio = timbre |
+| Actualizado | 2026-07-26 · GATE POST-R3 / INFORME-R3 |
+| Rol | auth barrio · peercard opt-in |
+| Watchers | parados |
 
 ## Candidatos
 
-### WP-S-R2-01 · Auth barrio en playground
-- Estructura barrio en `playground/prueba-de-dos` (docs/mínimo; sin UI).
-- CA: A3 marcable con evidencia de entrada (anónimo base u opt-in).
-- **BLOQUEA:** holón-7 (fila S) · mesa · cherry-pick INFORME-R2 §1/§4.
+### WP-S-R2-01 · Auth barrio playground — **BLOQUEA:** holón-7 (fila S)
+Estructura barrio en `prueba-de-dos` · A3 con evidencia · cherry-pick §1 R2/R3.
 
-### WP-S-R2-03 · PARK root s-sdk → skills/calibración
-- `WEBS/`→`site-web` · `HOLONES/`→`holarquia` · `DEVOPS/` reclasificar.
-- **BLOQUEA:** ruido root método↔obra · S+L · F2 (no bloquea grafo).
+### WP-S-R7-02 · Cantera→generate en molde (docs)
+Indexar cantera CIUDAD como origen generate del molde local VOLUMES (dirección R3 §2.b) · sin mount VPS · sin abrir root hasta GO.
 
-### WP-S-R2-04 · Pin s-sdk (anomalía #3)
-- Submódulo hub = LAB tip · `ESTACION.md` `@0.11.0` al descongelar.
-- **BLOQUEA:** restauración canónica · custodio decide · S ejecuta.
+### WP-S-R2-03 · PARK root s-sdk — **BLOQUEA:** ruido método · F2
+### WP-S-R2-04 · Pin s-sdk #3 — al descongelar
 
-## En curso (no WP)
-- Custodia CUADERNOS: sello por ronda (R2=`37c675a` · R3=este push).
-
-## Fuera
-Reúso peercard → hilo Z·G · catálogo/compose/IDE → O·V·Z·G · REFACTOR O↔V en propagación.
+## Fuera / mesa
+GATE-CLAVES · tramos · Z-D6 frontera volumes C1/C2 = **G+Z+custodio** · import Z-D8/D9.
 
 — **S**

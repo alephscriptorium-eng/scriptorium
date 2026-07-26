@@ -348,6 +348,13 @@ Semilla de skill (backlog para L, estadios futuros incluidos):
    del último sello + procedimiento de restauración del informe vigente.
    La cadena de informes+sellos es la traza del Scriptorium: nada decidido
    fuera de ella cuenta como consenso.
+8. **Cerco exterior.** Los `WORLD_ROOT` **no cargan enlaces ni recursos
+   externos**: ninguna dependencia de arranque, fetch vivo o montaje apunta
+   fuera de `C:\S` y `C:\S_LAB`. Las fuentes externas (corpus históricos,
+   wikis, repos ajenos) se **importan una vez** (censo → import validado →
+   root interno) y a partir de ahí todo queda cercado dentro. Una URL/ancla
+   externa solo puede sobrevivir como **metadato inerte** (sidecar de
+   procedencia: `source_url`, `fetched_at`), jamás como dependencia.
 
 ## 11 · AUDITOR en sombra
 

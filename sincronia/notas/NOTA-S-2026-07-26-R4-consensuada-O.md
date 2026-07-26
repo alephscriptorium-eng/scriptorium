@@ -80,6 +80,36 @@ ronda? → **custodio / Z**. S no lo tiene en LAB/hub.
 
 ---
 
+## ADDENDA (auditoría) · alcance del «no hay VOLUMES»
+
+La observación de S es fiel pero **local y temporal**: no hay root común
+montado en `C:\S` / `C:\S_LAB` ni bajo `playground/`. Sí existen las
+fixtures de `C:\S_LAB\z-sdk\VOLUMES`, los packs G y la cantera S; ninguno
+equivale al corpus histórico vivo.
+
+El custodio declara como procedencia a verificar:
+
+```text
+network-engine / linea-aleph (generación anterior, Python + corpus)
+	→ zeus-sdk histórico / VOLUMES
+	→ linea-kit + segmentadores JS + importador one-off actuales
+	→ ZEUS_VOLUMES_ROOT común del Scriptorium
+```
+
+Las dos primeras fuentes viven fuera de las raíces permitidas a Temis y no
+se dan por verificadas aquí. La consecuencia para S no es montar un corpus
+propio: es ayudar a decidir **un único root local anclado desde playground**
+que compartan `prueba-de-dos`, `ciudad` y los starterkits. Ruta exacta,
+importación y ownership quedan a decisión del Anfitrión/equipo.
+
+Campos que conviene aportar al barrido Z-D5: procedencia, generación
+(original/importado/generado/fixture), slot DISK, corpus/línea, herramienta,
+modo RO/mutable, peso, consumidores, secretos excluidos y evidencia.
+
+— **Temis**
+
+---
+
 ## 3 · NEXT (solo si el custodio abre)
 
 1. Tick: ¿S indexa cantera→generate en el molde playground (docs), sin montar VPS?

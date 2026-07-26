@@ -63,24 +63,36 @@ refresca desde el handoff/informe del orquestador en cada tick).
 
 | ítem | estado |
 | ---- | ------ |
-| Hilo peercard-reúso (Z·G aportan `rooms`/`authority-kit`/`embajador-kit`) | ⏳ falta TICK + COMPACTADOR |
-| Cruce segunda puerta V↔Z (+O): catálogo 7/51 o puerta declarada · incluye qué mueve el REFACTOR de V y cuándo (afecta a O) | ⏳ falta TICK |
-| REFACTOR (O↔V): decidido por custodio; V lo emite en su próximo tick → propaga a O → **zanjar en el turno siguiente** | ⏳ propagándose |
-| R-1 (O): regla 15 del watcher inunda `anomalias.log` con falso positivo del espejo de skills (11.842 líneas/h; afecta a todo carril con `skills:sync`) · ★ fix de método para el porte de L: excluir espejo generado | ⏳ reportado · watchers ya parados |
-| Entradas al grafo (7 filas): prerequisito ★ ventana runtime Z (peercard en vivo) | ⏳ ticks |
-| L: kit 4·3·2 (merge/kit/hilo) · GO boot estación método | ◆ custodio |
-| Regla PING (`printf '%s\n'` + rutas `/`) propuesta por O | ◆ GO → §7 |
-| L→S: criterio gate «método verificado» en mundo-fuente | ⏳ S |
-| Timbre hub: 2 líneas basura (O, declarado) | ⏳ repara S |
-| Anomalías: doble conductor Z (21:57) · desfase s-sdk (−1, LAB canónico) · índice pisado (causa s/d) | ⏳ custodio |
-| Higiene post-freeze: lock L 0.10.0 · ESTACION Z `0.10.0` · ESTACION s-sdk `@0.8.0` | cola F2 |
+| **O↔V zanjable**: O entregó los 4 datos — el acoplamiento **no existe en código** («hoy no hay consumo»); V libre para su REFACTOR interno; única interfaz futura = O-c↔O-d (nace nueva, se diseña) | ◆ declarar zanjado |
+| **U93 confirmada de facto por Z** (`peer-card-gate.mjs`: sin card no hay ni `room-join`) · propuesta 3 capas + CA×4 (clave: card inválida **rechaza**, no degrada) → `Z-D4` | ⏳ tick refactor (post-mesa) |
+| **Entrada al grafo — reconectada**: la ◆ de V (¿`rooms` o `signaling`?) la responde `Z-D1`: entrada por `socket-server`+`rooms` (`CLIENT_REGISTER`, 2 modalidades) → el riesgo de WP-V18 se disuelve si Z-D1 confirma en runtime | ⏳ **Z-D1 = prerequisito de las 7 marcas** |
+| **VOLUMES — mapa cerrado en el lab**: Z verificó contrato (`synthetic-fixtures-only`, 4 slots, DISK_01/04 diferidos por diseño) + host sin root ni env; Temis verificó S/G ✅ sin contradicciones. **Idea-fuerza elevada (Temis): VOLUMES son del mesh — portar UNA vez la genealogía histórica a un `ZEUS_VOLUMES_ROOT` del Scriptorium** (fuente readonly → import → root común anclado en playground → mismo contrato en VPS) | ◆ custodio declara: fuente histórica = OASIS/SCRIPTORIUM_V0 (⏳) · VPS volumen datos (⏳) · quién censa OASIS (fuera de alcance de todos) |
+| **Z-D6 reencuadrado (Temis)**: A/B era **falso dilema** — npm kit FOSS + Release pack autocontenido son complementarios desde fuente/notario únicos (evidencia: `publishConfig` ×6 + `notario-release.mjs` dual). ◆ queda la **frontera `volumes/`: C1 (★ discutir primero) vs C2** — G mide tarballs, Z define import/`loadStartPack`, O consume. C8 del README se corrige tras la frontera; nada se publica sin CA de canal limpio | ◆ G+Z+custodio |
+| **Relay/payload — VEREDICTO (Z, con cita)**: contenido **NO PUEDE** (misma referencia, `relay.mjs:37,:7`) · sobre SÍ · paso SÍ (allowlist 8 + `MAKE_MASTER` suprimido, **descarte silencioso**). **El modelo de O se sostiene** en contenido; fallan 2 cosas: bridge = cuello con corte sin traza (riesgo #1 de O realizado → CA punto 5) · **colapso de identidad** (`scriptorium-bridge` único + secreto compartido: el transporte borra de quién viene) → `Z-D7` → hilo peercard | ✅ respondida · avisos al hilo/mesa |
+| **6 líneas de investigación de Temis — todas elevadas, ninguna decidida** (orden del custodio: decisión de equipo): ① genealogía OASIS (censo) ② root único local (3 ubicaciones candidatas) ③ paridad local↔VPS (contrato, no path) ④ evolución segmentador Python→U80→U81→U176 ⑤ matriz Z-D5 9 campos ⑥ S/G proyectan sus DRAFTs si se adopta la dirección | ⏳ equipo · retick Z integra ⑤ |
+| Mesa Z+S+G+O → L a skill: `GATE-O-CLAVES` (+ ★ W-1 de V: inspeccionar **artefacto final**, caso empírico R6-V) · federación por tramos · modelo nodo/relay | ⏳ tick mesa + COMPACTADOR |
+| Hilo peercard-reúso (`Z-D2`, con G) — reformulado tras §2.a: qué cambia si la base es anónima | ⏳ TICK + COMPACTADOR |
+| Segunda puerta / catálogo 7→51 (`Z-D3`) — aparcado tras holón-7 por el propio Z | cola |
+| Saneamiento credenciales O | ⛔ **denegado y cerrado por custodio** — solo planificación; `GATE-O-CLAVES` sigue como diseño |
+| Encargo B.3 → **WP-V26** (editor de config de la demo, dep O-c) · env demo **validado por Z** con condición: **generar desde `presets-sdk/env`, no transcribir** · formato ★ `.env` plano | ✅ aceptado · a backlog al cierre |
+| O-j **proyectado por mano de O** (j.1 modelo · j.2 `CA-ANTI-AUTORIDAD`×5 · j.3 U93 como dep. Z) — frontera de autoría cumplida | ✅ |
+| Solape observabilidad V↔O: **no hay** (transporte/O vs dominio/V — cerrado por custodio) · wishlist V: W-1 (→mesa claves) · W-2 (conejillo Forgejo Actions) · W-3 (criterio UI) | ✅ / ★ registradas |
+| R-1 (regla 15 inunda logs con espejo skills) — fix de método al porte de L | ⏳ · watchers parados |
+| L: kit 4·3·2 (◆) · 3 asientos post-mesa bajo WP-L-02 · GO boot estación (⏳) | ◆/⏳ custodio |
+| S: **sello R3 pendiente** (capturará INFORME-R2+§11+compactación+R4/R5) · timbre hub 2 líneas · NEXT: ¿indexa cantera→generate en molde (docs)? | ⏳ tick S |
+| Regla PING (`printf`+rutas `/`) ◆ (baja prioridad: custodio es el timbre) · L→S criterio gate mundo-fuente ⏳ | menor |
+| Anomalías: doble conductor Z · desfase s-sdk (−1) · índice pisado | ⏳ custodio |
+| Higiene post-freeze: lock L · ESTACION Z/s-sdk | cola F2 |
 
 ## Estado
 
-**Informe vigente: [`informes/INFORME-R2.md`](informes/INFORME-R2.md)**
-(publicado con GO 2026-07-26; sustituye a R1 — R1 [cita inerte]).
-R2 cerrada 6/6 · espejo 6/6 · grafo 0/7 · watchers parados · Temis efectivo
-desde R3 (piloto G). ⏳ sello R3 de S capturará informe + §11 + esta
-compactación.
+**Informe vigente: [`informes/INFORME-R3.md`](informes/INFORME-R3.md)**
+(R1/R2 [cita inerte]). VOLUMES: mapa cerrado (lab limpio ✅✅ · fuente
+histórica OASIS censada · root VPS existe, ruta ⏳) · relay respondido ·
+O↔V **zanjado** · **cerco exterior** asentado (§10.8) · ⛔ **GATE POST-R3
+en curso**: bitácora + compactar + push × 6 carriles + hub. ◆ vivas: canal
+packs (A/B) · ancla-vs-volumen (O) · ruta root local/VPS · retick R7-Z
+(7 correcciones de censo). Grafo 0/7 (espera Z-D1). Temis: censo OASIS ✅,
+pasadas privadas con custodio entre rondas.
 
 — **Anfitrión**
