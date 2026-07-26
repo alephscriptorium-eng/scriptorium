@@ -17,7 +17,7 @@
 [submodule "codebase/o-sdk"]
 	path = codebase/o-sdk
 	url = https://github.com/alephscriptorium-eng/O_SDK.git
-	branch = main
+	branch = refactor/estructura
 [submodule "codebase/a-sdk"]
 	path = codebase/a-sdk
 	url = https://github.com/escrivivir-co/aleph-scriptorium.git
