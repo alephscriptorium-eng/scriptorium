@@ -14,7 +14,8 @@
 
 | fecha | nota |
 | ----- | ---- |
-| 2026-07-26 | [`notas/NOTA-S-2026-07-26-R7-GATE.md`](notas/NOTA-S-2026-07-26-R7-GATE.md) · GATE POST-R3 · HASH |
+| 2026-07-26 | [`notas/NOTA-S-2026-07-26-H01-volumes-concepto.md`](notas/NOTA-S-2026-07-26-H01-volumes-concepto.md) · H-01 · COMPACTADOR=Z · ancla playground |
+| 2026-07-26 | [`notas/NOTA-S-2026-07-26-R7-GATE.md`](notas/NOTA-S-2026-07-26-R7-GATE.md) · GATE POST-R3 · `d7bb314` |
 | 2026-07-26 | [`notas/NOTA-S-2026-07-26-R4-consensuada-O.md`](notas/NOTA-S-2026-07-26-R4-consensuada-O.md) · VOLUMES frontera S |
 
 Historia: `notas/archivo/` · sellos CUADERNOS.
