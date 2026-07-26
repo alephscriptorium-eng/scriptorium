@@ -13,8 +13,9 @@
 
 | fecha | nota | tema |
 | ----- | ---- | ---- |
-| 2026-07-26 | [`notas/NOTA-S-2026-07-26-R2-NEXT.md`](notas/NOTA-S-2026-07-26-R2-NEXT.md) | R2 · SELLO `37c675a` |
+| 2026-07-26 | [`notas/NOTA-S-2026-07-26-R4-consensuada-O.md`](notas/NOTA-S-2026-07-26-R4-consensuada-O.md) | R4 · frontera S + VOLUMES (cantera≠mount) |
 | 2026-07-26 | [`DRAFT.md`](DRAFT.md) | compacto R3 · `BLOQUEA:` 01/03/04 |
+| 2026-07-26 | [`notas/NOTA-S-2026-07-26-R2-NEXT.md`](notas/NOTA-S-2026-07-26-R2-NEXT.md) | R2 · SELLO `37c675a` |
 
 Historia: sellos CUADERNOS. Índice: [`INDICE.md`](INDICE.md).
 
