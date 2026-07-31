@@ -97,9 +97,9 @@ refresca desde el handoff/informe del orquestador en cada tick).
 custodio a ejecución por olas; **Anfitrión orquesta** workers background
 (`swarm-orquestacion` v0.7 · claim de carriles Z·V·G·L, consolas dispose).
 Decisiones **②③④⑤ tomadas y asentadas** (`plan/PLAN-SCRIPTORIUM-V1.md`);
-① ratificación **progresiva por GO de ola**. **Ola 0 despachada**:
-Z·U232 · Z·U179 · V·V81 · V·V22 (ramas `wp/*` en worktrees `C:\S_LAB\wt\`)
-+ **V77/V78 aceptados** por el orquestador. Push por ola/agrupación con GO
+① ratificación **progresiva por GO de ola**. **Ola 0 CERRADA 4/4 ✅** (+V77/V78):
+U232 gobierno Z (66/66 bajo gate · DoD Z-v1) · U179 matriz (51=50+1) ·
+V81 fundación · V22 mapa superficies — mergeados a main, worktrees podados. Push por ola/agrupación con GO
 (evitar push-force). O al final (VPS/PODs diferidos: U209→P2 · U243).
 Detalle: `notas/NOTA-ANFITRION-2026-07-31-swarm.md`.
 Vivos: Z-D1/grafo 0/7 · CA canal limpio · CA local-first · segundo acto
