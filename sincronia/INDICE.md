@@ -102,9 +102,13 @@ Decisiones **②③④⑤ tomadas y asentadas** (`plan/PLAN-SCRIPTORIUM-V1.md`);
 freeze intactos y worktree `v-v66` conservado.
 **Historia del freeze: [`FREEZE-2026-07-31.md`](FREEZE-2026-07-31.md)** (ya
 consumido; vale como procedimiento para el próximo).
-**En vuelo:** Z·**U204** (driver FIREHOSE, carril D 6/8) · V·**V66** (corrección
-de la devolución, misma rama). **Encolado al final:** intake `WPS_QUEUE` de S
-(ficha y cerco en `s-sdk/WPS_QUEUE/ENCOLADO.md` · puntero Z `U244`).
+**▶ OLA 3 EN VUELO (GO del custodio, 2026-07-31)** — 9 frentes: Z·**U204**
+(carril D 6/8) ∥ Z·**U180** ∥ Z·**U194** ∥ Z·**U197** · V·**V66** (corrección)
+∥ V·**V23** ∥ V·**V71** · G·**G93** (deriva de rangos, P0 nuevo) · L·**L-H06**
+(linter de backlog). 5 con contrarrevisión adversarial obligatoria.
+**Intake `WPS_QUEUE` de S**: cola B **promovida** a `U245–U249` (ventana tras
+`GD`) · cola A sigue **encolada al final** (T-S01, solapa con U243). Ficha y
+cerco: `s-sdk/WPS_QUEUE/ENCOLADO.md`.
 
 Resumen: **Ola 0 4/4 ✅** (+V77/V78) · **Ola 1 11/11 ✅** · **Ola 2 10/11 ✅**
 (V66 **devuelto** por contrarrevisión: 3 bypass no cazados — obra viva en
