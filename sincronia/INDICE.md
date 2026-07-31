@@ -97,9 +97,15 @@ refresca desde el handoff/informe del orquestador en cada tick).
 custodio a ejecución por olas; **Anfitrión orquesta** workers background
 (`swarm-orquestacion` v0.7 · claim de carriles Z·V·G·L, consolas dispose).
 Decisiones **②③④⑤ tomadas y asentadas** (`plan/PLAN-SCRIPTORIUM-V1.md`);
-① ratificación **progresiva por GO de ola**. **Ola 0 CERRADA 4/4 ✅** (+V77/V78):
-U232 gobierno Z (66/66 bajo gate · DoD Z-v1) · U179 matriz (51=50+1) ·
-V81 fundación · V22 mapa superficies — mergeados a main, worktrees podados. Push por ola/agrupación con GO
+① ratificación **progresiva por GO de ola**. **Ola 0 CERRADA 4/4 ✅** (+V77/V78) · **Ola 1 CERRADA 11/11 ✅**
+(gate G1-Z ✓ · R7-V parcial: arnés local verde, run CI ⏳ primer push):
+U232·U179 (ola 0) + U192·U186·U237·U211·U223·U199 (Z, 4 con
+contrarrevisión adversarial PASS) · V28·V68·V80 (V) · G52 (playground,
+desbloquea V21) · L-C01 (skill `mesa-sincronia`, ceguera 0). **Carril D
+en curso** (worker único: U199 ✅ → U200 🔶). `.env` de Z fuera del índice
+por decisión del custodio (en remoto). Hallazgos mayores asentados:
+31/99 comandos V sin registrar (→V25/V72) · card bearer sin amarre (→O·D-O11)
+· ssb export inventa manifiesto (→U205). Push por ola/agrupación con GO
 (evitar push-force). O al final (VPS/PODs diferidos: U209→P2 · U243).
 Detalle: `notas/NOTA-ANFITRION-2026-07-31-swarm.md`.
 Vivos: Z-D1/grafo 0/7 · CA canal limpio · CA local-first · segundo acto
