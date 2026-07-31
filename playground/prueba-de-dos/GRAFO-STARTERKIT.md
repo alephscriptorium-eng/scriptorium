@@ -51,7 +51,7 @@ y `rooms` están sin explorar, `embajador-kit` tiene 0 consumidores.
 | V | root edificio-1 | `<pendiente>` | `<pendiente>` | `<pendiente>` |
 | G | shadow de V | `<pendiente>` | `<pendiente>` | `<pendiente>` |
 | O | root edificio-2 | `<pendiente>` | `<pendiente>` | `<pendiente>` |
-| Z | shadow de O | `<pendiente>` | `<pendiente>` | `<pendiente>` |
+| Z | shadow de O | 2026-07-31 | `card-u187-1785517556648` (modalidad card opt-in; anónima también probada) | `Z_SDK/plan/REPORTES/U187-marca-Z.md` — e2e `CLIENT_REGISTER` 2 modalidades contra socket-server real (puerta = rooms, consenso Z-D1; contrarrevisión PASS). Marca estampada por el Anfitrión con autoría del worker Z·U187 |
 | S | auth barrio | `<pendiente>` | `<pendiente>` | `<pendiente>` |
 | custodio | auth ciudad | `<pendiente>` | `<pendiente>` | `<pendiente>` |
 | L | shadow custodio | `<pendiente>` | `<pendiente>` | `<pendiente>` |
