@@ -5,7 +5,7 @@
 | Emisor | **Anfitrión** · edición F2-unificada · 2026-07-26 |
 | Qué es | el mapa único de los 6 planes tras el sprint CIUDAD — una página |
 | Fuente | 6 backlogs F2-unificados + COMPACTO H-01 sellado + integración de auditoría |
-| Estado | **⬜ todo propuesto** — la ratificación del custodio (aprueba/descarta por WP) es el único paso entre esto y el primer despacho |
+| Estado | **▶ en ejecución por olas** (swarm orquestado por Anfitrión desde 2026-07-31) — ratificación ① progresiva: GO explícito del custodio por ola (ola 0 dada); decisiones ②–⑤ tomadas |
 
 ## Qué estamos construyendo
 
@@ -23,13 +23,13 @@ centro vacío, con datos por contrato y método publicado como skills.
 
 | mundo | posee | WPs | P0 |
 | ----- | ----- | --- | -- |
-| **Z** `z-sdk` | runtime · contratos · adaptador/resolvers/drivers · catálogo 51 | 66 | 22 |
-| **O** `o-sdk` | nodo · storage/compose · pub L1 · soberanía (forja/imágenes) | 74 | 16 |
+| **Z** `z-sdk` | runtime · contratos · adaptador/resolvers/drivers · catálogo 51 | 67 | 22 |
+| **O** `o-sdk` | nodo · storage/compose · pub L1 · soberanía (forja/imágenes) | 75 | 16 |
 | **V** `v-sdk` | Zigurat/IDE · editor de config · observación de dominio | 71 | 13 |
 | **G** `g-sdk` | juegos · loader/notario de packs · dominio Ciudad · player MCP | 54 | 16 |
 | **L** `skills-library` | método publicado: mesa · auditor · cerco · adaptador-como-método | 73 | 19 |
 | **HUB** `scriptorium` | playground · grafo · gobierno multi-mundo · integración/E2E | 52 | 18 |
-| **Σ** | | **390** | **104** |
+| **Σ** | | **392** | **104** |
 
 Regla de oro (de la sesión, ya cableada en los 6): **ningún plan escribe
 obra ajena** — todo cruce es dependencia externa con owner, estado y
@@ -51,15 +51,15 @@ Síntesis que ahorran trabajo, ya integradas:
 - **U233 (gate 51/51)** es el denominador de U179–U185 y de HUB-003/063.
 - Los CAs votados (canal limpio ◆2c · local-first ◆6) son **ticks nuevos**, no obra dispersa.
 
-## Las decisiones que solo el custodio puede tomar (antes del despacho)
+## Las decisiones del custodio (estado 2026-07-31)
 
-| # | decisión | desbloquea |
-| - | -------- | ---------- |
-| 1 | **Ratificación F2**: aprueba/descarta por WP (o por lane) en los 6 planes | todo despacho (HUB-005) |
-| 2 | **Licencia**: SPDX real por mundo (una acta, 5 WPs) | F0 · releases honestos |
-| 3 | **Nombres/semver primeras versiones** (O08 · V86 · primeras releases) | F4 |
-| 4 | **Ruta del root local** + **ruta/contrato del volumen VPS** | U209 · HUB-010 · O91 |
-| 5 | **Orden de despacho**: por fases (★ recomendado) o cherry-pick por mundo | el arranque |
+| # | decisión | estado |
+| - | -------- | ------ |
+| 1 | **Ratificación F2** | **▶ progresiva** — GO explícito por ola de swarm (ola 0 dada el 2026-07-31) |
+| 2 | **Licencia** | ✅ **AIPLv1 = composite GPL-3.0-or-later + Animus Iocandi** · tratamiento idéntico en todos los paquetes · ejecutar el acta única (L-F08·U237·O08·G74·HUB-060) |
+| 3 | **Nombres/semver** | ✅ corte con el histórico: scope viejo `alephscriptorium/aleph-scriptorium` muerto · identidad Scriptorium (github + registry npm nuevos · v-sdk.escrivivir.co) · contadores reiniciados · Release v0.1.0 antigua desconectada y deprecada · Marketplace **DEFERRED** (spike market propio → O96) |
+| 4 | **Rutas/VPS** | ✅ VPS **al final** — réplica local validada (U206) primero; la subida será desde imágenes (dockerhub); U209→P2 DEFERRED · horizonte PODs/Solid·RDF (U243, insumo graphdb/holones) |
+| 5 | **Orden de despacho** | ✅ por olas de swarm: **Z+V → G+L → O al final** |
 
 ## Cómo se ejecuta sin repetir esta sesión
 

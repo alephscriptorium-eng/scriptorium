@@ -93,13 +93,17 @@ refresca desde el handoff/informe del orquestador en cada tick).
 ## Estado
 
 **Informe vigente: [`informes/INFORME-R5.md`](informes/INFORME-R5.md)**
-(R1–R4 [cita inerte]). **SESIÓN EN CIERRE.** F2 completada y **unificada
-por el Anfitrión**: 390 WPs en 6 planes cableados
-(`plan/PLAN-SCRIPTORIUM-V1.md` = vista de conjunto · fases + test del
-operador en `plan/BACKLOG-F2.md`). Falta solo: **las 5 decisiones del
-custodio** (ratificación · licencia · nombres/semver · rutas · orden).
-Vivos para la ejecución: Z-D1/grafo 0/7 · CA canal limpio · CA local-first
-· segundo acto C-6 · anomalías menores en cola. Watchers parados · espejo
-6/6 · cadena de sellos íntegra hasta R5.
+(R1–R4 [cita inerte]). **SESIÓN SWARM EN CURSO (2026-07-31)**: GO del
+custodio a ejecución por olas; **Anfitrión orquesta** workers background
+(`swarm-orquestacion` v0.7 · claim de carriles Z·V·G·L, consolas dispose).
+Decisiones **②③④⑤ tomadas y asentadas** (`plan/PLAN-SCRIPTORIUM-V1.md`);
+① ratificación **progresiva por GO de ola**. **Ola 0 despachada**:
+Z·U232 · Z·U179 · V·V81 · V·V22 (ramas `wp/*` en worktrees `C:\S_LAB\wt\`)
++ **V77/V78 aceptados** por el orquestador. Push por ola/agrupación con GO
+(evitar push-force). O al final (VPS/PODs diferidos: U209→P2 · U243).
+Detalle: `notas/NOTA-ANFITRION-2026-07-31-swarm.md`.
+Vivos: Z-D1/grafo 0/7 · CA canal limpio · CA local-first · segundo acto
+C-6 · anomalías menores en cola. Watchers parados · espejo 6/6 · cadena de
+sellos íntegra hasta R5b (`b79e0e3`).
 
 — **Anfitrión**

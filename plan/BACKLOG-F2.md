@@ -4,9 +4,9 @@
 | ---- | ----- |
 | Mundo | `C:\S\scriptorium` · hub, playground, portal y gobierno multi-mundo |
 | Fuente | INFORME-R4 · consenso H-01 · sprint CIUDAD |
-| Estado | ⬜ propuesta · custodio aprueba/descarta · INÉDITO |
+| Estado | ▶ **en ejecución por olas** (GO ola 0 · 2026-07-31) · ratificación progresiva por GO de ola · INÉDITO |
 | Método | `swarm-orquestacion` · un WP/brief/rama/worktree |
-| Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **390 WPs totales** en el Scriptorium (V 71 · O 74 · Z 66 · G 54 · L 73 · HUB 52) |
+| Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **392 WPs totales** en el Scriptorium (V 71 · O 75 · Z 67 · G 54 · L 73 · HUB 52) |
 
 ## Visión
 
@@ -415,7 +415,7 @@ de las fases 4–5; ninguno se autocertifica.
 | P0 | 18 |
 | P1 | 30 |
 | P2 | 4 |
-| **Total** | **52** (hub) · **390** (Scriptorium completo) |
+| **Total** | **52** (hub) · **392** (Scriptorium completo) |
 
 ## Dependencias maestras
 
