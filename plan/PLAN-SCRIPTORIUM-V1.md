@@ -60,6 +60,7 @@ Síntesis que ahorran trabajo, ya integradas:
 | 3 | **Nombres/semver** | ✅ corte con el histórico: scope viejo `alephscriptorium/aleph-scriptorium` muerto · identidad Scriptorium (github + registry npm nuevos · v-sdk.escrivivir.co) · contadores reiniciados · Release v0.1.0 antigua desconectada y deprecada · Marketplace **DEFERRED** (spike market propio → O96) |
 | 4 | **Rutas/VPS** | ✅ VPS **al final** — réplica local validada (U206) primero; la subida será desde imágenes (dockerhub); U209→P2 DEFERRED · horizonte PODs/Solid·RDF (U243, insumo graphdb/holones) |
 | 5 | **Orden de despacho** | ✅ por olas de swarm: **Z+V → G+L → O al final** |
+| 6 | **Intake externo `WPS_QUEUE`** | ⏸ **ENCOLADO al final** (2026-07-31, al descongelar): cantera de la ventana S en `C:\S_LAB\s-sdk\WPS_QUEUE` — cola A (programa holónico LORE-HM) + cola B (campaña de tipos públicos TS de 4 paquetes de Z, `ZT01–ZT05`) + 7 investigaciones. **Anclada en `s-sdk` y acotada**, no promovida: ficha, cerco y tarea de triaje **T-S01** en `WPS_QUEUE/ENCOLADO.md`; puntero en Z como `U244` (P2 DEFERRED). Se abre **después de O**, con GO. Toca preguntas aún sin decidir: ampliar el reparto de mundos (`e-sdk`, `a-sdk`, Network-Engine) y el solape con el spike U243 |
 
 ## Cómo se ejecuta sin repetir esta sesión
 

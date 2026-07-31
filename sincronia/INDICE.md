@@ -97,14 +97,19 @@ refresca desde el handoff/informe del orquestador en cada tick).
 custodio a ejecución por olas; **Anfitrión orquesta** workers background
 (`swarm-orquestacion` v0.7 · claim de carriles Z·V·G·L, consolas dispose).
 Decisiones **②③④⑤ tomadas y asentadas** (`plan/PLAN-SCRIPTORIUM-V1.md`);
-① ratificación **progresiva por GO de ola**. **⏸ SWARM CONGELADO (FREEZE 2026-07-31)** — reinicio de máquina por causa
-técnica ajena; restauración desde la ventana Anfitrión.
-**Procedimiento y estado completo: [`FREEZE-2026-07-31.md`](FREEZE-2026-07-31.md)**.
+① ratificación **progresiva por GO de ola**. **▶ SWARM DESCONGELADO
+(2026-07-31, tras el reinicio)** — restauración verificada: los 6 tips del
+freeze intactos y worktree `v-v66` conservado.
+**Historia del freeze: [`FREEZE-2026-07-31.md`](FREEZE-2026-07-31.md)** (ya
+consumido; vale como procedimiento para el próximo).
+**En vuelo:** Z·**U204** (driver FIREHOSE, carril D 6/8) · V·**V66** (corrección
+de la devolución, misma rama). **Encolado al final:** intake `WPS_QUEUE` de S
+(ficha y cerco en `s-sdk/WPS_QUEUE/ENCOLADO.md` · puntero Z `U244`).
 
 Resumen: **Ola 0 4/4 ✅** (+V77/V78) · **Ola 1 11/11 ✅** · **Ola 2 10/11 ✅**
 (V66 **devuelto** por contrarrevisión: 3 bypass no cazados — obra viva en
-rama, no en main) · **carril D 5/8** (U199→U203, congelado; U204 con brief
-listo). Gates: G1-Z ✓ · G2-Z ✓ (matriz-51 verde sobre main integrado) ·
+rama, no en main; corrección en vuelo) · **carril D 5/8** (U199→U203; U204
+despachado). Gates: G1-Z ✓ · G2-Z ✓ (matriz-51 verde sobre main integrado) ·
 R7-V parcial (arnés local verde, run CI ⏳). **Grafo: 1/7 marcas** — fila Z
 estampada con evidencia de runtime. **Gate V21 ABIERTO**: la UI de V puede
 construirse sobre la estructura de playground. 8 contrarrevisiones
