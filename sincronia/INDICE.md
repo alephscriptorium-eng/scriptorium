@@ -102,10 +102,24 @@ Decisiones **②③④⑤ tomadas y asentadas** (`plan/PLAN-SCRIPTORIUM-V1.md`);
 freeze intactos y worktree `v-v66` conservado.
 **Historia del freeze: [`FREEZE-2026-07-31.md`](FREEZE-2026-07-31.md)** (ya
 consumido; vale como procedimiento para el próximo).
-**▶ OLA 3 EN VUELO (GO del custodio, 2026-07-31)** — 9 frentes: Z·**U204**
-(carril D 6/8) ∥ Z·**U180** ∥ Z·**U194** ∥ Z·**U197** · V·**V66** (corrección)
-∥ V·**V23** ∥ V·**V71** · G·**G93** (deriva de rangos, P0 nuevo) · L·**L-H06**
-(linter de backlog). 5 con contrarrevisión adversarial obligatoria.
+**▶ OLA 3 EN VUELO (GO del custodio, 2026-07-31)** — 9 frentes despachados.
+
+| WP | mundo | estado |
+| -- | ----- | ------ |
+| **U180** | Z | ✅ **ACEPTADO Y MERGEADO** (`94b9b06`) — worktree podado |
+| **U194** | Z | 🔶 3.ª corrección entregada · contrarrevisión de cierre |
+| **U197** | Z | 🔶 corrección entregada · contrarrevisión retomada |
+| **U204** | Z | 🔶 2.ª corrección entregada · contrarrevisión de cierre |
+| **V23** | V | 🔶 corrigiendo 2.ª devolución (sexto silencio) |
+| **V66** | V | 🔶 cierre entregado · 5.ª revisión (acotada) |
+| **V71** | V | 🔶 corrigiendo 2.ª devolución (fuga `apikey`) |
+| **G93** | G | 🔶 corrección entregada · contrarrevisión de cierre |
+| **L-H06** | L | 🔶 corrección entregada · contrarrevisión de cierre |
+
+**Balance del circuito**: 9 WPs · **16 contrarrevisiones adversariales** ·
+**1 PASS a la primera** (U180) · el resto con 1-4 vueltas. **Ni un solo
+bloqueante fue error de lógica**: los cuatro que se repiten son *afirmación
+de alcance más ancha que la evidencia* (→ lección L-H08).
 **Intake `WPS_QUEUE` de S**: cola B **promovida** a `U245–U249` (ventana tras
 `GD`) · cola A sigue **encolada al final** (T-S01, solapa con U243). Ficha y
 cerco: `s-sdk/WPS_QUEUE/ENCOLADO.md`.
