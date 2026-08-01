@@ -102,19 +102,26 @@ Decisiones **②③④⑤ tomadas y asentadas** (`plan/PLAN-SCRIPTORIUM-V1.md`);
 freeze intactos y worktree `v-v66` conservado.
 **Historia del freeze: [`FREEZE-2026-07-31.md`](FREEZE-2026-07-31.md)** (ya
 consumido; vale como procedimiento para el próximo).
-**▶ OLA 3 EN VUELO (GO del custodio, 2026-07-31)** — 9 frentes despachados.
+**⏸ SWARM CONGELADO (FREEZE 2026-08-01) — OLA 3 CERRADA 9/9.**
+**Procedimiento y estado: [`FREEZE-2026-08-01.md`](FREEZE-2026-08-01.md)**.
+A diferencia del freeze anterior, éste congela con **todo mergeado**: cero
+worktrees, cero ramas `wp/*`, nada a medias. Siguiente paso al retomar:
+**GO del custodio para Ola 4** (candidatos: cerrar carril D con U205→U206,
+que abre el gate `GD` y con él la ventana de `U245–U249`; los tres P0 nuevos).
+
+✎ Histórico de la ola 3 — 9 frentes despachados.
 
 | WP | mundo | estado |
 | -- | ----- | ------ |
-| **U180** | Z | ✅ **ACEPTADO Y MERGEADO** (`94b9b06`) — worktree podado |
-| **U194** | Z | 🔶 3.ª corrección entregada · contrarrevisión de cierre |
-| **U197** | Z | 🔶 corrección entregada · contrarrevisión retomada |
-| **U204** | Z | 🔶 2.ª corrección entregada · contrarrevisión de cierre |
-| **V23** | V | 🔶 corrigiendo 2.ª devolución (sexto silencio) |
-| **V66** | V | 🔶 cierre entregado · 5.ª revisión (acotada) |
-| **V71** | V | 🔶 corrigiendo 2.ª devolución (fuga `apikey`) |
-| **G93** | G | 🔶 corrección entregada · contrarrevisión de cierre |
-| **L-H06** | L | 🔶 corrección entregada · contrarrevisión de cierre |
+| **U180** | Z | ✅ `94b9b06` — **único PASS a la primera** |
+| **U194** | Z | ✅ `b95c42b` — 4 vueltas · allowlist como contrato sellado |
+| **U197** | Z | ✅ `86aec69` — 2 vueltas · admisión ≠ permiso |
+| **U204** | Z | ✅ `0dc2ea3` — 3 vueltas · **carril D 6/8** |
+| **V23** | V | ✅ `12de442` — 4 vueltas · 26 claves → 18 (conflicto de carriles resuelto por el orquestador) |
+| **V66** | V | ✅ `299e197` — 5 vueltas · guarda de ejecución cerrada |
+| **V71** | V | ✅ `56b5265` — 3 vueltas · equivalencia **medida**, no inspeccionada |
+| **G93** | G | ✅ `bef0aaa` — 2 vueltas · deriva cerrada, gate con 9 huecos declarados |
+| **L-H06** | L | ✅ `85f2f92` — 3 vueltas · bloquea lo decidible, avisa de lo opinable |
 
 **Balance del circuito**: 9 WPs · **16 contrarrevisiones adversariales** ·
 **1 PASS a la primera** (U180) · el resto con 1-4 vueltas. **Ni un solo
