@@ -1,0 +1,72 @@
+{
+  "scenarioId": "segundo-minimo",
+  "version": "0.1.0",
+  "barrioId": "document-machine-sdk",
+  "distrito": "lore-voz",
+  "fixture": {
+    "path": "scenarios/segundo-minimo/fixture",
+    "note": "Fixture local del escenario mínimo; no es el snapshot Onfalo v1."
+  },
+  "simulacro": {
+    "futureMachine": true,
+    "declared": "Future Machine no corre hoy; segundo-minimo es solo conformidad descubrible (WP-HUB-111), no ceremonia v1.",
+    "runtime": "playground-mock"
+  },
+  "roles": {
+    "H": {
+      "actorId": "anfitrion-h-min",
+      "mandate": "Observa preflight mínimo del escenario descubrible."
+    },
+    "M": {
+      "actorId": "maestro-m-min",
+      "mandate": "Solicita inspección mínima sin inflar ceremonia v1."
+    }
+  },
+  "sources": {
+    "onfalo": {
+      "mode": "import-once",
+      "note": "No consume Onfalo en este escenario mínimo; modo declarado por schema."
+    },
+    "agentLore": {
+      "mode": "catalog-ro",
+      "note": "Catálogo RO declarado; sin fusión de identidad."
+    },
+    "vectorMachine": {
+      "mode": "mock-contract",
+      "note": "VectorMachine mock declarado; mock=true implícito en simulacro."
+    }
+  },
+  "units": ["portal"],
+  "ceremony": {
+    "id": "segundo-minimo-conformidad",
+    "steps": [
+      {
+        "order": 1,
+        "verb": "peer.join",
+        "description": "Preflight mínimo H/M"
+      },
+      {
+        "order": 2,
+        "verb": "state.inspect",
+        "description": "Inspección de estado sin ceremonia v1"
+      },
+      {
+        "order": 3,
+        "verb": "session.exit",
+        "description": "Salida limpia"
+      }
+    ]
+  },
+  "expectedArtifacts": [
+    { "kind": "evidence-report", "producedBy": "portal" }
+  ],
+  "cleanup": {
+    "shutdownVerbs": ["session.exit"],
+    "removeRuns": true
+  },
+  "acceptanceCriteria": [
+    "Descubierto por scenarios/*/scenario.json sin tocar el arnés",
+    "Declara barrio, fixture, units, verbos, CA y cleanup",
+    "No entra en v1 (solo barrio-lore está en allowlist)"
+  ]
+}

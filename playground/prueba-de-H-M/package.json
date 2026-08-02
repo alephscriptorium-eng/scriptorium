@@ -2,7 +2,7 @@
   "name": "@scriptorium/prueba-hm-kit",
   "private": true,
   "version": "0.1.0",
-  "description": "Kit LORE-HM playground — WP-HUB-100…109 (GHM + mapa + despertar)",
+  "description": "Kit LORE-HM playground — WP-HUB-100…109 (GHM + mapa + despertar) + 111 (escenarios descubribles)",
   "type": "module",
   "license": "UNLICENSED",
   "dependencies": {
@@ -24,7 +24,8 @@
     "generar-mapa": "node scripts/generar-mapa.mjs",
     "test:mapa": "node ci/test-108-mapa.mjs",
     "despertar": "node scripts/despertar.mjs",
-    "test:despierta": "node ci/test-109-despierta.mjs"
+    "test:despierta": "node ci/test-109-despierta.mjs",
+    "test:escenarios": "node ci/test-111-escenarios.mjs"
   },
   "comments": {
     "linea-kit": "U245: consume public package surface @zeus/linea-kit (+ ./schemas/* exports); no local schema copies. JSON schema imports use package exports (explicit), not vendored duplicates."

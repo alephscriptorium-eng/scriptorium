@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (113+100…107+109).
+ * Suite mínima LORE-HM (113+100…107+109+111).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -84,6 +84,12 @@ const required = [
   "fixtures/censo-excerpt-novelist-editor.md",
   "fixtures/novelist-elenco.json",
   "ciudad/README.md",
+  // # WP-HUB-111
+  "ci/test-111-escenarios.mjs",
+  "lib/escenarios/discover.mjs",
+  "lib/escenarios/conformidad.mjs",
+  "lib/escenarios/v1-allowlist.mjs",
+  "scenarios/segundo-minimo/scenario.json",
 ];
 
 for (const rel of required) {
@@ -187,6 +193,15 @@ const run109 = spawnSync(process.execPath, [test109], {
   env: { ...process.env },
 });
 if (run109.status !== 0) fail("test-109-despierta.mjs falló");
+
+// # WP-HUB-111 · escenarios descubribles + conformidad + v1 allowlist
+const test111 = path.join(here, "test-111-escenarios.mjs");
+const run111 = spawnSync(process.execPath, [test111], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env },
+});
+if (run111.status !== 0) fail("test-111-escenarios.mjs falló");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);
