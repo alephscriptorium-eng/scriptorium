@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "hm-mapa-import-once",
+  "mode": "import-once",
+  "wp": "WP-HUB-108",
+  "counts": {
+    "holones": 7,
+    "distritos": 6,
+    "barrios": 24
+  },
+  "sources": {
+    "canteraRel": "plan/SPRINTS/sprint-game-city/cantera/CIUDAD",
+    "holonesMdRel": "DEVOPS/METODOLOGIA/HOLONES.md",
+    "holonesRootRel": "HOLONES/",
+    "note": "Runtime consume fixtures/mapa/; no abre cantera S."
+  },
+  "pieces": [
+    {
+      "relativePath": "mapa.json",
+      "size": 13078,
+      "sha256": "433fa741e586ab6b3c797684d010d4da25e405c1d977c1ca30d79c0ac01b8d9a"
+    },
+    {
+      "relativePath": "excerpts/CENSO-ESTADOS.md",
+      "size": 2816,
+      "sha256": "cc2a92282ceee6831256e87dd6fd47f07d61270e05bd9c49232a21afceefa843"
+    },
+    {
+      "relativePath": "excerpts/HOLONES.md",
+      "size": 3019,
+      "sha256": "a877520a1fb56568f5e0b971c6385dff4b9f39a4988ae17d45da44edffe3d728"
+    },
+    {
+      "relativePath": "excerpts/handoffs-barrios.tsv",
+      "size": 28923,
+      "sha256": "e638bafadcf1600eea310f70e0c7841d0cc9197a0fbc2ae87efb2f1e1b4b1845"
+    },
+    {
+      "relativePath": "excerpts/GRAFO-handoffs-counts.json",
+      "size": 160,
+      "sha256": "0de81cff25111e586b6ee25256e8ff62350d4b695f30f8872d7bfd55783672d6"
+    }
+  ],
+  "seal": {
+    "alg": "sha256",
+    "value": "cce7607e7b5758b451a004f8cff6d6e538c30630a7efbb0f13d95d9dadab0458"
+  }
+}

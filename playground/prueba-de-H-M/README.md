@@ -11,6 +11,8 @@ Machine viva **NO CORRE** hoy). No toca `prueba-de-dos`.
 | `scripts/generar.mjs` | corridas idempotentes → `.runs/<id>/{H,M}` (WP-HUB-102) |
 | `scripts/importar-onfalo.mjs` | import-once build-time Onfalo → `fixtures/onfalo/` (WP-HUB-104) |
 | `fixtures/onfalo/` | snapshot sellado (2 editoriales); corrida normal sin OASIS |
+| `scripts/generar-mapa.mjs` | proyección sellada 7×6×24 → `fixtures/mapa/` (WP-HUB-108) |
+| `fixtures/mapa/` | mapa jugable; runtime **no** abre cantera |
 | `lib/cadena/` | handlers mock deterministas + orquestación (WP-HUB-105) |
 | `lib/ceremonia/` | ceremonia bilateral 11 pasos + evidence (WP-HUB-106) |
 | `scripts/ceremonia.mjs` | CLI corrida `barrio-lore-v1` |
