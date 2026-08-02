@@ -8,7 +8,7 @@
 | Método | `swarm-orquestacion` · un WP/brief/rama/worktree |
 | Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **392 WPs totales** en el Scriptorium (V 71 · O 75 · Z 67 · G 54 · L 73 · HUB 52) |
 | ✎ 2026-08-02 | **HUB 52 → 64**: lane **LORE-HM** (`WP-HUB-100`–`111`), promoción de la cola A del intake por orden del product owner. Las cifras de los demás mundos son **las de la edición F2-unificada, no las de hoy** — no se re-miden aquí para no sembrar un número nuevo sin medirlo (V y Z ya divergen). |
-| ✎ 2026-08-02 | **LORE-HM ola 0**: `WP-HUB-112` ✅ (`wp/hub-112-hm-spike-viabilidad`, verde **local**, PASS_CON_ADDENDA) · `WP-HUB-113` ✅ CI LORE-HM (`ci-lore-hm.yml`) · run-ids gh verde `30726224409` / rojo plantado `30726279433` · rama `wp/hub-113-hm-ci-que-verifica` · **no merge main** sin gate/aceptación. |
+| ✎ 2026-08-02 | **LORE-HM ola 0**: `WP-HUB-112` ✅ (`wp/hub-112-hm-spike-viabilidad`, verde **local**, PASS_CON_ADDENDA) · `WP-HUB-113` ✅ CI LORE-HM (`ci-lore-hm.yml`) · run-ids gh verde `30726224409` / rojo plantado `30726279433` · rama `wp/hub-113-hm-ci-que-verifica` · **PASS_CON_ADDENDA** (CA hub medible; no «bloquea merge»; s-sdk verde local / follow-up) · `ci/CONTRARREVISION-WP-HUB-113.md` · **no merge main**. |
 
 ## Visión
 
@@ -418,12 +418,15 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** **P0 · BLOQUEA la lane entera**
 
 ### WP-HUB-113 · hm-ci-que-verifica · ✅
-> Aceptado con evidencia `gh` · rama `wp/hub-113-hm-ci-que-verifica` · worktree
-> `C:/S_LAB/wt/scriptorium-wp-hub-113` · workflow `.github/workflows/ci-lore-hm.yml`
-> · reporte `playground/prueba-de-H-M/ci/REPORTE-WP-HUB-113.md` · run-id verde
-> **30726224409** · run-id rojo plantado **30726279433** · s-sdk sin espejo
-> (hub suficiente para CA; follow-up opcional). **No merge a main** sin
-> aceptación explícita.
+> Aceptado con evidencia `gh` · **PASS_CON_ADDENDA** · rama
+> `wp/hub-113-hm-ci-que-verifica` · worktree `C:/S_LAB/wt/scriptorium-wp-hub-113`
+> · workflow `.github/workflows/ci-lore-hm.yml` · reporte
+> `playground/prueba-de-H-M/ci/REPORTE-WP-HUB-113.md` · contrarrevisión
+> `playground/prueba-de-H-M/ci/CONTRARREVISION-WP-HUB-113.md` · run-id verde
+> **30726224409** · run-id rojo plantado **30726279433** · CA hub medible OK
+> (rojo tumba job; preflight+ceguera en CI; sin continue-on-error) · **no**
+> afirma bloquea merge (sin branch protection) · s-sdk sin espejo (verde local
+> / follow-up). **No merge a main**.
 - **BRIEF:** hoy `C:\S\scriptorium` y `C:\S_LAB\s-sdk` tienen **un único flujo,
   `docs.yml`**: ni una prueba, ni un gate, nada que bloquee. Montar CI que
   ejecute la suite del playground y los gates de la lane **y que bloquee**.
