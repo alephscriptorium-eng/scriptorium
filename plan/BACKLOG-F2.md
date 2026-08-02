@@ -390,6 +390,41 @@ nunca dueño del dominio.
 `GD`) · lengua y notaría `WP-SDK-L01`–`L05` en `s-sdk` · provider real de
 Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 
+### WP-HUB-112 · hm-spike-viabilidad
+> **PRIMERA DE LA LANE. Nada más se despacha hasta su veredicto.**
+- **BRIEF:** antes de construir el kit, contestar **con medida** la pregunta
+  que abrió esta rama: **¿pueden H y M operar procesos reales con material de
+  Onfalo en la Future Machine, hoy?** Spike acotado, **read-only sobre OASIS**:
+  tomar las dos piezas reales del corpus de editoriales —
+  `2024-05-01_primero-de-mayo.md` y
+  `2026-05-01_auge-de-la-educacion-emocional.md`, **verificadas en disco por el
+  Anfitrión el 2026-08-02**— y recorrer la cadena mínima Bartleby →
+  Cristalizador → Pipeline con los agentes reales del barrio 20, midiendo qué
+  se ejecuta de verdad. **Dato duro que el spike hereda**: los submódulos de
+  `e-sdk` (`DocumentMachineSDK`, `AgentLoreSDK`, `VectorMachineSDK`,
+  `VectorMachineUI`) están **sin inicializar** — `git submodule status` los da
+  con prefijo `-`; el material vivo sólo existe en OASIS, que es cantera RO.
+- **CA:** veredicto pieza a pieza en tres columnas — **corre / no corre / no
+  existe** — con la orden exacta y su salida literal, nunca por lectura de
+  documentación · dice **qué parte de la ceremonia de `100`–`107` no se puede
+  demostrar hoy** y qué haría falta · cero escritura fuera de `playground/`;
+  OASIS, `a-sdk` y `e-sdk` sólo lectura · **si la respuesta es «no corre», la
+  lane se reordena en el mismo reporte** y nombra cuál de las once fichas cae
+  o cambia de forma.
+- **Pri:** **P0 · BLOQUEA la lane entera**
+
+### WP-HUB-113 · hm-ci-que-verifica
+- **BRIEF:** hoy `C:\S\scriptorium` y `C:\S_LAB\s-sdk` tienen **un único flujo,
+  `docs.yml`**: ni una prueba, ni un gate, nada que bloquee. Montar CI que
+  ejecute la suite del playground y los gates de la lane **y que bloquee**.
+- **CA:** un rojo plantado a propósito **enrojece el flujo** (vector guardado) ·
+  cero pasos blandos —`continue-on-error` sin razón escrita— y una guarda que
+  impida su regreso · el preflight de identidad-raíz y `skills:ceguera` corren
+  **en CI, no sólo en local** · el veredicto se lee con `gh` y se cita el
+  `run-id`: **medido, no supuesto**.
+- **Pri:** **P0** · es la lección más cara del programa: Z y V cerraron **tres
+  olas** con su CI en rojo porque nadie lo miró.
+
 ### WP-HUB-100 · hm-escenario-y-schemas
 - **BRIEF:** kit autocontenido `playground/prueba-de-H-M`;
   `scenarios/barrio-lore/scenario.json` (barrio canónico `document-machine-sdk`,
