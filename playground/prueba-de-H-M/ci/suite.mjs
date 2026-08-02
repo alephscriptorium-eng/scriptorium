@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (WP-HUB-113 + WP-HUB-100 + WP-HUB-102).
+ * Suite mínima LORE-HM (WP-HUB-113 + WP-HUB-100 + WP-HUB-102 + WP-HUB-103).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -37,6 +37,11 @@ const required = [
   // WP-HUB-102
   "ci/test-102-generador.mjs",
   "scripts/generar.mjs",
+  // # WP-HUB-103
+  "ci/test-103-podstore.mjs",
+  "lib/podstore/LocalPodProvider.mjs",
+  "lib/podstore/tipestate.mjs",
+  "lib/podstore/acl.mjs",
 ];
 
 for (const rel of required) {
@@ -87,6 +92,15 @@ const run102 = spawnSync(process.execPath, [test102], {
   env: { ...process.env },
 });
 if (run102.status !== 0) fail("test-102-generador.mjs falló");
+
+// # WP-HUB-103 · LocalPodProvider / leases / tipestate
+const test103 = path.join(here, "test-103-podstore.mjs");
+const run103 = spawnSync(process.execPath, [test103], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env },
+});
+if (run103.status !== 0) fail("test-103-podstore.mjs falló");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);

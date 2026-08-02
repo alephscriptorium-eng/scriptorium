@@ -2,7 +2,7 @@
   "name": "@scriptorium/prueba-hm-kit",
   "private": true,
   "version": "0.1.0",
-  "description": "Kit LORE-HM playground — escenario, schemas, catálogo y generador de corridas (WP-HUB-100/102)",
+  "description": "Kit LORE-HM playground — escenario, schemas, generador y podstore (WP-HUB-100/102/103)",
   "type": "module",
   "license": "UNLICENSED",
   "dependencies": {
@@ -12,7 +12,8 @@
   "scripts": {
     "test:schemas": "node ci/test-100-schemas.mjs",
     "test:generador": "node ci/test-102-generador.mjs",
-    "generate": "node scripts/generar.mjs"
+    "generate": "node scripts/generar.mjs",
+    "test:podstore": "node ci/test-103-podstore.mjs"
   },
   "comments": {
     "linea-kit": "U245 types not landed — consume without @types; schemas via @zeus/linea-kit/schemas/*"
