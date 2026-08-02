@@ -10,7 +10,8 @@
     "ajv": "^8.17.1"
   },
   "scripts": {
-    "test:schemas": "node ci/test-100-schemas.mjs"
+    "test:schemas": "node ci/test-100-schemas.mjs",
+    "test:podstore": "node ci/test-103-podstore.mjs"
   },
   "comments": {
     "linea-kit": "U245 types not landed — consume without @types; schemas via @zeus/linea-kit/schemas/*"
