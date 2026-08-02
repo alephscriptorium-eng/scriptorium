@@ -22,6 +22,21 @@ import {
   wireBytes,
   huellaLedger,
 } from "../lib/ceremonia/index.mjs";
+import { causalDigest } from "../lib/ceremonia/envelope.mjs";
+import {
+  CAUSAL_STRIPPED_FIELDS,
+  CAUSAL_STRIPPED_CONTEXT_FIELDS,
+} from "../lib/ceremonia/constants.mjs";
+
+/** Valor distinto del original, del mismo tipo cuando es posible. */
+function mutateValue(v) {
+  if (typeof v === "string") return `${v}#zv-mutado`;
+  if (typeof v === "number") return v + 1;
+  if (typeof v === "boolean") return !v;
+  if (Array.isArray(v)) return [...v, "zv-mutado"];
+  if (v && typeof v === "object") return { ...v, zvMutado: true };
+  return "zv-mutado";
+}
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const kitRoot = path.resolve(here, "..");
@@ -106,6 +121,87 @@ function main() {
       fail("compareCausalChains debió fallar tras mutar object M");
     } else {
       ok("rojo: compareCausalChains detecta diverge H/M (object/digest)");
+    }
+  }
+
+  // ── 2b. CAUSAL_STRIPPED_FIELDS gobierna de verdad el núcleo causal ───────
+  // Propiedad, no cifra: un campo cambia el causalDigest SI Y SOLO SI no está
+  // declarado como marca del observador. Antes `causalCore` era una allowlist
+  // positiva y la constante no la importaba nadie: podían divergir en silencio
+  // y ningún test podía enrojecer.
+  {
+    const acts = path.join(result.evidenceRoot, "activities");
+    const sampleDir = fs.readdirSync(acts)[0];
+    const wire = JSON.parse(
+      fs.readFileSync(path.join(acts, sampleDir, "wire.json"), "utf8"),
+    );
+    const baseline = causalDigest(wire);
+    const problems = [];
+
+    for (const key of Object.keys(wire)) {
+      if (key === "id") continue; // el sufijo :H/:M se normaliza aparte
+      const mutated = { ...wire, [key]: mutateValue(wire[key]) };
+      const changed = causalDigest(mutated) !== baseline;
+      const declaredStripped = CAUSAL_STRIPPED_FIELDS.includes(key);
+      if (changed === declaredStripped) {
+        problems.push(
+          `${key}: mutar ${changed ? "cambia" : "no cambia"} el digest pero ` +
+            `${declaredStripped ? "está" : "no está"} en CAUSAL_STRIPPED_FIELDS`,
+        );
+      }
+    }
+
+    for (const key of Object.keys(wire.context ?? {})) {
+      const mutated = {
+        ...wire,
+        context: { ...wire.context, [key]: mutateValue(wire.context[key]) },
+      };
+      const changed = causalDigest(mutated) !== baseline;
+      const declaredStripped = CAUSAL_STRIPPED_CONTEXT_FIELDS.includes(key);
+      if (changed === declaredStripped) {
+        problems.push(
+          `context.${key}: mutar ${changed ? "cambia" : "no cambia"} el digest ` +
+            `pero ${declaredStripped ? "está" : "no está"} en CAUSAL_STRIPPED_CONTEXT_FIELDS`,
+        );
+      }
+    }
+
+    // Un campo NUEVO debe entrar en el núcleo por defecto (denylist, no allowlist).
+    const withNovel = { ...wire, campoNuevoInventado: "xyz" };
+    if (causalDigest(withNovel) === baseline) {
+      problems.push(
+        "un campo nuevo del envelope no altera el núcleo causal: sigue siendo allowlist",
+      );
+    }
+
+    if (problems.length > 0) {
+      fail(`CAUSAL_STRIPPED_FIELDS desincronizado:\n    - ${problems.join("\n    - ")}`);
+    } else {
+      ok(
+        `CAUSAL_STRIPPED_FIELDS gobierna causalCore ` +
+          `(${Object.keys(wire).length} campos + ${Object.keys(wire.context ?? {}).length} de context probados uno a uno)`,
+      );
+    }
+  }
+
+  // ── 2c. instrument y context SÍ entran en el núcleo causal ──────────────
+  // El vector del auditor: dos mitades internamente coherentes que registran
+  // instrumento y unidad distintos. Antes pasaba el verificador entero.
+  {
+    const acts = path.join(result.evidenceRoot, "activities");
+    const sampleDir = fs.readdirSync(acts)[0];
+    const wire = JSON.parse(
+      fs.readFileSync(path.join(acts, sampleDir, "wire.json"), "utf8"),
+    );
+    const otraMitad = {
+      ...wire,
+      instrument: "demiurgo",
+      context: { ...wire.context, unitId: "vector-mock", anio: 1999 },
+    };
+    if (causalDigest(otraMitad) === causalDigest(wire)) {
+      fail("instrument/context fuera del núcleo causal: dos mitades distintas comparten digest");
+    } else {
+      ok("rojo: instrument y context divergentes rompen el núcleo causal");
     }
   }
 

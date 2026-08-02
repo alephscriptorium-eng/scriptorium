@@ -17,6 +17,9 @@ export const FRONTIER = Object.freeze({
   SHUTDOWN_INCOMPLETO: "shutdown incompleto",
   SHUTDOWN_AUTOCERTIFICADO: "shutdown autocertificado",
   CADENA_CAUSAL_DIVERGE: "cadena causal diverge",
+  SELLO_PACK_ROTO: "sello del pack roto",
+  COBERTURA_AUTOCERTIFICADA: "cobertura autocertificada",
+  PAREJA_INESPERADA: "pareja bilateral inesperada",
 });
 
 export class VerifierError extends Error {

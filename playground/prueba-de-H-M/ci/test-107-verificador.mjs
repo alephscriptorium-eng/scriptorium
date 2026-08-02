@@ -13,6 +13,12 @@ import {
   FRONTIER,
 } from "../lib/verificador/verificar.mjs";
 import { digestObject } from "../lib/cadena/hash.mjs";
+import {
+  SEALED_PACK_DOCS,
+  computePackDigest,
+} from "../lib/ceremonia/evidence-pack.mjs";
+import { computeCoverage } from "../lib/ceremonia/evidence.mjs";
+import { REQUIRED_SHUTDOWN_VERBS } from "../lib/ceremonia/constants.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const kitRoot = path.resolve(here, "..");
@@ -62,7 +68,99 @@ const FRONTIER_SLUG = Object.freeze({
   [FRONTIER.SHUTDOWN_INCOMPLETO]: "shutdown-incompleto",
   [FRONTIER.SHUTDOWN_AUTOCERTIFICADO]: "shutdown-autocertificado",
   [FRONTIER.CADENA_CAUSAL_DIVERGE]: "cadena-causal-diverge",
+  [FRONTIER.SELLO_PACK_ROTO]: "sello-pack-roto",
+  [FRONTIER.COBERTURA_AUTOCERTIFICADA]: "cobertura-autocertificada",
+  [FRONTIER.PAREJA_INESPERADA]: "pareja-inesperada",
+  [FRONTIER.REPORTE_INVALIDO]: "reporte-invalido",
+  [FRONTIER.PROVENANCE_ROTA]: "provenance-rota",
+  [FRONTIER.COBERTURA_INSUFICIENTE]: "cobertura-insuficiente",
+  [FRONTIER.WIRE_INVALIDO]: "wire-invalido",
+  [FRONTIER.VIEW_JSONLD_INVALIDO]: "view-jsonld-invalido",
 });
+
+const ACTOR_H_IRI = "urn:scriptorium:hm:actor:anfitrion-h";
+const ACTOR_M_IRI = "urn:scriptorium:hm:actor:maestro-m";
+
+/**
+ * Atacante «reparador»: rehace matriz, hashes, cobertura y sello del pack para
+ * que el negativo dependa del guardián PROFUNDO y no del primero que salta.
+ * Sin esto los negativos se apuntarían un tanto que no es suyo.
+ * @param {string} dir
+ */
+function repairSuperficial(dir) {
+  const acts = path.join(dir, "activities");
+  const wires = fs
+    .readdirSync(acts)
+    .map((d) => readJson(path.join(acts, d, "wire.json")));
+  const hashes = wires.map((w) => w.digest);
+  const cov = computeCoverage(wires);
+  const coverage = {
+    verbsPercent: cov.verbsPercent,
+    unitsPercent: cov.unitsPercent,
+  };
+
+  const report = readJson(path.join(dir, "report.json"));
+  report.hashes = hashes;
+  report.matrix = wires.map((w) => ({
+    verb: w.verb,
+    actor: w.actor,
+    object: w.object,
+    result: "pass",
+  }));
+  report.coverage = coverage;
+  writeJson(path.join(dir, "report.json"), report);
+  fs.writeFileSync(
+    path.join(dir, "report.md"),
+    `# ${report.reportId}\n\n> derivado desde eventos\n`,
+  );
+
+  const prov = readJson(path.join(dir, "pack/provenance.json"));
+  prov.hashes = hashes;
+  prov.coverage = coverage;
+  prov.activityCount = wires.length;
+  writeJson(path.join(dir, "pack/provenance.json"), prov);
+
+  const docs = {};
+  for (const { key, rel } of SEALED_PACK_DOCS) {
+    docs[key] = readJson(path.join(dir, rel));
+  }
+  const man = readJson(path.join(dir, "pack/manifest.json"));
+  man.digest = computePackDigest(docs, report.verdict);
+  writeJson(path.join(dir, "pack/manifest.json"), man);
+}
+
+/** Fabrica una pareja bilateral H/M coherente consigo misma. */
+function fabricatePair(acts, sample, sampleView, order, verb, tag) {
+  const base = `urn:scriptorium:hm:fab:step:${order}:${verb}`;
+  for (const side of ["H", "M"]) {
+    const env = {
+      id: `${base}:${side}`,
+      actor: side === "H" ? ACTOR_H_IRI : ACTOR_M_IRI,
+      verb,
+      object: `urn:${tag}:${order}`,
+      target: sample.target ?? null,
+      instrument: "portal",
+      timestamp: sample.timestamp,
+      result: "pass",
+      provenance: { source: "ceremony:barrio-lore-v1", upstream: [] },
+      context: { unitId: "portal", side, step: order },
+    };
+    const sealed = { ...env, digest: digestObject(env) };
+    const d = path.join(
+      acts,
+      `${tag}-${order}-${verb.replace(/\./g, "_")}-${side}`,
+    );
+    fs.mkdirSync(d, { recursive: true });
+    writeJson(path.join(d, "wire.json"), sealed);
+    writeJson(path.join(d, "view.jsonld"), {
+      ...sampleView,
+      "@id": sealed.id,
+      "hm:verb": verb,
+      "hm:digest": sealed.digest,
+      "prov:wasDerivedFrom": [],
+    });
+  }
+}
 
 /**
  * @param {string} frontier
@@ -119,12 +217,37 @@ function main() {
   }
 
   // ── 1. PASS sobre evidence root ─────────────────────────────────────────
+  // Los checks se fijan POR NOMBRE, no por cardinalidad: `checks.length < 8`
+  // dejaba borrar tres comprobaciones —incluida la cadena causal— y seguir
+  // en verde. Cambiar esta lista obliga a cambiar el guardián a propósito.
+  const REQUIRED_CHECKS = Object.freeze([
+    "piezas pack presentes",
+    "reporte",
+    "wire + JSON-LD + hashes",
+    "cadena causal H/M desde wires",
+    "provenance",
+    "cobertura",
+    "ACL",
+    "tipestate",
+    "VectorMock declarado",
+    "cortos→Onfalo",
+    "shutdown",
+    "sello del pack recomputado",
+  ]);
   try {
     const v = verificarEvidencia(isoEvidence);
-    if (!v.ok || v.checks.length < 8) {
-      fail(`checks insuficientes: ${v.checks?.length}`);
+    if (!v.ok) {
+      fail("verificador no devolvió ok");
     } else {
-      ok(`verificador PASS (${v.checks.length} checks) runId=${v.runId}`);
+      const missing = REQUIRED_CHECKS.filter((c) => !v.checks.includes(c));
+      const extra = v.checks.filter((c) => !REQUIRED_CHECKS.includes(c));
+      if (missing.length > 0) {
+        fail(`checks ausentes por nombre: ${missing.join(" · ")}`);
+      } else if (extra.length > 0) {
+        fail(`checks no declarados en el guardián: ${extra.join(" · ")}`);
+      } else {
+        ok(`verificador PASS — ${REQUIRED_CHECKS.length} checks fijados por nombre`);
+      }
     }
   } catch (e) {
     fail(`verificador feliz: ${e.message || e}`);
@@ -223,9 +346,11 @@ function main() {
     isoBase,
   );
 
-  // Shutdown dopado: pack declara verbos presentes pero wires no los tienen
+  // Shutdown dopado: pack declara verbos presentes pero los wires no existen.
+  // Ahora salta ANTES, y por nombre propio: borrar la evidencia de session.exit
+  // rompe la biyección con CEREMONY_STEPS, no solo el recuento de shutdown.
   expectFrontier(
-    FRONTIER.SHUTDOWN_INCOMPLETO,
+    FRONTIER.PAREJA_INESPERADA,
     (dir) => {
       const acts = path.join(dir, "activities");
       for (const name of fs.readdirSync(acts)) {
@@ -236,14 +361,22 @@ function main() {
         }
       }
       const shut = readJson(path.join(dir, "pack/shutdown.json"));
-      shut.verbsPresent = [
-        "coverage.measure",
-        "provenance.trace",
-        "unit.stop",
-        "pod.revoke",
-        "session.exit",
-      ];
+      shut.verbsPresent = [...REQUIRED_SHUTDOWN_VERBS];
       writeJson(path.join(dir, "pack/shutdown.json"), shut);
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // Shutdown incompleto propiamente dicho: el pack se declara sucio.
+  expectFrontier(
+    FRONTIER.SHUTDOWN_INCOMPLETO,
+    (dir) => {
+      const shut = readJson(path.join(dir, "pack/shutdown.json"));
+      shut.clean = false;
+      shut.residualProcesses = ["portal:proceso-vivo"];
+      writeJson(path.join(dir, "pack/shutdown.json"), shut);
+      repairSuperficial(dir);
     },
     isoBase,
   );
@@ -295,6 +428,212 @@ function main() {
           break;
         }
       }
+    },
+    isoBase,
+  );
+
+  // ── Negativos ZV: el verificador ya no certifica lo que el pack declara ──
+
+  // Cobertura autodeclarada: 34 filas a `verbo.inventado` + coverage 100/100.
+  // Antes daba ok=true; la cobertura se leía, no se recomputaba.
+  expectFrontier(
+    FRONTIER.REPORTE_INVALIDO,
+    (dir) => {
+      const r = readJson(path.join(dir, "report.json"));
+      r.matrix = r.matrix.map((m) => ({ ...m, verb: "verbo.inventado" }));
+      r.coverage = { verbsPercent: 100, unitsPercent: 100 };
+      writeJson(path.join(dir, "report.json"), r);
+    },
+    isoBase,
+  );
+
+  // Cobertura mentida con matriz y wires intactos → autocertificada.
+  expectFrontier(
+    FRONTIER.COBERTURA_AUTOCERTIFICADA,
+    (dir) => {
+      const r = readJson(path.join(dir, "report.json"));
+      r.coverage = { verbsPercent: 90, unitsPercent: 90 };
+      writeJson(path.join(dir, "report.json"), r);
+    },
+    isoBase,
+  );
+
+  // Sello del pack: digest inventado. Antes nadie lo recomputaba jamás.
+  expectFrontier(
+    FRONTIER.SELLO_PACK_ROTO,
+    (dir) => {
+      const m = readJson(path.join(dir, "pack/manifest.json"));
+      m.digest = `sha256:${"f".repeat(64)}`;
+      writeJson(path.join(dir, "pack/manifest.json"), m);
+    },
+    isoBase,
+  );
+
+  // Sello del pack: contenido mutado sin tocar el digest declarado.
+  expectFrontier(
+    FRONTIER.SELLO_PACK_ROTO,
+    (dir) => {
+      const c = readJson(path.join(dir, "pack/cortos.json"));
+      c.inyectado = "el manifest no lo nota";
+      writeJson(path.join(dir, "pack/cortos.json"), c);
+    },
+    isoBase,
+  );
+
+  // Hashes: 50 basura en report.hashes. Antes ⊆ sin recíproco → pasaba.
+  expectFrontier(
+    FRONTIER.HASH_ROTO,
+    (dir) => {
+      const r = readJson(path.join(dir, "report.json"));
+      for (let i = 0; i < 50; i++) {
+        r.hashes.push(`sha256:${String(i).padStart(64, "b")}`);
+      }
+      writeJson(path.join(dir, "report.json"), r);
+    },
+    isoBase,
+  );
+
+  // Parejas ENTERAMENTE fabricadas — con matriz, hashes, cobertura y sello
+  // reparados por el atacante. Solo el cruce contra CEREMONY_STEPS lo para.
+  expectFrontier(
+    FRONTIER.PAREJA_INESPERADA,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      const d0 = fs.readdirSync(acts)[0];
+      const sample = readJson(path.join(acts, d0, "wire.json"));
+      const sampleView = readJson(path.join(acts, d0, "view.jsonld"));
+      for (const d of fs.readdirSync(acts)) {
+        fs.rmSync(path.join(acts, d), { recursive: true, force: true });
+      }
+      const verbs = [
+        ...REQUIRED_SHUTDOWN_VERBS,
+        "zzz.a", "zzz.b", "zzz.c", "zzz.d", "zzz.e", "zzz.f",
+        "zzz.g", "zzz.h", "zzz.i", "zzz.j", "zzz.k", "zzz.l",
+      ];
+      verbs.forEach((v, i) =>
+        fabricatePair(acts, sample, sampleView, i + 1, v, "fab"),
+      );
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // Borrar 6 pasos REALES y reponerlos con parejas fabricadas: la cardinalidad
+  // vuelve a cuadrar (17 parejas / 34 activities) y aun así debe enrojecer.
+  expectFrontier(
+    FRONTIER.PAREJA_INESPERADA,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      const byBase = new Map();
+      for (const d of fs.readdirSync(acts)) {
+        const w = readJson(path.join(acts, d, "wire.json"));
+        const b = String(w.id).replace(/:(H|M)$/, "");
+        if (!byBase.has(b)) byBase.set(b, { dirs: [], verb: w.verb });
+        byBase.get(b).dirs.push(d);
+      }
+      const d0 = fs.readdirSync(acts)[0];
+      const sample = readJson(path.join(acts, d0, "wire.json"));
+      const sampleView = readJson(path.join(acts, d0, "view.jsonld"));
+      const victims = [...byBase.keys()]
+        .filter((k) => !REQUIRED_SHUTDOWN_VERBS.includes(byBase.get(k).verb))
+        .slice(0, 6);
+      for (const k of victims) {
+        for (const d of byBase.get(k).dirs) {
+          fs.rmSync(path.join(acts, d), { recursive: true, force: true });
+        }
+      }
+      ["zzz.a", "zzz.b", "zzz.c", "zzz.d", "zzz.e", "zzz.f"].forEach((v, i) =>
+        fabricatePair(acts, sample, sampleView, 90 + i, v, "rep"),
+      );
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // Suplantar el verbo de un paso real de forma internamente coherente.
+  expectFrontier(
+    FRONTIER.PAREJA_INESPERADA,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      for (const d of fs.readdirSync(acts)) {
+        const wp = path.join(acts, d, "wire.json");
+        const w = readJson(wp);
+        if (w.verb !== "graph.bifurcate") continue;
+        const { digest: _old, ...rest } = w;
+        rest.verb = "graph.inventado";
+        rest.id = String(rest.id).replace("graph.bifurcate", "graph.inventado");
+        const sealed = { ...rest, digest: digestObject(rest) };
+        writeJson(wp, sealed);
+        const vp = path.join(acts, d, "view.jsonld");
+        const v = readJson(vp);
+        v["@id"] = sealed.id;
+        v["hm:verb"] = sealed.verb;
+        v["hm:digest"] = sealed.digest;
+        writeJson(vp, v);
+      }
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // Cadena causal: dos mitades que registran instrument/context DISTINTOS.
+  // Cada una es coherente consigo misma; antes pasaba, incluido el check nuevo.
+  expectFrontier(
+    FRONTIER.CADENA_CAUSAL_DIVERGE,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      for (const d of fs.readdirSync(acts)) {
+        const wp = path.join(acts, d, "wire.json");
+        const w = readJson(wp);
+        if (w.context?.side !== "M") continue;
+        const { digest: _old, ...rest } = w;
+        rest.instrument = "demiurgo";
+        rest.context = { ...rest.context, unitId: "vector-mock", anio: 1999 };
+        const sealed = { ...rest, digest: digestObject(rest) };
+        writeJson(wp, sealed);
+        const vp = path.join(acts, d, "view.jsonld");
+        const v = readJson(vp);
+        v["hm:digest"] = sealed.digest;
+        writeJson(vp, v);
+      }
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // Provenance: upstream inventado en AMBAS mitades (causalmente coherente).
+  expectFrontier(
+    FRONTIER.PROVENANCE_ROTA,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      const byBase = new Map();
+      for (const d of fs.readdirSync(acts)) {
+        const w = readJson(path.join(acts, d, "wire.json"));
+        const b = String(w.id).replace(/:(H|M)$/, "");
+        if (!byBase.has(b)) byBase.set(b, []);
+        byBase.get(b).push(d);
+      }
+      const target = [...byBase.values()].find(
+        (ds) =>
+          (readJson(path.join(acts, ds[0], "wire.json")).provenance?.upstream ?? [])
+            .length > 0,
+      );
+      for (const d of target) {
+        const wp = path.join(acts, d, "wire.json");
+        const w = readJson(wp);
+        const { digest: _old, ...rest } = w;
+        rest.provenance = {
+          ...rest.provenance,
+          upstream: [`sha256:${"9".repeat(64)}`],
+        };
+        const sealed = { ...rest, digest: digestObject(rest) };
+        writeJson(wp, sealed);
+        const vp = path.join(acts, d, "view.jsonld");
+        const v = readJson(vp);
+        v["hm:digest"] = sealed.digest;
+        writeJson(vp, v);
+      }
+      repairSuperficial(dir);
     },
     isoBase,
   );

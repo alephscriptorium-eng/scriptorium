@@ -3,8 +3,42 @@
  */
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { CEREMONY_STEPS, SCENARIO_ID, SIMULACRO_NOTE } from "./constants.mjs";
+import {
+  EXPECTED_CEREMONY_VERBS,
+  EXPECTED_CEREMONY_UNITS,
+  SCENARIO_ID,
+  SIMULACRO_NOTE,
+} from "./constants.mjs";
 import { digestObject } from "../cadena/hash.mjs";
+
+/**
+ * Cobertura DESDE eventos contra la raíz de confianza.
+ *
+ * Única fórmula: el productor la usa para escribir report.coverage y el
+ * verificador la usa para RECOMPUTARLA desde activities/ y contrastar. Antes
+ * el conjunto esperado vivía inline aquí y el verificador se limitaba a leer
+ * el número que el productor había escrito.
+ *
+ * @param {Array<{ verb?: string, context?: { unitId?: string } }>} events
+ */
+export function computeCoverage(events) {
+  const verbsSeen = new Set(events.map((e) => e.verb).filter(Boolean));
+  const unitsSeen = new Set(
+    events.map((e) => e.context?.unitId).filter(Boolean),
+  );
+  const verbsHit = EXPECTED_CEREMONY_VERBS.filter((v) => verbsSeen.has(v));
+  const unitsHit = EXPECTED_CEREMONY_UNITS.filter((u) => unitsSeen.has(u));
+  return {
+    verbsPercent: Math.round(
+      (100 * verbsHit.length) / EXPECTED_CEREMONY_VERBS.length,
+    ),
+    unitsPercent: Math.round(
+      (100 * unitsHit.length) / EXPECTED_CEREMONY_UNITS.length,
+    ),
+    missingVerbs: EXPECTED_CEREMONY_VERBS.filter((v) => !verbsSeen.has(v)),
+    missingUnits: EXPECTED_CEREMONY_UNITS.filter((u) => !unitsSeen.has(u)),
+  };
+}
 
 /**
  * @param {{
@@ -27,27 +61,7 @@ export function buildEvidenceReport(input) {
     result: e.result === "pass" ? "pass" : e.result === "fail" ? "fail" : "skip",
   }));
 
-  const verbsSeen = new Set(matrix.map((m) => m.verb));
-  const expectedVerbs = new Set(CEREMONY_STEPS.map((s) => s.verb));
-  // step 11 also emits shutdown verbs tracked in events
-  const shutdownVerbs = ["provenance.trace", "session.exit", "unit.stop", "pod.revoke"];
-  for (const v of shutdownVerbs) expectedVerbs.add(v);
-  expectedVerbs.add("document.analyze");
-  expectedVerbs.add("corto.query");
-
-  const unitsSeen = new Set(
-    input.events.map((e) => e.context?.unitId).filter(Boolean),
-  );
-  const expectedUnits = new Set(CEREMONY_STEPS.map((s) => s.unitId));
-
-  const verbsPercent = Math.round(
-    (100 * [...expectedVerbs].filter((v) => verbsSeen.has(v)).length) /
-      expectedVerbs.size,
-  );
-  const unitsPercent = Math.round(
-    (100 * [...expectedUnits].filter((u) => unitsSeen.has(u)).length) /
-      expectedUnits.size,
-  );
+  const { verbsPercent, unitsPercent } = computeCoverage(input.events);
 
   const allPass =
     input.failures.length === 0 &&

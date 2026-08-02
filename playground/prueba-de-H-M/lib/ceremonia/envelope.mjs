@@ -5,6 +5,10 @@ import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { digestObject, sha256Digest, stableStringify } from "../cadena/hash.mjs";
+import {
+  CAUSAL_STRIPPED_FIELDS,
+  CAUSAL_STRIPPED_CONTEXT_FIELDS,
+} from "./constants.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const defaultOntology = join(here, "../../ontology/hm-v1.context.jsonld");
@@ -43,21 +47,41 @@ export function buildEnvelope(opts) {
 
 /**
  * Núcleo causal — fila compartida H/M.
- * Excluye actor/timestamp/instrument/context/digest (ver CAUSAL_STRIPPED_FIELDS).
- * La igualdad H/M se verifica recomputeando este núcleo desde wires independientes.
+ *
+ * DERIVADO de CAUSAL_STRIPPED_FIELDS / CAUSAL_STRIPPED_CONTEXT_FIELDS: se quita
+ * lo que es marca del observador y entra TODO lo demás, incluidos campos que
+ * aún no existen. Antes era una allowlist positiva que solo coincidía con la
+ * constante por intención del autor: divergir era silencioso e imposible de
+ * detectar. Ver CAUSAL_SHARED_STATEMENT para el enunciado exacto.
  */
 export function causalCore(envelope) {
-  return {
-    id: envelope.id.replace(/:(H|M)$/, ""),
-    verb: envelope.verb,
-    object: envelope.object,
-    target: envelope.target ?? null,
-    result: envelope.result,
-    provenance: {
-      source: envelope.provenance.source,
-      upstream: [...(envelope.provenance.upstream ?? [])],
-    },
+  /** @type {Record<string, unknown>} */
+  const core = {};
+  for (const [k, v] of Object.entries(envelope)) {
+    if (CAUSAL_STRIPPED_FIELDS.includes(k)) continue;
+    core[k] = v;
+  }
+  // El sufijo :H/:M del id es marca de observador, no del hecho registrado.
+  core.id = String(envelope.id).replace(/:(H|M)$/, "");
+  // Normalizaciones estables (target ausente ≡ target null, upstream ausente ≡ []).
+  // Se conserva el resto de `provenance`: normalizar no puede convertirse en
+  // una allowlist encubierta que descarte campos en silencio.
+  core.target = envelope.target ?? null;
+  core.provenance = {
+    ...(envelope.provenance ?? {}),
+    source: envelope.provenance?.source ?? null,
+    upstream: [...(envelope.provenance?.upstream ?? [])],
   };
+  if (envelope.context != null && typeof envelope.context === "object") {
+    /** @type {Record<string, unknown>} */
+    const ctx = {};
+    for (const [k, v] of Object.entries(envelope.context)) {
+      if (CAUSAL_STRIPPED_CONTEXT_FIELDS.includes(k)) continue;
+      ctx[k] = v;
+    }
+    core.context = ctx;
+  }
+  return core;
 }
 
 export function causalDigest(envelope) {

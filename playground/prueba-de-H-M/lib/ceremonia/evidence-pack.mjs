@@ -25,6 +25,36 @@ export const REQUIRED_EVIDENCE_PIECES = Object.freeze([
 ]);
 
 /**
+ * Documentos del pack que entran en el sello, en orden canónico.
+ * El verificador recomputa el sello con esta MISMA función leyendo los
+ * ficheros de disco: si el productor y el verificador usaran dos copias de
+ * la fórmula, el sello volvería a ser autocertificado.
+ */
+export const SEALED_PACK_DOCS = Object.freeze([
+  Object.freeze({ key: "acl", rel: "pack/acl.json" }),
+  Object.freeze({ key: "tipestate", rel: "pack/tipestate.json" }),
+  Object.freeze({ key: "vector", rel: "pack/vector-mock.json" }),
+  Object.freeze({ key: "cortos", rel: "pack/cortos.json" }),
+  Object.freeze({ key: "shutdown", rel: "pack/shutdown.json" }),
+  Object.freeze({ key: "provenance", rel: "pack/provenance.json" }),
+]);
+
+/**
+ * Sello del pack — única fórmula, usada por productor y verificador.
+ * @param {Record<string, unknown>} docs — por `key` de SEALED_PACK_DOCS
+ * @param {string} reportVerdict
+ */
+export function computePackDigest(docs, reportVerdict) {
+  /** @type {Record<string, unknown>} */
+  const payload = {};
+  for (const { key } of SEALED_PACK_DOCS) {
+    payload[key] = docs[key];
+  }
+  payload.reportVerdict = reportVerdict;
+  return digestObject(payload);
+}
+
+/**
  * @param {string} evidenceRoot
  * @param {{
  *   runId: string,
@@ -133,15 +163,17 @@ export function sealEvidencePack(evidenceRoot, input) {
     scenarioId: SCENARIO_ID,
     sealedAt: "2026-08-02T00:11:00.000Z",
     required: [...REQUIRED_EVIDENCE_PIECES],
-    digest: digestObject({
-      acl: aclDoc,
-      tipestate: tipestateDoc,
-      vector: vectorDoc,
-      cortos: cortosDoc,
-      shutdown: shutdownDoc,
-      provenance: provenanceDoc,
-      reportVerdict: input.report.verdict,
-    }),
+    digest: computePackDigest(
+      {
+        acl: aclDoc,
+        tipestate: tipestateDoc,
+        vector: vectorDoc,
+        cortos: cortosDoc,
+        shutdown: shutdownDoc,
+        provenance: provenanceDoc,
+      },
+      input.report.verdict,
+    ),
   };
   writeJson(join(packDir, "manifest.json"), manifest);
 

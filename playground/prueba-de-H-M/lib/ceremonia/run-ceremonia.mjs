@@ -270,6 +270,18 @@ export function runCeremonia(opts = {}) {
       )}\n`,
     );
 
+    // Handoffs releídos DESDE DISCO y comparados en el camino real. Antes
+    // `compareCausalChains` solo se invocaba desde el test: la ceremonia no
+    // comprobaba jamás que sus dos actas coincidieran.
+    const chainH = readChain(runRoot, "H");
+    const chainM = readChain(runRoot, "M");
+    const cmp = compareCausalChains(chainH, chainM);
+    if (!cmp.ok) {
+      throw new CeremonyError(`handoffs H/M divergen: ${cmp.reason}`, {
+        code: "causal-diverge",
+      });
+    }
+
     return {
       ok: true,
       runId,
@@ -280,8 +292,8 @@ export function runCeremonia(opts = {}) {
         order,
         ...v,
       })),
-      chainH: readChain(runRoot, "H"),
-      chainM: readChain(runRoot, "M"),
+      chainH,
+      chainM,
       signatures,
       state: ctx.state,
     };
@@ -463,7 +475,17 @@ export function wipePartialState(runRoot, provider) {
 }
 
 /**
- * Compara handoffs H/M fila a fila (cadena causal compartida).
+ * Compara handoffs H/M (cadena causal compartida).
+ *
+ * Empareja por IDENTIDAD de actividad, no por posición: comparar chainH[i] con
+ * chainM[i] solo funciona porque hoy un único bucle escribe las dos filas en
+ * el mismo orden. Emparejar por `activityId` sin el sufijo del observador
+ * sobrevive a que las dos mitades se escriban por separado algún día.
+ *
+ * Comprueba además las marcas del observador: `side` debe diferir y el sello
+ * propio (`wireDigest`) también; si coincidieran, no habría dos actas sino una
+ * copiada dos veces.
+ *
  * @param {object[]} chainH
  * @param {object[]} chainM
  */
@@ -474,20 +496,44 @@ export function compareCausalChains(chainH, chainM) {
       reason: `longitud H=${chainH.length} M=${chainM.length}`,
     };
   }
-  for (let i = 0; i < chainH.length; i++) {
-    const a = chainH[i];
-    const b = chainM[i];
+  const baseOf = (row) => String(row.activityId ?? "").replace(/:(H|M)$/, "");
+  /** @type {Map<string, object>} */
+  const byBaseM = new Map();
+  for (const row of chainM) {
+    const b = baseOf(row);
+    if (byBaseM.has(b)) {
+      return { ok: false, reason: `M repite la actividad ${b}` };
+    }
+    byBaseM.set(b, row);
+  }
+
+  for (const a of chainH) {
+    const base = baseOf(a);
+    const b = byBaseM.get(base);
+    if (!b) {
+      return { ok: false, reason: `M no registró la actividad ${base}`, rowH: a };
+    }
     if (
       a.step !== b.step ||
       a.verb !== b.verb ||
       a.object !== b.object ||
-      a.causalDigest !== b.causalDigest
+      a.causalDigest !== b.causalDigest ||
+      Boolean(a.secondary) !== Boolean(b.secondary)
     ) {
       return {
         ok: false,
-        reason: `fila ${i}: diverge step/verb/object/digest`,
+        reason: `${base}: diverge step/verb/object/causalDigest/secondary`,
         rowH: a,
         rowM: b,
+      };
+    }
+    if (a.side === b.side) {
+      return { ok: false, reason: `${base}: ambas filas dicen side=${a.side}` };
+    }
+    if (a.wireDigest === b.wireDigest) {
+      return {
+        ok: false,
+        reason: `${base}: wireDigest idéntico — no son dos actas`,
       };
     }
   }
