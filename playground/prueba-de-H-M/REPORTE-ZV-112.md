@@ -9,6 +9,7 @@
 | preflight | `identidad-raiz: PASS` · world-real = git-toplevel = `c:/s_lab/wt/scriptorium-wp-hub-112` · `READ_ONLY_ROOTS` = z/v/s/a/e-sdk + skills-library · `DOWNSTREAM_PATTERNS=[]` |
 | alcance | `playground/prueba-de-H-M/**` + el conflicto de `plan/BACKLOG-F2.md` |
 | veredicto de partida | ENTRA CON CONDICIONES (auditoría adversarial) |
+| 2.ª ronda | **NO ENTRA** (contrarrevisión adversarial) → corregido aquí · §7 |
 
 ---
 
@@ -47,13 +48,19 @@ node ".../e-sdk/DocumentMachineSDK/package.json"          → exit=1
 node ".../DocumentMachineSDK/.../bartleby.agent.md"       → exit=1
 npm --prefix ".../DocumentMachineSDK" run                 → exit=127
 test -f ".../DocumentMachineSDK/package.json"             → exit=1
+git ls-tree HEAD -- package.json                          → (vacío: ausente en el commit)
 command -v bartleby / cristalizador / pipeline            → exit=1 ×3
-ls-tree HEAD | grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$"  → 0
 ```
 
 Los componentes siguen **sin `package.json`** —y ahora se sabe que falta **en
 el commit**, no sólo en disco— y **ausentes del PATH**. El veredicto no se
 toca. Lo que se corrige es cómo se dice y una cicatriz que lo contradecía.
+
+**Retirada en la 2.ª ronda:** esta lista incluía antes
+`ls-tree -r … | grep -icE … → 0`. Era un `grep -c` sobre **un flujo vacío**:
+el recorrido recursivo del árbol muere por el pack degradado. Retirada y
+rehecha subárbol por subárbol — §7·B2. El veredicto **no dependía de esa
+pata**.
 
 ---
 
@@ -95,13 +102,28 @@ El log identificaba lo auditado con rutas y **10 conteos `bytes=`**, sin un solo
 
 | árbol | commit | rama | limpio |
 | ----- | ------ | ---- | ------ |
-| OASIS `DocumentMachineSDK` — **el árbol del veredicto** | `0d65d068c8a0f2c7ab36e5ca4130658f4ddc4880` | `integration/beta/scriptorium` | sí (0 sucios) |
-| OASIS `onfalo-asesor-sdk` — corpus editorial | `d049e01ce4a33bc53fa0d34518ee7f15bc38da93` | `integration/beta/scriptorium` | sí |
+| OASIS `DocumentMachineSDK` — **el árbol del veredicto** | `0d65d068c8a0f2c7ab36e5ca4130658f4ddc4880` | `integration/beta/scriptorium` | **no se puede saber** — índice corrupto, `status` aborta `rc=128` (§7·B1) |
+| OASIS `onfalo-asesor-sdk` — corpus editorial | `d049e01ce4a33bc53fa0d34518ee7f15bc38da93` | `integration/beta/scriptorium` | **sí** — `rc=0`, `stdout` 0 líneas, `stderr` vacío |
 | `C:/S_LAB/e-sdk` | `e4b34a870df266c181846110a63438f103e26b80` | `main` | — |
 | `C:/S_LAB/a-sdk` | `936196f3682edec1934c9b5a09297ac65fdd107f` | `integration/beta/scriptorium` | — |
 
+**Corregido en la 2.ª ronda.** La columna «limpio» decía «sí (0 sucios)» para
+`DocumentMachineSDK`. Ese `0` era el recuento de líneas de
+`status --porcelain | wc -l`, y `status` **no dice «0 sucios»: no dice nada**,
+aborta con `rc=128`. El de `onfalo-asesor-sdk` era y sigue siendo cierto.
+
 Y los blobs exactos de lo auditado: `bartleby` `4665614…`, `cristalizador`
-`7c35c1c…`, `pipeline` `f6629b2…`, dos editoriales `7dcc6fa…` / `38a47e3…`.
+`7c35c1c…`, `pipeline` `f6629b2…`, dos editoriales `7dcc6fa…` / `38a47e3…`, y
+—añadido en la 2.ª ronda, porque era la única fila sin anclar— `worker.py` de
+`escribiente-whisper` `353d8bf…` (`ls-tree -r HEAD -- workers` → `rc=0`).
+
+**Refuerzo que la 1.ª ronda dejó fuera:** `e-sdk` no materializa el submódulo
+pero **sí registra qué commit espera**. `git -C e-sdk ls-tree HEAD --
+DocumentMachineSDK` → `160000 commit 073be841da91422d9bac696f96cfc5a12c002b35`.
+Y `.gitmodules` de `e-sdk` y `remote -v` del árbol de OASIS apuntan al **mismo
+upstream**, `https://github.com/escrivivir-co/para-la-voz-sdk.git`. Es decir:
+`0d65d068` (OASIS) y `073be841` (lo que `e-sdk` fija) son el mismo repositorio
+a distinto commit.
 
 El anclaje **refuerza** el veredicto: `git ls-tree HEAD -- package.json`
 devuelve vacío, así que `package.json` no falta sólo en el disco — falta en el
@@ -115,10 +137,14 @@ fatal: bad config line 1 in file .git/config
 ```
 
 El **superproyecto OASIS no se puede anclar hoy**: git rechaza su
-configuración. Los submódulos sí responden, de modo que el árbol del veredicto
-queda anclado y lo que queda sin anclar es el contenedor. Además, cada consulta
-al almacén de objetos emite `error: wrong index v1 file size in …
-pack-56b2eb90….idx`: resuelve, pero está degradado. Las dos cosas son del
+configuración. Los submódulos sí responden a `rev-parse`, de modo que el árbol
+del veredicto queda anclado y lo que queda sin anclar es el contenedor. Además,
+cada consulta al almacén de objetos emite `error: wrong index v1 file size in …
+pack-56b2eb90….idx`: resuelve, pero está degradado.
+
+**Y falta un tercer defecto, que esta sección no declaró en la 1.ª ronda:** el
+**índice de ese submódulo está corrupto**, y es el que invalidó dos de mis
+propias medidas nuevas. Va en §7·B1 y en «Qué NO cubro». Los tres son del
 entorno del custodio y OASIS es RO para este worker: se declaran, no se tocan.
 
 ---
@@ -161,9 +187,8 @@ Recuento propio sobre el reporte antes de la reforma:
 | filas cuyo veredicto empieza por `existe` | **8** — fuera de la tríada de la CA |
 | filas clasificadas `corre` | **1** |
 
-*(El delta 10 vs 9: la fila «Skills FM» cita `test -f` pero no mide su propio
-«no corre». Se queda en la tabla medida con esa asimetría escrita, en vez de
-promoverla a evidencia que no es.)*
+El delta 10 vs 9 era la fila «Skills FM»: cita `test -f` pero **no mide su
+propio «no corre»**.
 
 Reforma aplicada al reporte:
 
@@ -175,10 +200,30 @@ Reforma aplicada al reporte:
    quedan etiquetadas como inferencia sin orden detrás.
 3. Fila nueva en A para `escribiente-whisper` (con su medida), porque el
    contraejemplo que obliga a recortar el titular tenía que estar **en la
-   tabla**, no sólo en la prosa de la contrarrevisión.
+   tabla**, no sólo en la prosa de la contrarrevisión. **2.ª ronda:** anclada
+   al commit (`ls-tree -r HEAD -- workers` → `rc=0`, blob `353d8bf…`), que era
+   la única fila que se había quedado sin anclaje.
 4. Las dos filas cuya medida vive en `C:/S_LAB/s-sdk` (ficha barrio 20, CI
    s-sdk) se conservan con la nota «medida del autor; ZV no la re-midió»:
    s-sdk está fuera del permiso de este worker.
+5. **2.ª ronda · la fila «Skills FM» sale de la Tabla A.** La 1.ª ronda la dejó
+   dentro «con su asimetría escrita». Eso era el error, y este documento lo
+   confesaba entre paréntesis mientras la regla numerada de al lado —y el
+   artefacto que lee un tercero, `spike/REPORTE-WP-HUB-112.md`— lo afirmaban
+   **sin salvedad y en negrita**. Una fila con veredicto fuera de la tríada y
+   con la celda de evidencia diciendo «sin orden que mida "no corre"" rompe las
+   dos reglas de la Tabla A a la vez, y una inferencia dentro de la tabla
+   MEDIDO no se arregla con una nota al pie: **se mueve**. Está ahora en la
+   Tabla B, con su mitad medida (presencia, `test -f` → `exit=0`) intacta.
+6. **2.ª ronda · dos filas que no citaban orden ahora la citan.** Los
+   `.analisis.md` (`test -f` → `exit=0`, 11025 / 13293 bytes) y los tres
+   submódulos vacíos de `e-sdk` (`submodule status` con sus tres hashes de
+   prefijo `-`, y `find -mindepth 1 | wc -l` → `count=0` en cada uno).
+7. **2.ª ronda · las dos frases de encabezado de la Tabla A dicen la regla con
+   su salvedad**, y **los dos documentos dicen lo mismo**: la Tabla A queda en
+   **13 filas**, todas con tríada y orden exacta; la única salvedad viva son
+   las dos filas de medida del autor no re-medida por ZV, declarada en cada
+   celda.
 
 ---
 
@@ -188,11 +233,37 @@ Al comprobar si el worker Python parsea usé `python -m py_compile`, que
 **escribió** `workers/escribiente-whisper/__pycache__/worker.cpython-314.pyc`
 dentro de OASIS — **fuera de mi worktree**, contra mi propia prohibición. Lo
 detecté 11 s después, borré el `.pyc` y el `__pycache__` que había creado, y
-repetí la medida con `ast.parse` en memoria, que no escribe. Queda el mtime del
-directorio padre; ni un byte de contenido añadido ni quitado; `git status` de
-ese árbol sigue en 0 ficheros sucios. Va escrito también en la addenda del
-reporte y en la del log: un informe que exige evidencia literal no puede
-ocultar su propio desliz.
+repetí la medida con `ast.parse` en memoria, que no escribe. Va escrito también
+en la addenda del reporte y en la del log: un informe que exige evidencia
+literal no puede ocultar su propio desliz.
+
+**La coartada era una orden vacía · corregido en la 2.ª ronda.** Este párrafo
+se exculpaba con «`git status` de ese árbol sigue en 0 ficheros sucios».
+**Esa orden falla**: índice corrupto, `rc=128`, cero líneas de `stdout`. El
+hecho que afirmaba es cierto, pero **la prueba que ofrecía estaba vacía** — y
+es exactamente lo que este turno existía para no volver a hacer. Rehecha con
+el instrumento que sí funciona, y **dicha como lo que es**:
+
+```
+find …/DocumentMachineSDK -name '__pycache__' -type d | wc -l   → 0
+find …/DocumentMachineSDK -name '*.pyc' -type f | wc -l          → 0
+find …/DocumentMachineSDK -type f -not -path '*/.git/*' | wc -l  → 585
+find …/workers/escribiente-whisper -maxdepth 1 -printf '…%TH:%TM:%TS %y %p\n'
+  2026-08-02 17:24:52  d  …/escribiente-whisper
+  2026-04-29 19:52:40  f  …/precheck.py · requirements.txt · worker.py
+```
+
+Es **comprobación de sistema de ficheros, no de git**. Dice que hoy no hay
+ningún `.pyc` ni `__pycache__` bajo ese árbol y que los tres ficheros conservan
+su mtime de abril; el único mtime de hoy es el del directorio padre, tal como
+confesé. **No dice** —y no puede decirlo mientras el índice esté corrupto— si
+ese árbol tiene o no cambios sucios respecto a `HEAD`.
+
+**Y estos ceros los demuestro, no los afirmo**, que es justamente lo que no
+hice la vez anterior: los dos `find` dan `rc=0` con `stderr` vacío, y el
+control negativo `find C:/S_LAB/e-sdk/NoExiste -mindepth 1` da `rc=1` con
+`find: … No such file or directory`. El instrumento distingue «vacío» de
+«falló»; `git status` en ese árbol no llegaba ni a intentarlo.
 
 ---
 
@@ -201,8 +272,22 @@ ocultar su propio desliz.
 - **No re-medí nada bajo `C:/S_LAB/s-sdk`** (ficha barrio 20, CI del hub/s-sdk):
   fuera del permiso de este worker. Esas dos filas quedan con la medida
   original y la atribución explícita.
-- **No arreglé el `.git/config` de OASIS ni el pack degradado.** Se declaran
-  con su salida literal. OASIS es RO.
+- **El árbol del veredicto tiene el índice corrupto, y eso me ciega para tres
+  órdenes.** `.git/modules/DocumentMachineSDK/index`: 74174 bytes, cabecera a
+  cero donde debería ir la firma `DIRC`. **`git status`, `git ls-files` y
+  `git check-ignore` abortan con `rc=128`** (`error: bad signature 0x00000000`
+  / `fatal: index file corrupt`) **en el árbol sobre el que va el veredicto**.
+  La 1.ª ronda declaró el `.git/config` roto y el pack degradado **pero no
+  esto**, y ésa es la omisión que dejó pasar mis dos medidas falsas. **No
+  puedo afirmar si ese árbol está limpio o sucio.**
+- **El pack degradado me ciega para el recorrido recursivo.** `ls-tree -r HEAD`
+  → `rc=1`, cero líneas. Sólo **2 de 15** subárboles se recorren completos;
+  **7 de 15 devuelven cero entradas** —`.githooks`, `.vscode`, `COPILOT`,
+  `DRAFTS2`, `banner`, `engine-logs`, `guiones`—, 5 dan salida parcial y `tmp`
+  aborta con `rc=128` por un objeto suelto corrupto. **No puedo afirmar que
+  esos 7 subárboles estén vacíos, sólo que no se dejan leer.**
+- **No arreglé el `.git/config` de OASIS ni el pack degradado ni el índice.**
+  Se declaran con su salida literal. OASIS es RO.
 - **No ejecuté `escribiente-whisper`.** Se midió su *forma* (parseo, entrypoint,
   PATH, deps) sin invocarlo: ejecutarlo habría hecho trabajo real sobre datos
   del custodio. Por tanto «no corre hoy» para whisper está apoyado en deps
@@ -213,3 +298,116 @@ ocultar su propio desliz.
   se tocó.
 - **No toqué el veredicto de lane** (reorden 105/106/100 a simulacro): la
   auditoría no lo puso en cuestión y sigue siendo consecuencia de la Tabla A.
+- **No sé qué escribió en `onfalo-asesor-sdk/…/BARTLEBY/corpus`.** Ver §7·O.
+
+---
+
+## 7 · 2.ª ronda · los tres bloqueantes, y por qué eran el mismo
+
+La contrarrevisión atacó las nueve afirmaciones de la 1.ª ronda y **ninguna
+resultó falsa**. Lo que sí encontró es peor y más simple: **la cura de la 1.ª
+ronda no alcanzó a sus dos medidas nuevas**. Dediqué 25 líneas a diagnosticar
+que «un log que mide exit codes a través de un pipe no mide exit codes», y acto
+seguido escribí dos cifras que eran el recuento de líneas de órdenes que
+fallan. La causa raíz común —el índice corrupto— no estaba declarada en ninguna
+parte.
+
+### B1 · «limpio: sí (0 sucios)» era el recuento de una orden que falla
+
+```
+$ git --no-optional-locks -C ".../DocumentMachineSDK" status --porcelain > st.out 2> st.err ; echo rc=$?
+rc=128
+$ wc -l < st.out
+0
+$ cat st.err
+error: bad signature 0x00000000
+fatal: index file corrupt
+```
+
+Igual `ls-files` y `check-ignore -v workers`: `rc=128`, mismo error. El fichero
+de índice existe —74174 bytes, `Apr 30 19:41`— pero sus 16 primeros bytes son
+`00`, donde debería ir `DIRC`. Control positivo: `onfalo-asesor-sdk` →
+**`rc=0`**, `stdout` 0 líneas, `stderr` vacío. **Ahí el `0` sí significa «0
+sucios»; en `DocumentMachineSDK` significa «la orden abortó».** Retirada la
+afirmación del árbol del veredicto en los tres sitios (tabla de anclaje de los
+dos reportes y §5); conservada la de `onfalo-asesor-sdk`.
+
+### B2 · «cero entrypoints en el commit» era un `grep -c` sobre un flujo vacío
+
+```
+$ for i in 1 2 3; do git … ls-tree -r --name-only HEAD > lt.out 2> lt.err; echo "rc=$? lineas=$(wc -l < lt.out)"; done
+rc=1 lineas=0   ·   rc=1 lineas=0   ·   rc=1 lineas=0
+$ cat lt.err
+error: wrong index v1 file size in …pack-56b2eb90….idx     (×5)
+error: Could not read 971aee0998805ac89c08b323a0a4ee7391130ff7
+$ printf 'mod/agents/pipeline.js\n' | grep -icE "<mismo patrón>"
+1
+```
+
+El patrón funcionaba. El flujo estaba vacío. Rehecho subárbol por subárbol
+(`ls-tree` **sin `-r`** sí responde: `rc=0`, 25 entradas de raíz = 15 árboles +
+10 blobs):
+
+| resultado | subárboles | cuáles |
+| --------- | ---------- | ------ |
+| completo (`rc=0`) | **2** de 15 | `DRAFT2` (5), `workers` (3) |
+| **cero entradas** | **7** de 15 | `.githooks`, `.vscode`, `COPILOT`, `DRAFTS2`, `banner`, `engine-logs`, `guiones` |
+| parcial (`rc=1`) | **5** de 15 | `.github` (6), `corpus` (1), `docs` (10), `mod` (11), `sala` (2) |
+| aborta (`rc=128`) | **1** de 15 | `tmp` — objeto suelto `c23985a…` corrupto |
+
+Unión de lo legible: **49 rutas**, volcadas a fichero. Sobre ellas el patrón de
+la cadena da `0`, y los **únicos dos ficheros ejecutables visibles del árbol
+entero** son `workers/escribiente-whisper/{precheck,worker}.py` — que no es la
+cadena. **Lo que esto NO sostiene:** que el commit no tenga entrypoints. **7 de
+15 subárboles no se dejan recorrer, `.githooks` entre ellos** — justo donde
+viviría un ejecutable.
+
+**El titular sobrevive sin esa pata:** le bastan los tres `command -v →
+exit=1`, el `package.json` ausente en la raíz del commit y el frontmatter
+`tools: [vscode,…]`.
+
+### B3 · La Tabla A se autocertificaba con dos frases que su propia fila desmentía
+
+Ver §4, puntos 5-7. Lo grave no era la fila: era la **asimetría entre
+documentos**. Este reporte confesaba la excepción entre paréntesis y la negaba
+dos líneas después en la regla numerada; y el artefacto que lee un tercero
+—`spike/REPORTE-WP-HUB-112.md`— la afirmaba **en negrita y sin salvedad**.
+Ahora la fila está en la Tabla B y **los dos documentos dicen lo mismo**.
+
+### El log, otra vez, sin borrar nada
+
+La 2.ª ronda añade al log `medidas-literales-2026-08-02.txt` los bloques
+`ADDENDA ZV · II` (`II.A`–`II.J`), `II.K` y `II.L`: **394 → 763 líneas**. Las
+líneas `:320-321` y `:330-331`, que son las dos medidas falsas, **siguen
+exactamente donde estaban**; los bloques nuevos dicen qué son y las rehacen.
+Prueba de que es puro anexo, esta vez contra `git`, no contra una copia mía:
+
+```
+git show HEAD:…/medidas-literales-2026-08-02.txt   → 394 líneas
+sha256 de esas 394                                 → a1a83d88…0832e
+sha256 de head -394 del worktree (normalizado LF)  → a1a83d88…0832e   (idéntico)
+git diff --numstat -- …/medidas-literales-2026-08-02.txt   → 369  0
+```
+
+**+369 / −0.** Cero eliminaciones.
+
+### Menores cerrados
+
+| # | qué | cómo queda |
+| - | --- | ---------- |
+| 1 | «Qué NO cubro» no declaraba el índice corrupto | declarado en §6, con la medida y con qué órdenes invalida |
+| 2 | `medidas:137` transcribe la orden sin el `\| head` | demostrado: salida real **18** líneas, el log muestra **10**; la orden escrita da `exit=1`, con `\| head -n 10` da `exit=0`. **Las líneas «orden:» del log original no son verbatim** |
+| 3 | `exit=127` sin derivación | `command -v npm` → `exit=0` · `ENOENT` errno = **`-4058`** · `node -e "process.exit(-4058)"` → **127** · `process.exit(254)` → **254** (no es clamp genérico). Significa «npm corrió y no encontró `package.json`» |
+| 4 | la fila de whisper era la única sin anclaje | `ls-tree -r HEAD -- workers` → `rc=0`; `worker.py` blob `353d8bf9f0e5ff6d046d2e06348b0f1af36c83cd` |
+| 5 | nunca registré el gitlink de `e-sdk` | `073be841da91422d9bac696f96cfc5a12c002b35`; mismo upstream `para-la-voz-sdk.git` en `.gitmodules` y en `remote -v` |
+| 6 | mtime anómalo en `corpus` | **§7·O**, abajo |
+
+### O · Observación de terceros, para el custodio — no imputable a ZV
+
+`onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus` tiene mtime de directorio
+**`2026-08-02 11:07:21`** y **ningún hijo con mtime de hoy**: `find … -newermt
+'2026-08-02 00:00:00'` devuelve sólo el propio directorio. No encaja en ninguna
+ventana de este trabajo — el spike original corrió ~02:49 y el turno ZV
+~17:24-17:32. `git status` de ese repo da `rc=0` con 0 líneas, o sea que nada
+versionado cambió. Se anota como observación; **yo no lo produje y no lo
+toco**.
