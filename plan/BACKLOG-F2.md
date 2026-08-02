@@ -14,6 +14,7 @@
 | ✎ 2026-08-02 | **LORE-HM ola 2 ✅**: `102` tip `186fc94` · `103` tip `07f36ac` · PASS_CON_ADDENDA · accum `wp/lore-hm-accum` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 3 GO**: `WP-HUB-104` 🔶 (wt `scriptorium-wp-hub-104`, base `wp/lore-hm-accum`=`c51c74d`); `105` tras 104 · L03 en s-sdk. |
 | ✎ 2026-08-02 | **LORE-HM ola 3**: `104` tip `5662eaa` entregado; `105` 🔶 despachado; L03 tip `397a4c5` entregado. |
+| ✎ 2026-08-02 | **LORE-HM ola 6 ✅ / LANE CERRADA**: `110`=`333ce4d` · `111`=`2c28e52` · L05=`0eca110` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 5 ✅**: `108`=`4f6cafd` · `109`=`7d79a97` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 4 ✅ / GHM CERRADO**: `106`=`afcfa92` · `107`=`ebafafa` · L04=`231bd3a` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 4 GO**: `106` ✅ tip `afcfa92` · `107` 🔶 · L04 tip `231bd3a`. |
@@ -600,7 +601,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** P1 · dep: 108
 - **Estado:** ✅ ola 5 · tip `7d79a97` · rama `wp/hub-109-hm-lore-voz-despierta` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-110 · hm-negativos-y-consumidor-limpio 🔶
+### WP-HUB-110 · hm-negativos-y-consumidor-limpio ✅
 - **BRIEF:** matriz de negativos (corpus ausente, hash roto, schema inválido,
   pod sin lease, VectorMock no declarado, upstream ausente, runner caído) y
   cierre con consumidor limpio: `npm ci` en checkout temporal, generación sin
@@ -611,14 +612,16 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   la corrida) · rerun byte a byte determinista salvo campos de tiempo
   declarados · `npm run skills:ceguera` pasa desde la raíz del hub.
 - **Pri:** P0 · dep: 107
+- **Estado:** ✅ ola 6 · tip `333ce4d` · rama `wp/hub-110-hm-negativos-y-consumidor-limpio` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-111 · hm-escenarios-descubribles 🔶
+### WP-HUB-111 · hm-escenarios-descubribles ✅
 - **BRIEF:** el arnés descubre `scenarios/*/scenario.json` y corre sobre ellos
   una suite de conformidad común. **Sólo Barrio LORE entra en v1.**
 - **CA:** un segundo escenario mínimo corre **sin tocar el arnés** · todo
   escenario declara barrio canónico, fixture, unidades, verbos, CA y cleanup ·
   el descubrimiento **no** promueve a v1 lo que no lo es, y un test lo fija.
 - **Pri:** P2 · dep: 110
+- **Estado:** ✅ ola 6 · tip `2c28e52` · rama `wp/hub-111-hm-escenarios-descubribles` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
 ---
 
