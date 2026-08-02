@@ -66,8 +66,11 @@ hacía falta inventar un runtime; hacía falta **llamarlo**.
 
 ### Qué corre ahora, literal
 
-`lib/escenarios/ejecutar.mjs` (nuevo, genérico, sin ningún `scenarioId` dentro)
-y §7 de `ci/test-111`:
+`lib/escenarios/ejecutar.mjs` (nuevo, genérico, sin ningún `scenarioId` dentro
+—vuelta 2: había uno en un comentario, retirado, y ahora hay un **guardián que
+lo impide**, §M1—) y §7 de `ci/test-111`.
+
+Salida **re-ejecutada hoy** (vuelta 2), no copiada de una corrida anterior:
 
 ```
 · barrio-lore: node scripts/generar.mjs --scenario barrio-lore --run test-111-barrio-lore --sin-install → exit=0
@@ -75,7 +78,7 @@ y §7 de `ci/test-111`:
 · barrio-lore: rerun sin --force-new → exit=0 no-op=true
 · barrio-lore: artefactos 9/9 · idempotente=true · limpiado=true
 · segundo-minimo: node scripts/generar.mjs --scenario segundo-minimo --run test-111-segundo-minimo --sin-install → exit=0
-· segundo-minimo: manifest: seal=sha256:db3a044fb8914e90cdceca70c20262430b0682cbda43932bcedcda6153ea0beb artefactos-sellados=10
+· segundo-minimo: manifest: seal=sha256:a8ea8294e735d4c73d3743d6ebf1acd74d952676c69e18573c277155129415b7 artefactos-sellados=10
 · segundo-minimo: rerun sin --force-new → exit=0 no-op=true
 · segundo-minimo: artefactos 9/9 · idempotente=true · limpiado=true
 test-111-escenarios: PASS — ejecución real — 2/2 escenarios ejecutados con generador real · 2/2 con sello sha256
@@ -133,8 +136,18 @@ el schema (`additionalProperties:false`), no la función.
 
 `classifyV1` sigue **decidiendo por id** —deliberado, y dicho en el comentario—
 pero ahora **lee** los datos para dejar acta de lo que descarta: devuelve
-`ignoredClaims` e `inspected`. Eso vuelve la aserción falsable por dos lados, y
-ambos están medidos (E y F en §6).
+`ignoredClaims`, `inspected` y `clavesLeidas`.
+
+> **Rectificación de vuelta 2.** Aquí decía que la aserción quedaba «falsable
+> por dos lados, y ambos medidos». **Eran dos aserciones nuevas y sólo una
+> enrojecía.** `ignoredClaims` sí: bajo la mutación F cae. `inspected` **no**:
+> se incrementaba por elemento del array, sin depender de haber leído `d.data`,
+> así que bajo F imprimía PASS — verde por construcción, justo lo que esta ficha
+> venía a quitar. **El recuento real de vuelta 1 era 1, no 2.** Corregido en
+> vuelta 2: `inspected` sólo sube si el recorrido de claves devolvió algo, y el
+> test cruza además `clavesLeidas` contra un total que calcula él mismo. Ahora
+> son dos de verdad, y la medida I de §6 lo enseña: bajo la misma mutación caen
+> `inspected 0/2`, `clavesLeidas 0/27` y `ignoredClaims`.
 
 Defensa en profundidad, declarada y no supuesta:
 
@@ -160,25 +173,46 @@ PASS cuando algo falla dentro.
 
 ## 5 · Cifras duras · barrido con denominador
 
-Barrido automático (se despojan comentarios y literales de cadena antes de
-buscar, para no contar el `111` de un mensaje). Definición: literal numérico en
-comparación, o id de escenario/barrio citado literalmente.
+> **Método corregido en vuelta 2.** La versión anterior decía «se despojan
+> comentarios y literales de cadena antes de buscar» **para las dos pasadas**, y
+> eso no era lo que el script hacía: si de verdad despojaras los literales, los
+> ids saldrían **0 siempre**, porque un id cableado vive precisamente dentro de
+> una cadena. El método real —y el correcto— es de **dos pasadas con
+> tratamientos distintos**, y aquí queda escrito como es. Un denominador que no
+> se deduce de su método declarado no es un denominador.
 
-| fichero | cifras duras de dominio | ids literales |
-| ------- | ----------------------- | ------------- |
-| `ci/test-111` **antes** | **2** (`:74` `ids.length < 2` · `:175` `v1.length !== 1`) | **10** |
-| `ci/test-111` **después** | **0** | **1** |
+Método, tal cual lo ejecuta el script:
+
+- **Pasada A · cifras** — se quitan comentarios y literales de cadena/plantilla,
+  y se busca un numeral **en comparación**. Se despoja porque el `111` de un
+  mensaje no es una cifra de dominio.
+- **Pasada B · ids** — se busca sobre la línea **cruda**, sin despojar, porque
+  el cableado vive dentro del literal. Aquí despojar mediría cero.
+- En ambas se saltan las líneas de comentario: un id nombrado en una explicación
+  no cablea comportamiento.
+
+| versión de `ci/test-111` | cifras duras | ids literales |
+| ------------------------ | ------------ | ------------- |
+| **antes** (`1e46559`, obra original) | **2** (`:74` `ids.length < 2` · `:175` `v1.length !== 1`) | **10** |
+| **vuelta 1** (`7df599b`) | **0** | **1** |
+| **vuelta 2** (hoy) | **1** (`:170` `apariciones !== 1`) | **1** (`:146`) |
 
 - `:74` → umbral **derivado**: `V1_SCENARIO_IDS.length + 1` («al menos un
   escenario más allá de la allowlist, o "descubrible" no significa nada»),
   contrastado contra un **recuento independiente del disco**
   (`recuentoDirectoDeDisco()`), que es el que da el denominador `2/2`.
-- `:175` → comparación de conjunto contra `V1_SCENARIO_IDS`, más
-  `inspected === discovered.length`.
+- `:175` → comparación de conjunto contra `V1_SCENARIO_IDS`, más el cruce de
+  `clavesLeidas` (ver §M2).
 - Los 9 ids literales que sobraban desaparecen: el hostil se monta sobre
   `noV1Ids[0]`; víctima y base salen del descubrimiento.
-- El **1** que queda es deliberado (`:129`): afirma que `segundo-minimo` —el
+- El id que queda (`:146`) es deliberado: afirma que `segundo-minimo` —el
   entregable de este WP— sigue existiendo. No bloquea a un tercer escenario.
+- La cifra nueva de vuelta 2 (`:170`) es del guardián de §M1: exige que el id v1
+  aparezca **exactamente una vez** en `v1-allowlist.mjs`, la del array
+  `V1_SCENARIO_IDS`. **No la derivo y no la escondo**: no es cardinalidad de
+  dominio sino un invariante estructural de ese fichero, y moverla a una
+  constante con nombre sólo la sacaría del barrido sin quitarla del código. Se
+  declara y se cuenta.
 
 Toda cifra que el test imprime sale con denominador: `2/2` descubiertos, `0/1`
 no-v1 mencionados en el arnés, `15/15` chequeos, `3/3` banderas, `9/9`
@@ -254,3 +288,170 @@ del carril, no a WP-HUB-111. Queda como hallazgo con la medida encima.
 - **Contrato de unidades y orden de verbos.** Los 4 chequeos de referencia
   resuelven **existencia**, no compatibilidad de `stateSchema` ni secuencia
   legal de ceremonia.
+
+---
+
+# Vuelta 2 · cierre de la contrarrevisión adversarial
+
+La contrarrevisión reintentó los siete frentes y **el código no cedió en
+ninguno** (ejecución real con siete formas de romperla, incluida la dura —que
+`generar.mjs` salga 0 sin escribir nada—; fail-closed frente a cinco
+degradaciones de referentes sin un solo skip; los cuatro chequeos de referencia
+en rojo, incluidos los dos que yo nunca ejercité; el denominador 15 verificado
+**por los dos lados**; y un clon fresco extraído con `git archive` que pasa,
+confirmando el §7). Nada de eso se toca aquí.
+
+**Lo que falló fue la evidencia escrita.** Cinco defectos, todos de documento
+salvo dos de una línea de código. Van cerrados y medidos.
+
+## B3 · Un sello que no reproducía — el peor de los tres
+
+`REPORTE-ZV-111.md:78` (en un bloque presentado como **literal**) y
+`REPORTE-WP-HUB-111.md` (fila 1 de la tabla CA, la que yo mismo reescribí)
+citaban `seal=sha256:db3a044f…`. **No reproduce.**
+
+Re-ejecutado hoy, con el **mismo `runId` que cita el reporte**:
+
+```
+$ node scripts/generar.mjs --scenario segundo-minimo --run test-111-segundo-minimo --sin-install
+corrida 1 → exit=0 seal=sha256:a8ea8294e735d4c73d3743d6ebf1acd74d952676c69e18573c277155129415b7
+corrida 2 → exit=0 seal=sha256:a8ea8294e735d4c73d3743d6ebf1acd74d952676c69e18573c277155129415b7
+corrida 3 → exit=0 seal=sha256:a8ea8294e735d4c73d3743d6ebf1acd74d952676c69e18573c277155129415b7
+
+$ node scripts/generar.mjs --scenario barrio-lore --run test-111-barrio-lore --sin-install
+exit=0 seal=sha256:e42ddc758c7799431e9d4e09cc7a5a814861e24b8962118e03ee35838b35302a   ← el del reporte, intacto
+```
+
+**La causa, reproducida por mí y no aceptada de oídas.**
+`scripts/generar.mjs:273-283` mete `scenario.simulacro.declared` dentro de
+`sealPayload`, y `f11af08` —mi propio commit de vuelta 1— reescribió exactamente
+esa cadena para `segundo-minimo`. Restaurando el `scenario.json` de `f11af08~1`
+y corriendo con el mismo `runId`:
+
+```
+$ git show f11af08~1:…/segundo-minimo/scenario.json > …/segundo-minimo/scenario.json
+$ node scripts/generar.mjs --scenario segundo-minimo --run test-111-segundo-minimo --sin-install
+con el árbol PRE-f11af08 → seal=sha256:db3a044fb8914e90cdceca70c20262430b0682cbda43932bcedcda6153ea0beb
+$ git checkout -- …/segundo-minimo/scenario.json      # restaurado, git status limpio
+```
+
+Es decir: **pegué el sello de una corrida anterior al arreglo que el propio
+reporte describe.** `barrio-lore` reproducía porque su `scenario.json` no
+cambió; sólo el escenario que mi corrección tocó quedó desfasado. Corregido
+**re-ejecutando y pegando lo que salió**, en los dos documentos.
+
+Hallazgo que me llevo de aquí, porque es método y no anécdota: **el sello
+depende del `runId`** (entra en `sealPayload`). Corriendo el mismo escenario con
+`--run zv2-segundo-minimo` sale `5a4fd4b0…`. Un sello citado sin su `runId` no
+es reproducible; los dos documentos citan ahora la orden entera.
+
+## B1 · Declaraba la suite en verde estando en rojo
+
+`REPORTE-WP-HUB-111.md` pegaba `# lore-hm suite: PASS` y firmaba
+`[x] Gates locales ejecutados (test-111 + suite PASS)`. Medido en el tip
+entregado:
+
+```
+$ node ci/suite.mjs ; echo EXIT=$?
+test-108-mapa: FAIL (4)
+lore-hm suite: FAIL — test-108-mapa.mjs falló
+EXIT=1
+```
+
+Lo peor no es el rojo —está diagnosticado en §7 y es heredado de `main`— sino
+que **dos documentos del mismo commit se contradecían, y el que mentía era el
+que lleva la tabla de CA**. Corregido: el bloque de evidencia pega la salida
+real y remite a §7; la casilla de gates queda **sin marcar**, con el motivo
+escrito al lado.
+
+## B2 · Atribución de un fichero no tocado y de un aflojamiento inexistente
+
+El reporte del WP listaba `ci/test-100-schemas.mjs` como modificado y declaraba
+la desviación «se aflojó el conteo exacto 11→≥11». Medido:
+
+```
+blob HEAD : 8f4c82d22b0578fc1657dee2850a8c6c7893ecdc
+blob main : 8f4c82d22b0578fc1657dee2850a8c6c7893ecdc
+git diff --numstat main..HEAD -- ci/test-100-schemas.mjs → (0 líneas)
+ci/test-100-schemas.mjs:454 → fail(`falta schema dominio obligatorio: …`)
+```
+
+Idéntico a `main`, y el árbol hace lo **contrario** de aflojar: exige presencia
+de los once nombrados. `REPORTE-ZV-111.md` §0 ya lo contaba bien —«se tomó
+`main` entero»—; era el reporte del WP el que conservaba la frase vieja en dos
+sitios. Los dos corregidos.
+
+**Y la auto-revisión de PRÁCTICAS estaba firmada sobre esa tabla.** Una
+auto-revisión firmada sobre datos malos no vale como auto-revisión: **rehecha
+entera**, casilla por casilla, contra el árbol de hoy — incluida la que ahora va
+sin marcar.
+
+## M1 · La guardia estaba puesta en un solo lado
+
+`arnesMenciona()` sólo se aplicaba a `noV1Ids`, así que **cablear el id v1
+dentro de `lib/escenarios/` no lo habría visto nadie**. (Y yo escribí «sin
+ningún `scenarioId` dentro» teniendo uno en un comentario de
+`ejecutar.mjs:13` — inocuo, el código es genérico y la mutación A lo prueba,
+pero la frase era falsa.)
+
+Cerrado el lado que faltaba: el barrido va contra **todos** los ids
+descubiertos, con **una sola excepción declarada** —`v1-allowlist.mjs`, que es
+el hogar contractual de la allowlist— y esa excepción no es una puerta: se
+exige además que el id v1 aparezca **exactamente una vez** en ese fichero, la
+del array `V1_SCENARIO_IDS`. El comentario de `ejecutar.mjs` ya no nombra el id.
+
+```
+PASS — arnés sin hardcode — 0/2 escenarios cableados en lib/escenarios/*.mjs
+       (excepción declarada: 1 id v1 dentro de v1-allowlist.mjs)
+```
+
+## M2 · Una aserción nueva seguía verde por construcción
+
+`inspected !== discovered.length` no podía enrojecer: `inspected` subía por
+elemento del array, sin depender de leer `d.data`. Bajo la mutación F imprimía
+PASS. **El recuento real de reemplazos de vuelta 1 era 1, no 2** — así queda
+escrito en §3.
+
+Corregido en el sitio donde estaba el defecto, no en el texto: la lectura de
+datos pasa por `inspeccionarDatos()`, que devuelve **qué encontró y cuántas
+claves recorrió**; `inspected` sólo sube si recorrió alguna, y el test cruza
+`clavesLeidas` contra un total que **calcula él mismo** desde `discovered`.
+
+## Pruebas de ceguera de esta vuelta — tres mutaciones, tres rojos
+
+| # | mutación | resultado medido |
+| - | -------- | ---------------- |
+| **H** | cablear el id **v1** en otro fichero del arnés (el lado que faltaba) | `FAIL — el arnés menciona «barrio-lore» en ejecutar.mjs` · bloque «arnés sin hardcode» con 1 fallo |
+| **I** | `classifyV1` deja de leer `d.data` (la mutación F de vuelta 1) | `FAIL — classifyV1 inspeccionó 0/2 escenarios` · `FAIL — classifyV1 recorrió 0/27 claves de datos` · `FAIL — no dejó acta de las banderas` → **tres**, donde antes caía una |
+| **J** | referentes ilegibles mientras corre el negativo | `FAIL — units.en-catalogo enrojeció por otro motivo, no por el huérfano «no-existe»` (+ el gemelo de verbos) |
+
+**J** cierra un hueco que la contrarrevisión anotó y que yo no había visto: el
+negativo de referencia enrojecía **por el motivo equivocado** —referentes
+ilegibles usan el mismo id de chequeo que un huérfano— y pasaba igual, sin
+aseverar por qué. Ahora el negativo exige que el detalle **nombre su huérfano**
+(`no-existe`, `verbo.inventado`); si enrojece por carga de referentes, falla.
+
+## Menores anotados, con el argumento
+
+- **`fixture.existe` es un `existsSync` pelado.** `fixture.path: "."` daría
+  `ok=true`. No miento —el chequeo promete «existe en disco» y eso es lo que
+  mide— pero **prometer «fixture» y medir «una ruta que existe» no es lo
+  mismo**. Lo dejo anotado en vez de arreglado porque endurecerlo (exigir
+  directorio, no vacío, dentro del árbol del escenario o de `fixtures/`) es una
+  decisión de contrato del escenario, no una corrección de evidencia, y esta
+  vuelta es de evidencia. Queda como el hueco conocido de los cuatro chequeos
+  de referencia.
+- **Base rancia (`4305792`)** — corregida a `c44ee91` en la cabecera del reporte
+  del WP; era un dato de despacho que el rebase invalidó.
+- **«La suite no cablea aún `test-108-mapa`»** — corregido: **sí** lo cablea, y
+  es lo que la hace fallar. El hallazgo decía lo contrario de lo que pasa.
+
+## Qué NO cubro (además de lo de §8)
+
+- **No arreglé `fixture.existe`** (arriba, con argumento).
+- **La cifra dura del guardián nuevo** (`apariciones !== 1`) se declara y se
+  cuenta, no se deriva: §5 la enumera en vez de esconderla moviéndola a una
+  constante.
+- **`test-108-mapa` sigue rojo en este worktree** y la suite sigue cortando ahí.
+  La contrarrevisión probó con `git archive` que un clon fresco pasa; yo no
+  pude, y lo digo: mi §7 quedó **correcto pero no demostrado por mí**.
