@@ -2,7 +2,9 @@
 /**
  * Suite mínima LORE-HM (WP-HUB-113).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
+ * WP-HUB-101: ontología y verbos H/M.
  */
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -46,6 +48,15 @@ if (pkg.scripts?.["test:lore-hm"] !== "node playground/prueba-de-H-M/ci/suite.mj
 
 const wf = path.resolve(root, "../../.github/workflows/ci-lore-hm.yml");
 if (!fs.existsSync(wf)) fail("falta .github/workflows/ci-lore-hm.yml");
+
+// WP-HUB-101
+const test101 = path.join(here, "test-101-ontologia.mjs");
+if (!fs.existsSync(test101)) fail("falta ci/test-101-ontologia.mjs");
+const r101 = spawnSync(process.execPath, ["--test", test101], {
+  stdio: "inherit",
+  cwd: path.resolve(root, "../.."),
+});
+if (r101.status !== 0) fail("test-101-ontologia.mjs");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);
