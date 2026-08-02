@@ -8,6 +8,7 @@
 | Método | `swarm-orquestacion` · un WP/brief/rama/worktree |
 | Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **392 WPs totales** en el Scriptorium (V 71 · O 75 · Z 67 · G 54 · L 73 · HUB 52) |
 | ✎ 2026-08-02 | **HUB 52 → 64**: lane **LORE-HM** (`WP-HUB-100`–`111`), promoción de la cola A del intake por orden del product owner. Las cifras de los demás mundos son **las de la edición F2-unificada, no las de hoy** — no se re-miden aquí para no sembrar un número nuevo sin medirlo (V y Z ya divergen). |
+| ✎ 2026-08-02 | **LORE-HM ola 0**: `WP-HUB-112` ✅ aceptado (verde **local**) · veredicto **NO CORRE** cadena B→C→P · contrarrevisión **PASS_CON_ADDENDA** · reporte+addenda `playground/prueba-de-H-M/spike/REPORTE-WP-HUB-112.md` · siguiente `113` (GO ola 0 vigente). |
 
 ## Visión
 
@@ -390,8 +391,12 @@ nunca dueño del dominio.
 `GD`) · lengua y notaría `WP-SDK-L01`–`L05` en `s-sdk` · provider real de
 Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 
-### WP-HUB-112 · hm-spike-viabilidad
-> **PRIMERA DE LA LANE. Nada más se despacha hasta su veredicto.**
+### WP-HUB-112 · hm-spike-viabilidad · ✅
+> **PRIMERA DE LA LANE.** Spike **aceptado** 2026-08-02 · veredicto **NO CORRE**
+> (cadena B→C→P / procesos FM reales autónomos) · **verde local** ·
+> contrarrevisión **PASS_CON_ADDENDA**
+> (`playground/prueba-de-H-M/spike/CONTRARREVISION-WP-HUB-112.md`) ·
+> addenda en `REPORTE-WP-HUB-112.md`. GO ola 0 sigue para `113`.
 - **BRIEF:** antes de construir el kit, contestar **con medida** la pregunta
   que abrió esta rama: **¿pueden H y M operar procesos reales con material de
   Onfalo en la Future Machine, hoy?** Spike acotado, **read-only sobre OASIS**:
@@ -412,6 +417,11 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   lane se reordena en el mismo reporte** y nombra cuál de las once fichas cae
   o cambia de forma.
 - **Pri:** **P0 · BLOQUEA la lane entera**
+- **Estado:** ✅ aceptado · verde **local** · rama
+  `wp/hub-112-hm-spike-viabilidad` · worktree
+  `C:/S_LAB/wt/scriptorium-wp-hub-112` · impacto: `105`/`106`/`100` cambian a
+  simulacro playground; ninguna de `100`–`111` cae · **no merge a main** sin
+  gate/CI (`113`).
 
 ### WP-HUB-113 · hm-ci-que-verifica
 - **BRIEF:** hoy `C:\S\scriptorium` y `C:\S_LAB\s-sdk` tienen **un único flujo,

@@ -1,0 +1,258 @@
+=== SPIKE WP-HUB-112 · medidas literales · 2026-08-02T02:48:59+02:00 ===
+
+######## 1 · Piezas Onfalo ########
+--- orden: test -f ... && wc -c ... ---
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2024-05-01_primero-de-mayo.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2024-05-01_primero-de-mayo.md"; echo exit=$?
+exit=0 bytes=26228
+$ head -n 3 "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2024-05-01_primero-de-mayo.md"
+# Editorial: Primero de Mayo 2024
+
+**Fuente:** Revista (marxista-leninista española)
+
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2026-05-01_auge-de-la-educacion-emocional.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2026-05-01_auge-de-la-educacion-emocional.md"; echo exit=$?
+exit=0 bytes=12388
+$ head -n 3 "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2026-05-01_auge-de-la-educacion-emocional.md"
+# El auge de la educación emocional
+
+## Genealogía crítica de una tecnología de bienestar
+
+######## 2 · Análisis históricos Bartleby (artefacto previo, no proceso) ########
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/2024-05-01_primero-de-mayo.analisis.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/2024-05-01_primero-de-mayo.analisis.md"
+exit=0 bytes=11025
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/2026-05-01_auge-de-la-educacion-emocional.analisis.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/2026-05-01_auge-de-la-educacion-emocional.analisis.md"
+exit=0 bytes=13293
+
+######## 3 · e-sdk submódulos ########
+$ git -C C:/S_LAB/e-sdk submodule status
+-1498d67e631cbe395bb4577e2c8d57e0451d551a AgentLoreSDK
+-073be841da91422d9bac696f96cfc5a12c002b35 DocumentMachineSDK
+-820e63d1c5592d7c9930630be1b30e1cf6efa90f VectorMachineSDK
+-b31e4088c12c82634a2bb71a945a585d501a8c43 VectorMachineUI
+exit=0
+
+$ find C:/S_LAB/e-sdk/DocumentMachineSDK -mindepth 1 | wc -l
+count=0
+$ find C:/S_LAB/e-sdk/AgentLoreSDK -mindepth 1 | wc -l
+count=0
+$ find C:/S_LAB/e-sdk/VectorMachineSDK -mindepth 1 | wc -l
+count=0
+$ find C:/S_LAB/e-sdk/VectorMachineUI -mindepth 1 | wc -l
+count=0
+
+######## 4 · Agentes barrio 20 en OASIS (definición) ########
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/bartleby.agent.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/bartleby.agent.md"
+exit=0 bytes=6652
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/cristalizador.agent.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/cristalizador.agent.md"
+exit=0 bytes=8586
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/mod/agents/pipeline.agent.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/mod/agents/pipeline.agent.md"
+exit=0 bytes=3612
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/engine-plan/SKILL.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/engine-plan/SKILL.md"
+exit=0 bytes=25893
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/futures-engine/SKILL.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/futures-engine/SKILL.md"
+exit=0 bytes=18587
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/documental-analysis/SKILL.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/documental-analysis/SKILL.md"
+exit=0 bytes=5640
+
+######## 5 · ¿Hay proceso ejecutable / package.json / bin? ########
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/package.json"; echo exit=$?
+exit=1
+$ find "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" -name 'package.json' | head
+$ ls "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents"
+archivero.agent.md
+bartleby.agent.md
+cristalizador.agent.md
+dramaturgo.agent.md
+portal.agent.md
+$ ls "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/mod/agents"
+archivero-lore.agent.md
+demiurgo.agent.md
+dramaturgo.agent.md
+grafista.agent.md
+pipeline.agent.md
+portal.agent.md
+puzzle.agent.md
+voz.agent.md
+
+######## 6 · Intentos de ejecución como proceso (deben fallar o no existir) ########
+--- orden: which bartleby; command -v bartleby ---
+which: no bartleby in (/c/Users/aleph/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/aleph/bin:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/node_modules/@vscode/ripgrep/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin/x64:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin:/c/Python314/Scripts:/c/Python314:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files (x86)/Common Files/Siemens/ACE:/c/Program Files (x86)/Common Files/Siemens:/c/Program Files (x86)/Common Files/Siemens/Interfaces:/c/Program Files (x86)/Common Files/Siemens/ACE/Interfaces:/c/Program Files/nodejs:/c/ProgramData/chocolatey/bin:/c/Program Files/Common Files/Siemens/bin:/cmd:/c/Program Files/GitHub CLI:/c/Program Files/Docker/Docker/resources/bin:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Ruby34-x64/bin:/c/Users/aleph/AppData/Local/Microsoft/WindowsApps:/c/Users/aleph/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/aleph/AppData/Roaming/npm:/c/Users/aleph/.bun/bin:/c/Users/aleph/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-N-123778-g3b55818764-win64-gpl/bin:/c/Users/aleph/AppData/Local/Programs/Ollama:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/bin:/usr/bin/vendor_perl:/usr/bin/core_perl)
+which_exit=1
+command_exit=1
+--- orden: which cristalizador ---
+which: no cristalizador in (/c/Users/aleph/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/aleph/bin:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/node_modules/@vscode/ripgrep/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin/x64:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin:/c/Python314/Scripts:/c/Python314:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files (x86)/Common Files/Siemens/ACE:/c/Program Files (x86)/Common Files/Siemens:/c/Program Files (x86)/Common Files/Siemens/Interfaces:/c/Program Files (x86)/Common Files/Siemens/ACE/Interfaces:/c/Program Files/nodejs:/c/ProgramData/chocolatey/bin:/c/Program Files/Common Files/Siemens/bin:/cmd:/c/Program Files/GitHub CLI:/c/Program Files/Docker/Docker/resources/bin:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Ruby34-x64/bin:/c/Users/aleph/AppData/Local/Microsoft/WindowsApps:/c/Users/aleph/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/aleph/AppData/Roaming/npm:/c/Users/aleph/.bun/bin:/c/Users/aleph/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-N-123778-g3b55818764-win64-gpl/bin:/c/Users/aleph/AppData/Local/Programs/Ollama:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/bin:/usr/bin/vendor_perl:/usr/bin/core_perl)
+which_exit=1
+--- orden: which pipeline ---
+which: no pipeline in (/c/Users/aleph/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/aleph/bin:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/node_modules/@vscode/ripgrep/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin/x64:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin:/c/Python314/Scripts:/c/Python314:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files (x86)/Common Files/Siemens/ACE:/c/Program Files (x86)/Common Files/Siemens:/c/Program Files (x86)/Common Files/Siemens/Interfaces:/c/Program Files (x86)/Common Files/Siemens/ACE/Interfaces:/c/Program Files/nodejs:/c/ProgramData/chocolatey/bin:/c/Program Files/Common Files/Siemens/bin:/cmd:/c/Program Files/GitHub CLI:/c/Program Files/Docker/Docker/resources/bin:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Ruby34-x64/bin:/c/Users/aleph/AppData/Local/Microsoft/WindowsApps:/c/Users/aleph/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/aleph/AppData/Roaming/npm:/c/Users/aleph/.bun/bin:/c/Users/aleph/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-N-123778-g3b55818764-win64-gpl/bin:/c/Users/aleph/AppData/Local/Programs/Ollama:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/bin:/usr/bin/vendor_perl:/usr/bin/core_perl)
+which_exit=1
+--- orden: node "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/bartleby.agent.md" ---
+C:\Users\aleph\OASIS\aleph-scriptorium\DocumentMachineSDK\.github\agents\bartleby.agent.md:1
+---
+
+SyntaxError: Invalid left-hand side expression in prefix operation
+    at wrapSafe (node:internal/modules/cjs/loader:1638:18)
+    at Module._compile (node:internal/modules/cjs/loader:1680:20)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
+
+Node.js v22.21.1
+node_exit=0
+--- orden: npm --prefix "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" run 2>&1 | head ---
+npm error code ENOENT
+npm error syscall open
+npm error path C:\Users\aleph\OASIS\aleph-scriptorium\DocumentMachineSDK\package.json
+npm error errno -4058
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open 'C:\Users\aleph\OASIS\aleph-scriptorium\DocumentMachineSDK\package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: C:\Users\aleph\AppData\Local\npm-cache\_logs\2026-08-02T00_49_27_535Z-debug-0.log
+npm_exit=0
+--- orden: npm --prefix AgentLoreSDK run ---
+Scripts available in @aleph-scriptorium/agent-lore-sdk@0.1.0 via `npm run-script`:
+  docs:web
+    http-server docs -a 127.0.0.1 -p 4173 -c-1
+  docs:web:open
+    http-server docs -a 127.0.0.1 -p 4173 -c-1 -o
+  audit:anchors
+    node .github/hooks/audit-anchors.mjs
+  validate
+    npm run audit:anchors
+  ynsy-engine:start
+    npm run ynsy-engine:check && http-server docs -a 127.0.0.1 -p 4174 -c-1
+  ynsy-engine:check
+    npm run ynsy-engine:dispose
+  ynsy-engine:dispose
+    lsof -t -i:4174 | xargs kill -9 2>/dev/null || true
+npm_exit=0
+
+######## 7 · Intentos sobre e-sdk vacío ########
+$ ls -la C:/S_LAB/e-sdk/DocumentMachineSDK
+total 4
+drwxr-xr-x 1 aleph 197121 0 jul. 22 23:40 ./
+drwxr-xr-x 1 aleph 197121 0 jul. 25 13:05 ../
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1
+node:internal/modules/cjs/loader:1386
+  throw err;
+  ^
+
+Error: Cannot find module 'C:\S_LAB\e-sdk\DocumentMachineSDK\package.json'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    at Function._load (node:internal/modules/cjs/loader:1192:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+exit=0
+$ test -f C:/S_LAB/e-sdk/DocumentMachineSDK/.github/agents/bartleby.agent.md; echo exit=$?
+exit=1
+
+######## 8 · Hub / s-sdk CI (contexto heredado, re-verificado) ########
+$ ls C:/S/scriptorium/.github/workflows
+docs.yml
+$ ls C:/S_LAB/s-sdk/.github/workflows
+docs.yml
+
+######## 9 · Frontmatter agentes (user-invocable / tools) ########
+$ head -n 18 bartleby.agent.md
+---
+name: Bartleby
+description: Analista documental desde la posición Bartleby. No juzga, no debate. Ve la coreografía porque no participa en la danza. Extrae herencia, taxonomía, mecanismos retóricos y emergencia de documentos.
+argument-hint: "[ruta o texto del documento a analizar]"
+tools: [vscode, execute, read, agent, edit, search, web, 'playwright/*', browser, todo]
+model: Claude Sonnet 4.5
+user-invocable: true
+disable-model-invocation: false
+handoffs:
+  - label: Archivar análisis en corpus
+    agent: Archivero
+    prompt: Ejecuta diff-corpus con el análisis que acabo de generar y muestra el delta.
+    send: false
+  - label: Proponer cristalización agéntica
+    agent: Cristalizador
+    prompt: Revisa el corpus actualizado y propone nuevos artefactos agénticos de VS Code Copilot.
+    send: false
+---
+
+$ head -n 18 cristalizador.agent.md
+---
+name: Cristalizador
+description: Diseñador agéntico SDK por defecto. Lee el workspace y la documentación real de COPILOT para proponer o implementar cristalizaciones branch-aware con pacto explícito de maximización.
+argument-hint: "[proponer cristalización | implementar propuesta aprobada]"
+tools: [vscode, execute, read, agent, edit, search, web, browser, todo]
+handoffs:
+  - label: Volver al corpus
+    agent: Archivero
+    prompt: Muestra el status actual del corpus antes de cristalizar.
+    send: true
+hooks:
+  SessionStart:
+    - type: command
+      command: "python -c \"import json; print(json.dumps({'hookSpecificOutput': {'hookEventName': 'SessionStart', 'additionalContext': 'Como Cristalizador, tu primer paso OBLIGATORIO en esta sesión es leer COPILOT/indice.md, calcular los días desde ultima_sincronizacion y si ha expirado, emitir un WARNING antes de sugerir diseños.'}}))\""
+---
+
+# Cristalizador — Diseñador de infraestructura agéntica
+
+
+$ head -n 20 pipeline.agent.md
+---
+name: Pipeline
+description: "Refresca la cadena de derivados tras modificar piezas del lore. Ejecuta paso a paso, muestra deltas y para si no hay cambios."
+argument-hint: "[refresh | refresh --desde corpus|hilo|artefacto|universo | status]"
+tools: [vscode, execute, read, agent, edit, search, todo]
+agents: [Bartleby, Archivero, Puzzle, Archivero Lore, Grafista, Demiurgo, Dramaturgo Cortos]
+handoffs:
+  - label: Validar pack de lore
+    agent: Puzzle
+    prompt: Valida las piezas del lore antes de re-ingestar.
+    send: true
+  - label: Re-ingestar lore
+    agent: Archivero Lore
+    prompt: ingest
+    send: true
+  - label: Regenerar grafo
+    agent: Grafista
+    prompt: actualizar grafo
+    send: true
+  - label: Diseñar universo
+
+######## 10 · Ficha barrio 20 en cantera S (RO) ########
+$ test -f "C:/S_LAB/s-sdk/plan/SPRINTS/sprint-game-city/cantera/CIUDAD/01-BARRIOS/20-DocumentMachineSDK.md" && head -n 25 "C:/S_LAB/s-sdk/plan/SPRINTS/sprint-game-city/cantera/CIUDAD/01-BARRIOS/20-DocumentMachineSDK.md"
+exit=0
+# Barrio 20 — `DocumentMachineSDK`
+
+> Distrito: **Lore/voz** · 🔒 Solo tipologías nativas
+
+| Campo | Valor |
+|-------|-------|
+| Path | `DocumentMachineSDK/` |
+| Submodule git | `DocumentMachineSDK` |
+| Branch | `integration/beta/scriptorium` |
+| Runtime | Markdown + Jekyll / SDK editorial |
+| Locales/naves | `lore-sdk` |
+| README-SCRIPTORIUM | `DocumentMachineSDK/README-SCRIPTORIUM.md` |
+| Agentes / skills / prompts | 13 / 6 / 57 |
+| Chatmodes | 0 |
+
+## Qué es
+
+SDK editorial: cristalizar Voces desde corpus ideológico.
+
+## Puertos
+
+- _(ninguno documentado)_
+
+## Zonificación (qué se puede edificar)
+
+
+=== FIN MEDIDAS ===
+
+######## ADDENDA · exit codes sin pipe ########
+node_bartleby_exit=1
+npm_dm_exit=127
+which_bartleby_exit=1
+e_sdk_bartleby_exit=1
+sha256_2024-05-01=a186993d4420792d94a261ed68a801793af033a5fe32f0b00be224c780c9796a
+sha256_2026-05-01=86f3cb6deb8d01cef4546a81fc650fff0913291aeb7ad3dfa504d9a7c02186f0
