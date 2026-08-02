@@ -6,7 +6,7 @@
 | fecha | 2026-08-02 |
 | rama | `wp/hub-112-hm-spike-viabilidad` |
 | worktree | `C:/S_LAB/wt/scriptorium-wp-hub-112` |
-| commits | _(ver hash tras commit orquestador)_ |
+| commits | `03a051142058ca622533bb7bab98a690d66cd2c8` (push OK) |
 | eje(s) CA | evidencia literal · frontera RO · veredicto pieza a pieza |
 | riesgo de revisión | `independiente` (puede reordenar/tumbar la lane) |
 | revisor distinto del worker | **PASS_CON_ADDENDA** · `CONTRARREVISION-WP-HUB-112.md` |
