@@ -19,7 +19,7 @@
 | ------ | ------ | ---------- | --- |
 | arnés verde | [30726224409](https://github.com/alephscriptorium-eng/scriptorium/actions/runs/30726224409) | success | `98cf881` |
 | rojo plantado | [30726279433](https://github.com/alephscriptorium-eng/scriptorium/actions/runs/30726279433) | **failure** | `9763638` |
-| restaura verde | _(este commit)_ | pendiente tras push | — |
+| restaura verde | [30726323270](https://github.com/alephscriptorium-eng/scriptorium/actions/runs/30726323270) | success | `c21e2d6` |
 
 ## Nota
 

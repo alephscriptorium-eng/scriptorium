@@ -37,7 +37,7 @@ follow-up si el custodio lo exige; la ficha permitía hub y/o s-sdk.
 | ------ | ------ | ---------- | --- |
 | arnés | [30726224409](https://github.com/alephscriptorium-eng/scriptorium/actions/runs/30726224409) | success | `98cf881` |
 | rojo plantado | [30726279433](https://github.com/alephscriptorium-eng/scriptorium/actions/runs/30726279433) | failure | `9763638` |
-| restaura | _(tras este commit)_ | — | — |
+| restaura | [30726323270](https://github.com/alephscriptorium-eng/scriptorium/actions/runs/30726323270) | success | `c21e2d6` |
 
 ```
 gh run list --workflow=ci-lore-hm.yml --branch=wp/hub-113-hm-ci-que-verifica --limit 5
