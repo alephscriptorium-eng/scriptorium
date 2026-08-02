@@ -158,14 +158,41 @@ if (holOk) ok("holones 05=cantera 06=constelación 07=método (sin fingir runtim
         "--holones-root",
         HOLONES_ROOT,
       ]
-    : ["--gate"];
+    : ["--gate-sin-cantera"];
   const r = run(gateArgs);
   if (assertExit(r, 0, "gate cantera≡proyección")) {
     ok(
       canteraLive
         ? "gate cantera≡proyección exit 0"
-        : "gate sellado/excerpt exit 0 (cantera ausente en runner)",
+        : "gate DEGRADADO explícito exit 0 (cantera ausente en runner)",
     );
+  }
+
+  // --- 6b. ROJO: un gate que pasa cuando la fuente no está no es un gate ---
+  // Antes `--gate` con cantera ausente imprimía «gate OK» y salía 0: el mismo
+  // resultado que cuando todo va bien.
+  {
+    const ausente = run(["--gate", "--cantera-root", join(tmpdir(), "cantera-que-no-existe-hm108")]);
+    if (ausente.status === 0) {
+      fail("gate con cantera ausente debió fallar (exit≠0)");
+    } else if (!/gate sin cantera/.test(`${ausente.stderr}${ausente.stdout}`)) {
+      fail(`gate ausente falló por otra razón: ${ausente.stderr || ausente.stdout}`);
+    } else {
+      ok(`gate con cantera ausente falla (exit ${ausente.status})`);
+    }
+    // y el modo degradado sigue disponible, pero solo si se pide por su nombre
+    const degradado = run([
+      "--gate-sin-cantera",
+      "--cantera-root",
+      join(tmpdir(), "cantera-que-no-existe-hm108"),
+    ]);
+    if (degradado.status !== 0) {
+      fail(`--gate-sin-cantera debía pasar: ${degradado.stderr || degradado.stdout}`);
+    } else if (!/DEGRADADO/.test(`${degradado.stdout}${degradado.stderr}`)) {
+      fail("el gate degradado debe decir que lo es");
+    } else {
+      ok("--gate-sin-cantera pasa y se declara degradado");
+    }
   }
 
   // --- 7. gate falla si proyección diverge (excerpt/seal roto) ---

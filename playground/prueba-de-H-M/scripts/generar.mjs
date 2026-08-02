@@ -21,6 +21,7 @@ import { createHash } from "node:crypto";
 import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { findMachinePath } from "../lib/rutas-maquina.mjs";
 
 const KIT_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const RUNS_ROOT = join(KIT_ROOT, ".runs");
@@ -325,9 +326,12 @@ function readExistingArtifacts(runDir) {
   return map;
 }
 
+// Gemelo eliminado: el patrón vive en lib/rutas-maquina.mjs. La copia local
+// solo miraba C:/Users y dejaba pasar C:/S_LAB y cualquier otra unidad.
 function assertNoMachinePaths(content, label) {
-  if (/C:\\\\Users/i.test(content) || /C:\/Users/i.test(content)) {
-    fail(`ruta de máquina filtrada en ${label}`);
+  const hit = findMachinePath(content);
+  if (hit) {
+    fail(`ruta de máquina (${hit.nombre}) filtrada en ${label}: …${hit.muestra}…`);
   }
 }
 

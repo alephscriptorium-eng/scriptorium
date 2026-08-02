@@ -23,6 +23,7 @@ import {
 import { createHash } from "node:crypto";
 import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { findMachinePath, assertNoMachinePaths } from "../lib/rutas-maquina.mjs";
 
 const KIT_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DEFAULT_OUT = join(KIT_ROOT, "fixtures", "onfalo");
@@ -60,12 +61,8 @@ const SECRET_PATTERNS = [
   /\bpassword\s*[:=]\s*['"][^'"]{6,}['"]/i,
 ];
 
-const ABSOLUTE_PATH_PATTERNS = [
-  /C:\\Users\\/i,
-  /C:\/Users\//i,
-  /\/Users\/[A-Za-z0-9._-]+\//,
-  /\/home\/[A-Za-z0-9._-]+\//,
-];
+// Raíz única compartida con generar.mjs — antes eran dos listas distintas y
+// ninguna cubría C:/S_LAB/.
 
 function fail(msg, code = 1) {
   console.error(`[importar-onfalo] FAIL — ${msg}`);
@@ -145,10 +142,7 @@ function findSecret(text) {
 }
 
 function findAbsolutePath(text) {
-  for (const re of ABSOLUTE_PATH_PATTERNS) {
-    if (re.test(text)) return re;
-  }
-  return null;
+  return findMachinePath(text);
 }
 
 function assertNoSecrets(text, label) {
@@ -157,8 +151,7 @@ function assertNoSecrets(text, label) {
 }
 
 function assertNoAbsolutePaths(text, label) {
-  const hit = findAbsolutePath(text);
-  if (hit) throw new Error(`ruta absoluta prohibida en ${label}`);
+  assertNoMachinePaths(text, label);
 }
 
 /**

@@ -120,6 +120,7 @@ function usage() {
   console.error(`uso:
   node scripts/generar-mapa.mjs --cantera-root <path> [--holones-md <path>] [--holones-root <path>] [--out <dir>] [--force]
   node scripts/generar-mapa.mjs --gate [--cantera-root <path>] [--out <dir>]
+  node scripts/generar-mapa.mjs --gate-sin-cantera [--out <dir>]   (gate degradado)
   node scripts/generar-mapa.mjs --consume-sealed [--out <dir>]`);
   process.exit(2);
 }
@@ -127,6 +128,7 @@ function usage() {
 function parseArgs(argv) {
   const out = {
     canteraRoot: null,
+    allowMissingCantera: false,
     holonesMd: null,
     holonesRoot: null,
     outDir: DEFAULT_OUT,
@@ -144,6 +146,13 @@ function parseArgs(argv) {
     }
     if (a === "--gate" || a === "--check") {
       out.gate = true;
+      continue;
+    }
+    // Gate degradado EXPLICITO: contrasta solo el excerpt sellado. Existe para
+    // runners sin la cantera montada, pero hay que pedirlo por su nombre.
+    if (a === "--gate-sin-cantera") {
+      out.gate = true;
+      out.allowMissingCantera = true;
       continue;
     }
     if (a === "--consume-sealed" || a === "--sealed-only") {
@@ -563,7 +572,7 @@ function assertSeal(outDir) {
   if (seal !== manifest.seal.value) fail("seal del manifest diverge");
 }
 
-function gate({ canteraRoot, holonesMd, holonesRoot, outDir }) {
+function gate({ canteraRoot, holonesMd, holonesRoot, outDir, allowMissingCantera }) {
   assertSeal(outDir);
   const { mapa } = loadSealedMapa(outDir);
   const errs = validateProjection(mapa);
@@ -583,6 +592,19 @@ function gate({ canteraRoot, holonesMd, holonesRoot, outDir }) {
     canteraRoot && existsSync(join(canteraRoot, "CENSO-ESTADOS.md"))
       ? canteraRoot
       : null;
+
+  // Un gate que pasa cuando la fuente no está no es un gate.
+  // Antes, cantera ausente → «gate OK» y exit 0: exactamente el resultado que
+  // se obtiene cuando todo va bien, con lo cual el verde no significaba nada.
+  // El modo degradado sigue existiendo pero hay que PEDIRLO por su nombre.
+  if (!cantera && !allowMissingCantera) {
+    fail(
+      `gate sin cantera: no está ${join(canteraRoot ?? DEFAULT_CANTERA, "CENSO-ESTADOS.md")}. ` +
+        "Usa --gate-sin-cantera para contrastar solo el excerpt sellado (gate degradado).",
+      3,
+    );
+  }
+
   if (cantera) {
     const src = loadSources(
       cantera,
@@ -643,7 +665,7 @@ function gate({ canteraRoot, holonesMd, holonesRoot, outDir }) {
     console.log(`[generar-mapa] gate OK — cantera≡proyección barrios=24`);
   } else {
     console.log(
-      `[generar-mapa] gate OK — sellado válido (cantera ausente; excerpt contrastado)`,
+      `[generar-mapa] gate DEGRADADO — cantera ausente; solo excerpt sellado contrastado (--gate-sin-cantera)`,
     );
   }
   console.log(`[generar-mapa] out=${posix(outDir)}`);
@@ -656,7 +678,7 @@ function importOnce(args) {
   const outDir = args.outDir;
   if (existsSync(join(outDir, "mapa.json")) && !args.force) {
     console.log(`[generar-mapa] snapshot ya sellado (no-op) out=${posix(outDir)}`);
-    gate({ canteraRoot, holonesMd, holonesRoot, outDir });
+    gate({ canteraRoot, holonesMd, holonesRoot, outDir, allowMissingCantera: false });
     return;
   }
   if (args.force && existsSync(outDir)) {
@@ -670,7 +692,7 @@ function importOnce(args) {
     `[generar-mapa] import-once OK holones=7 distritos=6 barrios=24 seal=ok`,
   );
   console.log(`[generar-mapa] out=${posix(outDir)}`);
-  gate({ canteraRoot, holonesMd, holonesRoot, outDir });
+  gate({ canteraRoot, holonesMd, holonesRoot, outDir, allowMissingCantera: false });
 }
 
 function consumeSealed(outDir) {
@@ -697,6 +719,7 @@ function main() {
       holonesMd: args.holonesMd || DEFAULT_HOLONES_MD,
       holonesRoot: args.holonesRoot || DEFAULT_HOLONES_ROOT,
       outDir: args.outDir,
+      allowMissingCantera: args.allowMissingCantera === true,
     });
     return;
   }

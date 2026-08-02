@@ -4,6 +4,10 @@
  */
 import { LINE_FUTUROS, LINE_ONFALO } from "./constants.mjs";
 import { digestObject } from "./hash.mjs";
+import { assertLineaValida } from "./linea-kit.mjs";
+
+/** Schema de linea-kit al que se ajustan ambas líneas. */
+export const LINEA_SCHEMA = "manifest-tronco";
 
 /**
  * @param {{
@@ -85,6 +89,12 @@ export function materializeLines(ctx) {
     nodos: futurosNodos,
   };
 
+  // Validación EN PRODUCCIÓN, no solo en el test: una línea que no valida
+  // contra linea-kit no se materializa. Antes `lineaKitSchema` era una
+  // etiqueta que nadie comprobaba fuera de ci/test-105.
+  assertLineaValida(LINEA_SCHEMA, onfalo, `linea:${LINE_ONFALO}`);
+  assertLineaValida(LINEA_SCHEMA, futuros, `linea:${LINE_FUTUROS}`);
+
   return {
     unitId: "pipeline",
     verb: "line.materialize",
@@ -93,14 +103,14 @@ export function materializeLines(ctx) {
       [LINE_ONFALO]: {
         lineId: LINE_ONFALO,
         uri: `linea://${LINE_ONFALO}`,
-        lineaKitSchema: "manifest-tronco",
+        lineaKitSchema: LINEA_SCHEMA,
         payload: onfalo,
         digest: digestObject(onfalo),
       },
       [LINE_FUTUROS]: {
         lineId: LINE_FUTUROS,
         uri: `linea://${LINE_FUTUROS}`,
-        lineaKitSchema: "manifest-tronco",
+        lineaKitSchema: LINEA_SCHEMA,
         payload: futuros,
         digest: digestObject(futuros),
       },

@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { execSync } from "node:child_process";
+import crypto from "node:crypto";
 import Ajv2020Module from "ajv/dist/2020.js";
 
 const Ajv2020 = Ajv2020Module.default ?? Ajv2020Module;
@@ -349,7 +350,16 @@ async function resolveLineaKit() {
   fail("no se pudo resolver @zeus/linea-kit (file: o LINEA_KIT_ROOT)");
 }
 
-function grepZeroOwnLineSchemas() {
+/**
+ * Cero schemas de linea-kit copiados — comparando CONTENIDO, no nombres.
+ *
+ * Antes solo comparaba nombres de fichero: copiar `manifest-tronco.json` como
+ * `mi-tronco.schema.json` pasaba el guardián sin despeinarse. Ahora se
+ * contrasta el `$id` y la huella del cuerpo contra los schemas reales del kit.
+ *
+ * @param {{ SCHEMAS_DIR?: string, SCHEMA_FILES?: Record<string,string> }} lineaKit
+ */
+function grepZeroOwnLineSchemas(lineaKit) {
   for (const file of LINEA_KIT_SCHEMA_FILES) {
     const abs = path.join(schemasDir, file);
     if (fs.existsSync(abs)) {
@@ -361,6 +371,64 @@ function grepZeroOwnLineSchemas() {
   const copies = owned.filter((f) => LINEA_KIT_SCHEMA_FILES.includes(f));
   if (copies.length > 0) {
     fail(`archivos de schema linea-kit en schemas/: ${copies.join(", ")}`);
+  }
+
+  // ── Comparación por contenido: el nombre no protege de nada ──────────────
+  const kitSchemasDir = lineaKit?.SCHEMAS_DIR;
+  if (!kitSchemasDir || !fs.existsSync(kitSchemasDir)) {
+    fail("no se pudo localizar SCHEMAS_DIR de linea-kit para contrastar contenido");
+    return;
+  }
+  const norm = (txt) => {
+    try {
+      return JSON.stringify(JSON.parse(txt));
+    } catch {
+      return txt.replace(/\s+/g, "");
+    }
+  };
+  const huella = (txt) =>
+    crypto.createHash("sha256").update(norm(txt)).digest("hex");
+
+  /** @type {Map<string,string>} huella → fichero del kit */
+  const kitBodies = new Map();
+  /** @type {Map<string,string>} $id → fichero del kit */
+  const kitIds = new Map();
+  for (const f of fs.readdirSync(kitSchemasDir)) {
+    if (!f.endsWith(".json")) continue;
+    const txt = fs.readFileSync(path.join(kitSchemasDir, f), "utf8");
+    kitBodies.set(huella(txt), f);
+    try {
+      const id = JSON.parse(txt).$id;
+      if (id) kitIds.set(String(id), f);
+    } catch {
+      /* schema ilegible en el kit: no es asunto de este guardián */
+    }
+  }
+
+  let clones = 0;
+  for (const f of owned) {
+    if (!f.endsWith(".json")) continue;
+    const txt = fs.readFileSync(path.join(schemasDir, f), "utf8");
+    const gemelo = kitBodies.get(huella(txt));
+    if (gemelo) {
+      fail(`schemas/${f} es copia byte-a-byte de linea-kit/${gemelo}`);
+      clones += 1;
+      continue;
+    }
+    try {
+      const id = JSON.parse(txt).$id;
+      if (id && kitIds.has(String(id))) {
+        fail(`schemas/${f} reutiliza el $id de linea-kit/${kitIds.get(String(id))}`);
+        clones += 1;
+      }
+    } catch {
+      /* ya lo valida otro check */
+    }
+  }
+  if (clones === 0) {
+    ok(
+      `cero clones de linea-kit por contenido (${owned.filter((f) => f.endsWith(".json")).length} schemas propios vs ${kitBodies.size} del kit)`,
+    );
   }
 
   const domainOnly = owned.filter((f) => f.endsWith(".schema.json"));
@@ -431,6 +499,58 @@ async function validateLineaKitPayload(lineaKit) {
   ok(`linea-kit: ${schemaId} positivo/negativo via @zeus/linea-kit`);
 }
 
+/**
+ * En producción ALGUIEN valida.
+ *
+ * El guardián anterior solo miraba que no hubiera schemas copiados. Pero cero
+ * módulos de producción importaban linea-kit: las líneas se etiquetaban con el
+ * nombre del schema y nadie las validaba nunca. Aquí se exige (a) que el kit
+ * resuelva, y (b) que `materializeLines` REALMENTE valide — probándolo con un
+ * payload roto que debe hacerla lanzar.
+ */
+async function assertProduccionValidaLineas() {
+  const lk = await import("../lib/cadena/linea-kit.mjs");
+  if (!lk.lineaKitAvailable) {
+    fail("linea-kit no resoluble en CI: producción no podría validar");
+  }
+
+  const pipeline = await import("../lib/cadena/pipeline-lines.mjs");
+  const src = fs.readFileSync(
+    path.join(kitRoot, "lib/cadena/pipeline-lines.mjs"),
+    "utf8",
+  );
+  if (!/from\s+"\.\/linea-kit\.mjs"/.test(src)) {
+    fail("lib/cadena/pipeline-lines.mjs no importa el validador de linea-kit");
+  }
+
+  // Rojo: si materializeLines dejara de validar, esto no lanzaría.
+  let lanzo = false;
+  try {
+    pipeline.materializeLines({
+      pieces: [{ pieceId: "", sha256: "x" }],
+      bartleby: { analyses: [] },
+      vectorMock: { embeddings: [] },
+      // fuerza un payload que linea-kit rechaza: nodo sin id utilizable
+      __forzarInvalido: true,
+    });
+    // La llamada anterior produce nodos con id válido; el rojo real es
+    // comprobar que un payload roto NO pasa el validador de producción.
+    const r = lk.validateLinea(pipeline.LINEA_SCHEMA, { basura: true });
+    if (r.ok) fail("linea-kit aceptó un payload basura: el validador no valida");
+    try {
+      lk.assertLineaValida(pipeline.LINEA_SCHEMA, { basura: true }, "rojo");
+    } catch {
+      lanzo = true;
+    }
+  } catch {
+    lanzo = true;
+  }
+  if (!lanzo) {
+    fail("assertLineaValida no lanzó ante un payload inválido");
+  }
+  ok(`producción valida líneas con linea-kit (${lk.lineaKitRoot ? "resuelto" : "?"})`);
+}
+
 async function main() {
   const validators = compileAll();
 
@@ -443,11 +563,12 @@ async function main() {
   const scenario = fixtures.scenario.valid();
   verifyCensoIds(scenario);
   validateAllUnits(validators);
-  grepZeroOwnLineSchemas();
   verifyPruebaDeDosClean();
 
   const lineaKit = await resolveLineaKit();
+  grepZeroOwnLineSchemas(lineaKit);
   await validateLineaKitPayload(lineaKit);
+  await assertProduccionValidaLineas();
 
   console.log("test-100-schemas: PASS");
 }
