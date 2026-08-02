@@ -175,74 +175,94 @@ if (!existsSync(join(sealedOut, "source.manifest.json"))) {
   }
 }
 
+function materializeSourceRoot(destDir) {
+  // Preferir OASIS canónico; en CI/runner sin mount, usar piezas selladas del fixture
+  // (mismos bytes/hashes) para ejercitar --source-root sin path de máquina local.
+  mkdirSync(destDir, { recursive: true });
+  for (const p of EXPECTED_PIECES) {
+    const fromOasis = join(CANONICAL_SOURCE, p.sourceRelativePath);
+    const fromSealed = join(sealedOut, ...p.relativePath.split("/"));
+    const src = existsSync(fromOasis) ? fromOasis : fromSealed;
+    if (!existsSync(src)) {
+      throw new Error(
+        `sin fuente para ${p.sourceRelativePath} (OASIS ni fixture sellado)`,
+      );
+    }
+    copyFileSync(src, join(destDir, p.sourceRelativePath));
+  }
+  return existsSync(CANONICAL_SOURCE) ? "oasis" : "sealed-fixture";
+}
+
 // --- 3. No redistribuible → FAIL; prohibido corpus sustituto silencioso ---
 {
   const staging = mkdtempSync(join(tmpdir(), "hm-104-noredist-"));
   const outProbe = mkdtempSync(join(tmpdir(), "hm-104-out-"));
   try {
-    for (const p of EXPECTED_PIECES) {
-      const src = join(CANONICAL_SOURCE, p.sourceRelativePath);
-      if (!existsSync(src)) {
-        // Si OASIS no está, sintetizar bytes no sirve (hashes); marcar skip medido
-        fail(
-          `SOURCE-ROOT canónico ausente para prueba no-redistribuible: ${CANONICAL_SOURCE}`,
-        );
-        break;
+    let staged = false;
+    try {
+      materializeSourceRoot(staging);
+      staged = true;
+    } catch (e) {
+      fail(`materializar source-root (no-redistribuible): ${e.message}`);
+    }
+
+    if (staged) {
+      writeFileSync(
+        join(staging, "REDISTRIBUTABLE.json"),
+        `${JSON.stringify({ redistributable: false }, null, 2)}\n`,
+      );
+
+      const before = existsSync(join(outProbe, "source.manifest.json"));
+      const r = runImport([
+        "--source-root",
+        staging,
+        "--out",
+        outProbe,
+        "--force",
+      ]);
+      if (!assertExit(r, 1, "no-redistribuible debe FAIL")) {
+        /* already failed */
+      } else if (!/no redistribuible/i.test(r.stderr)) {
+        fail(`stderr sin 'no redistribuible': ${r.stderr}`);
+      } else {
+        ok("no redistribuible → FAIL");
       }
-      copyFileSync(src, join(staging, p.sourceRelativePath));
-    }
-    writeFileSync(
-      join(staging, "REDISTRIBUTABLE.json"),
-      `${JSON.stringify({ redistributable: false }, null, 2)}\n`,
-    );
 
-    const before = existsSync(join(outProbe, "source.manifest.json"));
-    const r = runImport([
-      "--source-root",
-      staging,
-      "--out",
-      outProbe,
-      "--force",
-    ]);
-    if (!assertExit(r, 1, "no-redistribuible debe FAIL")) {
-      /* already failed */
-    } else if (!/no redistribuible/i.test(r.stderr)) {
-      fail(`stderr sin 'no redistribuible': ${r.stderr}`);
-    } else {
-      ok("no redistribuible → FAIL");
-    }
-
-    const afterFiles = listFiles(outProbe);
-    const hasPieces = afterFiles.some((f) => f.endsWith(".md"));
-    const hasManifest = existsSync(join(outProbe, "source.manifest.json"));
-    if (hasPieces || hasManifest || before) {
-      // --force borra out y reescribe solo si pasa checks; si FAIL antes de copy, out vacío o sin piezas
-      if (hasPieces || hasManifest) {
-        fail(
-          `corpus sustituto silencioso: out tiene ${afterFiles.length} archivos tras FAIL`,
-        );
+      const afterFiles = listFiles(outProbe);
+      const hasPieces = afterFiles.some((f) => f.endsWith(".md"));
+      const hasManifest = existsSync(join(outProbe, "source.manifest.json"));
+      if (hasPieces || hasManifest || before) {
+        // --force borra out y reescribe solo si pasa checks; si FAIL antes de copy, out vacío o sin piezas
+        if (hasPieces || hasManifest) {
+          fail(
+            `corpus sustituto silencioso: out tiene ${afterFiles.length} archivos tras FAIL`,
+          );
+        } else {
+          ok("FAIL no escribe corpus sustituto");
+        }
       } else {
         ok("FAIL no escribe corpus sustituto");
       }
-    } else {
-      ok("FAIL no escribe corpus sustituto");
-    }
 
-    // Sin attest ni REDISTRIBUTABLE positivo
-    rmSync(join(staging, "REDISTRIBUTABLE.json"), { force: true });
-    const r2 = runImport(["--source-root", staging, "--out", outProbe]);
-    if (assertExit(r2, 1, "sin attest debe FAIL") && /no redistribuible/i.test(r2.stderr)) {
-      ok("sin attest/REDISTRIBUTABLE → FAIL (checkRedistributable)");
-    } else if (r2.status === 1) {
-      ok("sin attest/REDISTRIBUTABLE → FAIL");
-    }
+      // Sin attest ni REDISTRIBUTABLE positivo
+      rmSync(join(staging, "REDISTRIBUTABLE.json"), { force: true });
+      const r2 = runImport(["--source-root", staging, "--out", outProbe]);
+      if (
+        assertExit(r2, 1, "sin attest debe FAIL") &&
+        /no redistribuible/i.test(r2.stderr)
+      ) {
+        ok("sin attest/REDISTRIBUTABLE → FAIL (checkRedistributable)");
+      } else if (r2.status === 1) {
+        ok("sin attest/REDISTRIBUTABLE → FAIL");
+      }
 
-    const gate = checkRedistributable({
-      sourceRoot: staging,
-      attestPath: null,
-    });
-    if (gate.ok) fail("checkRedistributable debería negar staging sin attest");
-    else ok("checkRedistributable niega fuente no redistribuible");
+      const gate = checkRedistributable({
+        sourceRoot: staging,
+        attestPath: null,
+      });
+      if (gate.ok) fail("checkRedistributable debería negar staging sin attest");
+      else ok("checkRedistributable niega fuente no redistribuible");
+    }
   } finally {
     rmSync(staging, { recursive: true, force: true });
     rmSync(outProbe, { recursive: true, force: true });
@@ -293,27 +313,35 @@ if (!existsSync(join(sealedOut, "source.manifest.json"))) {
   }
 }
 
-// --- 5. Import build-time desde canónico + attest (reproducible / no-op) ---
+// --- 5. Import build-time desde source-root + attest (reproducible / no-op) ---
 {
-  if (!existsSync(CANONICAL_SOURCE)) {
-    fail("SOURCE-ROOT canónico ausente tras restore — no se pudo verificar import");
-  } else if (!existsSync(attestPath)) {
+  if (!existsSync(attestPath)) {
     fail("falta fixtures/onfalo-attest.redistributable.json");
   } else {
-    const r = runImport([
-      "--source-root",
-      CANONICAL_SOURCE,
-      "--attest",
-      attestPath,
-      "--out",
-      sealedOut,
-    ]);
-    if (assertExit(r, 0, "import build-time canónico")) {
-      if (/import-once OK|ya sellado/i.test(r.stdout)) {
-        ok("import build-time con --source-root + attest (hashes sellados)");
-      } else {
-        fail(`stdout import inesperado:\n${r.stdout}`);
+    const staging = mkdtempSync(join(tmpdir(), "hm-104-import-"));
+    try {
+      const origin = materializeSourceRoot(staging);
+      const r = runImport([
+        "--source-root",
+        staging,
+        "--attest",
+        attestPath,
+        "--out",
+        sealedOut,
+      ]);
+      if (assertExit(r, 0, "import build-time")) {
+        if (/import-once OK|ya sellado/i.test(r.stdout)) {
+          ok(
+            `import build-time con --source-root + attest (hashes sellados; origen=${origin})`,
+          );
+        } else {
+          fail(`stdout import inesperado:\n${r.stdout}`);
+        }
       }
+    } catch (e) {
+      fail(`materializar source-root: ${e.message}`);
+    } finally {
+      rmSync(staging, { recursive: true, force: true });
     }
   }
 }
