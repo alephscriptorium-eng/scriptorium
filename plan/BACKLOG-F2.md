@@ -406,6 +406,33 @@ nunca dueño del dominio.
 Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 
 ### WP-HUB-112 · hm-spike-viabilidad · ✅
+> ✅ **RE-ACEPTADO POR EL SWARM Z·V 2026-08-02 — EN `main`**, merge `3c43613`, **CI LORE-HM verde en `2c37f42` (tip exacto) y en el commit de merge**. Rama empujada como `wp/zv-hub-112-spike-viabilidad`: la original quedó en su tip pre-rebase y avanzarla exigía `push --force`, **prohibido**. Relevo de carril, `GOBIERNO-LORE-HM.md §7`.
+>
+> **Cuatro vueltas Z·V.** Veredicto inicial de la contrarrevisión adversarial: **NO ENTRA** — y con una ironía que define la ficha: **su addenda dedicaba 25 líneas a diagnosticar que «un log que mide exit codes a través de un pipe no mide exit codes», y sus DOS medidas nuevas cayeron en eso mismo.**
+>
+> **NINGÚN HECHO DEL INFORME RESULTÓ FALSO** — el veredicto de lane, los cuatro anclajes, los cinco blobs, el `exit=127`, la conservación de los dos lados del conflicto y la confesión aguantaron todo. **Lo que fallaba era la frase que describe la obra**, y en dos casos **la evidencia que la refutaba ya estaba impresa por el propio trabajo**.
+>
+> **B1** · «limpio: sí (0 sucios)» era `wc -l` sobre el stdout vacío de una orden con **`rc=128`**: el **índice del submódulo está corrupto** (`bad signature 0x00000000`), y la tubería se comía el código. **Agravante: ese `0` era la coartada de una violación de frontera confesada.** *Un informe que exige evidencia literal no puede exculparse con una orden que falló.* Hoy: firma a cero medida con `od`, **control positivo** (los índices hermanos empiezan `44 49 52 43` = `DIRC`) y **control negativo** del `find` (`rc=1` + `No such file or directory`) — *ése era el instrumento que faltaba: antes un `0` podía ser «no hay» o «la orden murió»*. Y dice qué mide: **comprobación de sistema de ficheros, NO de git**.
+>
+> **B2** · «cero entrypoints» era `grep -c` sobre un flujo vacío (`ls-tree -r` con **`rc=1`**, pack degradado). Rehecho **subárbol por subárbol**: **2/15 completos · 7/15 sin dejarse recorrer · 5/15 parciales · 1 aborta** por objeto suelto corrupto; unión legible **49 rutas**. Y la frase que faltaba, en los dos documentos: **«no puedo afirmar que esos 7 estén vacíos, sólo que no se dejan leer»**. **El titular sobrevive sin esa pata.**
+>
+> **B3** · la Tabla A se autocertificaba («toda fila tiene orden exacta y salida literal») contra **su propia fila**, que llevaba veredicto libre y celda «sin orden que mida esto». Hoy: **13 filas, tríada estricta** (9 `no corre` · 3 `no existe` · 1 `corre`), la infractora en Tabla B **con su mitad medida intacta y cierta**.
+>
+> **EL TITULAR, ACOTADO**: de «la Future Machine NO corre» a **«la cadena B→C→P no es proceso autónomo invocable fuera de IDE, hoy»** — la lectura ancha la prohibía su propia contrarrevisión, que halló un proceso Python que sí corre. Whisper entra en la tabla con su medida y **apoya el titular**: tiene forma de proceso y hoy tampoco arranca.
+>
+> **LA CICATRIZ DE `:148`**: registraba `exit=0` para **los dos fallos en que descansa el veredicto**; la addenda corrigía otra línea. Cerrado **sin borrar nada** — las 258 originales byte a byte (sha256 idéntico), 394→763 puro anexo, verificado **por commit** (`258 0`, `136 0`, `369 0`: ningún paso intermedio borró y repuso).
+>
+> **Y una acusación contra su propio log, correcta AL BYTE**: la transcripción de una orden **no era verbatim** — salida real **18** líneas, el log muestra **10** — y las diez son byte a byte las que produce `| head -n 10`. *«La tubería elidida es la que fabricó el falso.»*
+>
+> **TRES ESCRITURAS DE FRONTERA, las tres declaradas en los dos documentos**: un `__pycache__` dentro de OASIS (detectado a los 11 s, limpieza **verificada con `find`**: cero `.pyc`, y los tres ficheros con su mtime de abril intacto) · el **log de depuración que `npm` escribe en cada invocación** — declaró que era inevitable y **NO lo es**: se redirige con `npm_config_logs_dir` (`npm/lib/npm.js:411`), **y las dos vías obvias son peores** — `--logs-max=0` **borraría los 11 logs del custodio** porque la limpieza corre igual, y `--no-audit --no-fund` no evita nada · y una **tercera** (`onfalo-asesor-sdk/.git`, lock efímero) hallada por el verificador y asumida con su límite: *el mtime prueba que hubo entrada y salida, no qué orden la hizo*. **De las tres sale la regla, ya escrita: `--no-optional-locks` en todo árbol ajeno, `npm_config_logs_dir` en toda invocación de `npm`.**
+>
+> **Y se corrigió el pecado que él mismo denunciaba**: su prueba del log estaba anclada a `HEAD`, que dejó de ser cierto **en cuanto commiteó** — *infalsificable por nombre*, en la sección que lo denuncia. Anclada a `eefe856`.
+>
+> **La distinción que cierra la Tabla A, formulada por él**: no es «medido vs. no medido», es **imposibilidad de clase vs. hipótesis sin comprobar** — un `.md` de corpus no es la clase de cosa que pueda correr; un skill de motor **podría tener runner y no se buscó**.
+>
+> ⚠ **PARA EL CUSTODIO, hallazgo que desborda la ficha y lo verificó el Anfitrión**: **14 de 24 índices** bajo `OASIS/.git/modules` tienen la firma a ceros. **Once están ENTEROS a cero** (0.0 % de bytes no nulos) y los otros tres por bloques de **8192 / 16384 / 655360** — **múltiplos exactos de 4096**: firma de **escritura diferida de NTFS que nunca llegó al disco**. **No es un suceso único**: los mtimes van de enero a julio, y hay dos escritos **en el mismo segundo** con distinta suerte. **No hay pérdida**: el índice es caché y se reconstruye desde `HEAD`. Lo que cuesta hoy: en esos 14 árboles `status`, `ls-files`, `check-ignore` y `ls-tree -r` **no responden**, y toda afirmación de limpieza sobre ellos es **inverificable**. No se tocó nada: OASIS es cantera RO.
+>
+> — acta anterior del swarm LORE-HM, conservada:
 > Aceptado en rama `wp/hub-112-hm-spike-viabilidad` (commit `03a0511`) · verde
 > **local** · contrarrevisión **PASS_CON_ADDENDA** · veredicto **NO CORRE**
 > cadena B→C→P · reporte+addenda en esa rama bajo `playground/prueba-de-H-M/spike/`.
