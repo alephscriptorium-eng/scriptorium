@@ -29,7 +29,7 @@ mismo parche), y los 2 restantes **conflictaron**:
 **Verificación de no-reversión** (lo que la auditoría pedía comprobar):
 
 ```
-git diff --name-status main..HEAD      # 15 ficheros, todos bajo playground/prueba-de-H-M/**
+git diff --name-status main..HEAD      # 16 ficheros, todos bajo playground/prueba-de-H-M/**
 git diff --stat main..HEAD -- playground/prueba-de-H-M/fixtures \
     playground/prueba-de-H-M/scripts playground/prueba-de-H-M/ci/test-108-mapa.mjs \
     playground/prueba-de-H-M/ciudad .gitattributes
@@ -164,7 +164,11 @@ Defensa en profundidad, declarada y no supuesta:
 `:128` imprimía PASS aunque el bucle de campos obligatorios hubiera fallado
 dentro. Sustituido por el helper `bloque(nombre, fn)`: toma el contador global
 antes y después y **sólo canta PASS si su propio delta es cero**; si no, imprime
-`bloque «X» con N fallo(s)`. Los ocho bloques del test pasan por ahí.
+`bloque «X» con N fallo(s)`. Los **nueve** bloques del test pasan por ahí
+(`grep -c '^bloque(' ci/test-111-escenarios.mjs` → `9`; el test emite 9 líneas
+`PASS —`). *Vuelta 3: aquí y en §7 decía «ocho», y ya eran nueve en la vuelta 1.
+Infra-declarado, pero es exactamente el género que estas vueltas vienen a
+cerrar: una cifra escrita que no reproduce.*
 
 Demostrado vivo en la medida B de §6: el bloque de conformidad **no** imprime
 PASS cuando algo falla dentro.
@@ -246,7 +250,7 @@ código dejara de mirarlas, también.** Antes no enrojecía ninguno de los dos.
 | `test-100` … `test-107` | PASS (8/8) |
 | `test-108-mapa` | **FAIL (4)** — heredado de `main`, ver abajo |
 | `test-109-despierta` | PASS |
-| `test-111-escenarios` | **PASS** (8/8 bloques) |
+| `test-111-escenarios` | **PASS** (9/9 bloques) |
 | `ci/suite.mjs` | FAIL, y **corta en 108** antes de llegar a 109/111 |
 
 ### `test-108-mapa`: heredado, medido, y no es mío
@@ -261,8 +265,15 @@ fixtures/mapa/source.manifest.json:21 sella           sha256 433fa741e586ab6b…
 El sello espera el blob **del commit**, y el blob del commit es correcto: lo que
 está mal es **la copia de trabajo de este worktree**, materializada el
 2026-08-02 07:37 con `core.autocrlf=true` **antes** de que `main` sellara
-`.gitattributes` con `-text` para esas rutas. Un clon fresco (CI) calcula
-`433fa741…` y pasa.
+`.gitattributes` con `-text` para esas rutas.
+
+> **Salvedad, aquí y no en un apéndice** (vuelta 3). De lo anterior **se sigue**
+> que un clon fresco calcularía `433fa741…` y pasaría, pero **yo no lo demostré**:
+> lo dejé escrito en indicativo sin haberlo corrido. Quien lo demostró fue la
+> contrarrevisión, extrayendo árboles limpios con `git archive` sin tocar el
+> repo. Mi §7 es **correcto y ajeno**: la deducción es mía, la prueba no.
+> Escribirlo 190 líneas más abajo, en «Qué NO cubro», no valía: **la salvedad va
+> donde está la afirmación**.
 
 No lo toco, por tres razones: (1) `git diff main..HEAD` sobre `fixtures/` está
 vacío — esta rama no lo alteró; (2) el defecto es de **copia de trabajo**, no de
@@ -396,13 +407,20 @@ pero la frase era falsa.)
 
 Cerrado el lado que faltaba: el barrido va contra **todos** los ids
 descubiertos, con **una sola excepción declarada** —`v1-allowlist.mjs`, que es
-el hogar contractual de la allowlist— y esa excepción no es una puerta: se
-exige además que el id v1 aparezca **exactamente una vez** en ese fichero, la
-del array `V1_SCENARIO_IDS`. El comentario de `ejecutar.mjs` ya no nombra el id.
+el hogar contractual de la allowlist— y se exige además que el id v1 aparezca
+**exactamente una vez** en ese fichero, la del array `V1_SCENARIO_IDS`. El
+comentario de `ejecutar.mjs` ya no nombra el id.
+
+> **Rectificación de vuelta 3: «la excepción no es una puerta» era falso como
+> absoluto.** La afirmación principal se sostiene —H enrojece, un id no-v1
+> dentro de la allowlist enrojece, una segunda aparición enrojece—, pero el
+> adjetivo no. La contrarrevisión midió tres evasiones, **dos de ellas
+> baratas**. Van dos cerradas y una declarada; el alcance honesto está al pie.
 
 ```
-PASS — arnés sin hardcode — 0/2 escenarios cableados en lib/escenarios/*.mjs
-       (excepción declarada: 1 id v1 dentro de v1-allowlist.mjs)
+PASS — arnés sin hardcode — 0/2 escenarios cableados en 5 fichero(s) de
+       lib/escenarios/** (recursivo; excepción declarada: 1 id v1 dentro de
+       v1-allowlist.mjs)
 ```
 
 ## M2 · Una aserción nueva seguía verde por construcción
@@ -455,3 +473,123 @@ aseverar por qué. Ahora el negativo exige que el detalle **nombre su huérfano*
 - **`test-108-mapa` sigue rojo en este worktree** y la suite sigue cortando ahí.
   La contrarrevisión probó con `git archive` que un clon fresco pasa; yo no
   pude, y lo digo: mi §7 quedó **correcto pero no demostrado por mí**.
+
+---
+
+# Vuelta 3 · residuo de texto y el alcance real del guardián
+
+## El hallazgo del `runId`, completado por la contrarrevisión
+
+En §B3 escribí que el sello depende del `runId` porque entra en `sealPayload`.
+**Es más fuerte que eso**: el `runId` va además **dentro del contenido de los
+diez artefactos** (`room.json`, los dos `handoff.md`, `env.json`, `side.json`,
+`package.json` de cada lado…), y los hashes de esos diez artefactos **también**
+entran en el payload. Y falta la otra mitad, que yo no dije:
+
+> **Un sello no es reproducible sin su `runId` ni sin el commit del
+> `scenario.json`.** Las dos coordenadas, siempre, juntas.
+
+Esto no es de esta ficha: vale para todo el programa. Cualquier acta que pegue
+un `seal=` sin esas dos coordenadas está pegando un número que nadie puede
+volver a obtener.
+
+## El guardián del arnés · alcance medido, y qué queda abierto
+
+**Qué es**, dicho sin adorno: **un guardián contra el cableado por descuido, no
+contra el deliberado.** Es sustring sobre fuente, no análisis sintáctico.
+
+Tres vectores medidos por la contrarrevisión. **Dos eran baratos y van
+cerrados**; el tercero se declara.
+
+| vector | vuelta 2 | vuelta 3 | por qué |
+| ------ | -------- | -------- | ------- |
+| 2.ª aparición con **comillas simples** | PASA | **ROJO** | el contador era `split("\"id\"")`, sólo comillas dobles. Ahora se despojan comentarios y se cuenta el id **desnudo**: da igual cómo se cite |
+| **subdirectorio** `lib/escenarios/sub/…` | PASA | **ROJO** | `readdirSync` no era recursivo. Ahora `ficherosDelArnes()` baja el árbol entero |
+| **concatenación** `"barrio" + "-lore"` | PASA | **PASA** | **deuda declarada**, abajo |
+
+Los dos rojos, literales:
+
+```
+K · const B = 'barrio-lore' dentro de v1-allowlist.mjs
+FAIL — «barrio-lore» aparece 2 vez/veces en el código de v1-allowlist.mjs;
+       sólo vale la de V1_SCENARIO_IDS
+
+L · lib/escenarios/sub/cableado.mjs con los dos ids
+FAIL — el arnés menciona «barrio-lore» en sub/cableado.mjs — debe bastar scenarios/
+FAIL — el arnés menciona «segundo-minimo» en sub/cableado.mjs — debe bastar scenarios/
+```
+
+Y el bloque ahora dice su propio alcance: `0/2 escenarios cableados en 5
+fichero(s) de lib/escenarios/** (recursivo; …)`.
+
+### Deuda declarada · concatenación
+
+**Vector exacto**, para que quede ejecutable por quien venga:
+
+```js
+// en lib/escenarios/v1-allowlist.mjs — el guardián NO lo ve, medido hoy
+export function isV1Scenario(scenarioId) {
+  if (scenarioId === "barrio" + "-lore") return true;   // → bloque en PASS
+  return V1_SCENARIO_IDS.includes(scenarioId);
+}
+```
+
+**No lo cierro, y el argumento:** cerrarlo exige dejar de mirar el fichero como
+texto y mirarlo como **AST** —resolver literales, plegar constantes, seguir
+variables intermedias—, y en cuanto entras ahí la escalada no termina
+(`String.fromCharCode`, plantillas, un `JSON.parse`). Es otra herramienta, no un
+retoque de ésta. El guardián cubre el caso que de verdad ocurre —alguien cablea
+un id sin pensar— y **deja escrito que un cableado deliberado se le escapa**.
+Ponerle el adjetivo «infalible» a un `includes()` es la clase de frase que estas
+vueltas vienen a quitar.
+
+Nota de asimetría, a propósito y ahora escrita: en el barrido general de los
+demás ficheros del arnés **no** se despojan comentarios —la afirmación de este
+WP es que el arnés no nombra escenarios ni de pasada, y así fue como saltó el
+comentario de `ejecutar.mjs`—; en el recuento del fichero de allowlist **sí**,
+porque su comentario de cabecera explica legítimamente qué es la allowlist.
+
+## Dos cifras que no reproducían
+
+| dónde | decía | es | de cuándo venía |
+| ----- | ----- | -- | --------------- |
+| `§4` y `§7` | «8 bloques» / `8/8` | **9** (`grep -c '^bloque('` → 9; el test emite 9 líneas `PASS —`) | ya eran 9 en la vuelta 1 (`7df599b`) |
+| `§0` | «15 ficheros» | **16** (`git diff --name-only main..HEAD \| wc -l`) | eran 15 en `f11af08`, antes de que este mismo reporte se commiteara |
+
+Ninguna de las dos escondía nada —una infra-declaraba, la otra era un dato de
+despacho caducado— y precisamente por eso las anoto en vez de corregirlas en
+silencio: **son el mismo género que la base rancia y el sello desfasado**, y
+sobrevivieron a la vuelta cuya tesis es que las cifras escritas deben
+reproducir. Un reporte no queda a salvo de su propia regla.
+
+## Una salvedad mal colocada
+
+«§7 quedó correcto pero no demostrado por mí» estaba escrito… **190 líneas
+después de la afirmación**, en «Qué NO cubro» de la vuelta 2. Quien leía §7 veía
+«Un clon fresco (CI) calcula `433fa741…` y pasa» en indicativo y sin marca.
+
+Movida a §7, junto a la frase. La regla de la casa sobre actas y documentos
+vivos —la salvedad va donde está la afirmación— **también rige dentro de un
+mismo documento**; un apéndice no es una corrección, es un descargo.
+
+## `fixture.existe` · el vector, ahora con su medida
+
+La contrarrevisión midió lo que yo anoté a medias: con `fixture.path: "."` no
+sólo pasa ese chequeo — **cierran 15/15 en `ok=true`**. Sigo sin arreglarlo, con
+el mismo argumento aceptado: endurecerlo es **contrato del escenario**, no
+corrección de evidencia. Pero la deuda queda con el vector encima, que es lo
+honesto:
+
+```
+scenario.json con "fixture": { "path": ".", "note": "…" }
+→ conformidad 15/15 ok=true · el escenario pasa entero
+```
+
+## Qué NO cubro (vuelta 3)
+
+- **Concatenación en el guardián** — deuda declarada arriba, con vector.
+- **`fixture.existe`** — deuda declarada arriba, con vector y cifra.
+- **El guardián sigue siendo textual**: no ve `import`s indirectos, ni un id
+  construido en tiempo de ejecución, ni ficheros del arnés que no sean `.mjs`.
+- **CI**: la rama la empujó el orquestador como `wp/zv-hub-111-…`; yo no he
+  hecho `push` y no tengo run-id que pegar.
