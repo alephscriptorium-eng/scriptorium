@@ -10,11 +10,15 @@
  *   · CORRE: `scripts/generar.mjs` (spawn real, materializa `.runs/<run>/…`,
  *     sella `manifest.json`, y en la segunda pasada mide no-op idempotente).
  *   · NO CORRE: `lib/ceremonia/run-ceremonia.mjs` — la ceremonia v1 de 11 pasos
- *     está anclada a `barrio-lore` por `lib/ceremonia/constants.mjs`
+ *     está anclada al **escenario v1** por `lib/ceremonia/constants.mjs`
  *     (`CEREMONY_ID`/`SCENARIO_ID`) y no es genérica sobre escenarios. Correrla
  *     para un escenario no-v1 exigiría tocar el arnés de ceremonia, que es
  *     exactamente lo que la CA prohíbe. Herencia spike 112: Future Machine viva
  *     NO CORRE; todo esto es simulacro playground.
+ *
+ * (El id del escenario v1 no se escribe aquí a propósito: el guardián de
+ *  `ci/test-111` barre **todos** los ids descubiertos contra este directorio y
+ *  sólo tolera el que vive en `V1_SCENARIO_IDS`.)
  *
  * Genérico por construcción: no nombra ningún `scenarioId`. Un escenario nuevo
  * se ejecuta por existir en `scenarios/`.

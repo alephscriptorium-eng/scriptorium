@@ -93,11 +93,28 @@ function recuentoDirectoDeDisco() {
     .sort();
 }
 
-/** Ficheros del arnés que NO deben nombrar escenario concreto alguno. */
-function arnesMenciona(id) {
+/**
+ * Único fichero del arnés autorizado a nombrar un escenario, y sólo si ese
+ * escenario está en la allowlist: la allowlist v1 ES su contenido declarado.
+ * Cualquier otro fichero de `lib/escenarios/` que nombre un id —v1 o no— es
+ * cableado.
+ */
+const ARNES_ALLOWLIST = "v1-allowlist.mjs";
+
+/**
+ * Ficheros del arnés que nombran `id` sin tener derecho a hacerlo.
+ *
+ * Corrección ZV vuelta 2: antes esto sólo se aplicaba a los ids **no-v1**, de
+ * modo que cablear el id v1 dentro de `lib/escenarios/` no lo habría visto
+ * nadie. Ahora se barren **todos** los ids descubiertos y la única excepción
+ * está declarada arriba.
+ */
+function arnesMencionaIndebidamente(id) {
   const harnessDir = path.join(kitRoot, "lib/escenarios");
+  const permitidoEnAllowlist = isV1Scenario(id);
   const hits = [];
   for (const f of fs.readdirSync(harnessDir).filter((f) => f.endsWith(".mjs"))) {
+    if (f === ARNES_ALLOWLIST && permitidoEnAllowlist) continue;
     const body = fs.readFileSync(path.join(harnessDir, f), "utf8");
     if (body.includes(id)) hits.push(f);
   }
@@ -134,13 +151,27 @@ bloque("descubrimiento", () => {
 
 const noV1Ids = ids.filter((id) => !isV1Scenario(id));
 
-// ── 2) El arnés no nombra ningún escenario no-v1 ────────────────────────────
+// ── 2) El arnés no nombra NINGÚN escenario descubierto (ni v1 ni no-v1) ─────
 bloque("arnés sin hardcode", () => {
-  for (const id of noV1Ids) {
-    const hits = arnesMenciona(id);
-    if (hits.length) fail(`el arnés menciona «${id}» en ${hits.join(", ")} — debe bastar scenarios/`);
+  for (const id of ids) {
+    const hits = arnesMencionaIndebidamente(id);
+    if (hits.length) {
+      fail(`el arnés menciona «${id}» en ${hits.join(", ")} — debe bastar scenarios/`);
+    }
   }
-  return `0/${noV1Ids.length} escenarios no-v1 mencionados en lib/escenarios/*.mjs`;
+  // Y la excepción no puede ser una puerta: en el fichero de allowlist, el id
+  // v1 sólo vale dentro de V1_SCENARIO_IDS, no esparcido por el módulo.
+  const allowlistBody = fs.readFileSync(
+    path.join(kitRoot, "lib/escenarios", ARNES_ALLOWLIST),
+    "utf8",
+  );
+  for (const v1id of V1_SCENARIO_IDS) {
+    const apariciones = allowlistBody.split(`"${v1id}"`).length - 1;
+    if (apariciones !== 1) {
+      fail(`«${v1id}» aparece ${apariciones} vez/veces en ${ARNES_ALLOWLIST}; sólo vale la de V1_SCENARIO_IDS`);
+    }
+  }
+  return `0/${ids.length} escenarios cableados en lib/escenarios/*.mjs (excepción declarada: ${V1_SCENARIO_IDS.length} id v1 dentro de ${ARNES_ALLOWLIST})`;
 });
 
 // ── 3) Schema JSON ──────────────────────────────────────────────────────────
@@ -196,13 +227,26 @@ bloque("negativo de referencia", () => {
   roto.units = ["no-existe"];
   roto.ceremony.steps = [{ order: 1, verb: "verbo.inventado", description: "no está en la ontología" }];
   const r = runConformidadSuite([{ scenarioId: roto.scenarioId, data: roto }], kitRoot).results[0];
-  const idsFallados = r.verdicts.filter((v) => v.estado === "fail").map((v) => v.id);
-  for (const esperado of ["units.en-catalogo", "verbos.en-ontologia"]) {
-    if (!idsFallados.includes(esperado)) {
-      fail(`el negativo no enrojeció ${esperado} (fallados: ${idsFallados.join(", ") || "ninguno"})`);
+  const fallados = r.verdicts.filter((v) => v.estado === "fail");
+  const idsFallados = fallados.map((v) => v.id);
+  // No basta con que enrojezca: tiene que enrojecer POR EL HUÉRFANO. Un fallo
+  // de carga de referentes usa el mismo id de chequeo y colaría aquí como si
+  // el negativo hubiera funcionado.
+  const motivoEsperado = new Map([
+    ["units.en-catalogo", "no-existe"],
+    ["verbos.en-ontologia", "verbo.inventado"],
+  ]);
+  for (const [checkId, huerfano] of motivoEsperado) {
+    const v = fallados.find((x) => x.id === checkId);
+    if (!v) {
+      fail(`el negativo no enrojeció ${checkId} (fallados: ${idsFallados.join(", ") || "ninguno"})`);
+      continue;
+    }
+    if (!v.detail.includes(huerfano)) {
+      fail(`${checkId} enrojeció por otro motivo, no por el huérfano «${huerfano}»: ${v.detail}`);
     }
   }
-  return `units/verbo huérfanos ⇒ ${idsFallados.length}/${r.total} chequeos en rojo (${idsFallados.join(", ")})`;
+  return `units/verbo huérfanos ⇒ ${idsFallados.length}/${r.total} en rojo, y los ${motivoEsperado.size} nombran su huérfano (${fallados.map((v) => `${v.id}:«${v.detail}»`).join(" · ")})`;
 });
 
 // ── 5) Campos obligatorios del BRIEF (bucle con contador propio) ────────────
@@ -233,8 +277,14 @@ bloque("campos del BRIEF", () => {
 });
 
 // ── 6) v1: sólo la allowlist; el descubrimiento NO promueve ─────────────────
-const { v1, nonV1, ignoredClaims, inspected } = classifyV1(discovered);
+const { v1, nonV1, ignoredClaims, inspected, clavesLeidas } = classifyV1(discovered);
 const v1Esperado = [...V1_SCENARIO_IDS].sort();
+// Denominador calculado por el test, no aceptado de la librería: si classifyV1
+// deja de recorrer los datos, este cruce enrojece.
+const clavesEsperadas = discovered.reduce(
+  (n, d) => n + Object.keys(d.data ?? {}).length,
+  0,
+);
 
 bloque("allowlist v1", () => {
   if (JSON.stringify([...v1].sort()) !== JSON.stringify(v1Esperado)) {
@@ -242,6 +292,9 @@ bloque("allowlist v1", () => {
   }
   if (inspected !== discovered.length) {
     fail(`classifyV1 inspeccionó ${inspected}/${discovered.length} escenarios`);
+  }
+  if (clavesLeidas !== clavesEsperadas) {
+    fail(`classifyV1 recorrió ${clavesLeidas}/${clavesEsperadas} claves de datos`);
   }
   for (const id of noV1Ids) {
     if (!nonV1.includes(id)) fail(`${id} debería estar en nonV1`);
@@ -253,7 +306,7 @@ bloque("allowlist v1", () => {
       fail(`${d.scenarioId} debe anclarse al barrio ${V1_BARRIO_ID}, tiene ${d.data.barrioId}`);
     }
   }
-  return `${v1.length}/${discovered.length} en v1 [${v1.join(", ")}] · ${nonV1.length} fuera · barrio ${V1_BARRIO_ID}`;
+  return `${v1.length}/${discovered.length} en v1 [${v1.join(", ")}] · ${nonV1.length} fuera · ${clavesLeidas}/${clavesEsperadas} claves recorridas · barrio ${V1_BARRIO_ID}`;
 });
 
 // Hostil: banderas de auto-promoción en el JSON. Dos lados falsables —
