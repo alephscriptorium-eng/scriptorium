@@ -1,0 +1,73 @@
+{
+  "scenarioId": "segundo-minimo",
+  "version": "0.1.0",
+  "barrioId": "document-machine-sdk",
+  "distrito": "lore-voz",
+  "fixture": {
+    "path": "scenarios/segundo-minimo/fixture",
+    "note": "Fixture local del escenario mínimo; no es el snapshot Onfalo v1."
+  },
+  "simulacro": {
+    "futureMachine": true,
+    "declared": "Future Machine no corre hoy. segundo-minimo SÍ se ejecuta: scripts/generar.mjs lo corre como proceso y sella su manifest (WP-HUB-111 §7). Lo que NO corre es la ceremonia v1 de 11 pasos, anclada a barrio-lore en lib/ceremonia/constants.mjs.",
+    "runtime": "playground-mock"
+  },
+  "roles": {
+    "H": {
+      "actorId": "anfitrion-h-min",
+      "mandate": "Observa preflight mínimo del escenario descubrible."
+    },
+    "M": {
+      "actorId": "maestro-m-min",
+      "mandate": "Solicita inspección mínima sin inflar ceremonia v1."
+    }
+  },
+  "sources": {
+    "onfalo": {
+      "mode": "import-once",
+      "note": "No consume Onfalo en este escenario mínimo; modo declarado por schema."
+    },
+    "agentLore": {
+      "mode": "catalog-ro",
+      "note": "Catálogo RO declarado; sin fusión de identidad."
+    },
+    "vectorMachine": {
+      "mode": "mock-contract",
+      "note": "VectorMachine mock declarado; mock=true implícito en simulacro."
+    }
+  },
+  "units": ["portal"],
+  "ceremony": {
+    "id": "segundo-minimo-conformidad",
+    "steps": [
+      {
+        "order": 1,
+        "verb": "peer.join",
+        "description": "Preflight mínimo H/M"
+      },
+      {
+        "order": 2,
+        "verb": "state.inspect",
+        "description": "Inspección de estado sin ceremonia v1"
+      },
+      {
+        "order": 3,
+        "verb": "session.exit",
+        "description": "Salida limpia"
+      }
+    ]
+  },
+  "expectedArtifacts": [
+    { "kind": "evidence-report", "producedBy": "portal" }
+  ],
+  "cleanup": {
+    "shutdownVerbs": ["session.exit"],
+    "removeRuns": true
+  },
+  "acceptanceCriteria": [
+    "Descubierto por scenarios/*/scenario.json sin tocar el arnés",
+    "Ejecutado de verdad: spawn de scripts/generar.mjs, artefactos en disco y manifest sellado",
+    "Declara barrio, fixture, units, verbos, CA y cleanup — units y verbos resueltos contra units/catalog y la ontología",
+    "No entra en v1 (solo barrio-lore está en allowlist); la ceremonia v1 de 11 pasos no se corre aquí"
+  ]
+}

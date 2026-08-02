@@ -10,6 +10,7 @@
     "version",
     "barrioId",
     "distrito",
+    "fixture",
     "simulacro",
     "roles",
     "sources",
@@ -30,6 +31,19 @@
     },
     "barrioId": { "type": "string", "minLength": 1 },
     "distrito": { "type": "string", "minLength": 1 },
+    "fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "note"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Ruta relativa al kit del fixture del escenario"
+        },
+        "note": { "type": "string", "minLength": 5 }
+      }
+    },
     "simulacro": {
       "type": "object",
       "additionalProperties": false,
