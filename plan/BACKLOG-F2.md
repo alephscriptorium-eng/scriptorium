@@ -11,6 +11,7 @@
 | ✎ 2026-08-02 | **LORE-HM ola 1 ✅**: `100`·`101` aceptados (PASS_CON_ADDENDA; sin merge main). |
 | ✎ 2026-08-02 | **LORE-HM ola 1 GO**: `WP-HUB-100` 🔶 · `WP-HUB-101` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-100` / `-101`, base tip `wp/hub-113-hm-ci-que-verifica`) · herencia spike 112 **NO CORRE** FM viva → kit/ceremonia = **simulacro playground**; 112/113 ✅ en ramas, **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 2 GO**: `WP-HUB-102` 🔶 · `WP-HUB-103` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-102` / `-103`, base tip `wp/hub-100-hm-escenario-y-schemas`=`ddb4d8b`) · herencia 112 simulacro; U245 sin fingir. |
+| ✎ 2026-08-02 | **LORE-HM ola 2 ✅**: `102` tip `186fc94` · `103` tip `07f36ac` · PASS_CON_ADDENDA · accum `wp/lore-hm-accum` · **sin merge main**. |
 
 ## Visión
 
@@ -468,7 +469,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** P0
 - **Estado:** ✅ ola 1 · tip `35125f3` · rama `wp/hub-101-hm-ontologia-y-verbos` · PASS_CON_ADDENDA (AS2 falso corregido) · **sin merge main**
 
-### WP-HUB-102 · hm-generador-idempotente 🔶
+### WP-HUB-102 · hm-generador-idempotente ✅
 - **BRIEF:** `scripts/generar.mjs` produce corridas regenerables en
   `.runs/<run-id>/H` y `.runs/<run-id>/M` (`--scenario`, `--run`,
   `--sin-install`, `--force-new`): env **sin defaults silenciosos**, handoffs
@@ -478,9 +479,9 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   separado) · reanuda **sólo** si el manifest coincide · cero rutas de máquina
   (`C:\Users\…`) en nada de lo generado, verificado con grep.
 - **Pri:** P0 · dep: 100
-- **Estado:** 🔶 ola 2 · rama `wp/hub-102-hm-generador-idempotente` · wt `C:/S_LAB/wt/scriptorium-wp-hub-102` · base `ddb4d8b`
+- **Estado:** ✅ ola 2 · tip `186fc94` · rama `wp/hub-102-hm-generador-idempotente` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-103 · hm-podstore-y-leases 🔶
+### WP-HUB-103 · hm-podstore-y-leases ✅
 - **BRIEF:** `LocalPodProvider` files-first con IRI lógica
   `urn:scriptorium:hm:<run-id>:pod:<unit-id>` y ubicación física resuelta por
   el manifest, **nunca publicada como ruta de máquina**. Contenido mínimo por
@@ -498,7 +499,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   real · un pod por cada una de las diez unidades estáticas y por cada
   `universe-runner-<id>` dinámico.
 - **Pri:** P0 · dep: 100
-- **Estado:** 🔶 ola 2 · rama `wp/hub-103-hm-podstore-y-leases` · wt `C:/S_LAB/wt/scriptorium-wp-hub-103` · base `ddb4d8b`
+- **Estado:** ✅ ola 2 · tip `07f36ac` · rama `wp/hub-103-hm-podstore-y-leases` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
 ### WP-HUB-104 · hm-onfalo-import-once
 - **BRIEF:** `scripts/importar-onfalo.mjs`, import-once **build-time**, con
