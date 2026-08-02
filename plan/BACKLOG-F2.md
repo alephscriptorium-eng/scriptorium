@@ -14,6 +14,7 @@
 | ✎ 2026-08-02 | **LORE-HM ola 2 ✅**: `102` tip `186fc94` · `103` tip `07f36ac` · PASS_CON_ADDENDA · accum `wp/lore-hm-accum` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 3 GO**: `WP-HUB-104` 🔶 (wt `scriptorium-wp-hub-104`, base `wp/lore-hm-accum`=`c51c74d`); `105` tras 104 · L03 en s-sdk. |
 | ✎ 2026-08-02 | **LORE-HM ola 3**: `104` tip `5662eaa` entregado; `105` 🔶 despachado; L03 tip `397a4c5` entregado. |
+| ✎ 2026-08-02 | **LORE-HM ola 5 ✅**: `108`=`4f6cafd` · `109`=`7d79a97` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 4 ✅ / GHM CERRADO**: `106`=`afcfa92` · `107`=`ebafafa` · L04=`231bd3a` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 4 GO**: `106` ✅ tip `afcfa92` · `107` 🔶 · L04 tip `231bd3a`. |
 | ✎ 2026-08-02 | **LORE-HM ola 3 ✅**: `104`=`5662eaa` · `105`=`119711b` · L03=`397a4c5` · PASS_CON_ADDENDA · accum pre-GHM · **sin merge main**. |
@@ -574,7 +575,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** P0 · dep: 106 · **cierra `GHM`**
 - **Estado:** ✅ ola 4 · tip `ebafafa` · rama `wp/hub-107-hm-verificador-externo` · PASS_CON_ADDENDA · verde **local** · **cierra GHM** · **sin merge main**
 
-### WP-HUB-108 · hm-mapa-holones-distritos 🔶
+### WP-HUB-108 · hm-mapa-holones-distritos ✅
 - **BRIEF:** la pieza de Ciudad: el mapa jugable **7 holones × 6 distritos ×
   24 barrios**, dato machine-readable **derivado** de la cantera de S
   (`CENSO-ESTADOS.md`, `01-BARRIOS/`, `GRAFO/`) y de `HOLONES.md`, consumido
@@ -586,8 +587,9 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   aparecen como cantera y constelación **sin fingir runtime**, y 07 como el
   método, no como un barrio.
 - **Pri:** P1 · dep: `GHM`
+- **Estado:** ✅ ola 5 · tip `4f6cafd` · rama `wp/hub-108-hm-mapa-holones-distritos` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-109 · hm-lore-voz-despierta 🔶
+### WP-HUB-109 · hm-lore-voz-despierta ✅
 - **BRIEF:** tras la ceremonia, el distrito `lore-voz` queda **despierto** en
   el censo con actas por unidad. `novelist-editor` (distrito `runtime-mcp`)
   aporta elenco de personajes por identidad, **no** pipeline.
@@ -596,8 +598,9 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   estado vuelva solo · cada acta cita unidad, verbo y huella · identidad H/M
   con ≥2 personajes y su lease cada uno.
 - **Pri:** P1 · dep: 108
+- **Estado:** ✅ ola 5 · tip `7d79a97` · rama `wp/hub-109-hm-lore-voz-despierta` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-110 · hm-negativos-y-consumidor-limpio
+### WP-HUB-110 · hm-negativos-y-consumidor-limpio 🔶
 - **BRIEF:** matriz de negativos (corpus ausente, hash roto, schema inválido,
   pod sin lease, VectorMock no declarado, upstream ausente, runner caído) y
   cierre con consumidor limpio: `npm ci` en checkout temporal, generación sin
@@ -609,7 +612,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   declarados · `npm run skills:ceguera` pasa desde la raíz del hub.
 - **Pri:** P0 · dep: 107
 
-### WP-HUB-111 · hm-escenarios-descubribles
+### WP-HUB-111 · hm-escenarios-descubribles 🔶
 - **BRIEF:** el arnés descubre `scenarios/*/scenario.json` y corre sobre ellos
   una suite de conformidad común. **Sólo Barrio LORE entra en v1.**
 - **CA:** un segundo escenario mínimo corre **sin tocar el arnés** · todo
