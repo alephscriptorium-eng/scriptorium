@@ -14,6 +14,7 @@
 | ✎ 2026-08-02 | **LORE-HM ola 2 ✅**: `102` tip `186fc94` · `103` tip `07f36ac` · PASS_CON_ADDENDA · accum `wp/lore-hm-accum` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 3 GO**: `WP-HUB-104` 🔶 (wt `scriptorium-wp-hub-104`, base `wp/lore-hm-accum`=`c51c74d`); `105` tras 104 · L03 en s-sdk. |
 | ✎ 2026-08-02 | **LORE-HM ola 3**: `104` tip `5662eaa` entregado; `105` 🔶 despachado; L03 tip `397a4c5` entregado. |
+| ✎ 2026-08-02 | **LORE-HM ola 4 ✅ / GHM CERRADO**: `106`=`afcfa92` · `107`=`ebafafa` · L04=`231bd3a` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 4 GO**: `106` ✅ tip `afcfa92` · `107` 🔶 · L04 tip `231bd3a`. |
 | ✎ 2026-08-02 | **LORE-HM ola 3 ✅**: `104`=`5662eaa` · `105`=`119711b` · L03=`397a4c5` · PASS_CON_ADDENDA · accum pre-GHM · **sin merge main**. |
 
@@ -393,7 +394,7 @@ marcas · no monta servidor SOLID/CSS real, WebID real, VectorMachine real ni
 LLM en tests de v1 · el playground es **consumidor y banco de conformidad**,
 nunca dueño del dominio.
 
-**Gate `GHM`** = `WP-HUB-100`…`107` aceptados. Abre `108`–`111`.
+**Gate `GHM`** = `WP-HUB-100`…`107` aceptados (**CERRADO** 2026-08-02 en ramas; sin merge main). Abre `108`–`111`.
 **Dependencias externas**: tipos de Zeus `U245`–`U249` (ventana abierta desde
 `GD`) · lengua y notaría `WP-SDK-L01`–`L05` en `s-sdk` · provider real de
 Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
@@ -561,7 +562,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** P0 · dep: 101, 102, 103, 105
 - **Estado:** ✅ ola 4 · tip `afcfa92` · rama `wp/hub-106-hm-ceremonia-bilateral` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-107 · hm-verificador-externo 🔶
+### WP-HUB-107 · hm-verificador-externo ✅
 - **BRIEF:** `scripts/verificar-evidencia.mjs`: un tercero valida la corrida
   **sin consultar los directorios vivos de H ni de M**.
 - **CA:** valida wire, expansión JSON-LD, hashes, ACL, transiciones,
@@ -571,9 +572,9 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   el raw, VectorMock sin declarar— **fallan cada uno en su frontera y con su
   nombre**, no con un error genérico.
 - **Pri:** P0 · dep: 106 · **cierra `GHM`**
-- **Estado:** 🔶 ola 4 · rama `wp/hub-107-hm-verificador-externo` · wt `C:/S_LAB/wt/scriptorium-wp-hub-107` · base `afcfa92`
+- **Estado:** ✅ ola 4 · tip `ebafafa` · rama `wp/hub-107-hm-verificador-externo` · PASS_CON_ADDENDA · verde **local** · **cierra GHM** · **sin merge main**
 
-### WP-HUB-108 · hm-mapa-holones-distritos
+### WP-HUB-108 · hm-mapa-holones-distritos 🔶
 - **BRIEF:** la pieza de Ciudad: el mapa jugable **7 holones × 6 distritos ×
   24 barrios**, dato machine-readable **derivado** de la cantera de S
   (`CENSO-ESTADOS.md`, `01-BARRIOS/`, `GRAFO/`) y de `HOLONES.md`, consumido
@@ -586,7 +587,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   método, no como un barrio.
 - **Pri:** P1 · dep: `GHM`
 
-### WP-HUB-109 · hm-lore-voz-despierta
+### WP-HUB-109 · hm-lore-voz-despierta 🔶
 - **BRIEF:** tras la ceremonia, el distrito `lore-voz` queda **despierto** en
   el censo con actas por unidad. `novelist-editor` (distrito `runtime-mcp`)
   aporta elenco de personajes por identidad, **no** pipeline.
