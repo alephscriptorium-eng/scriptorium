@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/censo-runtime.schema.json",
+  "title": "HmCensoRuntime",
+  "description": "Censo runtime derivado de evidencia (no edición a mano de cantera)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "distrito",
+    "derivedFromEvidence",
+    "barrios",
+    "digest"
+  ],
+  "properties": {
+    "kind": { "const": "hm-censo-runtime" },
+    "version": { "const": 1 },
+    "distrito": { "const": "lore-voz" },
+    "barrioFoco": { "type": "string" },
+    "derivedFromEvidence": { "type": "boolean" },
+    "evidenceRunId": { "type": ["string", "null"] },
+    "evidenceReason": { "type": ["string", "null"] },
+    "mapaHook": { "type": "object" },
+    "novelist": { "type": "object" },
+    "barrios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "distrito", "estadoRuntime"],
+        "properties": {
+          "id": { "type": "string" },
+          "slug": { "type": "string" },
+          "distrito": { "const": "lore-voz" },
+          "estadoCantera": { "type": "string" },
+          "estadoRuntime": {
+            "enum": ["dormido", "despierto", "corriendo", "shutdown"]
+          }
+        }
+      }
+    },
+    "generatedAt": { "type": "string" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

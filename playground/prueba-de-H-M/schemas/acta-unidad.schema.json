@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/acta-unidad.schema.json",
+  "title": "HmActaUnidad",
+  "description": "Acta por unidad tras despertar: unidad · verbo · huella",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "version", "runId", "unidad", "verbo", "huella"],
+  "properties": {
+    "kind": { "const": "hm-acta-unidad" },
+    "version": { "const": 1 },
+    "runId": { "type": "string", "minLength": 1 },
+    "unidad": { "type": "string", "minLength": 1 },
+    "verbo": { "type": "string", "minLength": 1 },
+    "huella": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "activityId": { "type": "string" }
+  }
+}
