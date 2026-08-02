@@ -60,22 +60,44 @@ vacío).
 > en 13 filas, y el dominante era `existe` (8 filas), que **no pertenece** a la
 > tríada que pedía la CA. Ahora `veredicto` sólo admite `corre` / `no corre` /
 > `no existe`, y lo que antes se colaba ahí («existe») vive en su columna
-> `qué hay`. Toda fila de esta tabla tiene **orden exacta y salida literal**.
+> `qué hay`.
+>
+> **Regla de esta tabla, y sus salvedades** (reescrita en la 2.ª ronda ZV, que
+> es donde se descubrió que la versión anterior era falsa):
+>
+> 1. Las **13 filas** llevan veredicto **sólo de la tríada**. Contadas una a
+>    una: **9** `no corre`, **3** `no existe`, **1** `corre`. Algunas llevan un
+>    matiz entre paréntesis («es dato, no proceso», «hoy», «y no es la
+>    cadena»): es un calificador del mismo valor, **no un cuarto valor**.
+> 2. Cada fila cita **al menos una orden exacta con su `exit`/`rc` o su salida
+>    literal**. Lo que aparece en la celda **sin `→`** (bytes, sha256, tamaños)
+>    es dato del objeto, no medida de ejecución.
+> 3. **Salvedad viva:** **dos filas** —ficha barrio 20 y CI s-sdk— llevan
+>    medida **del autor, no re-medida por ZV**; `C:/S_LAB/s-sdk` está fuera de
+>    su permiso. Lo declara cada celda.
+>
+> **Qué cambió y por qué.** La versión anterior afirmaba, en negrita y sin
+> salvedad, que «toda fila de esta tabla tiene orden exacta y salida literal».
+> Era falso: la fila **Skills FM** tenía veredicto libre («presencia medida; el
+> "no corre" es inferido») y una celda de evidencia que decía literalmente
+> «sin orden que mida "no corre"» — rompía **las dos reglas a la vez, dentro de
+> la tabla MEDIDO**. Se ha movido a la **Tabla B**, con su mitad medida
+> intacta. Otras dos filas (`.analisis.md` y los submódulos vacíos de `e-sdk`)
+> aludían a órdenes sin citarlas: ahora las citan, re-medidas hoy.
 
 | pieza | veredicto (tríada) | qué hay | evidencia (orden → salida) |
 | ----- | ------------------ | ------- | -------------------------- |
 | Editorial Onfalo `2024-05-01_primero-de-mayo.md` | **no corre** (es dato, no proceso) | fichero legible RO | `test -f …` → `exit=0 bytes=26228` · sha256 `a186993d…c9796a` |
 | Editorial Onfalo `2026-05-01_auge-de-la-educacion-emocional.md` | **no corre** (es dato, no proceso) | fichero legible RO | `test -f …` → `exit=0 bytes=12388` · sha256 `86f3cb6d…2186f0` |
-| Análisis históricos `.analisis.md` | **no corre** | artefacto de sesión pasada | ambos `exit=0` (11025 / 13293 bytes) — huella, no runtime |
+| Análisis históricos `.analisis.md` | **no corre** | artefacto de sesión pasada | **ZV 2.ª ronda:** `test -f …/corpus/analisis/2024-05-01_primero-de-mayo.analisis.md` → `exit=0 bytes=11025` · ídem `2026-05-01_auge…analisis.md` → `exit=0 bytes=13293` — huella, no runtime |
 | `e-sdk/DocumentMachineSDK` (checkout) | **no existe** | dir vacío | `git submodule status` prefijo `-` · `find … -mindepth 1 \| wc -l` → `count=0` · `test -f …/bartleby.agent.md` → `exit=1` |
-| `e-sdk/AgentLoreSDK` · `VectorMachineSDK` · `VectorMachineUI` | **no existe** | dirs vacíos | mismos prefijos `-` · `count=0` cada uno |
-| Definición `@Bartleby` (OASIS) | **no corre** | `.agent.md` Copilot, 6652 B | `which bartleby` → exit 1 · `node …bartleby.agent.md` → `SyntaxError` **exit=1** · `npm --prefix DocumentMachineSDK run` → ENOENT **exit=127** |
-| Definición `@Cristalizador` (OASIS) | **no corre** | `.agent.md` Copilot, 8586 B | `which cristalizador` → exit 1 · frontmatter `tools: [vscode,…]`, no CLI |
-| Definición `@Pipeline` (OASIS) | **no corre** | `.agent.md` Copilot, 3612 B | `which pipeline` → exit 1 · orquesta handoffs a otros `.agent.md` |
+| `e-sdk/AgentLoreSDK` · `VectorMachineSDK` · `VectorMachineUI` | **no existe** | dirs vacíos | **ZV 2.ª ronda:** `git -C e-sdk submodule status` → `-1498d67e… AgentLoreSDK`, `-820e63d1… VectorMachineSDK`, `-b31e4088… VectorMachineUI` · `find e-sdk/<dir> -mindepth 1 \| wc -l` → `count=0` en los tres |
+| Definición `@Bartleby` (OASIS) | **no corre** | `.agent.md` Copilot, 6652 B | `which bartleby` → exit 1 · `node …bartleby.agent.md` → `SyntaxError` **exit=1** · `npm --prefix DocumentMachineSDK run` → ENOENT **exit=127** (derivación en ⑧) · **ZV 2.ª ronda:** `head -n 12 … \| grep -n tools:` → `5:tools: [vscode, execute, read, agent, edit, search, web, 'playwright/*', browser, todo]` |
+| Definición `@Cristalizador` (OASIS) | **no corre** | `.agent.md` Copilot, 8586 B | `which cristalizador` → exit 1 · **ZV 2.ª ronda:** `head -n 12 …/cristalizador.agent.md \| grep -n tools:` → `5:tools: [vscode, execute, read, agent, edit, search, web, browser, todo]` |
+| Definición `@Pipeline` (OASIS) | **no corre** | `.agent.md` Copilot, 3612 B | `which pipeline` → exit 1 · **ZV 2.ª ronda:** ídem → `5:tools: [vscode, execute, read, agent, edit, search, todo]` |
 | `DocumentMachineSDK/package.json` (OASIS) | **no existe** | — | `test -f …/package.json` → `exit=1` · `find … -name package.json` → vacío · **ZV:** `git ls-tree HEAD -- package.json` → vacío (ausente **en el commit**, no sólo en disco) |
-| `workers/escribiente-whisper/worker.py` (OASIS) — *añadido por ZV* | **no corre** (hoy) | entrypoint Python real: `argparse`, `def main()` | `ast.parse` → `parse_ok` · `command -v python` → `exit=0` · `python -B -c "import faster_whisper"` → `ModuleNotFoundError` **exit=1** (deps declaradas sin instalar) |
-| Skills FM (`engine-plan`, `futures-engine`, `documental-analysis`) | presencia **medida**; el `no corre` es **inferido** (ver Tabla B) | ficheros md | `test -f` → `exit=0` · **sin orden que mida «no corre»**: no se buscó runner |
-| AgentLoreSDK npm scripts (OASIS) | **corre** (y **no** es la cadena) | `docs:web`, `audit:anchors`, `ynsy-engine:*` | `npm run` los lista — cero `bartleby`/`cristalizador`/`pipeline` |
+| `workers/escribiente-whisper/worker.py` (OASIS) — *añadido por ZV* | **no corre** (hoy) | entrypoint Python real: `argparse`, `def main()` | `ast.parse` → `parse_ok` · `command -v python` → `exit=0` · `python -B -c "import faster_whisper"` → `ModuleNotFoundError` **exit=1** (deps declaradas sin instalar) · **anclado (ZV 2.ª ronda):** `ls-tree -r HEAD -- workers` → `rc=0`, blob `353d8bf9f0e5ff6d046d2e06348b0f1af36c83cd` |
+| AgentLoreSDK npm scripts (OASIS) | **corre** (y **no** es la cadena) | 7 scripts: `docs:web`, `docs:web:open`, `audit:anchors`, `validate`, `ynsy-engine:{start,check,dispose}` | **ZV 2.ª ronda:** `npm --prefix …/AgentLoreSDK run > out 2> err` → `rc=0`, `err` vacío, `out` = `Scripts available in @aleph-scriptorium/agent-lore-sdk@0.1.0 …` (7 scripts) · `grep -icE "bartleby\|cristalizador\|pipeline" out` → **`0`** |
 | Ficha barrio 20 cantera S | **no corre** (es documento) | `20-DocumentMachineSDK.md`; Runtime declarado «Markdown + Jekyll / SDK editorial»; puertos: ninguno | `test -f … && head -n 25` → `exit=0` (medida del autor; **ZV no la re-midió**: `C:/S_LAB/s-sdk` fuera de su permiso) |
 | CI hub / s-sdk (contexto) | **no corre** como gate de pruebas | solo `docs.yml` | `ls .github/workflows` → `docs.yml` en ambos (medida del autor; ZV no re-midió s-sdk) |
 
@@ -87,14 +109,65 @@ vacío).
 | Cristalizador | existe (OASIS) | **no corre** | n/a (upstream proceso ausente) |
 | Pipeline | existe (OASIS) | **no corre** | n/a |
 
-Medida ZV que cierra la tabla de la cadena: en el commit anclado, buscar
-cualquier entrypoint ejecutable de los tres eslabones da **cero**:
+**RETIRADA** (2.ª ronda ZV). La 1.ª ronda cerraba esta tabla con «en el commit
+anclado, buscar cualquier entrypoint ejecutable de los tres eslabones da
+**cero**», sobre esta orden:
 
 ```
 git -C DocumentMachineSDK ls-tree -r --name-only HEAD
   | grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$"
 → 0
 ```
+
+Ese `0` **no medía ausencia de entrypoints: medía que la orden no emitió
+nada.** El recorrido recursivo del árbol muere por el pack degradado, y el `|`
+se tragó el código de salida — la misma trampa que esta addenda existía para
+curar. Medido de nuevo separando `rc` de `stdout`:
+
+```
+ls-tree -r --name-only HEAD > out 2> err   →  rc=1  ·  lineas=0   (3 intentos)
+err: wrong index v1 file size in …pack-56b2eb90….idx   (×5)
+     error: Could not read 971aee0998805ac89c08b323a0a4ee7391130ff7
+control de sanidad del patrón (flujo NO vacío):
+  printf 'mod/agents/pipeline.js\n' | grep -icE "<mismo patrón>"   → 1
+```
+
+El patrón funcionaba; el flujo estaba vacío.
+
+**Rehecha subárbol por subárbol**, que es lo que este árbol sí se deja hacer.
+`ls-tree` **sin `-r`** responde `rc=0` con **25 entradas** de raíz (15 árboles +
+10 blobs). Recorriendo los 15 árboles uno a uno:
+
+| resultado | subárboles | cuáles |
+| --------- | ---------- | ------ |
+| recorrido **completo** (`rc=0`) | **2** de 15 | `DRAFT2` (5), `workers` (3) |
+| **cero entradas** — no se dejan recorrer | **7** de 15 | `.githooks`, `.vscode`, `COPILOT`, `DRAFTS2`, `banner`, `engine-logs`, `guiones` |
+| salida **parcial** (`rc=1`) | **5** de 15 | `.github` (6), `corpus` (1), `docs` (10), `mod` (11), `sala` (2) |
+| aborta (`rc=128`, objeto suelto corrupto) | **1** de 15 | `tmp` |
+
+Unión de lo legible: 10 blobs de raíz + 39 entradas de subárbol = **49 rutas**,
+volcadas a fichero (`visible.txt`) para que el `grep` lea de un flujo con
+contenido comprobado y no de una tubería:
+
+```
+wc -l < visible.txt                                                          → 49
+grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$" visible.txt   → 0
+grep -E  "\.(py|js|mjs|cjs|ts|exe|sh|bat|cmd|ps1)$" visible.txt
+  → workers/escribiente-whisper/precheck.py
+    workers/escribiente-whisper/worker.py
+```
+
+**Lo que esto sostiene, y ni una palabra más:** sobre las 49 rutas que el árbol
+se deja leer no hay ningún entrypoint ejecutable de la cadena B→C→P, y los dos
+únicos ficheros ejecutables visibles del árbol entero son los de
+`escribiente-whisper`, que no es la cadena. **Lo que NO sostiene:** que el
+commit no tenga entrypoints. **7 de 15 subárboles no se dejan recorrer, entre
+ellos `.githooks`** — justo donde viviría un ejecutable— y de ellos no se puede
+decir que estén vacíos, sólo que no se pueden leer.
+
+El titular **no depende de esta pata**: lo sostienen los tres `command -v →
+exit=1`, el `package.json` ausente en la raíz del commit y el frontmatter
+`tools: [vscode,…]` de los `.agent.md`.
 
 ## Tabla B · **RAZONADO** — juicio de diseño, sin orden que lo mida
 
@@ -106,6 +179,17 @@ git -C DocumentMachineSDK ls-tree -r --name-only HEAD
 No se puede recorrer la cadena con agentes reales como procesos: no hay
 entrypoint, no hay `package.json` en DocumentMachine, e-sdk no aporta árbol, y
 OASIS es RO (prohibido materializar corrida escribiendo allí).
+
+### Fila trasladada desde la Tabla A (2.ª ronda ZV)
+
+| pieza | qué está medido | qué está inferido |
+| ----- | --------------- | ----------------- |
+| Skills FM (`engine-plan`, `futures-engine`, `documental-analysis`) | **presencia**: `test -f` → `exit=0` en los tres | el **«no corre»**: **no se buscó runner y no hay orden que lo mida** |
+
+Estaba en la Tabla A rompiendo sus dos reglas a la vez —veredicto fuera de la
+tríada, y celda de evidencia que decía «sin orden que mida "no corre"»—. Una
+inferencia dentro de la tabla MEDIDO no se arregla con una nota al pie: se
+mueve. Aquí queda, con su mitad medida intacta.
 
 ---
 
@@ -266,11 +350,19 @@ DocumentMachine (sin CLI de cadena). Informe:
 
 ---
 
-## Addenda ZV 2026-08-02 · tres condiciones de la auditoría adversarial
+## Addenda ZV 2026-08-02 · condiciones de la auditoría adversarial
 
-Cierre por el swarm Z·V. **El veredicto de este spike sigue en pie, re-medido
-hoy**: la cadena no tiene entrypoint y sus componentes no están en el PATH. Lo
-que se corrige es cómo lo dice, y una cicatriz de log que lo contradecía.
+Cierre por el swarm Z·V. Secciones ①–⑤ = 1.ª ronda. Secciones ⑥–⑨ y las
+correcciones marcadas «2.ª ronda ZV» = **corrección tras contrarrevisión
+adversarial que dictó NO ENTRA**.
+
+**El veredicto de este spike sigue en pie, re-medido hoy**: la cadena no tiene
+entrypoint invocable y sus componentes no están en el PATH. Lo que se corrige
+es cómo lo dice, una cicatriz de log que lo contradecía, y —en la 2.ª ronda—
+**dos medidas de la propia 1.ª ronda que cayeron en la trampa que esa ronda
+existía para curar**: `«limpio: sí (0 sucios)»` y `«cero entrypoints en el
+commit»` eran ambas recuentos de líneas de órdenes que fallan. Ambas quedan
+retiradas y rehechas.
 
 ### ① La cicatriz de log que nunca se corrigió — línea 148
 
@@ -314,10 +406,17 @@ Anclado hoy:
 
 | árbol | commit | rama | limpio |
 | ----- | ------ | ---- | ------ |
-| OASIS `DocumentMachineSDK` (**el árbol del veredicto**) | `0d65d068c8a0f2c7ab36e5ca4130658f4ddc4880` | `integration/beta/scriptorium` | sí (0 ficheros sucios) |
-| OASIS `onfalo-asesor-sdk` (corpus editorial) | `d049e01ce4a33bc53fa0d34518ee7f15bc38da93` | `integration/beta/scriptorium` | sí |
+| OASIS `DocumentMachineSDK` (**el árbol del veredicto**) | `0d65d068c8a0f2c7ab36e5ca4130658f4ddc4880` | `integration/beta/scriptorium` | **no se puede saber** — índice corrupto, `status` aborta `rc=128` (ver ⑥) |
+| OASIS `onfalo-asesor-sdk` (corpus editorial) | `d049e01ce4a33bc53fa0d34518ee7f15bc38da93` | `integration/beta/scriptorium` | **sí** — `status --porcelain > out 2> err` → `rc=0`, `out` con 0 líneas, `err` vacío |
 | `C:/S_LAB/e-sdk` | `e4b34a870df266c181846110a63438f103e26b80` | `main` | — |
 | `C:/S_LAB/a-sdk` | `936196f3682edec1934c9b5a09297ac65fdd107f` | `integration/beta/scriptorium` | — |
+
+> **Corrección de la 2.ª ronda ZV.** La primera versión de esta tabla decía
+> «sí (0 ficheros sucios)» para `DocumentMachineSDK`. Ese `0` era el recuento
+> de líneas de `status --porcelain | wc -l`, y `status` **no dice «0 sucios»:
+> no dice nada**, aborta con `rc=128` y el `|` se tragó el código. La fila
+> queda corregida arriba. La de `onfalo-asesor-sdk` era y sigue siendo cierta,
+> ahora con la forma que separa `rc` de `stdout`.
 
 Blobs exactos de lo auditado, en ese commit:
 
@@ -340,12 +439,32 @@ git -C "C:/Users/aleph/OASIS/aleph-scriptorium" rev-parse HEAD
 fatal: bad config line 1 in file .git/config
 ```
 
-Los submódulos sí responden (son los de la tabla), así que el anclaje del árbol
-del veredicto está completo; lo que queda sin anclar es el **contenedor**. El
+Los submódulos sí responden a `rev-parse`, así que el anclaje del árbol del
+veredicto está completo; lo que queda sin anclar es el **contenedor**. El
 almacén de objetos además emite `error: wrong index v1 file size in
 .git/modules/DocumentMachineSDK/objects/pack/pack-56b2eb90….idx` en cada
 consulta: resuelve, pero está degradado. Ambas cosas son del entorno del
 custodio; ZV no las toca (OASIS es RO).
+
+**Y falta un tercero, que esta addenda no declaró en su primera versión y que
+es el que dejó pasar los dos errores de ⑥:** el **índice de ese submódulo está
+corrupto**. Ver ⑥ para la medida.
+
+**Refuerzo que la 1.ª ronda dejó fuera** (2.ª ronda ZV): `e-sdk` **sí registra**
+qué commit de `DocumentMachineSDK` espera, aunque no lo materialice.
+
+```
+git -C e-sdk ls-tree HEAD -- DocumentMachineSDK
+  → 160000 commit 073be841da91422d9bac696f96cfc5a12c002b35  DocumentMachineSDK
+git -C e-sdk config -f .gitmodules --get submodule.DocumentMachineSDK.url
+  → https://github.com/escrivivir-co/para-la-voz-sdk.git
+git -C OASIS/…/DocumentMachineSDK remote -v
+  → origin  https://github.com/escrivivir-co/para-la-voz-sdk.git (fetch/push)
+```
+
+O sea: el árbol de OASIS (`0d65d068`) y el que `e-sdk` fija (`073be841`) son
+**el mismo upstream a distinto commit**. `e-sdk` no aporta árbol —prefijo `-`
+y `count=0`—, pero sí deja escrito cuál querría.
 
 ### ③ El titular era más ancho que la propia contrarrevisión
 
@@ -360,13 +479,20 @@ Titular corregido, arriba y aquí:
 Medidas que lo sostienen y lo acotan:
 
 ```
-ls-tree HEAD | grep -icE "(bartleby|cristalizador|pipeline)\.(py|js|mjs|cjs|ts|exe|sh)$"  → 0
-command -v bartleby|cristalizador|pipeline                                                → exit=1 ×3
-test -f DocumentMachineSDK/package.json                                                   → exit=1
-ast.parse(workers/escribiente-whisper/worker.py)                                          → parse_ok
-command -v python                                                                          → exit=0
-python -B -c "import faster_whisper"                                    → ModuleNotFoundError exit=1
+command -v bartleby | cristalizador | pipeline                          → exit=1 ×3
+test -f DocumentMachineSDK/package.json                                 → exit=1
+git ls-tree HEAD -- package.json                                        → (vacío: ausente en el commit)
+frontmatter de los tres .agent.md                                       → tools: [vscode,…]
+ast.parse(workers/escribiente-whisper/worker.py)                        → parse_ok
+command -v python                                                       → exit=0
+python -B -c "import faster_whisper"                    → ModuleNotFoundError exit=1
 ```
+
+**Retirada de esta lista (2.ª ronda ZV):** el
+`ls-tree -r … | grep -icE … → 0` que la encabezaba. Era un `grep -c` sobre un
+flujo vacío, no una medida de ausencia. Su sustituto, subárbol por subárbol y
+con las 7 zonas ciegas declaradas, está en «Cadena mínima» más arriba. **El
+titular sobrevive sin esa pata**: le bastan las cuatro primeras líneas.
 
 Lectura honesta de las dos últimas: whisper **tiene forma de proceso**
 (`argparse` + `def main()`, Python en PATH) — por eso «no hay proceso
@@ -391,8 +517,16 @@ Recuento propio sobre el reporte antes de esta addenda:
 Reforma aplicada: la columna `veredicto` de la Tabla A sólo admite la tríada, y
 lo que se colaba como «existe» pasó a la columna `qué hay`. Lo medido queda en
 **Tabla A**, lo inferido en **Tabla B**, con etiqueta en las dos tablas de ocho
-filas. La fila «Skills FM» se queda en A con su asimetría escrita: presencia
-medida, «no corre» inferido.
+filas.
+
+**Corrección de la 2.ª ronda ZV.** La 1.ª ronda dejó la fila «Skills FM» **en la
+Tabla A** «con su asimetría escrita». Eso era el error: una fila cuyo veredicto
+está fuera de la tríada y cuya celda de evidencia dice «sin orden que mida "no
+corre"» **rompe las dos reglas de la Tabla A a la vez**, y la tabla se
+autocertificaba en negrita diciendo que ninguna fila lo hacía. La fila **está
+ahora en la Tabla B**, con su mitad medida (presencia) intacta. Y las dos
+frases de encabezado de la Tabla A dicen la regla **con su salvedad**, en vez
+de afirmarla sin salvedad. Tras el traslado, la Tabla A queda en **13 filas**.
 
 ### ⑤ Confesión de método
 
@@ -401,7 +535,121 @@ Al comprobar si el worker Python parsea usé `python -m py_compile`, que
 dentro de OASIS — es decir, **fuera de mi worktree**, contra mi propia
 prohibición. Lo detecté 11 s después, borré el `.pyc` y el `__pycache__` que
 había creado, y repetí la medida con `ast.parse` en memoria (`parse_ok`), que
-no escribe. Queda: el directorio padre cambió de mtime; ni un byte de contenido
-añadido ni quitado; `git status` de ese árbol sigue en 0 ficheros sucios. Se
-anota porque un informe que exige evidencia literal no puede ocultar su propio
-desliz.
+no escribe. Se anota porque un informe que exige evidencia literal no puede
+ocultar su propio desliz.
+
+**La prueba, rehecha (2.ª ronda ZV).** La 1.ª ronda se exculpaba con «`git
+status` de ese árbol sigue en 0 ficheros sucios». **Esa orden falla** —índice
+corrupto, `rc=128`— y por tanto **no probaba nada**. Un informe que exige
+evidencia literal no puede exculparse con una orden vacía. El hecho es el
+mismo; lo que cambia es el instrumento, y **hay que decir qué mide**:
+
+```
+find …/DocumentMachineSDK -name '__pycache__' -type d | wc -l   → 0
+find …/DocumentMachineSDK -name '*.pyc' -type f | wc -l          → 0
+find …/DocumentMachineSDK -type f -not -path '*/.git/*' | wc -l  → 585
+find …/workers/escribiente-whisper -maxdepth 1 -printf '%TY-%Tm-%Td %TH:%TM:%TS %y %p\n'
+  2026-08-02 17:24:52  d  …/escribiente-whisper
+  2026-04-29 19:52:40  f  …/precheck.py
+  2026-04-29 19:52:40  f  …/requirements.txt
+  2026-04-29 19:52:40  f  …/worker.py
+```
+
+Esto es **comprobación de sistema de ficheros, no de git**: dice que hoy no hay
+ningún `.pyc` ni `__pycache__` bajo ese árbol y que los tres ficheros conservan
+su mtime de abril; el único mtime de hoy es el del **directorio padre**, tal
+como se confesó. Lo que **no** dice, y no puede decir mientras el índice esté
+corrupto: si ese árbol tiene o no cambios sucios respecto a `HEAD`.
+
+**Y estos ceros sí son ceros**, demostrado en vez de afirmado — porque el
+reproche de esta ronda es precisamente confundir «vacío» con «falló». Los dos
+`find` dan `rc=0` con `stderr` vacío, y el control negativo enseña cómo se
+vería un fallo:
+
+```
+find …/DocumentMachineSDK -name '__pycache__' -type d > p.out 2> p.err ; echo rc=$?
+  → rc=0 · 0 líneas · stderr vacío
+find …/DocumentMachineSDK -name '*.pyc' -type f    > p2.out 2> p2.err ; echo rc=$?
+  → rc=0 · 0 líneas · stderr vacío
+control negativo:
+find C:/S_LAB/e-sdk/NoExiste -mindepth 1           > f2.out 2> f2.err ; echo rc=$?
+  → rc=1 · stderr: find: 'C:/S_LAB/e-sdk/NoExiste': No such file or directory
+```
+
+Los cuatro `find … -mindepth 1 | wc -l → count=0` de la Tabla A pasan el mismo
+control: `rc=0`, `stderr` vacío en los cuatro.
+
+### ⑥ El defecto de instrumento que dejó pasar ⑤ y la medida de entrypoints
+
+El árbol del veredicto tiene **el índice corrupto**. La 1.ª ronda declaró el
+`.git/config` roto del superproyecto y el pack degradado, pero **no esto**, y
+es lo que invalidó dos de sus propias medidas nuevas.
+
+```
+git --no-optional-locks -C …/DocumentMachineSDK status --porcelain > st.out 2> st.err ; echo rc=$?
+  rc=128 · st.out: 0 líneas · st.err: error: bad signature 0x00000000
+                                      fatal: index file corrupt
+ídem ls-files                                        → rc=128, mismo error
+ídem check-ignore -v workers                         → rc=128, mismo error
+
+ls -la .git/modules/DocumentMachineSDK/index         → 74174 bytes, Apr 30 19:41
+od -A d -t x1 -N 16 .git/modules/DocumentMachineSDK/index
+  0000000 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+```
+
+El fichero de índice existe y ocupa 74174 bytes, pero su cabecera está a cero
+donde debería ir la firma `DIRC`. **Qué invalida, en el árbol del veredicto:**
+`status`, `ls-files`, `check-ignore` y `ls-tree -r`. Qué sigue funcionando:
+`rev-parse`, `ls-tree` sin `-r`, `ls-tree -r` acotado a ciertos subárboles, y
+`remote -v`.
+
+Control positivo, para no confundir instrumento roto con instrumento inútil:
+`onfalo-asesor-sdk` responde `rc=0` con `stdout` vacío y `stderr` vacío. **Ahí
+el `0` sí significa «0 sucios».**
+
+### ⑦ Las líneas «orden:» del log original no son verbatim
+
+La ① de la 1.ª ronda diagnosticó bien la causa (tubería), pero no dijo esto:
+la línea `:137` del log transcribe la orden **sin la tubería que la truncó**.
+
+```
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1 | wc -l          → 18
+$ node … 2>&1 | head -n 10 | wc -l                                          → 10
+$ node … > /dev/null 2>&1 ; echo exit=$?                                    → exit=1
+$ node … 2>&1 | head -n 10 > /dev/null ; echo exit=$?                       → exit=0
+```
+
+El log muestra **10 líneas** de salida y `exit=0`. La orden tal como está
+escrita produce **18 líneas** y `exit=1`. La única forma que produce a la vez
+10 y 0 es `| head -n 10`. Es decir: **la tubería elidida en la transcripción es
+exactamente la que fabricó el `exit=0` falso de `:148`.** Las líneas `$ …` del
+cuerpo del log deben leerse como paráfrasis, no como verbatim.
+
+### ⑧ Derivación del `exit=127` de npm
+
+Ese `127` invita a leerse como «orden no encontrada», y no lo es.
+
+```
+command -v npm > /dev/null 2>&1 ; echo exit=$?                        → exit=0
+node -e "…readFileSync('C:/no/existe/x.json')… console.log(e.code, e.errno)"
+                                                    → code=ENOENT errno=-4058
+node -e "process.exit(-4058)" > /dev/null 2>&1 ; echo exit=$?         → exit=127
+node -e "process.exit(254)"   > /dev/null 2>&1 ; echo exit=$?         → exit=254
+node -e "process.exit(1)"     > /dev/null 2>&1 ; echo exit=$?         → exit=1
+npm --prefix …/DocumentMachineSDK run > /dev/null 2>&1 ; echo exit=$? → exit=127
+```
+
+`node v22.21.1` · `npm 10.9.4` · `bash 5.2.37` · `MINGW64_NT-10.0-26200`.
+npm propaga el `errno` del error; `UV_ENOENT` en Windows es **`-4058`**; y este
+shell reporta **127** para ese valor negativo — **y no es un clamp genérico**:
+`254` sale `254` y `1` sale `1`. El `127` significa **«npm corrió y no encontró
+`package.json`»**, no «npm no existe».
+
+### ⑨ Observación de terceros, para el custodio
+
+`onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus` tiene mtime de directorio
+**`2026-08-02 11:07:21`** y **ningún hijo con mtime de hoy** (`find … -newermt
+'2026-08-02'` devuelve sólo el propio directorio). No encaja en ninguna ventana
+de este trabajo: el spike original corrió ~02:49 y el turno ZV ~17:24-17:32. El
+`status` de ese repo da `rc=0` y 0 líneas, o sea que nada versionado cambió. Se
+anota como observación; **ZV no lo produjo y no lo toca** (OASIS es RO).

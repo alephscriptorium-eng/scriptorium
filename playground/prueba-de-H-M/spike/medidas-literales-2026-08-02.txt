@@ -392,3 +392,372 @@ av>=11
 # solo el mtime del directorio padre; `git status` de ese arbol sigue en 0.
 
 === FIN ADDENDA ZV ===
+
+######## ADDENDA ZV · II · 2026-08-02 · el instrumento roto que la addenda I no declaro ########
+
+# POR QUE HAY UNA SEGUNDA ADDENDA
+# La ADDENDA ZV (I) diagnostico que "un log que mide exit codes a traves de un
+# pipe no mide exit codes" -- y acto seguido incurrio en la misma trampa en sus
+# DOS medidas nuevas: el `status --porcelain | wc -l` de :320-321 y el
+# `ls-tree -r ... | grep -c` de :330-331. Las dos leen el recuento de lineas de
+# una orden que FALLA, y el `|` se traga el codigo de salida.
+#
+# Causa raiz comun, no declarada en ninguna parte hasta aqui: el arbol del
+# veredicto (OASIS DocumentMachineSDK) tiene el INDICE CORRUPTO, ademas del
+# .git/config del superproyecto roto y del pack degradado que si se declararon.
+#
+# NO SE BORRA NADA. Las lineas 320-321 y 330-331 se quedan donde estan. Esto
+# dice que son y cuanto valen, y las rehace con instrumento que si mide.
+
+
+######## II.A · EL DEFECTO DE INSTRUMENTO · indice corrupto ########
+
+# Forma correcta: redirigir stdout y stderr a fichero, `echo rc=$?` inmediato,
+# y contar lineas DESPUES. Nunca a traves de tuberia.
+
+$ git --no-optional-locks -C ".../DocumentMachineSDK" status --porcelain > st.out 2> st.err ; echo rc=$?
+rc=128
+$ wc -l < st.out
+0
+$ cat st.err
+error: bad signature 0x00000000
+fatal: index file corrupt
+
+$ git --no-optional-locks -C ".../DocumentMachineSDK" ls-files > lf.out 2> lf.err ; echo rc=$?
+rc=128
+$ wc -l < lf.out
+0
+$ cat lf.err
+error: bad signature 0x00000000
+fatal: index file corrupt
+
+$ git --no-optional-locks -C ".../DocumentMachineSDK" check-ignore -v workers > ci.out 2> ci.err ; echo rc=$?
+rc=128
+$ cat ci.err
+error: bad signature 0x00000000
+fatal: index file corrupt
+
+# El fichero de indice existe y tiene tamano, pero su cabecera esta a cero
+# (deberia empezar por la firma `DIRC` = 44 49 52 43):
+
+$ git --no-optional-locks -C ".../DocumentMachineSDK" rev-parse --git-dir
+C:/Users/aleph/OASIS/aleph-scriptorium/.git/modules/DocumentMachineSDK
+$ ls -la ".../.git/modules/DocumentMachineSDK/index"
+-rw-r--r-- 1 aleph 197121 74174 Apr 30 19:41 .../.git/modules/DocumentMachineSDK/index
+$ od -A d -t x1 -N 16 ".../.git/modules/DocumentMachineSDK/index"
+0000000 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0000016
+
+# CONTROL POSITIVO (el instrumento no esta roto en todas partes):
+$ git --no-optional-locks -C ".../onfalo-asesor-sdk" status --porcelain > oa.out 2> oa.err ; echo rc=$?
+rc=0
+$ wc -l < oa.out
+0
+$ cat oa.err
+(vacio)
+
+# LECTURA. En onfalo-asesor-sdk el `0` SI significa "0 ficheros sucios": la
+# orden termino en 0 y no emitio nada. En DocumentMachineSDK el `0` de :321
+# significa "la orden aborto sin emitir nada". Son dos ceros distintos y el
+# log los escribio igual. Se retira la afirmacion "limpio: si (0 sucios)"
+# para DocumentMachineSDK; se conserva para onfalo-asesor-sdk.
+
+
+######## II.B · LO QUE SI SE PUEDE AFIRMAR DEL ARBOL DE DISCO ########
+
+# Con git inservible para este arbol, la unica comprobacion disponible es de
+# SISTEMA DE FICHEROS. No es equivalente a `git status`: no sabe de tracking,
+# de .gitignore ni de contenido modificado. Dice solo si hay o no ciertos
+# ficheros en disco.
+
+$ find ".../DocumentMachineSDK" -name '__pycache__' -type d | wc -l
+0
+$ find ".../DocumentMachineSDK" -name '*.pyc' -type f | wc -l
+0
+$ find ".../DocumentMachineSDK" -type f -not -path '*/.git/*' | wc -l
+585
+
+$ find ".../DocumentMachineSDK/workers/escribiente-whisper" -maxdepth 1 -printf '%TY-%Tm-%Td %TH:%TM:%TS  %y  %p\n'
+2026-08-02 17:24:52.5393746000  d  .../workers/escribiente-whisper
+2026-04-29 19:52:40.9431536000  f  .../workers/escribiente-whisper/precheck.py
+2026-04-29 19:52:40.9264093000  f  .../workers/escribiente-whisper/requirements.txt
+2026-04-29 19:52:40.9336243000  f  .../workers/escribiente-whisper/worker.py
+
+# LECTURA. Cero .pyc y cero __pycache__ bajo el arbol: el borrado de la
+# violacion confesada (ver ADDENDA I, NOTA DE METODO) esta comprobado POR
+# SISTEMA DE FICHEROS, no por git. Los tres ficheros del directorio conservan
+# su mtime de abril; solo el mtime del directorio padre es de hoy 17:24:52.
+# Lo que NO se puede afirmar hoy de ese arbol: si tiene o no cambios sucios
+# respecto a HEAD. El indice esta corrupto y `git status` no responde.
+
+
+######## II.C · EL `0` DE ENTRYPOINTS ERA UN FLUJO VACIO ########
+
+# La linea :330-331 registra `ls-tree -r ... | grep -icE ... -> 0`. El
+# recorrido recursivo del arbol MUERE por el pack degradado; el `0` no mide
+# ausencia de entrypoints, mide que la orden no emitio nada.
+
+$ for i in 1 2 3; do git --no-optional-locks -C "$DM" ls-tree -r --name-only HEAD > lt.out 2> lt.err; echo "rc=$? lineas=$(wc -l < lt.out)"; done
+rc=1 lineas=0
+rc=1 lineas=0
+rc=1 lineas=0
+$ cat lt.err
+error: wrong index v1 file size in .../objects/pack/pack-56b2eb9056090df28f73c0a88974827e2a16218c.idx
+   (x5)
+error: Could not read 971aee0998805ac89c08b323a0a4ee7391130ff7
+
+# CONTROL DE SANIDAD DEL PATRON (flujo NO vacio):
+$ printf 'mod/agents/pipeline.js\n' | grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$"
+1
+# El patron funciona. Lo que estaba vacio era el flujo.
+
+# SIN -r (no recursivo) el arbol SI responde:
+$ git --no-optional-locks -C "$DM" ls-tree --name-only HEAD > root.out 2> root.err ; echo rc=$?
+rc=0
+$ wc -l < root.out
+25
+
+
+######## II.D · RECORRIDO SUBARBOL POR SUBARBOL · lo que se deja ver y lo que no ########
+
+$ git --no-optional-locks -C "$DM" ls-tree HEAD | awk '$2=="tree"{print $4}' | while read d; do
+    git --no-optional-locks -C "$DM" ls-tree -r --name-only HEAD -- "$d" > sub.out 2> sub.err
+    echo "$d rc=$? entradas=$(wc -l < sub.out)"
+  done
+
+subarbol                 rc   entradas
+.githooks                1    0
+.github                  1    6
+.vscode                  1    0
+COPILOT                  1    0
+DRAFT2                   0    5
+DRAFTS2                  1    0
+banner                   1    0
+corpus                   1    1
+docs                     1    10
+engine-logs              1    0
+guiones                  1    0
+mod                      1    11
+sala                     1    2
+tmp                      128  1
+workers                  0    3
+
+# 15 subarboles de raiz (las otras 10 entradas de las 25 son blobs).
+#  - 2 de 15 se recorren COMPLETOS (rc=0): DRAFT2, workers.
+#  - 7 de 15 devuelven CERO entradas: .githooks, .vscode, COPILOT, DRAFTS2,
+#    banner, engine-logs, guiones. Entre ellos `.githooks`, que es justo donde
+#    viviria un ejecutable.
+#  - 6 de 15 emiten salida PARCIAL con rc distinto de 0.
+# `tmp` falla con rc=128 por otra causa, un objeto suelto corrupto:
+$ git --no-optional-locks -C "$DM" ls-tree -r --name-only HEAD -- tmp 2>&1 >/dev/null | tail -3
+error: inflate: data stream error (unknown compression method)
+error: unable to unpack c23985afb2f21aea2a238274e39a5cbab37fa4ea header
+fatal: loose object c23985afb2f21aea2a238274e39a5cbab37fa4ea (stored in
+  .../objects/c2/3985afb2f21aea2a238274e39a5cbab37fa4ea) is corrupt
+
+# UNION DE LO VISIBLE: 10 blobs de raiz + 39 entradas de subarbol = 49 rutas.
+$ wc -l < visible.txt
+49
+$ grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$" visible.txt
+0
+$ grep -E "\.(py|js|mjs|cjs|ts|exe|sh|bat|cmd|ps1)$" visible.txt
+workers/escribiente-whisper/precheck.py
+workers/escribiente-whisper/worker.py
+
+# LECTURA HONESTA. Sobre las 49 rutas que el arbol SI se deja leer no hay
+# ningun entrypoint ejecutable de la cadena B->C->P; los dos unicos ficheros
+# ejecutables visibles del arbol entero son los de escribiente-whisper, que no
+# es la cadena. Pero esto NO es "cero entrypoints en el commit": 7 de 15
+# subarboles no se dejan recorrer, `.githooks` entre ellos, y no se puede
+# afirmar que esten vacios -- solo que no se pueden leer. La afirmacion "cero
+# entrypoints en el commit anclado" queda RETIRADA del reporte y sustituida
+# por esta, que es lo que la medida sostiene.
+
+
+######## II.E · LA LINEA :137 NO ES VERBATIM · faltaba un `| head` ########
+
+# :137 transcribe:  `$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1`
+# y muestra 10 lineas de salida (:138-:147) y `exit=0` (:148). Las dos cosas
+# son incompatibles con esa orden:
+
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1 | wc -l
+18
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1 | head -n 10 | wc -l
+10
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1 | head -n 10 > /dev/null ; echo exit=$?
+exit=0
+
+# La salida real tiene 18 lineas, no 10; y la orden tal como esta transcrita da
+# exit=1, no 0. La unica forma que produce a la vez 10 lineas y exit=0 es
+# `| head -n 10`. Conclusion que hay que decir y la ADDENDA I no dijo: las
+# lineas "$ ..." del cuerpo de este log NO SON VERBATIM -- se les elidieron
+# tuberias, y es precisamente la tuberia elidida la que fabrico el exit=0 falso.
+
+
+######## II.F · DERIVACION DEL exit=127 DE npm ########
+
+# El 127 invita a leerse como "orden no encontrada". No lo es: npm esta en PATH
+# y ejecuto. Cadena medida:
+
+$ command -v npm > /dev/null 2>&1 ; echo exit=$?
+exit=0
+$ node -e "try{require('fs').readFileSync('C:/no/existe/x.json')}catch(e){console.log('code='+e.code+' errno='+e.errno)}"
+code=ENOENT errno=-4058
+$ node -e "process.exit(-4058)" > /dev/null 2>&1 ; echo exit=$?
+exit=127
+$ node -e "process.exit(254)" > /dev/null 2>&1 ; echo exit=$?
+exit=254
+$ node -e "process.exit(1)" > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ npm --prefix ".../DocumentMachineSDK" run > /dev/null 2>&1 ; echo exit=$?
+exit=127
+
+# node v22.21.1 · npm 10.9.4 · bash 5.2.37 · MINGW64_NT-10.0-26200
+# LECTURA: npm propaga el `errno` del error, y `UV_ENOENT` en Windows es -4058.
+# Este shell reporta 127 para ese valor negativo, y NO es un clamp generico:
+# 254 sale como 254 y 1 como 1. El 127 significa "npm corrio y no encontro
+# package.json", no "npm no existe".
+
+
+######## II.G · ANCLAJE QUE FALTABA · escribiente-whisper en el commit ########
+
+$ git --no-optional-locks -C "$DM" ls-tree -r HEAD -- workers ; echo rc=$?
+100644 blob 46e57b5c422aa7b8f152d760e3a755745ef43e07	workers/escribiente-whisper/precheck.py
+100644 blob db085fad0e202131c25d07db6648bfdc2e299e00	workers/escribiente-whisper/requirements.txt
+100644 blob 353d8bf9f0e5ff6d046d2e06348b0f1af36c83cd	workers/escribiente-whisper/worker.py
+rc=0
+
+# `workers` es uno de los dos subarboles que si se recorren completos. La fila
+# de whisper deja de ser la unica sin anclaje.
+
+
+######## II.H · REFUERZO · el gitlink que e-sdk fija, y el upstream comun ########
+
+$ git --no-optional-locks -C "C:/S_LAB/e-sdk" ls-tree HEAD -- DocumentMachineSDK
+160000 commit 073be841da91422d9bac696f96cfc5a12c002b35	DocumentMachineSDK
+$ git --no-optional-locks -C "C:/S_LAB/e-sdk" config -f .gitmodules --get submodule.DocumentMachineSDK.url
+https://github.com/escrivivir-co/para-la-voz-sdk.git
+$ git --no-optional-locks -C ".../OASIS/aleph-scriptorium/DocumentMachineSDK" remote -v
+origin	https://github.com/escrivivir-co/para-la-voz-sdk.git (fetch)
+origin	https://github.com/escrivivir-co/para-la-voz-sdk.git (push)
+
+$ git --no-optional-locks -C "C:/S_LAB/e-sdk" submodule status
+-1498d67e631cbe395bb4577e2c8d57e0451d551a AgentLoreSDK
+-073be841da91422d9bac696f96cfc5a12c002b35 DocumentMachineSDK
+-820e63d1c5592d7c9930630be1b30e1cf6efa90f VectorMachineSDK
+-b31e4088c12c82634a2bb71a945a585d501a8c43 VectorMachineUI
+$ for d in AgentLoreSDK VectorMachineSDK VectorMachineUI DocumentMachineSDK; do
+    echo "count=$(find "C:/S_LAB/e-sdk/$d" -mindepth 1 | wc -l)  $d"; done
+count=0  AgentLoreSDK
+count=0  VectorMachineSDK
+count=0  VectorMachineUI
+count=0  DocumentMachineSDK
+
+# LECTURA: el arbol de OASIS (0d65d068) y el que e-sdk espera (073be841) son
+# el MISMO upstream (para-la-voz-sdk.git) a distinto commit. e-sdk no aporta
+# arbol -- el prefijo `-` y count=0 lo dicen -- pero si fija que commit querria.
+
+
+######## II.I · MEDIDAS QUE FALTABAN A DOS FILAS DE LA TABLA A ########
+
+$ for f in ".../onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/"*.analisis.md; do
+    test -f "$f"; echo "exit=$?  bytes=$(wc -c < "$f")  $(basename "$f")"; done
+exit=0  bytes=11025  2024-05-01_primero-de-mayo.analisis.md
+exit=0  bytes=13293  2026-05-01_auge-de-la-educacion-emocional.analisis.md
+
+# (los conteos de e-sdk para AgentLoreSDK / VectorMachineSDK / VectorMachineUI
+#  estan arriba, en II.H)
+
+
+######## II.J · OBSERVACION DE TERCEROS · para el custodio, no imputable a ZV ########
+
+$ find ".../onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus" -maxdepth 1 -printf '%TY-%Tm-%Td %TH:%TM:%TS  %y  %p\n'
+2026-08-02 11:07:21.0487284000  d  .../corpus
+2026-05-01 11:36:43.3171165000  d  .../corpus/analisis
+2026-05-01 11:37:43.1414780000  f  .../corpus/corpus.md
+2026-05-01 11:35:55.9270780000  d  .../corpus/editoriales
+$ find ".../corpus" -newermt '2026-08-02 00:00:00' -printf '%TY-%Tm-%Td %TH:%TM:%TS  %y  %p\n'
+2026-08-02 11:07:21.0487284000  d  .../corpus
+   (ningun hijo)
+
+# El directorio `corpus` tiene mtime de hoy 11:07:21 y NINGUN hijo de hoy. No
+# encaja en ninguna ventana de este trabajo: el spike original corrio ~02:49 y
+# el turno ZV ~17:24-17:32. `git status` de onfalo-asesor-sdk da rc=0 y 0
+# lineas, o sea que nada versionado cambio. Se anota como observacion para el
+# custodio; ZV no lo produjo y no lo toca.
+
+=== FIN ADDENDA ZV · II ===
+
+######## ADDENDA ZV · II.K · las dos celdas que describian en vez de medir ########
+
+# Tres filas de la Tabla A decian "frontmatter tools: [vscode,...]" y una decia
+# "`npm run` los lista" sin salida literal. Medido:
+
+$ for f in .github/agents/bartleby.agent.md .github/agents/cristalizador.agent.md mod/agents/pipeline.agent.md; do head -n 12 "$DM/$f" | grep -n "tools:"; done
+5:tools: [vscode, execute, read, agent, edit, search, web, 'playwright/*', browser, todo]
+5:tools: [vscode, execute, read, agent, edit, search, web, browser, todo]
+5:tools: [vscode, execute, read, agent, edit, search, todo]
+
+# Los tres declaran `vscode` en la linea 5 de su frontmatter. Es la superficie
+# que declaran: herramientas de sesion IDE, no CLI.
+
+$ npm --prefix ".../OASIS/aleph-scriptorium/AgentLoreSDK" run > al.out 2> al.err ; echo rc=$?
+rc=0
+$ cat al.out
+Scripts available in @aleph-scriptorium/agent-lore-sdk@0.1.0 via `npm run-script`:
+  docs:web
+    http-server docs -a 127.0.0.1 -p 4173 -c-1
+  docs:web:open
+    http-server docs -a 127.0.0.1 -p 4173 -c-1 -o
+  audit:anchors
+    node .github/hooks/audit-anchors.mjs
+  validate
+    npm run audit:anchors
+  ynsy-engine:start
+    npm run ynsy-engine:check && http-server docs -a 127.0.0.1 -p 4174 -c-1
+  ynsy-engine:check
+    npm run ynsy-engine:dispose
+  ynsy-engine:dispose
+    lsof -t -i:4174 | xargs kill -9 2>/dev/null || true
+$ cat al.err
+(vacio)
+$ grep -icE "bartleby|cristalizador|pipeline" al.out
+0
+
+# AgentLoreSDK SI corre (rc=0, package.json presente, 7 scripts) y NINGUNO de
+# sus scripts es de la cadena. Contraste util: es el unico "corre" de la tabla,
+# y no sirve para la cadena.
+
+=== FIN ADDENDA ZV · II.K ===
+
+######## ADDENDA ZV · II.L · los `find | wc -l` que quedan, comprobados uno a uno ########
+
+# Tras retirar los dos `| wc -l` sobre ordenes que fallan, quedan varios
+# `find ... | wc -l` en la Tabla A y en la coartada de §5. NO son el mismo caso,
+# pero eso hay que DEMOSTRARLO, no afirmarlo. rc separado de stdout:
+
+$ for d in AgentLoreSDK VectorMachineSDK VectorMachineUI DocumentMachineSDK; do
+    find "C:/S_LAB/e-sdk/$d" -mindepth 1 > f.out 2> f.err
+    echo "$d rc=$? lineas=$(wc -l < f.out) stderr=[$(cat f.err)]"; done
+AgentLoreSDK        rc=0  lineas=0  stderr=[]
+VectorMachineSDK    rc=0  lineas=0  stderr=[]
+VectorMachineUI     rc=0  lineas=0  stderr=[]
+DocumentMachineSDK  rc=0  lineas=0  stderr=[]
+
+$ find ".../DocumentMachineSDK" -name '__pycache__' -type d > p.out 2> p.err ; echo rc=$?
+rc=0   lineas=0   stderr=[]
+$ find ".../DocumentMachineSDK" -name '*.pyc' -type f > p2.out 2> p2.err ; echo rc=$?
+rc=0   lineas=0   stderr=[]
+
+# CONTROL NEGATIVO (que el instrumento SI distingue "vacio" de "fallo"):
+$ find "C:/S_LAB/e-sdk/NoExiste" -mindepth 1 > f2.out 2> f2.err ; echo rc=$?
+rc=1   lineas=0
+stderr=[find: 'C:/S_LAB/e-sdk/NoExiste': No such file or directory]
+
+# CONCLUSION: todos los `find` que sostienen afirmaciones en este informe
+# terminan en rc=0 con stderr vacio. Sus ceros son ceros de verdad. El control
+# negativo demuestra que un fallo se habria visto como rc=1 + mensaje.
+
+=== FIN ADDENDA ZV · II.L ===
