@@ -2,7 +2,7 @@
   "name": "@scriptorium/prueba-hm-kit",
   "private": true,
   "version": "0.1.0",
-  "description": "Kit LORE-HM playground — WP-HUB-100…109 (GHM + mapa + despertar) + 111 (escenarios descubribles)",
+  "description": "Kit LORE-HM playground — WP-HUB-100…111 (GHM + mapa + despertar + negativos + consumidor limpio + escenarios descubribles)",
   "type": "module",
   "license": "UNLICENSED",
   "dependencies": {
@@ -25,6 +25,8 @@
     "test:mapa": "node ci/test-108-mapa.mjs",
     "despertar": "node scripts/despertar.mjs",
     "test:despierta": "node ci/test-109-despierta.mjs",
+    "test:negativos": "node ci/test-110-negativos.mjs",
+    "test:consumidor-limpio": "node ci/test-110-consumidor-limpio.mjs",
     "test:escenarios": "node ci/test-111-escenarios.mjs"
   },
   "comments": {
