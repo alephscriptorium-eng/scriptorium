@@ -647,20 +647,26 @@ function main() {
       // El instrumento se rompió. Antes esto salía por `console.log` y la suite
       // seguía verde: el barrido se podía neutralizar sin enrojecer nada.
       fail(`el barrido de huérfanos del SO no pudo ejecutarse: ${barrido.motivo}`);
-    } else if (barrido.sinFecha.length > 0) {
-      // Sin fecha no se acusa a nadie —eso sería el falso positivo sin cota que
-      // desactiva un guardián— pero tampoco se da por bueno.
-      fail(
-        `el barrido no pudo fechar ${barrido.sinFecha.length} de ${barrido.candidatos} procesos: ` +
-          `sin fecha no se puede distinguir un huérfano de un PID reciclado`,
-      );
-    } else if (barrido.vivos.length > 0) {
-      fail(
-        `procesos huérfanos VIVOS según el SO: ` +
-          barrido.vivos
-            .map((f) => `${f.Name}#${f.ProcessId}(padre ${f.ParentProcessId})`)
-            .join(", "),
-      );
+    } else if (barrido.vivos.length > 0 || barrido.sinFecha.length > 0) {
+      // Los dos hallazgos son independientes y se reportan LOS DOS. Encadenados
+      // con `else if`, una corrida con huérfanos y con filas sin fechar sólo
+      // enseñaba el fallo de fechado: seguía en rojo, pero callaba lo peor.
+      if (barrido.vivos.length > 0) {
+        fail(
+          `procesos huérfanos VIVOS según el SO: ` +
+            barrido.vivos
+              .map((f) => `${f.Name}#${f.ProcessId}(padre ${f.ParentProcessId})`)
+              .join(", "),
+        );
+      }
+      if (barrido.sinFecha.length > 0) {
+        // Sin fecha no se acusa a nadie —eso sería el falso positivo sin cota
+        // que desactiva un guardián— pero tampoco se da por bueno.
+        fail(
+          `el barrido no pudo fechar ${barrido.sinFecha.length} de ${barrido.candidatos} procesos: ` +
+            `sin fecha no se puede distinguir un huérfano de un PID reciclado`,
+        );
+      }
     } else {
       ok(
         `barrido del SO: cero procesos vivos colgando de los ${censoPids.size + 1} pids conocidos ` +
@@ -673,18 +679,36 @@ function main() {
   } finally {
     // La limpieza NO puede decidir el veredicto. Si un huérfano se quedó con
     // el `cwd` del checkout, `rmSync` lanza `EBUSY` y la excepción se comía la
-    // línea `FAIL (n)`: el exit 1 lo ponía el accidente, no la aserción. Ahora
-    // un fallo de limpieza es un `fail()` más —y encima es señal de que algo
-    // sigue agarrando el directorio—.
+    // línea `FAIL (n)`: el exit 1 lo ponía el accidente, no la aserción. Un
+    // fallo de limpieza es un `fail()` más.
+    //
+    // CUIDADO CON LA LECTURA: un fallo de borrado es una señal **compatible**
+    // con un huérfano vivo, NO equivalente a él. Cualquier proceso ajeno
+    // —antivirus, indexador, vista previa— que agarre un fichero del checkout
+    // lo produce igual, y el instante de máxima exposición es justo después de
+    // que `npm ci` escriba miles de ficheros. Un guardián con falsos positivos
+    // se desactiva solo, así que se reintenta.
+    //
+    // Los reintentos NO tapan al huérfano de verdad, y está medido: Node
+    // reintenta el borrado de un FICHERO retenido (EPERM/EBUSY) pero NO el
+    // `rmdir` de un directorio que otro proceso tiene como `cwd`, que es el
+    // caso del huérfano. Medido con lock transitorio de ~1200 ms:
+    //   por defecto        -> EBUSY(EPERM) en    2 ms   (falso positivo)
+    //   maxRetries:5/100ms -> BORRADO      en 1049 ms   (falso positivo evitado)
+    // y con un proceso vivo reteniendo el `cwd`:
+    //   maxRetries:10/100ms -> EBUSY en 0 ms            (huérfano sigue en rojo)
     if (!process.env.KEEP_HM_RUNS) {
       for (const [etiqueta, dir] of [
         ["checkout temporal", consumerRoot],
         ["directorio de partes", logDir],
       ]) {
         try {
-          fs.rmSync(dir, { recursive: true, force: true });
+          fs.rmSync(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
         } catch (e) {
-          fail(`no se pudo limpiar el ${etiqueta}: ${e.code ?? ""} ${e.message}`);
+          fail(
+            `no se pudo limpiar el ${etiqueta} tras reintentar: ${e.code ?? ""} ${e.message}` +
+              ` — compatible con un huérfano vivo, pero también con un lock ajeno`,
+          );
         }
       }
     }
