@@ -4,10 +4,11 @@
 | ----- | ----- |
 | rama | `wp/lore-hm-accum` |
 | tip de partida | `8c38119` |
-| commits | `9ac352b` `aa98be7` `b124b74` `4695cd0` `c8113c3` |
+| commits | `9ac352b` `aa98be7` `b124b74` `4695cd0` `c8113c3` · **vuelta 2:** `a653d3c` |
 | alcance | `playground/prueba-de-H-M/**` |
 | suite | `node ci/suite.mjs` → **PASS** (100…109) |
-| denominador | 116 ficheros versionados · 52 `.mjs` |
+| denominador | 117 ficheros versionados · 52 `.mjs` |
+| negativos test-107 | 11 → 21 → **30** |
 
 El movimiento es uno solo, repetido en los cuatro primeros frentes:
 **no fiarse de lo que el artefacto dice de sí mismo, recomputar.** El patrón
@@ -28,6 +29,18 @@ negativos usan un **atacante «reparador»** que rehace matriz, hashes,
 cobertura y sello del pack antes de pedir veredicto. Sin él, un guardián
 superficial se apunta un tanto que no es suyo y el guardián profundo queda
 sin probar. Está incorporado a `ci/test-107` como `repairSuperficial()`.
+
+**Acotación (devolución ZV-HUB).** En la primera entrega ese reparador hacía
+**cuatro de cinco**: no rehacía la cadena de `provenance.upstream`. Mis
+negativos estaban elegidos de modo que no importara —los rojos que reporté
+eran míos—, pero presenté el reparador como la respuesta a la clase entera y
+no lo era: un vector que tocase la cadena habría enrojecido por «provenance
+rota» antes de llegar al guardián que decía probar, que es exactamente el
+tanto ajeno que este párrafo dice evitar. Ya lleva re-ancla topológico, y está
+partido en `repairSuperficial()` (con cadena) y `repairShallow()`, para que un
+negativo pueda romper la cadena *después* del re-ancla. Además `result` sale
+ahora del wire y `report.md` del render: el arnés dependía de que nadie mirase
+esos dos campos.
 
 ---
 
@@ -162,10 +175,15 @@ llamadas reales**; ahora se invoca en el camino real de `runCeremonia` sobre
 los `chain.ndjson` releídos de disco, empareja **por identidad de actividad y
 no por posición** (comparar `chainH[i]` con `chainM[i]` sólo funcionaba porque
 un único bucle las escribe en el mismo orden) y exige que `side` y
-`wireDigest` difieran. La independencia real la aporta el **verificador**, que
-recomputa el núcleo causal de cada mitad por separado desde ficheros
-distintos. Eso es lo que hay; no es «dos observadores» y no se afirma que lo
-sea.
+`wireDigest` difieran.
+
+Lo que el verificador aporta es **detección de manipulación posterior, no
+independencia**. En la primera entrega escribí que «la independencia real la
+aporta el verificador recomputando cada mitad»: se pasa. Las dos mitades
+salen del **mismo `outcome` en la misma iteración**, así que la igualdad de
+sus núcleos causales es **tautológica en el camino real** — no puede fallar
+salvo que alguien toque los ficheros después. Recomputar detecta ese toque;
+no convierte un escritor en dos observadores. Eso es lo que hay.
 
 ---
 
@@ -222,12 +240,29 @@ tiene. Está escrito en el JSDoc de `_validateMaestroIdentity`, no escondido.
 
 **Rutas de máquina.** Dos listas distintas (`ABSOLUTE_PATH_PATTERNS` en
 `importar-onfalo.mjs`, `assertNoMachinePaths` en `generar.mjs`) y **ninguna
-cubría `C:/S_LAB/`**. Medido: **18 de 116** ficheros versionados llevan rutas
-de máquina (el auditor dijo 20 de 111; el denominador se movió). Ahora hay una
-sola definición en `lib/rutas-maquina.mjs`, con cualquier unidad Windows, UNC y
-homes POSIX. El patrón exige que la letra de unidad **no venga precedida de
-otra letra**, para no confundir `https://` con la unidad `S:/`. Medido 17/17
-casos, cero falsos positivos sobre `urn:`, `linea://`, `sha256:` y timestamps.
+cubría `C:/S_LAB/`**. Ahora hay una sola definición en `lib/rutas-maquina.mjs`,
+con cualquier unidad Windows, UNC, homes POSIX, `/root`, `/Volumes`, `/mnt`,
+`~/`, `$HOME` y `%USERPROFILE%`. El patrón de unidad exige que la letra **no
+venga precedida de otra letra**, para no confundir `https://` con `S:/`.
+Medido 28/28 casos, cero falsos positivos sobre `/homework`, `/rooted`,
+`a ~ b`, `urn:`, `linea://`, `sha256:` y timestamps.
+
+**Corrección de una corrección mía.** En la primera entrega escribí «18 de
+116». Es **falso**, y el error fue mío al corregir al auditor — que es peor que
+el error original, porque llega con más autoridad. Medí con un `grep` de
+`C:[\/]S_LAB[\/]`, es decir sólo las rutas a *ese* directorio, y presenté el
+resultado como el recuento general de rutas de máquina. Re-medido con
+`findMachinePath` —mi propio detector—, fichero a fichero de `git ls-tree`:
+
+| commit | rutas de máquina / ficheros |
+| ------ | --------------------------- |
+| `8c38119` (base de partida) | **22 / 114** |
+| `b124b74` … `c8113c3` | **23 / 116** |
+| `af030de` (entrega anterior) | **24 / 117** |
+
+En HEAD son **24**: 15 `.md` + 9 `.mjs`. El denominador 116 sí era correcto en
+su momento; el numerador no lo fue nunca. La cifra del auditor original (20 de
+111) estaba más cerca de la verdad que mi «corrección».
 
 **Schemas linea-kit.** `grepZeroOwnLineSchemas` comparaba **nombres de
 fichero**: copiar `manifest-tronco.json` como `mi-tronco.schema.json` pasaba
@@ -327,6 +362,96 @@ Son cosas distintas y el acta lo dice con esas palabras.
 
 ---
 
+## Vuelta 2 · los cuatro bloqueantes de la devolución
+
+Los cuatro reproducen. Re-medidos con arnés propio antes de tocar nada.
+
+### B1 · La biyección comparaba la clave, no la corrida
+
+El regex de `activityPairKey` no miraba el prefijo `runId`, y los wires no
+estaban atados ni a `report.runId` ni a `pack.runId`.
+
+```
+ANTES  34 actividades fabricadas · claves EXACTAS · prefijo de otra corrida
+       object:"urn:fabricado:nada-ocurrio" · solapamiento con la real: 0
+       -> ok=true  checks=12
+
+DESPUÉS -> RECHAZA pareja bilateral inesperada:
+           urn:scriptorium:hm:CORRIDA-QUE-NUNCA-EXISTIO:… prefijo de otra corrida
+```
+
+**Corolario, también medido:** vaciar `provenance.upstream` en las 34 mitades
+pasaba. El check llamado «cadena causal» no exigía que hubiera cadena. Ahora
+el enganche de cada paso se recomputa contra el `upstream` que declara
+`CEREMONY_STEPS`:
+
+```
+ANTES   upstream:[] en los 34 -> ok=true  checks=12
+DESPUÉS -> RECHAZA cadena causal diverge: 2|peer.announce|pri:
+           upstream=[] ≠ enganche declarado [sha256:6186e44b…]
+```
+
+Nota sobre mi propia línea de prueba: el reviewer tiene razón en que el
+negativo «0 reales» enrojecía por los verbos `zzz.*`, no por el guardián. Los
+negativos de clave usan ahora el `runId` **real**, de modo que siguen probando
+el guardián de clave y no el de prefijo.
+
+### B2 · El verificador nunca leía `wire.result`
+
+```
+ANTES   34 wires result:"fail"  ->  report.verdict:"pass"  ->  ok=true
+DESPUÉS -> RECHAZA reporte inválido: verdict=pass con 34 wires que no son pass
+```
+
+Y la matriz se contrastaba **por recuento de verbos**, así que `actor`,
+`object` y `result` de cada fila eran libres. Ahora se compara fila a fila por
+la tupla `(verb, actor, object, result)`. El reviewer señala el detalle que más
+duele y es cierto: **mi `repairSuperficial` escribía `result:"pass"` sin mirar
+el wire** — el arnés dependía de que nadie mirase ese campo. Ahora lo toma del
+wire, con lo que el reparador queda obligado a reparar también `result`.
+
+### B3 · El sello del mapa no tenía raíz de confianza
+
+`assertSeal` recorría sólo `manifest.pieces` —autodeclarado— y recomputaba el
+sello de esa misma lista.
+
+| vector | antes | después |
+| ------ | ----- | ------- |
+| excerpt sustituido + resellado | exit 0 | **exit 1** |
+| excerpts fuera de `pieces` + mutados | exit 0 | **exit 1** |
+| `pieces: []` (sello de la cadena vacía) | exit 0 | **exit 1** |
+| `mapa.json` reasignado + todo resellado | — | **exit 1** |
+| control intacto | exit 0 | exit 0 |
+
+Dos capas: `SEALED_MAPA_PIECES` como raíz contrastada contra el manifest —el
+patrón que ya estaba escrito 40 líneas más allá en el verificador— y, porque
+**un sello prueba integridad y no veracidad**, la proyección se **recomputa**
+desde los excerpts sellados. `mapa.json` es derivado de ellos, así que se puede
+rederivar sin cantera.
+
+### B4 · Mi corrección de la cita era incorrecta
+
+Ver el bloque de rutas de máquina en ⑥. En resumen: escribí «18 de 116»
+midiendo sólo `C:/S_LAB/` con un grep, no con mi propio detector. Lo correcto
+es **24 / 117** en HEAD (22/114 en la base). El reviewer tiene razón, y su
+número coincide con el mío al re-medir.
+
+### Menores cerrados
+
+`report.md` se compara con su render (antes: contenido libre con dos cadenas
+mágicas) · `ceremonyId`/`scenarioId` contra la raíz · `artifactChain`
+recomputado contra el `object` del wire de cierre —el cruce estaba en la
+evidencia y no se usaba— · `validateTipestate` exige que las unidades de la
+ceremonia estén y cierren (reducir `transitions` a una y vaciar `finals` daba
+verde) · `validateAcl` exige capacidad vigente de **ambos** actores por unidad
+(bastaba *una* positiva) · schemas por huella **estructural**, que atrapa el
+reetiquetado `$id`+`title` · rutas de máquina +7 patrones · el guardián de los
+12 checks detecta duplicados y cardinalidad · `acta.frontier` deja de ser
+`null` · `CONTEO` en los counts del manifest y dos logs · código muerto tras
+`fail()`.
+
+---
+
 ## Qué NO cubro
 
 1. **Identidad de M.** Cerrada la autoafirmación `trusted:true`; el residuo
@@ -352,6 +477,17 @@ Son cosas distintas y el acta lo dice con esas palabras.
    revisado ni actualizado; el encargo era código y guardianes.
 7. **Cobertura de `lib/despertar/`** (WP-109): no había vectores en el encargo
    y no la he auditado por mi cuenta.
+8. **Vuelta 2 — sigue abierto:** el sexto vector es más ancho de lo que cierro.
+   `report.md` y `provenance.ceremonyId/scenarioId` ya se contrastan, pero
+   siguen fuera del sello del pack los campos de `pack/manifest.json` que no
+   son de los seis documentos y los campos de `report.json` que no entran en
+   ninguna comprobación. Se contrastan por otras vías o no se contrastan; no
+   están sellados. Lo dejo dicho en vez de afirmar que la clase está cerrada.
+9. **Vuelta 2 — el guardián de los 12 checks vigila etiquetas, no ejecución.**
+   Detecta renombrar, impostores, duplicados y cardinalidad, pero comentar la
+   llamada dejando el `push` seguiría devolviendo 12 nombres. Quien lo salva es
+   la suite —los negativos enrojecerían—, no el guardián. Verificar ejecución
+   real exige instrumentar el verificador, y eso es rediseño.
 
 ## Reproducir
 
