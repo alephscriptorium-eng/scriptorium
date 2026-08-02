@@ -18,9 +18,26 @@
  *     registrados, para que «sin puertos ni procesos huérfanos» sea una
  *     comprobación y no una declaración.
  *
- * LÍMITE DECLARADO: esto es una guardia en-proceso replicada en cada hijo de
- * Node. Cubre lo que pasa por las APIs de Node. Un binario nativo, o un hijo
- * que no sea Node, quedaría fuera. No se afirma más que eso.
+ * LÍMITE DECLARADO, Y ES MÁS ESTRECHO DE LO QUE PARECE
+ * -----------------------------------------------------
+ * Esta guardia sustituye **propiedades del namespace** de un builtin. Node
+ * fija el binding de un *named export* al instanciar el módulo, así que:
+ *
+ *     import childProcess from "node:child_process";
+ *     childProcess.spawnSync(...)      // ← interceptado
+ *
+ *     import { spawnSync } from "node:child_process";
+ *     spawnSync(...)                   // ← NO interceptado. Medido:
+ *                                      //   named import   -> false
+ *                                      //   namespace prop -> true
+ *
+ * Lo mismo vale para `import { lookup } from "node:dns"` y para cualquier
+ * `new dns.Resolver()`, que trae sus propios métodos. Un binario nativo o un
+ * hijo que no sea Node también quedan fuera. No se afirma más que eso.
+ *
+ * Es la misma trampa que ya costó cara en otro mundo de este programa: un
+ * monkey-patch de `fs` que no alcanzaba a `import { writeFileSync }` y una
+ * sonda que «funcionaba» por accidente. Mundos distintos, mismo mecanismo.
  */
 import net from "node:net";
 import tls from "node:tls";
@@ -100,8 +117,17 @@ export function installOfflineGuard(opts = {}) {
     dnsResolve: dns.resolve,
     dnsResolve4: dns.resolve4,
     dnsResolve6: dns.resolve6,
+    dnsResolveAny: dns.resolveAny,
+    dnsResolveCname: dns.resolveCname,
+    dnsResolveMx: dns.resolveMx,
+    dnsResolveTxt: dns.resolveTxt,
+    dnsResolveSrv: dns.resolveSrv,
+    dnsResolveNs: dns.resolveNs,
     dnsPromisesLookup: dnsPromises.lookup,
     dnsPromisesResolve: dnsPromises.resolve,
+    dnsPromisesResolve4: dnsPromises.resolve4,
+    dnsPromisesResolve6: dnsPromises.resolve6,
+    dnsPromisesResolveAny: dnsPromises.resolveAny,
     fetch: globalThis.fetch,
     spawn: childProcess.spawn,
     spawnSync: childProcess.spawnSync,
@@ -185,8 +211,21 @@ export function installOfflineGuard(opts = {}) {
   dns.resolve = wrapDns(orig.dnsResolve, "dns.resolve");
   dns.resolve4 = wrapDns(orig.dnsResolve4, "dns.resolve4");
   dns.resolve6 = wrapDns(orig.dnsResolve6, "dns.resolve6");
+  dns.resolveAny = wrapDns(orig.dnsResolveAny, "dns.resolveAny");
+  dns.resolveCname = wrapDns(orig.dnsResolveCname, "dns.resolveCname");
+  dns.resolveMx = wrapDns(orig.dnsResolveMx, "dns.resolveMx");
+  dns.resolveTxt = wrapDns(orig.dnsResolveTxt, "dns.resolveTxt");
+  dns.resolveSrv = wrapDns(orig.dnsResolveSrv, "dns.resolveSrv");
+  dns.resolveNs = wrapDns(orig.dnsResolveNs, "dns.resolveNs");
   dnsPromises.lookup = wrapDns(orig.dnsPromisesLookup, "dns.promises.lookup");
   dnsPromises.resolve = wrapDns(orig.dnsPromisesResolve, "dns.promises.resolve");
+  dnsPromises.resolve4 = wrapDns(orig.dnsPromisesResolve4, "dns.promises.resolve4");
+  dnsPromises.resolve6 = wrapDns(orig.dnsPromisesResolve6, "dns.promises.resolve6");
+  dnsPromises.resolveAny = wrapDns(orig.dnsPromisesResolveAny, "dns.promises.resolveAny");
+  // LÍMITE QUE NO SE CIERRA AQUÍ: `new dns.Resolver()` trae sus propios
+  // métodos, y `import { lookup } from "node:dns"` fija el binding al
+  // instanciar. Ninguno de los dos pasa por estas propiedades. Declarado en
+  // REPORTE-ZV-110.md §8.
   if (typeof orig.fetch === "function") {
     globalThis.fetch = wrapUrlApi(orig.fetch, "fetch");
   }
@@ -232,6 +271,28 @@ export function installOfflineGuard(opts = {}) {
     });
     return r;
   };
+  // `execSync` y `execFileSync` estaban capturados en `orig` y NUNCA se
+  // asignaban: dos de las seis formas de crear un proceso quedaban sin contar
+  // y el censo no tenía cómo saberlo.
+  childProcess.execSync = function patchedExecSync(...args) {
+    try {
+      return orig.execSync.apply(this, args);
+    } finally {
+      children.push({ api: "execSync", command: nombreDe(args), pid: null, status: null });
+    }
+  };
+  childProcess.execFileSync = function patchedExecFileSync(...args) {
+    try {
+      return orig.execFileSync.apply(this, args);
+    } finally {
+      children.push({
+        api: "execFileSync",
+        command: nombreDe(args),
+        pid: null,
+        status: null,
+      });
+    }
+  };
 
   function restore() {
     net.connect = orig.netConnect;
@@ -246,13 +307,24 @@ export function installOfflineGuard(opts = {}) {
     dns.resolve = orig.dnsResolve;
     dns.resolve4 = orig.dnsResolve4;
     dns.resolve6 = orig.dnsResolve6;
+    dns.resolveAny = orig.dnsResolveAny;
+    dns.resolveCname = orig.dnsResolveCname;
+    dns.resolveMx = orig.dnsResolveMx;
+    dns.resolveTxt = orig.dnsResolveTxt;
+    dns.resolveSrv = orig.dnsResolveSrv;
+    dns.resolveNs = orig.dnsResolveNs;
     dnsPromises.lookup = orig.dnsPromisesLookup;
     dnsPromises.resolve = orig.dnsPromisesResolve;
+    dnsPromises.resolve4 = orig.dnsPromisesResolve4;
+    dnsPromises.resolve6 = orig.dnsPromisesResolve6;
+    dnsPromises.resolveAny = orig.dnsPromisesResolveAny;
     if (orig.fetch) globalThis.fetch = orig.fetch;
     childProcess.spawn = orig.spawn;
     childProcess.spawnSync = orig.spawnSync;
     childProcess.exec = orig.exec;
     childProcess.execFile = orig.execFile;
+    childProcess.execSync = orig.execSync;
+    childProcess.execFileSync = orig.execFileSync;
     childProcess.fork = orig.fork;
   }
 
@@ -274,21 +346,4 @@ export function installOfflineGuard(opts = {}) {
   }
 
   return { violations, listens, children, restore, assertClean, snapshot };
-}
-
-/**
- * Ejecuta fn bajo guardia offline BLOQUEANTE (sync).
- * @template T
- * @param {() => T} fn
- * @returns {T}
- */
-export function withOfflineGuard(fn) {
-  const guard = installOfflineGuard({ block: true });
-  try {
-    const result = fn();
-    guard.assertClean();
-    return result;
-  } finally {
-    guard.restore();
-  }
 }

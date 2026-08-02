@@ -11,7 +11,12 @@ import {
 } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { spawnSync } from "node:child_process";
+// Namespace, no named import: Node fija el binding de un named export de un
+// builtin al instanciar el módulo, así que un envoltorio puesto sobre
+// `childProcess.spawnSync` NO alcanza a `import { spawnSync }`. Medido. Con el
+// named import, los `generar.mjs` que lanza esta función existían y no
+// aparecían en ningún censo de procesos.
+import childProcess from "node:child_process";
 import { LocalPodProvider } from "../podstore/index.mjs";
 import { digestObject } from "../cadena/hash.mjs";
 import {
@@ -570,7 +575,7 @@ function ensureRunSkeleton(kitRoot, runId, forceNew) {
     "--sin-install",
   ];
   if (forceNew) args.push("--force-new");
-  const r = spawnSync(process.execPath, args, {
+  const r = childProcess.spawnSync(process.execPath, args, {
     cwd: kitRoot,
     encoding: "utf8",
   });

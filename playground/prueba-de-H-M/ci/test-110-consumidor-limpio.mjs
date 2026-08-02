@@ -249,7 +249,9 @@ function probarQueLaGuardiaMuerde(consumerRoot) {
   }
   const partes = readOfflineParts(probeDir);
   fs.rmSync(probeDir, { recursive: true, force: true });
-  return { veredicto, partes, pid: r.pid ?? null };
+  // El status REAL de la sonda, no un 0 inventado: si se autoadjudicara el
+  // código de salida, «con código de salida recogido» sería una frase vacía.
+  return { veredicto, partes, pid: r.pid ?? null, status: r.status ?? null };
 }
 
 function main() {
@@ -383,7 +385,12 @@ function main() {
         `sólo ${partes.length} procesos dejaron parte offline; se esperaban al menos ${procesosOffline}: la guardia no viajó a los hijos`,
       );
     } else {
-      ok(`guardia offline instalada en ${partes.length} procesos (padre e hijos)`);
+      // «padre e hijos» era falso: el proceso padre NO instala la guardia.
+      // Los partes son de los hijos que se lanzan con el env offline y de sus
+      // propios nietos.
+      ok(
+        `guardia offline instalada en ${partes.length} procesos descendientes (el padre no la instala)`,
+      );
     }
     const violaciones = partes.flatMap((p) =>
       (p.violations ?? []).map((v) => `${path.basename(String(p.argv?.[0] ?? p.pid))}: ${v.api}→${v.host}`),
@@ -396,7 +403,7 @@ function main() {
 
     // ── 4b · ¿muerde la guardia? ───────────────────────────────────────────
     const sonda = probarQueLaGuardiaMuerde(consumerRoot);
-    registrar("sonda-red", { pid: sonda.pid, status: 0 });
+    registrar("sonda-red", { pid: sonda.pid, status: sonda.status });
     const violSonda = sonda.partes.flatMap((p) => p.violations ?? []);
     if (!sonda.veredicto) {
       fail("la sonda de red no dio veredicto legible: la guardia queda sin comprobar");
@@ -420,29 +427,6 @@ function main() {
       fail(`puertos abiertos durante la corrida: ${escuchas.join(", ")}`);
     } else {
       ok(`cero puertos abiertos (listen() instrumentado en ${partes.length} procesos)`);
-    }
-
-    // ── 6 · procesos: los que hubo, muertos ────────────────────────────────
-    // La CA dice «sin procesos huérfanos». Lo verificable es esto: los procesos
-    // de SO que de verdad se crearon —los del test y los que crearon los hijos—
-    // tienen código de salida recogido y ya no viven.
-    const hijosDeHijos = partes.flatMap((p) =>
-      (p.children ?? []).map((c) => ({ que: `${p.pid}→${c.api} ${path.basename(c.command)}`, pid: c.pid })),
-    );
-    const todos = [...misHijos, ...hijosDeHijos].filter((c) => c.pid != null);
-    const vivos = todos.filter((c) => sigueVivo(c.pid) === true);
-    const dudosos = todos.filter((c) => typeof sigueVivo(c.pid) === "string");
-    const sinCodigo = misHijos.filter((c) => c.status == null);
-    if (todos.length === 0) {
-      fail("no se registró ni un proceso: la instrumentación de procesos no midió nada");
-    } else if (vivos.length > 0) {
-      fail(`procesos huérfanos vivos: ${vivos.map((c) => `${c.que}#${c.pid}`).join(", ")}`);
-    } else if (sinCodigo.length > 0) {
-      fail(`procesos sin código de salida recogido: ${sinCodigo.map((c) => c.que).join(", ")}`);
-    } else {
-      ok(
-        `${todos.length} procesos de SO creados, 0 vivos al cierre, ${misHijos.length} con código de salida recogido${dudosos.length ? ` (${dudosos.length} indeterminados)` : ""}`,
-      );
     }
 
     // ── 7 · shutdown: tipestate EXIGIDO, sin locks ni pids ──────────────────
@@ -494,6 +478,54 @@ function main() {
         ok("npm run skills:ceguera desde la raíz del hub");
       }
     }
+
+    // ── 9 · censo de procesos, CRUZADO ─────────────────────────────────────
+    // Va el ÚLTIMO a propósito: antes corría ANTES que `skills:ceguera`, así
+    // que ese proceso se registraba después del recuento y nadie lo miraba.
+    //
+    // Y sobre todo: se CRUZA. Un censo por sí solo cuenta a los que responden,
+    // y los que no responden son justo los que no se supieron interceptar. El
+    // dato que lo refuta ya estaba en esta misma función: cada proceso Node
+    // bajo la guardia deja su parte con su PID. Si un PID dejó parte y no está
+    // en el censo, el censo está incompleto — y eso es FAIL, no silencio.
+    const hijosDeHijos = partes.flatMap((p) =>
+      (p.children ?? []).map((c) => ({
+        que: `${p.pid}→${c.api} ${path.basename(String(c.command))}`,
+        pid: c.pid,
+      })),
+    );
+    const todos = [...misHijos, ...hijosDeHijos].filter((c) => c.pid != null);
+    const censoPids = new Set(todos.map((c) => c.pid));
+    const partesPids = partes.map((p) => p.pid).filter((pid) => pid != null);
+    const invisibles = partesPids.filter((pid) => !censoPids.has(pid));
+
+    if (todos.length === 0) {
+      fail("no se registró ni un proceso: la instrumentación de procesos no midió nada");
+    } else if (invisibles.length > 0) {
+      fail(
+        `censo incompleto: ${invisibles.length} de ${partesPids.length} procesos dejaron parte ` +
+          `offline y NO están en el censo (pids ${invisibles.join(",")}) — existieron y nadie los contó`,
+      );
+    } else {
+      ok(
+        `censo cruzado: ${partesPids.length}/${partesPids.length} procesos que dejaron parte están ` +
+          `censados (censo ${todos.length} = ${misHijos.length} del test + ${hijosDeHijos.length} nietos)`,
+      );
+    }
+
+    const vivos = todos.filter((c) => sigueVivo(c.pid) === true);
+    const dudosos = todos.filter((c) => typeof sigueVivo(c.pid) === "string");
+    const sinCodigo = misHijos.filter((c) => c.status == null);
+    if (vivos.length > 0) {
+      fail(`procesos huérfanos vivos: ${vivos.map((c) => `${c.que}#${c.pid}`).join(", ")}`);
+    } else if (sinCodigo.length > 0) {
+      fail(`procesos sin código de salida recogido: ${sinCodigo.map((c) => c.que).join(", ")}`);
+    } else if (todos.length > 0) {
+      ok(
+        `${todos.length} procesos de SO creados, 0 vivos al cierre, ${misHijos.length} con código de salida recogido${dudosos.length ? ` (${dudosos.length} indeterminados)` : ""}`,
+      );
+    }
+
   } catch (e) {
     fail(`corrida: ${e?.message ?? e}`);
   } finally {

@@ -115,7 +115,8 @@ function main() {
   }
 
   const ctx = { kitRoot, workRoot, passPackRoot };
-  let verificados = 0;
+  /** Fronteras del catálogo con negativo verificado (no un contador). */
+  const verificadas = [];
 
   for (const row of MATRIX) {
     let result;
@@ -140,7 +141,7 @@ function main() {
       );
       continue;
     }
-    verificados += 1;
+    verificadas.push(result.frontier);
     const sf = result.systemFrontier
       ? `frontera del sistema: «${result.systemFrontier}»`
       : "el sistema no nombra esta frontera (declarado)";
@@ -149,9 +150,21 @@ function main() {
     );
   }
 
+  // Denominador = tamaño del CATÁLOGO, no `MATRIX.length`. Con la matriz
+  // saboteada (una frontera duplicada y otra ausente) `MATRIX.length` seguía
+  // dando 7/7 verde: la corrida la salvaba el chequeo de conjuntos, no esta
+  // cifra. Contra el catálogo, la cifra impresa también lo detecta, y además
+  // se exige explícitamente que cada frontera del catálogo tenga su verificado.
+  const catalogo = Object.values(NEG_FRONTIER);
+  const fronterasVerificadas = new Set(verificadas);
+  const sinVerificar = catalogo.filter((f) => !fronterasVerificadas.has(f));
   console.log(
-    `test-110-negativos: negativos verificados ${verificados}/${MATRIX.length} (catálogo ${Object.keys(NEG_FRONTIER).length})`,
+    `test-110-negativos: negativos verificados ${fronterasVerificadas.size}/${catalogo.length} del catálogo` +
+      ` (filas en MATRIX: ${MATRIX.length})`,
   );
+  if (sinVerificar.length > 0) {
+    fail(`fronteras del catálogo sin negativo verificado: ${sinVerificar.join(", ")}`);
+  }
 
   // ── cero estado parcial en el kit ───────────────────────────────────────
   fs.rmSync(workRoot, { recursive: true, force: true });

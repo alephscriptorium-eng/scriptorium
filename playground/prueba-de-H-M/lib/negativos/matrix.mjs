@@ -110,9 +110,16 @@ function assertPackVerificaLimpio(packRoot, frontier) {
       provocadorRoto(frontier, `el pack base no verifica ok: ${JSON.stringify(r)}`);
     }
   } catch (e) {
+    // El mensaje no da por hecho que la culpa sea del pack: si el verificador
+    // revienta por otra razón, decir «el pack ya venía roto» sería mentir
+    // sobre la causa. Se reporta lo que se sabe, tal cual.
+    const clase = e?.constructor?.name ?? typeof e;
+    const frontera = e?.frontier ? ` frontera=«${e.frontier}»` : "";
+    const msg = e?.message ?? String(e);
     provocadorRoto(
       frontier,
-      `el pack base ya venía roto (${e?.frontier ?? e?.message ?? e}); el negativo no probaría nada`,
+      `verificarEvidencia falló sobre el pack base, así que este negativo no probaría nada: ` +
+        `${clase}${frontera} «${msg}»`,
       { cause: e },
     );
   }

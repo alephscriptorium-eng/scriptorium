@@ -34,10 +34,15 @@ export const NEG_FRONTIER = Object.freeze({
 /**
  * El SISTEMA se negó. Único resultado que el arnés puede leer como PASS.
  *
- * No es una excepción a propósito: no se lanza, se devuelve. Y no la puede
- * fabricar un `catch` genérico, porque quien la construye tiene que aportar
- * el error real del sistema y la evidencia de que la negativa ocurrió donde
- * se decía.
+ * No es una excepción a propósito: no se lanza, se devuelve.
+ *
+ * ALCANCE EXACTO DE LA GARANTÍA, para no venderla más grande de lo que es:
+ * el constructor sólo exige que **alguien haya pasado la propiedad**
+ * `systemError`. Pasan `null`, `false`, `0`, `""` y un
+ * `new Error("me lo invento yo")`. Lo que impide fabricar una negativa falsa
+ * no es este constructor: es que cada provocador obtiene su error de un
+ * `try/catch` alrededor de la llamada real al sistema y contrasta su firma
+ * antes de construir la `Refusal`.
  */
 export class Refusal {
   /**
