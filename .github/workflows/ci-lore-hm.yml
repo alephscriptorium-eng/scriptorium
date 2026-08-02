@@ -48,5 +48,8 @@ jobs:
       - name: skills:ceguera
         run: npm run skills:ceguera
 
+      - name: verificar-evidencia (WP-HUB-107)
+        run: node playground/prueba-de-H-M/ci/test-107-verificador.mjs
+
       - name: Suite playground LORE-HM
         run: npm run test:lore-hm
