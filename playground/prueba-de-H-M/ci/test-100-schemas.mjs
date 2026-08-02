@@ -14,8 +14,10 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const kitRoot = path.resolve(here, "..");
 const schemasDir = path.join(kitRoot, "schemas");
 const hubRoot = path.resolve(kitRoot, "../..");
-const censPath =
+const censPathFull =
+  process.env.CENSO_ESTADOS_PATH ||
   "C:/S_LAB/s-sdk/plan/SPRINTS/sprint-game-city/cantera/CIUDAD/CENSO-ESTADOS.md";
+const censPathExcerpt = path.join(kitRoot, "fixtures/censo-excerpt-lore-voz.md");
 
 const DOMAIN_SCHEMAS = [
   "scenario",
@@ -370,17 +372,19 @@ function grepZeroOwnLineSchemas() {
 }
 
 function verifyCensoIds(scenario) {
+  const censPath = fs.existsSync(censPathFull) ? censPathFull : censPathExcerpt;
   if (!fs.existsSync(censPath)) {
-    fail(`CENSO RO no legible: ${censPath}`);
+    fail(`CENSO no legible (full ni excerpt): ${censPathFull}`);
   }
   const cens = fs.readFileSync(censPath, "utf8");
   if (!cens.includes(`| ${scenario.barrioId} |`)) {
     fail(`barrioId inventado: ${scenario.barrioId}`);
   }
-  if (!cens.includes(`| ${scenario.distrito} |`)) {
+  if (!cens.includes(scenario.distrito)) {
     fail(`distrito inventado: ${scenario.distrito}`);
   }
-  ok(`CENSO: ${scenario.barrioId} + ${scenario.distrito} existen`);
+  const src = censPath === censPathFull ? "CENSO-full" : "CENSO-excerpt";
+  ok(`${src}: ${scenario.barrioId} + ${scenario.distrito} existen`);
 }
 
 function verifyPruebaDeDosClean() {

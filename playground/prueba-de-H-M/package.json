@@ -6,7 +6,7 @@
   "type": "module",
   "license": "UNLICENSED",
   "dependencies": {
-    "@zeus/linea-kit": "file:../../../../z-sdk/packages/engine/linea-kit",
+    "@zeus/linea-kit": "0.3.0",
     "ajv": "^8.17.1"
   },
   "scripts": {
