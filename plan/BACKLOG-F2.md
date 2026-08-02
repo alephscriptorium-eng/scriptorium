@@ -8,7 +8,7 @@
 | Método | `swarm-orquestacion` · un WP/brief/rama/worktree |
 | Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **392 WPs totales** en el Scriptorium (V 71 · O 75 · Z 67 · G 54 · L 73 · HUB 52) |
 | ✎ 2026-08-02 | **HUB 52 → 64**: lane **LORE-HM** (`WP-HUB-100`–`111`), promoción de la cola A del intake por orden del product owner. Las cifras de los demás mundos son **las de la edición F2-unificada, no las de hoy** — no se re-miden aquí para no sembrar un número nuevo sin medirlo (V y Z ya divergen). |
-| ✎ 2026-08-02 | **LORE-HM ola 0**: `WP-HUB-112` ✅ aceptado (verde **local**) · veredicto **NO CORRE** cadena B→C→P · contrarrevisión **PASS_CON_ADDENDA** · reporte+addenda `playground/prueba-de-H-M/spike/REPORTE-WP-HUB-112.md` · siguiente `113` (GO ola 0 vigente). |
+| ✎ 2026-08-02 | **LORE-HM ola 0**: `WP-HUB-112` ✅ aceptado (verde **local**, commit `03a0511`) · **NO CORRE** B→C→P · PASS_CON_ADDENDA · `WP-HUB-113` ✅ en rama `wp/hub-113-hm-ci-que-verifica` (run-ids gh verde `30726224409` / rojo `30726279433`) · **no merge main** · ola 1 (`100`·`101`·`L01`) **no** despachada sin GO. |
 
 ## Visión
 
