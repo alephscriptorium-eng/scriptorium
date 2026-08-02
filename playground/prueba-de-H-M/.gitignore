@@ -1,0 +1,3 @@
+# Corridas regenerables del generador (WP-HUB-102) — fuera de git
+.runs/
+node_modules/

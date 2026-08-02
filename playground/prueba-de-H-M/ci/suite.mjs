@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (WP-HUB-113 + WP-HUB-100).
+ * Suite mínima LORE-HM (WP-HUB-113 + WP-HUB-100 + WP-HUB-102).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -34,6 +34,9 @@ const required = [
   "scenarios/barrio-lore/scenario.json",
   "units/catalog/bartleby.json",
   "package.json",
+  // WP-HUB-102
+  "ci/test-102-generador.mjs",
+  "scripts/generar.mjs",
 ];
 
 for (const rel of required) {
@@ -69,12 +72,21 @@ if (!fs.existsSync(kitNodeModules)) {
 }
 
 const test100 = path.join(here, "test-100-schemas.mjs");
-const run = spawnSync(process.execPath, [test100], {
+const run100 = spawnSync(process.execPath, [test100], {
   cwd: root,
   stdio: "inherit",
   env: { ...process.env },
 });
-if (run.status !== 0) fail("test-100-schemas.mjs falló");
+if (run100.status !== 0) fail("test-100-schemas.mjs falló");
+
+// WP-HUB-102 · generador idempotente
+const test102 = path.join(here, "test-102-generador.mjs");
+const run102 = spawnSync(process.execPath, [test102], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env },
+});
+if (run102.status !== 0) fail("test-102-generador.mjs falló");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);
