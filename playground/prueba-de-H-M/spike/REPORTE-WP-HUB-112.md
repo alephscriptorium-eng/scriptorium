@@ -72,7 +72,16 @@ vacío).
 > 2. Cada fila cita **al menos una orden exacta con su `exit`/`rc` o su salida
 >    literal**. Lo que aparece en la celda **sin `→`** (bytes, sha256, tamaños)
 >    es dato del objeto, no medida de ejecución.
-> 3. **Salvedad viva:** **dos filas** —ficha barrio 20 y CI s-sdk— llevan
+> 3. **Dónde está la frontera con la Tabla B**, que es la pregunta que la
+>    expulsión de Skills FM deja abierta: cuatro filas —las dos editoriales,
+>    `.analisis.md` y la ficha barrio 20— llevan `no corre` **sin intento de
+>    arranque**, igual que la fila expulsada. Se quedan porque su base es
+>    **categórica y agota el caso**: un `.md` de corpus o una ficha de cantera
+>    **no es la clase de cosa que pueda correr**, y así lo rotula su celda. La
+>    de Skills FM no lo era: **un skill de motor podría tener runner, y no se
+>    buscó**. Ésa es la diferencia — no «medido vs. no medido», sino
+>    **imposibilidad de clase vs. hipótesis sin comprobar**.
+> 4. **Salvedad viva:** **dos filas** —ficha barrio 20 y CI s-sdk— llevan
 >    medida **del autor, no re-medida por ZV**; `C:/S_LAB/s-sdk` está fuera de
 >    su permiso. Lo declara cada celda.
 >
@@ -99,7 +108,7 @@ vacío).
 | `workers/escribiente-whisper/worker.py` (OASIS) — *añadido por ZV* | **no corre** (hoy) | entrypoint Python real: `argparse`, `def main()` | `ast.parse` → `parse_ok` · `command -v python` → `exit=0` · `python -B -c "import faster_whisper"` → `ModuleNotFoundError` **exit=1** (deps declaradas sin instalar) · **anclado (ZV 2.ª ronda):** `ls-tree -r HEAD -- workers` → `rc=0`, blob `353d8bf9f0e5ff6d046d2e06348b0f1af36c83cd` |
 | AgentLoreSDK npm scripts (OASIS) | **corre** (y **no** es la cadena) | 7 scripts: `docs:web`, `docs:web:open`, `audit:anchors`, `validate`, `ynsy-engine:{start,check,dispose}` | **ZV 2.ª ronda:** `npm --prefix …/AgentLoreSDK run > out 2> err` → `rc=0`, `err` vacío, `out` = `Scripts available in @aleph-scriptorium/agent-lore-sdk@0.1.0 …` (7 scripts) · `grep -icE "bartleby\|cristalizador\|pipeline" out` → **`0`** |
 | Ficha barrio 20 cantera S | **no corre** (es documento) | `20-DocumentMachineSDK.md`; Runtime declarado «Markdown + Jekyll / SDK editorial»; puertos: ninguno | `test -f … && head -n 25` → `exit=0` (medida del autor; **ZV no la re-midió**: `C:/S_LAB/s-sdk` fuera de su permiso) |
-| CI hub / s-sdk (contexto) | **no corre** como gate de pruebas | solo `docs.yml` | `ls .github/workflows` → `docs.yml` en ambos (medida del autor; ZV no re-midió s-sdk) |
+| CI hub / s-sdk (contexto) | **no corre** (como gate de pruebas) | solo `docs.yml` | `ls .github/workflows` → `docs.yml` en ambos (medida del autor; ZV no re-midió s-sdk) |
 
 ### Cadena mínima Bartleby → Cristalizador → Pipeline (medido)
 
@@ -578,6 +587,35 @@ find C:/S_LAB/e-sdk/NoExiste -mindepth 1           > f2.out 2> f2.err ; echo rc=
 
 Los cuatro `find … -mindepth 1 | wc -l → count=0` de la Tabla A pasan el mismo
 control: `rc=0`, `stderr` vacío en los cuatro.
+
+**Segunda confesión: `npm` escribe aunque sólo lo consultes.** Barrido de
+frontera al cerrar: bajo OASIS y bajo los seis `READ_ONLY_ROOTS`, **cero
+ficheros creados o modificados**. Pero `npm` escribe un log de depuración **por
+invocación** en `AppData\Local\npm-cache\_logs` —verificado:
+`verbose argv "--prefix" "…/AgentLoreSDK" "run"`, `cwd C:\S_LAB\v-sdk`— y lo
+poda a `logs-max`. Ese directorio no es repositorio (`rev-parse` → `not a git
+repository`), no es este worktree y no es ningún `READ_ONLY_ROOT`; no es la
+clase de la primera confesión, que fue escribir dentro de un árbol auditado.
+Pero **es una escritura fuera del worktree causada por una medida**, y la regla
+no admitía ninguna. **Se produce si no se redirige `logs-dir`; no se hizo**
+(`npm_config_logs_dir=<dir propio>` lo evita — `npm.js:411`). `--logs-max=0`
+**no** es la salida: `log-file.js:72` no crea el fichero pero `#cleanLogs()`
+corre igual y **borraría los logs del custodio**. Coda: el ejemplar citado **ya
+no existe**, podado por otro carril — la evidencia se evapora sola; queda la
+confesión.
+
+**Tercera escritura de frontera, la más pequeña.** El barrido devolvió **dos**
+entradas posteriores a las 17:00 bajo OASIS; la primera es la confesada, y la
+segunda es `2026-08-02 17:24:25  d  …/onfalo-asesor-sdk/.git`. No quedó nada
+persistente —el `index` de ese repo sigue en `2026-05-01`—, así que fue un lock
+o temporal efímero, casi seguro un `git status` **tomado sin
+`--no-optional-locks`**. Dicho con la precisión que la evidencia permite: **el
+mtime prueba que hubo entrada y salida en ese directorio, no qué orden la
+hizo.** Cae en la ventana de este trabajo y se declara como propia.
+
+**Regla que sale de las tres:** `git --no-optional-locks` en toda consulta a
+árboles ajenos, y `npm_config_logs_dir` en toda invocación de `npm`. Detalle
+completo de las tres en `REPORTE-ZV-112.md` §5.
 
 ### ⑥ El defecto de instrumento que dejó pasar ⑤ y la medida de entrypoints
 
