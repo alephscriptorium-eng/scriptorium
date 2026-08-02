@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (113+100+101+102+103+104+105+106).
+ * Suite mínima LORE-HM (113+100+101+102+103+104+105+106+107).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -64,6 +64,11 @@ const required = [
   "lib/ceremonia/steps.mjs",
   "lib/ceremonia/envelope.mjs",
   "scripts/ceremonia.mjs",
+  // # WP-HUB-107
+  "ci/test-107-verificador.mjs",
+  "scripts/verificar-evidencia.mjs",
+  "lib/verificador/verificar.mjs",
+  "lib/ceremonia/evidence-pack.mjs",
 ];
 
 for (const rel of required) {
@@ -140,6 +145,15 @@ const run106 = spawnSync(process.execPath, [test106], {
   env: { ...process.env },
 });
 if (run106.status !== 0) fail("test-106-ceremonia.mjs falló");
+
+// # WP-HUB-107 · verificador externo (cierra GHM)
+const test107 = path.join(here, "test-107-verificador.mjs");
+const run107 = spawnSync(process.execPath, [test107], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env },
+});
+if (run107.status !== 0) fail("test-107-verificador.mjs falló");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);

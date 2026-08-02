@@ -2,7 +2,7 @@
   "name": "@scriptorium/prueba-hm-kit",
   "private": true,
   "version": "0.1.0",
-  "description": "Kit LORE-HM playground — escenario, schemas, generador, podstore, Onfalo, cadena y ceremonia bilateral (WP-HUB-100…106)",
+  "description": "Kit LORE-HM playground — escenario, schemas, generador, podstore, Onfalo, cadena, ceremonia y verificador externo (WP-HUB-100…107)",
   "type": "module",
   "license": "UNLICENSED",
   "dependencies": {
@@ -18,7 +18,9 @@
     "test:onfalo": "node ci/test-104-onfalo.mjs",
     "test:cadena": "node ci/test-105-cadena.mjs",
     "ceremonia": "node scripts/ceremonia.mjs",
-    "test:ceremonia": "node ci/test-106-ceremonia.mjs"
+    "test:ceremonia": "node ci/test-106-ceremonia.mjs",
+    "verificar-evidencia": "node scripts/verificar-evidencia.mjs",
+    "test:verificador": "node ci/test-107-verificador.mjs"
   },
   "comments": {
     "linea-kit": "U245 types not landed — consume without @types; schemas via @zeus/linea-kit/schemas/*"

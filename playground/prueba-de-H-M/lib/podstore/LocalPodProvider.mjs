@@ -64,6 +64,8 @@ export class LocalPodProvider {
     this._pendingInflate = new Map();
     /** @private @type {Map<string, object>} */
     this._leases = new Map();
+    /** @private @type {Array<{ unitId: string, from: string, to: string }>} */
+    this._tipestateLog = [];
 
     fs.mkdirSync(this._storeRoot, { recursive: true });
     this._writeManifest();
@@ -257,6 +259,7 @@ export class LocalPodProvider {
 
     // declared → leased
     assertTransition(pod.state, "leased");
+    this._tipestateLog.push({ unitId, from: pod.state, to: "leased" });
     pod.state = "leased";
     pod.leaseRef = lease.leaseId;
     pod.acl = acl;
@@ -267,6 +270,7 @@ export class LocalPodProvider {
     // materialize only after lease
     this._materialize(unitId);
     assertTransition(pod.state, "inflated");
+    this._tipestateLog.push({ unitId, from: pod.state, to: "inflated" });
     pod.state = "inflated";
     this._writePodFiles(unitId);
     this._appendEvent(unitId, { type: "pod.lease", leaseId, permissions }, true);
@@ -284,6 +288,7 @@ export class LocalPodProvider {
     const pod = this._require(unitId);
     assertTransition(pod.state, to);
     const from = pod.state;
+    this._tipestateLog.push({ unitId, from, to });
     pod.state = to;
     if (pod.materialized) {
       this._writePodFiles(unitId);
@@ -291,6 +296,30 @@ export class LocalPodProvider {
     }
     this._writeManifest();
     return this.describe(unitId);
+  }
+
+  /**
+   * Snapshot exportable a evidence/ (sin rutas de host) — WP-HUB-107.
+   * @returns {{
+   *   tipestate: Array<{ unitId: string, from: string, to: string }>,
+   *   acls: Array<{ unitId: string, podIri: string, acl: object[]|null, finalState: string }>,
+   * }}
+   */
+  exportEvidenceSnapshot() {
+    return {
+      tipestate: this._tipestateLog.map((t) => ({ ...t })),
+      acls: this.listUnitIds().map((unitId) => {
+        const pod = this._require(unitId);
+        return {
+          unitId,
+          podIri: pod.podIri,
+          acl: pod.acl
+            ? pod.acl.map((e) => ({ ...e, verbs: [...e.verbs] }))
+            : null,
+          finalState: pod.state,
+        };
+      }),
+    };
   }
 
   /**

@@ -24,6 +24,10 @@ export {
   renderReportMd,
   writeEvidenceReports,
 } from "./evidence.mjs";
+export {
+  sealEvidencePack,
+  REQUIRED_EVIDENCE_PIECES,
+} from "./evidence-pack.mjs";
 export { executeStep } from "./steps.mjs";
 export {
   runCeremonia,

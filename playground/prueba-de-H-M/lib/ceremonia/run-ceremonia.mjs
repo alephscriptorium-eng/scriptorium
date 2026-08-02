@@ -30,6 +30,7 @@ import {
 } from "./envelope.mjs";
 import { signHalf } from "./sign.mjs";
 import { buildEvidenceReport, writeEvidenceReports } from "./evidence.mjs";
+import { sealEvidencePack } from "./evidence-pack.mjs";
 import { executeStep } from "./steps.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -238,6 +239,13 @@ export function runCeremonia(opts = {}) {
       generatedAt: "2026-08-02T00:11:00.000Z",
     });
     writeEvidenceReports(evidenceRoot, report);
+    sealEvidencePack(evidenceRoot, {
+      runId,
+      provider,
+      state: ctx.state,
+      hashes,
+      report,
+    });
 
     for (const side of ["H", "M"]) {
       writeFileSync(
