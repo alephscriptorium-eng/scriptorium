@@ -12,6 +12,7 @@
 | ✎ 2026-08-02 | **LORE-HM ola 1 GO**: `WP-HUB-100` 🔶 · `WP-HUB-101` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-100` / `-101`, base tip `wp/hub-113-hm-ci-que-verifica`) · herencia spike 112 **NO CORRE** FM viva → kit/ceremonia = **simulacro playground**; 112/113 ✅ en ramas, **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 2 GO**: `WP-HUB-102` 🔶 · `WP-HUB-103` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-102` / `-103`, base tip `wp/hub-100-hm-escenario-y-schemas`=`ddb4d8b`) · herencia 112 simulacro; U245 sin fingir. |
 | ✎ 2026-08-02 | **LORE-HM ola 2 ✅**: `102` tip `186fc94` · `103` tip `07f36ac` · PASS_CON_ADDENDA · accum `wp/lore-hm-accum` · **sin merge main**. |
+| ✎ 2026-08-02 | **LORE-HM ola 3 GO**: `WP-HUB-104` 🔶 (wt `scriptorium-wp-hub-104`, base `wp/lore-hm-accum`=`c51c74d`); `105` tras 104 · L03 en s-sdk. |
 
 ## Visión
 
@@ -501,7 +502,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** P0 · dep: 100
 - **Estado:** ✅ ola 2 · tip `07f36ac` · rama `wp/hub-103-hm-podstore-y-leases` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-104 · hm-onfalo-import-once
+### WP-HUB-104 · hm-onfalo-import-once 🔶
 - **BRIEF:** `scripts/importar-onfalo.mjs`, import-once **build-time**, con
   `--source-root` explícito, que selecciona exactamente dos piezas del corpus
   de editoriales de `onfalo-asesor-sdk`. Comprobación de licencia y secretos
@@ -513,6 +514,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   consume **sólo** el snapshot sellado y funciona **sin OASIS montado**,
   probado renombrando la fuente.
 - **Pri:** P1 · dep: 100
+- **Estado:** 🔶 ola 3 · rama `wp/hub-104-hm-onfalo-import-once` · wt `C:/S_LAB/wt/scriptorium-wp-hub-104` · base `c51c74d`
 
 ### WP-HUB-105 · hm-cadena-lore-determinista
 - **BRIEF:** handlers deterministas — Bartleby produce sus cinco secciones y
@@ -533,6 +535,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   contenido) · `corto.query` filtra por universo, unidad, verbo y rango, y
   **cada resultado se traza hasta el raw de Onfalo**.
 - **Pri:** P1 · dep: 100, 104
+- **Estado:** ⏳ ola 3 · espera tip ✅ de `104`
 
 ### WP-HUB-106 · hm-ceremonia-bilateral
 - **BRIEF:** `barrio-lore-v1` en once pasos **bloqueantes**: preflight e
