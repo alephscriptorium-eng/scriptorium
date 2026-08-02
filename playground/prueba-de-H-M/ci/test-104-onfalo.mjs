@@ -9,7 +9,6 @@ import {
   mkdtempSync,
   readFileSync,
   readdirSync,
-  renameSync,
   rmSync,
   statSync,
   writeFileSync,
@@ -30,7 +29,8 @@ const kitRoot = join(here, "..");
 const importar = join(kitRoot, "scripts", "importar-onfalo.mjs");
 const sealedOut = join(kitRoot, "fixtures", "onfalo");
 const attestPath = join(kitRoot, "fixtures", "onfalo-attest.redistributable.json");
-const CANONICAL_SOURCE =
+/** Solo documentación: NUNCA rename/write de este path (ni de ningún OASIS). */
+const CANONICAL_SOURCE_DO_NOT_TOUCH =
   "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales";
 
 let failed = 0;
@@ -176,21 +176,19 @@ if (!existsSync(join(sealedOut, "source.manifest.json"))) {
 }
 
 function materializeSourceRoot(destDir) {
-  // Preferir OASIS canónico; en CI/runner sin mount, usar piezas selladas del fixture
-  // (mismos bytes/hashes) para ejercitar --source-root sin path de máquina local.
+  // Siempre materializar desde el snapshot sellado del repo (temp/fixture).
+  // Nunca leer ni rename del corpus OASIS del usuario — mismo bytes/hashes.
   mkdirSync(destDir, { recursive: true });
   for (const p of EXPECTED_PIECES) {
-    const fromOasis = join(CANONICAL_SOURCE, p.sourceRelativePath);
     const fromSealed = join(sealedOut, ...p.relativePath.split("/"));
-    const src = existsSync(fromOasis) ? fromOasis : fromSealed;
-    if (!existsSync(src)) {
+    if (!existsSync(fromSealed)) {
       throw new Error(
-        `sin fuente para ${p.sourceRelativePath} (OASIS ni fixture sellado)`,
+        `sin fuente sellada para ${p.sourceRelativePath} (fixtures/onfalo)`,
       );
     }
-    copyFileSync(src, join(destDir, p.sourceRelativePath));
+    copyFileSync(fromSealed, join(destDir, p.sourceRelativePath));
   }
-  return existsSync(CANONICAL_SOURCE) ? "oasis" : "sealed-fixture";
+  return "sealed-fixture";
 }
 
 // --- 3. No redistribuible → FAIL; prohibido corpus sustituto silencioso ---
@@ -269,27 +267,27 @@ function materializeSourceRoot(destDir) {
   }
 }
 
-// --- 4. Corrida normal consume SOLO snapshot; funciona sin OASIS (source oculto) ---
+// --- 4. Corrida normal consume SOLO snapshot; funciona sin OASIS ---
+// Simula «source missing» con un path temporal inexistente — NUNCA rename del
+// corpus canónico del usuario (si el proceso muere, OASIS quedaría oculto).
 {
-  const oasisPresent = existsSync(CANONICAL_SOURCE);
-  let renamed = null;
-  const hideName = `${CANONICAL_SOURCE}.__hidden_by_test_104__`;
+  const missingParent = mkdtempSync(join(tmpdir(), "hm-104-missing-src-"));
+  const missingSourceProbe = join(missingParent, "does-not-exist");
   try {
-    if (oasisPresent) {
-      try {
-        renameSync(CANONICAL_SOURCE, hideName);
-        renamed = hideName;
-      } catch (e) {
-        fail(`no se pudo ocultar source-root para prueba: ${e.message}`);
-      }
+    if (existsSync(missingSourceProbe)) {
+      fail("probe source-root temporal no debería existir");
+    } else {
+      ok("SOURCE-ROOT probe ausente (simula OASIS desmontado sin tocar corpus real)");
     }
 
-    if (renamed && existsSync(CANONICAL_SOURCE)) {
-      fail("source-root sigue visible tras rename");
-    } else if (renamed) {
-      ok("source-root canónico ocultado (simula OASIS desmontado)");
+    // Guardrail: el path canónico documentado no se renombra ni se oculta.
+    const hiddenSibling = `${CANONICAL_SOURCE_DO_NOT_TOUCH}.__hidden_by_test_104__`;
+    if (existsSync(hiddenSibling)) {
+      fail(
+        `hallazgo de seguridad: existe ${hiddenSibling} — corpus pudo quedar renombrado por un test previo`,
+      );
     } else {
-      ok("SOURCE-ROOT ya ausente — consume-sealed sin OASIS");
+      ok("corpus canónico no está oculto por rename de test");
     }
 
     const r = runImport(["--consume-sealed", "--out", sealedOut]);
@@ -301,15 +299,29 @@ function materializeSourceRoot(destDir) {
       }
     }
 
-    // Default sin flags = consume sealed
+    // Default sin flags = consume sealed (camino CI cuando source no existe)
     const r2 = runImport([]);
     if (assertExit(r2, 0, "default consume-sealed")) {
       ok("default sin --source-root consume snapshot sellado");
     }
-  } finally {
-    if (renamed && existsSync(renamed) && !existsSync(CANONICAL_SOURCE)) {
-      renameSync(renamed, CANONICAL_SOURCE);
+
+    // Import con --source-root apuntando al probe ausente debe FAIL (no silent fallback)
+    const outProbe = mkdtempSync(join(tmpdir(), "hm-104-missing-out-"));
+    try {
+      const r3 = runImport([
+        "--source-root",
+        missingSourceProbe,
+        "--out",
+        outProbe,
+      ]);
+      if (assertExit(r3, 1, "source-root ausente debe FAIL")) {
+        ok("camino «source missing» falla sin tocar OASIS");
+      }
+    } finally {
+      rmSync(outProbe, { recursive: true, force: true });
     }
+  } finally {
+    rmSync(missingParent, { recursive: true, force: true });
   }
 }
 
