@@ -144,25 +144,33 @@ if (holOk) ok("holones 05=cantera 06=constelación 07=método (sin fingir runtim
   if (assertExit(r, 0, "consume-sealed")) ok("consume-sealed exit 0");
 }
 
-// --- 6. gate con cantera (si disponible) ---
-if (existsSync(join(CANTERA, "CENSO-ESTADOS.md")) && existsSync(HOLONES_MD)) {
-  const r = run([
-    "--gate",
-    "--cantera-root",
-    CANTERA,
-    "--holones-md",
-    HOLONES_MD,
-    "--holones-root",
-    HOLONES_ROOT,
-  ]);
+// --- 6. gate (cantera viva si hay mount S; si no, excerpt contrastado en runner) ---
+{
+  const canteraLive =
+    existsSync(join(CANTERA, "CENSO-ESTADOS.md")) && existsSync(HOLONES_MD);
+  const gateArgs = canteraLive
+    ? [
+        "--gate",
+        "--cantera-root",
+        CANTERA,
+        "--holones-md",
+        HOLONES_MD,
+        "--holones-root",
+        HOLONES_ROOT,
+      ]
+    : ["--gate"];
+  const r = run(gateArgs);
   if (assertExit(r, 0, "gate cantera≡proyección")) {
-    ok("gate cantera≡proyección exit 0");
+    ok(
+      canteraLive
+        ? "gate cantera≡proyección exit 0"
+        : "gate sellado/excerpt exit 0 (cantera ausente en runner)",
+    );
   }
 
-  // --- 7. gate falla si proyección diverge (slug inventado) ---
+  // --- 7. gate falla si proyección diverge (excerpt/seal roto) ---
   const tmp = mkdtempSync(join(tmpdir(), "hm-108-div-"));
   try {
-    // copy sealed tree
     mkdirSync(join(tmp, "excerpts"), { recursive: true });
     for (const rel of [
       "mapa.json",
@@ -180,22 +188,7 @@ if (existsSync(join(CANTERA, "CENSO-ESTADOS.md")) && existsSync(HOLONES_MD)) {
       }
     }
     const broken = JSON.parse(readFileSync(join(tmp, "mapa.json"), "utf8"));
-    broken.barrios[0].id = "barrio-inventado-xyz";
-    broken.barrios[0].slug = "barrio-inventado-xyz";
-    writeFileSync(join(tmp, "mapa.json"), `${JSON.stringify(broken, null, 2)}\n`);
-    // seal will fail first — that's also divergence; force re-seal skip by also breaking via gate path
-    // Prefer testing validate via gate after fixing seal: regenerate seal is hard.
-    // Instead: mutate excerpt censo sha mismatch by editing excerpt while keeping mapa.
-    // Better negative: mutate mapa + recompute is complex. Use --gate with mutated excerpt.
-    copyFileSync(
-      join(sealedOut, "mapa.json"),
-      join(tmp, "mapa.json"),
-    );
-    copyFileSync(
-      join(sealedOut, "source.manifest.json"),
-      join(tmp, "source.manifest.json"),
-    );
-    // restore mapa, break excerpt censo (remove a row) → live cantera vs excerpt diverge
+    // break excerpt censo (remove a row) → seal hash diverge
     const cens = readFileSync(join(tmp, "excerpts", "CENSO-ESTADOS.md"), "utf8");
     writeFileSync(
       join(tmp, "excerpts", "CENSO-ESTADOS.md"),
@@ -204,16 +197,16 @@ if (existsSync(join(CANTERA, "CENSO-ESTADOS.md")) && existsSync(HOLONES_MD)) {
         "",
       ),
     );
-    // seal hash will fail — good (divergencia)
-    const rNeg = run(["--gate", "--cantera-root", CANTERA, "--out", tmp]);
+    const negArgs = canteraLive
+      ? ["--gate", "--cantera-root", CANTERA, "--out", tmp]
+      : ["--gate", "--out", tmp];
+    const rNeg = run(negArgs);
     if (rNeg.status !== 0) {
       ok("gate falla si cantera/proyección divergen (exit≠0)");
     } else {
       fail("gate debió fallar ante divergencia");
     }
 
-    // slug inventado via CLI check on broken mapa with consume after seal bypass:
-    // unit: validateProjection catches invented if we inject into loaded object
     broken.barrios[0].id = "barrio-inventado-xyz";
     broken.barrios[0].slug = "barrio-inventado-xyz";
     const ve = validateProjection(broken);
@@ -222,8 +215,6 @@ if (existsSync(join(CANTERA, "CENSO-ESTADOS.md")) && existsSync(HOLONES_MD)) {
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }
-} else {
-  fail("cantera RO no disponible para gate (ruta S esperada)");
 }
 
 // --- 8. HOLONES root listing presente en proyección ---
