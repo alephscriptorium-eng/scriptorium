@@ -1,0 +1,3 @@
+WP-HUB-113 · rojo plantado a propósito.
+Si este fichero existe, npm run test:lore-hm debe fallar y el job CI enrojecer.
+Quitar este marcador tras medir el run-id fallido.
