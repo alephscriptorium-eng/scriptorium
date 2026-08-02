@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (113+100…107+109).
+ * Suite mínima LORE-HM (113+100…107+109+110).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -84,6 +84,12 @@ const required = [
   "fixtures/censo-excerpt-novelist-editor.md",
   "fixtures/novelist-elenco.json",
   "ciudad/README.md",
+  // # WP-HUB-110
+  "ci/test-110-negativos.mjs",
+  "ci/test-110-consumidor-limpio.mjs",
+  "lib/negativos/frontiers.mjs",
+  "lib/negativos/matrix.mjs",
+  "lib/offline/instrument.mjs",
 ];
 
 for (const rel of required) {
@@ -187,6 +193,10 @@ const run109 = spawnSync(process.execPath, [test109], {
   env: { ...process.env },
 });
 if (run109.status !== 0) fail("test-109-despierta.mjs falló");
+
+// # WP-HUB-110 · matriz negativos + consumidor limpio
+runTest("test-110-negativos.mjs", "test-110-negativos.mjs");
+runTest("test-110-consumidor-limpio.mjs", "test-110-consumidor-limpio.mjs");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);

@@ -238,8 +238,13 @@ export class LocalPodProvider {
       throw new Error("pod.lease: permissions requeridas");
     }
 
-    const issuedAt = new Date().toISOString();
-    const leaseId = `lease-${unitId}-${crypto.randomBytes(4).toString("hex")}`;
+    // Determinista (WP-HUB-110): misma corrida → mismos leaseId/issuedAt
+    const issuedAt = "2026-08-02T00:03:00.000Z";
+    const leaseId = `lease-${unitId}-${crypto
+      .createHash("sha256")
+      .update(`${this.runId}|${unitId}|${permissions.join(",")}|${expiresAt}`)
+      .digest("hex")
+      .slice(0, 8)}`;
     const lease = {
       leaseId,
       emitterIri: this.hostIri,
