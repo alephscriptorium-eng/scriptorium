@@ -256,3 +256,139 @@ which_bartleby_exit=1
 e_sdk_bartleby_exit=1
 sha256_2024-05-01=a186993d4420792d94a261ed68a801793af033a5fe32f0b00be224c780c9796a
 sha256_2026-05-01=86f3cb6deb8d01cef4546a81fc650fff0913291aeb7ad3dfa504d9a7c02186f0
+
+######## ADDENDA ZV 2026-08-02 · la cicatriz de :148 y el anclaje que faltaba ########
+
+# POR QUE ESTA ADDENDA
+# Este log registra `exit=0` en las lineas 103, 113 y 148 para tres ordenes que
+# FALLARON. La addenda anterior (lineas 253-256) corrigio dos de las tres y
+# dejo la :148 sin corregir. Es decir: la evidencia literal contradecia al
+# informe en uno de los dos fallos que lo sostienen.
+#
+# NO SE BORRA NADA. Las lineas 103/113/148 se quedan donde estan. Esto explica
+# que son y cuanto valen.
+
+# CAUSA MEDIDA (no excusa)
+# Las ordenes se capturaron a traves de tuberia (`... 2>&1 | head`, `| tee`).
+# En bash, `$?` tras una tuberia es el estado del ULTIMO eslabon, no el del
+# comando medido. Un log que mide exit codes a traves de un pipe no mide exit
+# codes. Correccion de metodo: una orden por linea, sin tuberia, y `echo exit=$?`
+# inmediatamente despues.
+
+# LINEA A LINEA
+# :103  node_exit=0   <- node .../bartleby.agent.md ; salida real: SyntaxError
+#                        corregido en :253 (node_bartleby_exit=1)
+# :113  npm_exit=0    <- npm --prefix .../DocumentMachineSDK run ; salida real: ENOENT
+#                        corregido en :254 (npm_dm_exit=127)
+# :148  exit=0        <- node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json
+#                        salida real (lineas 138-147): Error: Cannot find module
+#                        NUNCA CORREGIDO hasta esta addenda.
+#                        (la :256 `e_sdk_bartleby_exit=1` corrige la :150,
+#                         que es `test -f .../bartleby.agent.md`, otra orden)
+
+######## RE-MEDIDA ZV · sin tuberia, una orden por linea ########
+
+$ node "C:/S_LAB/e-sdk/DocumentMachineSDK/package.json" > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ node "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/bartleby.agent.md" > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ npm --prefix "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" run > /dev/null 2>&1 ; echo exit=$?
+exit=127
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/package.json" ; echo exit=$?
+exit=1
+$ command -v bartleby > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ command -v cristalizador > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ command -v pipeline > /dev/null 2>&1 ; echo exit=$?
+exit=1
+
+# Conclusion: el veredicto del informe NO cambia. Los cuatro fallos en que se
+# apoya siguen fallando hoy, ahora con exit codes que se corresponden con lo
+# que se ve en pantalla.
+
+######## ANCLAJE ZV · el arbol auditado, por fin con commit ########
+
+# El cuerpo de este log identifica lo auditado con rutas y 10 conteos `bytes=`,
+# sin un solo rev-parse, rama ni tag. Un veredicto sobre un arbol sin anclar es
+# infalsificable por nombre. Anclado hoy:
+
+$ git -C "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" rev-parse HEAD
+0d65d068c8a0f2c7ab36e5ca4130658f4ddc4880
+$ git -C "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" rev-parse --abbrev-ref HEAD
+integration/beta/scriptorium
+$ git -C ".../DocumentMachineSDK" status --porcelain | wc -l
+0
+$ git -C ".../DocumentMachineSDK" rev-parse HEAD:.github/agents/bartleby.agent.md
+46656140851ee52cdb25a20140aa4f65792a3d76
+$ git -C ".../DocumentMachineSDK" rev-parse HEAD:.github/agents/cristalizador.agent.md
+7c35c1c803c753282376a8d43cd22cb212968012
+$ git -C ".../DocumentMachineSDK" rev-parse HEAD:mod/agents/pipeline.agent.md
+f6629b203db8dcc367cfb9a3afa89d03dd79e48c
+$ git -C ".../DocumentMachineSDK" ls-tree HEAD -- package.json
+(vacio: package.json no existe EN EL COMMIT, no solo en disco)
+$ git -C ".../DocumentMachineSDK" ls-tree -r --name-only HEAD | grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$"
+0
+
+$ git -C "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk" rev-parse HEAD
+d049e01ce4a33bc53fa0d34518ee7f15bc38da93
+$ git -C ".../onfalo-asesor-sdk" rev-parse --abbrev-ref HEAD
+integration/beta/scriptorium
+$ git -C ".../onfalo-asesor-sdk" rev-parse HEAD:PROYECTOS/BARTLEBY/corpus/editoriales/2024-05-01_primero-de-mayo.md
+7dcc6fad67b57f3bf9bdcd60381f8bdba2092580
+$ git -C ".../onfalo-asesor-sdk" rev-parse HEAD:PROYECTOS/BARTLEBY/corpus/editoriales/2026-05-01_auge-de-la-educacion-emocional.md
+38a47e355c00176c39fdc0a7ca543cd27b05fedc
+
+$ git -C "C:/S_LAB/e-sdk" rev-parse HEAD
+e4b34a870df266c181846110a63438f103e26b80
+$ git -C "C:/S_LAB/e-sdk" rev-parse --abbrev-ref HEAD
+main
+$ git -C "C:/S_LAB/a-sdk" rev-parse HEAD
+936196f3682edec1934c9b5a09297ac65fdd107f
+$ git -C "C:/S_LAB/a-sdk" rev-parse --abbrev-ref HEAD
+integration/beta/scriptorium
+
+######## LO QUE HOY NO SE PUEDE ANCLAR (dicho con esas palabras) ########
+
+$ git -C "C:/Users/aleph/OASIS/aleph-scriptorium" rev-parse HEAD
+fatal: bad config line 1 in file .git/config
+
+# El superproyecto OASIS `aleph-scriptorium` NO SE PUEDE ANCLAR HOY: git rechaza
+# su .git/config. Los submodulos si responden, asi que el arbol del veredicto
+# (DocumentMachineSDK) queda anclado; lo que queda sin anclar es el contenedor.
+#
+# Ademas, cada consulta al almacen de objetos del submodulo emite:
+#   error: wrong index v1 file size in
+#   .git/modules/DocumentMachineSDK/objects/pack/pack-56b2eb9056090df28f73c0a88974827e2a16218c.idx
+# Resuelve, pero esta degradado. Ambas cosas son del entorno del custodio;
+# ZV no las toca (OASIS es read-only para este worker).
+
+######## RECORTE DE TITULAR · la medida que lo obliga ########
+
+$ python --version
+Python 3.14.0
+$ python -c "import ast,sys; ast.parse(open(sys.argv[1],encoding='utf-8').read()); print('parse_ok')" ".../DocumentMachineSDK/workers/escribiente-whisper/worker.py"
+parse_ok
+$ command -v python > /dev/null 2>&1 ; echo exit=$?
+exit=0
+$ python -B -c "import faster_whisper"
+ModuleNotFoundError: No module named 'faster_whisper'
+exit=1
+$ cat ".../workers/escribiente-whisper/requirements.txt"
+faster-whisper>=1.2.1
+av>=11
+
+# Lectura: whisper TIENE forma de proceso (argparse + def main(), Python en PATH)
+# -> por eso "no hay proceso invocable" era demasiado ancho.
+# Pero HOY TAMPOCO CORRE: sus dependencias declaradas no estan instaladas.
+# Y no es la cadena B->C->P ni ingesta editorial Onfalo.
+# Titular acotado que sostiene la evidencia:
+#   "La cadena B->C->P no es proceso autonomo invocable fuera de IDE, hoy."
+
+# NOTA DE METODO: la primera comprobacion del worker se hizo con
+# `python -m py_compile`, que ESCRIBIO un __pycache__/worker.cpython-314.pyc
+# dentro de OASIS (fuera del worktree de este worker). Se detecto, se borro el
+# .pyc y el __pycache__ creados, y se repitio con ast.parse en memoria. Queda
+# solo el mtime del directorio padre; `git status` de ese arbol sigue en 0.
+
+=== FIN ADDENDA ZV ===

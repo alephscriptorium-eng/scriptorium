@@ -21,11 +21,14 @@ barrio 20. Preflight de identidad PASS en hub y en worktree. Se re-verificaron
 los tres hechos heredados (CI `docs.yml` solo; submódulos e-sdk con prefijo `-`
 y dirs vacíos; piezas Onfalo en disco). Se intentó ejecutar la cadena mínima
 Bartleby → Cristalizador → Pipeline como binarios/procesos. Resultado: las
-definiciones de agente **existen** en OASIS; **la cadena B→C→P no tiene
-proceso autónomo invocable hoy** (sin CLI en PATH; `.agent.md` no es
+definiciones de agente **existen** en OASIS; **la cadena B→C→P no es proceso
+autónomo invocable fuera de IDE, hoy** (sin CLI en PATH; `.agent.md` no es
 entrypoint; DocumentMachine sin `package.json`); e-sdk no materializa
-DocumentMachine. Colateral fuera de cadena (whisper) y perímetro ampliado:
-ver addenda de contrarrevisión al pie. Escritura solo bajo `playground/`
+DocumentMachine. **Recorte ZV:** decir «no hay proceso invocable» a secas es
+más ancho que la medida — en el mismo árbol vive
+`workers/escribiente-whisper/worker.py`, un entrypoint Python real (`argparse`
++ `def main()`), fuera de la cadena B→C→P. Perímetro ampliado: ver addenda de
+contrarrevisión y **Addenda ZV** al pie. Escritura solo bajo `playground/`
 (este spike); OASIS / a-sdk / e-sdk RO.
 
 ## Pregunta del PO
@@ -33,39 +36,72 @@ ver addenda de contrarrevisión al pie. Escritura solo bajo `playground/`
 > ¿Pueden H y M operar procesos reales con material de Onfalo en la Future
 > Machine, **hoy**?
 
-### Veredicto global: **NO CORRE**
+### Veredicto global (titular corregido por ZV 2026-08-02)
+
+> **La cadena B→C→P no es proceso autónomo invocable fuera de IDE, hoy.**
+
+El titular anterior era «la Future Machine **NO CORRE**», y era **más ancho que
+la evidencia**: la propia contrarrevisión de este spike prohíbe esa lectura
+(`CONTRARREVISION-WP-HUB-112.md:68-71`) y encontró en el mismo árbol un proceso
+Python que sí tiene forma de proceso. El titular acotado dice lo mismo que la
+evidencia sostiene, ni una palabra más. Árbol y commit exactos en **Addenda ZV
+· ②**.
 
 Material Onfalo: **existe**. Agentes barrio 20: **existen como `.agent.md`
-(Copilot/VS Code)**. Cadena como proceso autónomo hoy: **no corre**. Runtime
-en e-sdk: **no existe** (submódulo sin inicializar / árbol vacío).
+(Copilot/VS Code)**. Cadena como proceso autónomo fuera de IDE hoy: **no
+corre**. Runtime en e-sdk: **no existe** (submódulo sin inicializar / árbol
+vacío).
 
 ---
 
-## Tabla resumen · corre / no corre / no existe
+## Tabla A · **MEDIDO** — corre / no corre / no existe
 
-| pieza | veredicto | evidencia (orden → salida) |
-| ----- | --------- | -------------------------- |
-| Editorial Onfalo `2024-05-01_primero-de-mayo.md` | **existe** (legible RO) | `test -f …` → `exit=0 bytes=26228` · sha256 `a186993d…c9796a` |
-| Editorial Onfalo `2026-05-01_auge-de-la-educacion-emocional.md` | **existe** (legible RO) | `test -f …` → `exit=0 bytes=12388` · sha256 `86f3cb6d…2186f0` |
-| Análisis históricos `.analisis.md` (artefacto previo) | **existe** (no es proceso) | ambos `exit=0` (11025 / 13293 bytes) — huella de sesión pasada, no runtime |
-| `e-sdk/DocumentMachineSDK` (checkout) | **no existe** (vacío) | `git submodule status` prefijo `-` · `find … -mindepth 1 \| wc -l` → `count=0` · `test -f …/bartleby.agent.md` → `exit=1` |
-| `e-sdk/AgentLoreSDK` · `VectorMachineSDK` · `VectorMachineUI` | **no existe** (vacío) | mismos prefijos `-` · `count=0` cada uno |
-| Definición `@Bartleby` (OASIS) | **existe** / proceso **no corre** | fichero `…/.github/agents/bartleby.agent.md` `bytes=6652` · `which bartleby` → exit 1 · `node …bartleby.agent.md` → `SyntaxError` exit 1 · `npm --prefix DocumentMachineSDK run` → ENOENT `package.json` exit 127 |
-| Definición `@Cristalizador` (OASIS) | **existe** / proceso **no corre** | `…/cristalizador.agent.md` `bytes=8586` · `which cristalizador` → exit 1 · frontmatter: agente Copilot (`tools: [vscode,…]`), no CLI |
-| Definición `@Pipeline` (OASIS) | **existe** / proceso **no corre** | `…/mod/agents/pipeline.agent.md` `bytes=3612` · `which pipeline` → exit 1 · orquesta handoffs a otros agentes md |
-| `DocumentMachineSDK/package.json` (OASIS) | **no existe** | `test -f …/package.json` → `exit=1` · `find … -name package.json` → vacío |
-| Skills FM (`engine-plan`, `futures-engine`, `documental-analysis`) | **existen** (md) / **no corren** como proceso | `test -f` exit 0; sin runner asociado medido |
-| AgentLoreSDK npm scripts (OASIS) | **corre** solo docs/audit · **no** es la cadena | `npm run` lista `docs:web`, `audit:anchors`, `ynsy-engine:*` — cero bartleby/cristalizador/pipeline |
-| Ficha barrio 20 cantera S | **existe** | `20-DocumentMachineSDK.md` exit 0; Runtime declarado: «Markdown + Jekyll / SDK editorial»; puertos: ninguno |
-| CI hub / s-sdk (contexto) | **no corre** como gate de pruebas | solo `docs.yml` en ambos |
+> Reforma ZV: la columna `veredicto` era texto libre con **9 valores distintos**
+> en 13 filas, y el dominante era `existe` (8 filas), que **no pertenece** a la
+> tríada que pedía la CA. Ahora `veredicto` sólo admite `corre` / `no corre` /
+> `no existe`, y lo que antes se colaba ahí («existe») vive en su columna
+> `qué hay`. Toda fila de esta tabla tiene **orden exacta y salida literal**.
 
-### Cadena mínima Bartleby → Cristalizador → Pipeline
+| pieza | veredicto (tríada) | qué hay | evidencia (orden → salida) |
+| ----- | ------------------ | ------- | -------------------------- |
+| Editorial Onfalo `2024-05-01_primero-de-mayo.md` | **no corre** (es dato, no proceso) | fichero legible RO | `test -f …` → `exit=0 bytes=26228` · sha256 `a186993d…c9796a` |
+| Editorial Onfalo `2026-05-01_auge-de-la-educacion-emocional.md` | **no corre** (es dato, no proceso) | fichero legible RO | `test -f …` → `exit=0 bytes=12388` · sha256 `86f3cb6d…2186f0` |
+| Análisis históricos `.analisis.md` | **no corre** | artefacto de sesión pasada | ambos `exit=0` (11025 / 13293 bytes) — huella, no runtime |
+| `e-sdk/DocumentMachineSDK` (checkout) | **no existe** | dir vacío | `git submodule status` prefijo `-` · `find … -mindepth 1 \| wc -l` → `count=0` · `test -f …/bartleby.agent.md` → `exit=1` |
+| `e-sdk/AgentLoreSDK` · `VectorMachineSDK` · `VectorMachineUI` | **no existe** | dirs vacíos | mismos prefijos `-` · `count=0` cada uno |
+| Definición `@Bartleby` (OASIS) | **no corre** | `.agent.md` Copilot, 6652 B | `which bartleby` → exit 1 · `node …bartleby.agent.md` → `SyntaxError` **exit=1** · `npm --prefix DocumentMachineSDK run` → ENOENT **exit=127** |
+| Definición `@Cristalizador` (OASIS) | **no corre** | `.agent.md` Copilot, 8586 B | `which cristalizador` → exit 1 · frontmatter `tools: [vscode,…]`, no CLI |
+| Definición `@Pipeline` (OASIS) | **no corre** | `.agent.md` Copilot, 3612 B | `which pipeline` → exit 1 · orquesta handoffs a otros `.agent.md` |
+| `DocumentMachineSDK/package.json` (OASIS) | **no existe** | — | `test -f …/package.json` → `exit=1` · `find … -name package.json` → vacío · **ZV:** `git ls-tree HEAD -- package.json` → vacío (ausente **en el commit**, no sólo en disco) |
+| `workers/escribiente-whisper/worker.py` (OASIS) — *añadido por ZV* | **no corre** (hoy) | entrypoint Python real: `argparse`, `def main()` | `ast.parse` → `parse_ok` · `command -v python` → `exit=0` · `python -B -c "import faster_whisper"` → `ModuleNotFoundError` **exit=1** (deps declaradas sin instalar) |
+| Skills FM (`engine-plan`, `futures-engine`, `documental-analysis`) | presencia **medida**; el `no corre` es **inferido** (ver Tabla B) | ficheros md | `test -f` → `exit=0` · **sin orden que mida «no corre»**: no se buscó runner |
+| AgentLoreSDK npm scripts (OASIS) | **corre** (y **no** es la cadena) | `docs:web`, `audit:anchors`, `ynsy-engine:*` | `npm run` los lista — cero `bartleby`/`cristalizador`/`pipeline` |
+| Ficha barrio 20 cantera S | **no corre** (es documento) | `20-DocumentMachineSDK.md`; Runtime declarado «Markdown + Jekyll / SDK editorial»; puertos: ninguno | `test -f … && head -n 25` → `exit=0` (medida del autor; **ZV no la re-midió**: `C:/S_LAB/s-sdk` fuera de su permiso) |
+| CI hub / s-sdk (contexto) | **no corre** como gate de pruebas | solo `docs.yml` | `ls .github/workflows` → `docs.yml` en ambos (medida del autor; ZV no re-midió s-sdk) |
+
+### Cadena mínima Bartleby → Cristalizador → Pipeline (medido)
 
 | eslabón | como definición | como proceso hoy | con Onfalo hoy |
 | ------- | --------------- | ---------------- | -------------- |
 | Bartleby | existe (OASIS) | **no corre** | no ingestable por proceso (solo lectura humana/IDE) |
 | Cristalizador | existe (OASIS) | **no corre** | n/a (upstream proceso ausente) |
 | Pipeline | existe (OASIS) | **no corre** | n/a |
+
+Medida ZV que cierra la tabla de la cadena: en el commit anclado, buscar
+cualquier entrypoint ejecutable de los tres eslabones da **cero**:
+
+```
+git -C DocumentMachineSDK ls-tree -r --name-only HEAD
+  | grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$"
+→ 0
+```
+
+## Tabla B · **RAZONADO** — juicio de diseño, sin orden que lo mida
+
+> Reforma ZV: las ocho filas de «qué de la ceremonia no se puede demostrar» y
+> las ocho de reorden de lane **no tienen ninguna orden detrás**: son
+> inferencia a partir de la Tabla A. Estaban mezcladas con lo medido. Aquí
+> quedan separadas, y así deben leerse.
 
 No se puede recorrer la cadena con agentes reales como procesos: no hay
 entrypoint, no hay `package.json` en DocumentMachine, e-sdk no aporta árbol, y
@@ -74,6 +110,9 @@ OASIS es RO (prohibido materializar corrida escribiendo allí).
 ---
 
 ## Qué de la ceremonia `100`–`107` no se puede demostrar hoy
+
+*(Tabla B · **razonado**: ninguna de estas ocho filas tiene orden detrás; son
+juicio de diseño derivado de la Tabla A. Etiqueta puesta por ZV.)*
 
 | tramo | ¿demostrable hoy? | qué haría falta |
 | ----- | ----------------- | --------------- |
@@ -94,6 +133,9 @@ sesión IDE Copilot, sin escritura a OASIS.
 ---
 
 ## Reorden de lane (respuesta «no corre»)
+
+*(Tabla B · **razonado**: las ocho filas siguientes son decisión de lane, no
+medida. Etiqueta puesta por ZV.)*
 
 Las once fichas de obra `100`–`111` **no caen enteras**. Cambia la **forma**
 de las que implicaban FM viva:
@@ -221,3 +263,145 @@ worker): PATH/`command -v`/`where` · `npm list -g` · bins npm/choco/bun ·
 DocumentMachine (sin CLI de cadena). Informe:
 `playground/prueba-de-H-M/spike/CONTRARREVISION-WP-HUB-112.md` · veredicto
 **PASS_CON_ADDENDA**.
+
+---
+
+## Addenda ZV 2026-08-02 · tres condiciones de la auditoría adversarial
+
+Cierre por el swarm Z·V. **El veredicto de este spike sigue en pie, re-medido
+hoy**: la cadena no tiene entrypoint y sus componentes no están en el PATH. Lo
+que se corrige es cómo lo dice, y una cicatriz de log que lo contradecía.
+
+### ① La cicatriz de log que nunca se corrigió — línea 148
+
+`medidas-literales-2026-08-02.txt` registra `exit=0` en `:103`, `:113` y `:148`
+para tres órdenes que **fallaron**. La addenda manuscrita del log (`:253-256`)
+corrigió dos —`node_bartleby_exit=1`, `npm_dm_exit=127`— y **dejó `:148` sin
+corregir**: ese `exit=0` corresponde a
+`node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json`, cuya salida literal en la
+línea de arriba es `Error: Cannot find module`. Es decir: **la evidencia
+literal contradecía al informe** en uno de los dos fallos que lo sostienen, y
+así se quedó.
+
+Causa, no excusa: las órdenes se capturaron con tubería (`… 2>&1 | head`,
+`| tee`), y `$?` devuelve el estado del **último eslabón de la tubería**, no el
+del comando medido. Un log que mide exit codes a través de un pipe no mide
+exit codes.
+
+Re-medida hoy, **sin tubería, un comando por línea**:
+
+```
+node "C:/S_LAB/e-sdk/DocumentMachineSDK/package.json"                    → exit=1
+node ".../DocumentMachineSDK/.github/agents/bartleby.agent.md"           → exit=1
+npm --prefix ".../DocumentMachineSDK" run                                → exit=127
+test -f ".../DocumentMachineSDK/package.json"                            → exit=1
+command -v bartleby / cristalizador / pipeline                           → exit=1 ×3
+```
+
+Los tres `exit=0` del cuerpo del log **no se borran**: quedan donde están, con
+la addenda `######## ADDENDA ZV` al pie del propio log explicando qué son.
+Borrarlos sería reescribir la medida; dejarlos sin nota sería mantener la
+contradicción.
+
+### ② El árbol auditado no estaba anclado a ningún commit — ahora sí
+
+El log original identifica lo auditado con **rutas y conteos de bytes** (10
+líneas `bytes=`), sin un solo `rev-parse`, rama o tag. Un veredicto sobre un
+árbol sin anclar es **infalsificable por nombre**: dentro de un mes nadie puede
+decir si el árbol que se midió es el que tiene delante.
+
+Anclado hoy:
+
+| árbol | commit | rama | limpio |
+| ----- | ------ | ---- | ------ |
+| OASIS `DocumentMachineSDK` (**el árbol del veredicto**) | `0d65d068c8a0f2c7ab36e5ca4130658f4ddc4880` | `integration/beta/scriptorium` | sí (0 ficheros sucios) |
+| OASIS `onfalo-asesor-sdk` (corpus editorial) | `d049e01ce4a33bc53fa0d34518ee7f15bc38da93` | `integration/beta/scriptorium` | sí |
+| `C:/S_LAB/e-sdk` | `e4b34a870df266c181846110a63438f103e26b80` | `main` | — |
+| `C:/S_LAB/a-sdk` | `936196f3682edec1934c9b5a09297ac65fdd107f` | `integration/beta/scriptorium` | — |
+
+Blobs exactos de lo auditado, en ese commit:
+
+```
+HEAD:.github/agents/bartleby.agent.md      → 46656140851ee52cdb25a20140aa4f65792a3d76
+HEAD:.github/agents/cristalizador.agent.md → 7c35c1c803c753282376a8d43cd22cb212968012
+HEAD:mod/agents/pipeline.agent.md          → f6629b203db8dcc367cfb9a3afa89d03dd79e48c
+HEAD -- package.json                       → (vacío: ausente en el commit)
+```
+
+Ese último es un **refuerzo** del veredicto: `package.json` no falta sólo en el
+disco (`test -f` → 1), falta **en el árbol versionado**.
+
+**Lo que hoy NO se puede anclar, dicho con esas palabras:** el superproyecto
+OASIS `aleph-scriptorium` **no se puede anclar hoy** — `git` rechaza su
+configuración:
+
+```
+git -C "C:/Users/aleph/OASIS/aleph-scriptorium" rev-parse HEAD
+fatal: bad config line 1 in file .git/config
+```
+
+Los submódulos sí responden (son los de la tabla), así que el anclaje del árbol
+del veredicto está completo; lo que queda sin anclar es el **contenedor**. El
+almacén de objetos además emite `error: wrong index v1 file size in
+.git/modules/DocumentMachineSDK/objects/pack/pack-56b2eb90….idx` en cada
+consulta: resuelve, pero está degradado. Ambas cosas son del entorno del
+custodio; ZV no las toca (OASIS es RO).
+
+### ③ El titular era más ancho que la propia contrarrevisión
+
+`CONTRARREVISION-WP-HUB-112.md:68-71` **prohíbe explícitamente** la lectura
+ancha, y encontró en el mismo árbol un proceso Python (`escribiente-whisper`).
+El titular «la Future Machine **NO CORRE**» afirmaba más de lo medido.
+
+Titular corregido, arriba y aquí:
+
+> **La cadena B→C→P no es proceso autónomo invocable fuera de IDE, hoy.**
+
+Medidas que lo sostienen y lo acotan:
+
+```
+ls-tree HEAD | grep -icE "(bartleby|cristalizador|pipeline)\.(py|js|mjs|cjs|ts|exe|sh)$"  → 0
+command -v bartleby|cristalizador|pipeline                                                → exit=1 ×3
+test -f DocumentMachineSDK/package.json                                                   → exit=1
+ast.parse(workers/escribiente-whisper/worker.py)                                          → parse_ok
+command -v python                                                                          → exit=0
+python -B -c "import faster_whisper"                                    → ModuleNotFoundError exit=1
+```
+
+Lectura honesta de las dos últimas: whisper **tiene forma de proceso**
+(`argparse` + `def main()`, Python en PATH) — por eso «no hay proceso
+invocable» era falso— pero **hoy tampoco corre**, porque sus dependencias
+declaradas (`faster-whisper>=1.2.1`, `av>=11`) no están instaladas. Y de todos
+modos **no es la cadena B→C→P** ni ingesta editorial Onfalo. El titular acotado
+cubre exactamente eso.
+
+### ④ Medida de forma: veredictos y separación medido/razonado
+
+Recuento propio sobre el reporte antes de esta addenda:
+
+| medida | valor |
+| ------ | ----- |
+| filas de evidencia (resumen 13 + cadena 3 + ceremonia 8) | **24** |
+| filas que citan una orden | **10** (de ellas **9** con salida o exit literal; la fila «Skills FM» cita `test -f` pero no mide su propio «no corre») |
+| filas **sin ninguna orden** | **14**, de las cuales las **8** de la tabla de ceremonia son juicio de diseño puro |
+| valores distintos en la columna `veredicto` | **9** en 13 filas |
+| filas cuyo veredicto empieza por `existe` | **8** — valor que **no pertenece** a la tríada `corre / no corre / no existe` de la CA |
+| filas clasificadas `corre` | **1** |
+
+Reforma aplicada: la columna `veredicto` de la Tabla A sólo admite la tríada, y
+lo que se colaba como «existe» pasó a la columna `qué hay`. Lo medido queda en
+**Tabla A**, lo inferido en **Tabla B**, con etiqueta en las dos tablas de ocho
+filas. La fila «Skills FM» se queda en A con su asimetría escrita: presencia
+medida, «no corre» inferido.
+
+### ⑤ Confesión de método
+
+Al comprobar si el worker Python parsea usé `python -m py_compile`, que
+**escribió** `workers/escribiente-whisper/__pycache__/worker.cpython-314.pyc`
+dentro de OASIS — es decir, **fuera de mi worktree**, contra mi propia
+prohibición. Lo detecté 11 s después, borré el `.pyc` y el `__pycache__` que
+había creado, y repetí la medida con `ast.parse` en memoria (`parse_ok`), que
+no escribe. Queda: el directorio padre cambió de mtime; ni un byte de contenido
+añadido ni quitado; `git status` de ese árbol sigue en 0 ficheros sucios. Se
+anota porque un informe que exige evidencia literal no puede ocultar su propio
+desliz.
