@@ -113,21 +113,6 @@ export function installOfflineGuard(opts = {}) {
     httpRequest: http.request,
     httpsRequest: https.request,
     http2Connect: http2.connect,
-    dnsLookup: dns.lookup,
-    dnsResolve: dns.resolve,
-    dnsResolve4: dns.resolve4,
-    dnsResolve6: dns.resolve6,
-    dnsResolveAny: dns.resolveAny,
-    dnsResolveCname: dns.resolveCname,
-    dnsResolveMx: dns.resolveMx,
-    dnsResolveTxt: dns.resolveTxt,
-    dnsResolveSrv: dns.resolveSrv,
-    dnsResolveNs: dns.resolveNs,
-    dnsPromisesLookup: dnsPromises.lookup,
-    dnsPromisesResolve: dnsPromises.resolve,
-    dnsPromisesResolve4: dnsPromises.resolve4,
-    dnsPromisesResolve6: dnsPromises.resolve6,
-    dnsPromisesResolveAny: dnsPromises.resolveAny,
     fetch: globalThis.fetch,
     spawn: childProcess.spawn,
     spawnSync: childProcess.spawnSync,
@@ -200,6 +185,27 @@ export function installOfflineGuard(opts = {}) {
     };
   }
 
+  /**
+   * Toda API de dns que recibe un host: se descubren por nombre, no se listan.
+   * @type {Array<{ obj: object, name: string, fn: Function }>}
+   */
+  const dnsParcheado = [];
+  function patchDnsSurface(obj, label) {
+    if (!obj) return;
+    for (const name of Object.getOwnPropertyNames(obj)) {
+      if (!/^(resolve|reverse|lookup)/.test(name)) continue;
+      let fn;
+      try {
+        fn = obj[name];
+      } catch {
+        continue;
+      }
+      if (typeof fn !== "function") continue;
+      dnsParcheado.push({ obj, name, fn });
+      obj[name] = wrapDns(fn, `${label}.${name}`);
+    }
+  }
+
   net.connect = wrapConnect(orig.netConnect, "net.connect");
   net.createConnection = wrapConnect(orig.netCreateConnection, "net.createConnection");
   net.Socket.prototype.connect = wrapConnect(orig.socketConnect, "net.Socket.connect");
@@ -207,25 +213,21 @@ export function installOfflineGuard(opts = {}) {
   http.request = wrapUrlApi(orig.httpRequest, "http.request");
   https.request = wrapUrlApi(orig.httpsRequest, "https.request");
   http2.connect = wrapUrlApi(orig.http2Connect, "http2.connect");
-  dns.lookup = wrapDns(orig.dnsLookup, "dns.lookup");
-  dns.resolve = wrapDns(orig.dnsResolve, "dns.resolve");
-  dns.resolve4 = wrapDns(orig.dnsResolve4, "dns.resolve4");
-  dns.resolve6 = wrapDns(orig.dnsResolve6, "dns.resolve6");
-  dns.resolveAny = wrapDns(orig.dnsResolveAny, "dns.resolveAny");
-  dns.resolveCname = wrapDns(orig.dnsResolveCname, "dns.resolveCname");
-  dns.resolveMx = wrapDns(orig.dnsResolveMx, "dns.resolveMx");
-  dns.resolveTxt = wrapDns(orig.dnsResolveTxt, "dns.resolveTxt");
-  dns.resolveSrv = wrapDns(orig.dnsResolveSrv, "dns.resolveSrv");
-  dns.resolveNs = wrapDns(orig.dnsResolveNs, "dns.resolveNs");
-  dnsPromises.lookup = wrapDns(orig.dnsPromisesLookup, "dns.promises.lookup");
-  dnsPromises.resolve = wrapDns(orig.dnsPromisesResolve, "dns.promises.resolve");
-  dnsPromises.resolve4 = wrapDns(orig.dnsPromisesResolve4, "dns.promises.resolve4");
-  dnsPromises.resolve6 = wrapDns(orig.dnsPromisesResolve6, "dns.promises.resolve6");
-  dnsPromises.resolveAny = wrapDns(orig.dnsPromisesResolveAny, "dns.promises.resolveAny");
-  // LÍMITE QUE NO SE CIERRA AQUÍ: `new dns.Resolver()` trae sus propios
-  // métodos, y `import { lookup } from "node:dns"` fija el binding al
-  // instanciar. Ninguno de los dos pasa por estas propiedades. Declarado en
-  // REPORTE-ZV-110.md §8.
+  // Superficie DNS ENUMERADA, no listada a mano. La lista a mano es justo lo
+  // que abrió el agujero: se envolvían 9 de 17 en `dns` y 5 de 17 en
+  // `dns/promises`, y entre las que faltaban estaba `resolveTxt` de
+  // `dns/promises` — el vector clásico de exfiltración por DNS — saliendo sin
+  // bloquear ni registrar. Aquí se descubren en tiempo de ejecución: lo que
+  // Node añada mañana entra solo.
+  patchDnsSurface(dns, "dns");
+  patchDnsSurface(dnsPromises, "dns.promises");
+  // `new dns.Resolver()` NO es un hueco estructural: sus métodos viven en un
+  // prototipo, y un prototipo se parchea igual que `net.Socket.prototype`.
+  // Estaba declarado como irreparable y era falso.
+  patchDnsSurface(dns.Resolver.prototype, "dns.Resolver");
+  if (dnsPromises.Resolver && dnsPromises.Resolver !== dns.Resolver) {
+    patchDnsSurface(dnsPromises.Resolver.prototype, "dns.promises.Resolver");
+  }
   if (typeof orig.fetch === "function") {
     globalThis.fetch = wrapUrlApi(orig.fetch, "fetch");
   }
@@ -303,21 +305,7 @@ export function installOfflineGuard(opts = {}) {
     http.request = orig.httpRequest;
     https.request = orig.httpsRequest;
     http2.connect = orig.http2Connect;
-    dns.lookup = orig.dnsLookup;
-    dns.resolve = orig.dnsResolve;
-    dns.resolve4 = orig.dnsResolve4;
-    dns.resolve6 = orig.dnsResolve6;
-    dns.resolveAny = orig.dnsResolveAny;
-    dns.resolveCname = orig.dnsResolveCname;
-    dns.resolveMx = orig.dnsResolveMx;
-    dns.resolveTxt = orig.dnsResolveTxt;
-    dns.resolveSrv = orig.dnsResolveSrv;
-    dns.resolveNs = orig.dnsResolveNs;
-    dnsPromises.lookup = orig.dnsPromisesLookup;
-    dnsPromises.resolve = orig.dnsPromisesResolve;
-    dnsPromises.resolve4 = orig.dnsPromisesResolve4;
-    dnsPromises.resolve6 = orig.dnsPromisesResolve6;
-    dnsPromises.resolveAny = orig.dnsPromisesResolveAny;
+    for (const { obj, name, fn } of dnsParcheado) obj[name] = fn;
     if (orig.fetch) globalThis.fetch = orig.fetch;
     childProcess.spawn = orig.spawn;
     childProcess.spawnSync = orig.spawnSync;

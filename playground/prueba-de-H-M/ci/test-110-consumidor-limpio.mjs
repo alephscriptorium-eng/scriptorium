@@ -191,6 +191,72 @@ function sigueVivo(pid) {
   }
 }
 
+/**
+ * Barrido de huérfanos POR EL SISTEMA OPERATIVO, no por lo que el arnés
+ * recuerde haber lanzado.
+ *
+ * Por qué hace falta: el cruce censo↔partes demuestra `partes ⊆ censo`, nunca
+ * lo contrario y nunca el universo. Un proceso creado por una vía que la
+ * instrumentación no intercepta —`import { spawn }`— y lanzado sin el env
+ * offline no deja parte, no entra en el censo, y por tanto no entra en el
+ * denominador: el arnés imprimía «0 vivos al cierre» con huérfanos vivos.
+ * Comprobado inyectando exactamente ese proceso (G10).
+ *
+ * Esto lo acota desde fuera: se pregunta al SO por procesos VIVOS cuyo padre
+ * sea alguno de los PIDs que sí conocemos. El huérfano de G10 cuelga del
+ * proceso de ceremonia, que está en el censo, así que aparece aunque su
+ * creación fuera invisible.
+ *
+ * LÍMITES, declarados: sólo Windows; sólo alcanza a hijos directos de PIDs
+ * conocidos (un nieto de un proceso invisible sigue fuera); y los PID se
+ * reciclan, así que se contrasta la fecha de creación contra el inicio de la
+ * corrida para no acusar a un proceso ajeno que heredó el número.
+ *
+ * @param {Set<number>} censoPids
+ * @param {Date} desde
+ */
+function barrerHuerfanosDelSO(censoPids, desde) {
+  if (process.platform !== "win32") {
+    return { soportado: false, motivo: `no implementado en ${process.platform}` };
+  }
+  const padres = [...censoPids, process.pid];
+  const filtro = padres.map((pid) => `ParentProcessId=${pid}`).join(" or ");
+  const r = spawnSync(
+    "powershell",
+    [
+      "-NoProfile",
+      "-NonInteractive",
+      "-Command",
+      `Get-CimInstance Win32_Process -Filter "${filtro}" | ` +
+        "Select-Object ProcessId,ParentProcessId,Name,CreationDate | ConvertTo-Json -Compress",
+    ],
+    { encoding: "utf8" },
+  );
+  if (r.status !== 0) {
+    return { soportado: false, motivo: `consulta al SO falló: ${(r.stderr || "").slice(0, 120)}` };
+  }
+  let filas;
+  try {
+    const raw = (r.stdout || "").trim();
+    if (!raw) filas = [];
+    else {
+      const j = JSON.parse(raw);
+      filas = Array.isArray(j) ? j : [j];
+    }
+  } catch (e) {
+    return { soportado: false, motivo: `respuesta del SO ilegible: ${e.message}` };
+  }
+  const propio = r.pid;
+  const vivos = filas.filter((f) => {
+    if (f.ProcessId === propio || f.ParentProcessId === propio) return false; // el barrido
+    if (f.ProcessId === process.pid) return false;
+    const nacido = f.CreationDate ? new Date(f.CreationDate) : null;
+    if (nacido && nacido < desde) return false; // PID reciclado de antes
+    return true;
+  });
+  return { soportado: true, vivos };
+}
+
 // ── corridas ──────────────────────────────────────────────────────────────
 
 /**
@@ -255,6 +321,7 @@ function probarQueLaGuardiaMuerde(consumerRoot) {
 }
 
 function main() {
+  const arranque = new Date();
   const consumerRoot = materializeTempCheckout();
   const logDir = fs.mkdtempSync(path.join(os.tmpdir(), "hm-110-offlinelog-"));
   /** @type {Array<{ que: string, pid: number|null, status: number|null }>} */
@@ -495,21 +562,36 @@ function main() {
       })),
     );
     const todos = [...misHijos, ...hijosDeHijos].filter((c) => c.pid != null);
+    // PIDs DISTINTOS, no registros: `cp.exec` deja dos entradas (`exec` y
+    // `execFile`) para un solo proceso, así que contar registros infla la
+    // cifra. Hoy los diez son distintos; la cifra no debe poder mentir mañana.
     const censoPids = new Set(todos.map((c) => c.pid));
     const partesPids = partes.map((p) => p.pid).filter((pid) => pid != null);
     const invisibles = partesPids.filter((pid) => !censoPids.has(pid));
 
-    if (todos.length === 0) {
+    // Dos de las seis vías visibles por namespace son INCONTABLES por
+    // construcción: `execSync` y `execFileSync` no devuelven pid en Node, así
+    // que se registran con `pid: null` y el censo no los puede cruzar. Si las
+    // hay, se dice — porque si no, el fallo de arriba le echaría la culpa a
+    // «una vía sin interceptar» cuando la causa es que la API no da el dato.
+    const incontables = hijosDeHijos.filter((c) => c.pid == null);
+    const notaIncontables = incontables.length
+      ? ` · ${incontables.length} procesos registrados SIN pid (execSync/execFileSync no lo devuelven):` +
+        ` incontables por construcción, no por ceguera`
+      : "";
+
+    if (censoPids.size === 0) {
       fail("no se registró ni un proceso: la instrumentación de procesos no midió nada");
     } else if (invisibles.length > 0) {
       fail(
         `censo incompleto: ${invisibles.length} de ${partesPids.length} procesos dejaron parte ` +
-          `offline y NO están en el censo (pids ${invisibles.join(",")}) — existieron y nadie los contó`,
+          `offline y NO están en el censo (pids ${invisibles.join(",")})${notaIncontables}`,
       );
     } else {
       ok(
         `censo cruzado: ${partesPids.length}/${partesPids.length} procesos que dejaron parte están ` +
-          `censados (censo ${todos.length} = ${misHijos.length} del test + ${hijosDeHijos.length} nietos)`,
+          `censados (censo ${censoPids.size} pids distintos = ${misHijos.length} del test + ` +
+          `${hijosDeHijos.length} nietos)${notaIncontables}`,
       );
     }
 
@@ -520,9 +602,32 @@ function main() {
       fail(`procesos huérfanos vivos: ${vivos.map((c) => `${c.que}#${c.pid}`).join(", ")}`);
     } else if (sinCodigo.length > 0) {
       fail(`procesos sin código de salida recogido: ${sinCodigo.map((c) => c.que).join(", ")}`);
-    } else if (todos.length > 0) {
+    } else if (censoPids.size > 0) {
       ok(
-        `${todos.length} procesos de SO creados, 0 vivos al cierre, ${misHijos.length} con código de salida recogido${dudosos.length ? ` (${dudosos.length} indeterminados)` : ""}`,
+        `${censoPids.size} pids distintos creados, 0 vivos al cierre, ${misHijos.length} con código de salida recogido${dudosos.length ? ` (${dudosos.length} indeterminados)` : ""}`,
+      );
+    }
+
+    // ── 10 · huérfanos, preguntando al SO ──────────────────────────────────
+    // El censo sólo ve lo que la instrumentación intercepta. Esto ve lo que
+    // hay. Sin este barrido, «shutdown sin procesos huérfanos» podía
+    // imprimirse en verde con huérfanos vivos — demostrado, no supuesto.
+    const barrido = barrerHuerfanosDelSO(censoPids, arranque);
+    if (!barrido.soportado) {
+      // No se calla: si no se puede mirar, se dice que no se ha mirado.
+      console.log(
+        `test-110-consumidor-limpio: NO CUBIERTO — barrido de huérfanos del SO: ${barrido.motivo}`,
+      );
+    } else if (barrido.vivos.length > 0) {
+      fail(
+        `procesos huérfanos VIVOS según el SO: ` +
+          barrido.vivos
+            .map((f) => `${f.Name}#${f.ProcessId}(padre ${f.ParentProcessId})`)
+            .join(", "),
+      );
+    } else {
+      ok(
+        `barrido del SO: cero procesos vivos colgando de los ${censoPids.size + 1} pids conocidos`,
       );
     }
 

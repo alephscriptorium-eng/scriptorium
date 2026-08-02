@@ -155,11 +155,21 @@ function main() {
   // dando 7/7 verde: la corrida la salvaba el chequeo de conjuntos, no esta
   // cifra. Contra el catálogo, la cifra impresa también lo detecta, y además
   // se exige explícitamente que cada frontera del catálogo tenga su verificado.
-  const catalogo = Object.values(NEG_FRONTIER);
+  // El catálogo se cuenta como CONJUNTO: comparar un numerador `Set` contra un
+  // denominador array hacía que un valor duplicado en NEG_FRONTIER imprimiera
+  // «7/8» y siguiera en PASS. Y un catálogo con dos claves del mismo valor es
+  // un catálogo roto, así que además se dice.
+  const catalogoValores = Object.values(NEG_FRONTIER);
+  const catalogo = new Set(catalogoValores);
+  if (catalogo.size !== catalogoValores.length) {
+    fail(
+      `catálogo NEG_FRONTIER con valores duplicados: ${catalogoValores.length} claves, ${catalogo.size} fronteras`,
+    );
+  }
   const fronterasVerificadas = new Set(verificadas);
-  const sinVerificar = catalogo.filter((f) => !fronterasVerificadas.has(f));
+  const sinVerificar = [...catalogo].filter((f) => !fronterasVerificadas.has(f));
   console.log(
-    `test-110-negativos: negativos verificados ${fronterasVerificadas.size}/${catalogo.length} del catálogo` +
+    `test-110-negativos: negativos verificados ${fronterasVerificadas.size}/${catalogo.size} del catálogo` +
       ` (filas en MATRIX: ${MATRIX.length})`,
   );
   if (sinVerificar.length > 0) {
