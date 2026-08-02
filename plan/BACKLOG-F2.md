@@ -13,6 +13,7 @@
 | ✎ 2026-08-02 | **LORE-HM ola 2 GO**: `WP-HUB-102` 🔶 · `WP-HUB-103` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-102` / `-103`, base tip `wp/hub-100-hm-escenario-y-schemas`=`ddb4d8b`) · herencia 112 simulacro; U245 sin fingir. |
 | ✎ 2026-08-02 | **LORE-HM ola 2 ✅**: `102` tip `186fc94` · `103` tip `07f36ac` · PASS_CON_ADDENDA · accum `wp/lore-hm-accum` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 3 GO**: `WP-HUB-104` 🔶 (wt `scriptorium-wp-hub-104`, base `wp/lore-hm-accum`=`c51c74d`); `105` tras 104 · L03 en s-sdk. |
+| ✎ 2026-08-02 | **LORE-HM ola 3**: `104` tip `5662eaa` entregado; `105` 🔶 despachado; L03 tip `397a4c5` entregado. |
 
 ## Visión
 
@@ -516,7 +517,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** P1 · dep: 100
 - **Estado:** 🔶 ola 3 · rama `wp/hub-104-hm-onfalo-import-once` · wt `C:/S_LAB/wt/scriptorium-wp-hub-104` · base `c51c74d`
 
-### WP-HUB-105 · hm-cadena-lore-determinista
+### WP-HUB-105 · hm-cadena-lore-determinista 🔶
 - **BRIEF:** handlers deterministas — Bartleby produce sus cinco secciones y
   metadatos; Cristalizador inspecciona capacidades y **genera el machine
   manifest** (prepara infraestructura, no suplanta a Pipeline); VectorMock
@@ -535,7 +536,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   contenido) · `corto.query` filtra por universo, unidad, verbo y rango, y
   **cada resultado se traza hasta el raw de Onfalo**.
 - **Pri:** P1 · dep: 100, 104
-- **Estado:** ⏳ ola 3 · espera tip ✅ de `104`
+- **Estado:** 🔶 ola 3 · rama `wp/hub-105-hm-cadena-lore-determinista` · wt `C:/S_LAB/wt/scriptorium-wp-hub-105` · base `5662eaa` (104)
 
 ### WP-HUB-106 · hm-ceremonia-bilateral
 - **BRIEF:** `barrio-lore-v1` en once pasos **bloqueantes**: preflight e
