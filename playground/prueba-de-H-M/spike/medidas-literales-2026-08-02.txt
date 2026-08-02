@@ -1,0 +1,763 @@
+=== SPIKE WP-HUB-112 · medidas literales · 2026-08-02T02:48:59+02:00 ===
+
+######## 1 · Piezas Onfalo ########
+--- orden: test -f ... && wc -c ... ---
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2024-05-01_primero-de-mayo.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2024-05-01_primero-de-mayo.md"; echo exit=$?
+exit=0 bytes=26228
+$ head -n 3 "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2024-05-01_primero-de-mayo.md"
+# Editorial: Primero de Mayo 2024
+
+**Fuente:** Revista (marxista-leninista española)
+
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2026-05-01_auge-de-la-educacion-emocional.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2026-05-01_auge-de-la-educacion-emocional.md"; echo exit=$?
+exit=0 bytes=12388
+$ head -n 3 "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/editoriales/2026-05-01_auge-de-la-educacion-emocional.md"
+# El auge de la educación emocional
+
+## Genealogía crítica de una tecnología de bienestar
+
+######## 2 · Análisis históricos Bartleby (artefacto previo, no proceso) ########
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/2024-05-01_primero-de-mayo.analisis.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/2024-05-01_primero-de-mayo.analisis.md"
+exit=0 bytes=11025
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/2026-05-01_auge-de-la-educacion-emocional.analisis.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/2026-05-01_auge-de-la-educacion-emocional.analisis.md"
+exit=0 bytes=13293
+
+######## 3 · e-sdk submódulos ########
+$ git -C C:/S_LAB/e-sdk submodule status
+-1498d67e631cbe395bb4577e2c8d57e0451d551a AgentLoreSDK
+-073be841da91422d9bac696f96cfc5a12c002b35 DocumentMachineSDK
+-820e63d1c5592d7c9930630be1b30e1cf6efa90f VectorMachineSDK
+-b31e4088c12c82634a2bb71a945a585d501a8c43 VectorMachineUI
+exit=0
+
+$ find C:/S_LAB/e-sdk/DocumentMachineSDK -mindepth 1 | wc -l
+count=0
+$ find C:/S_LAB/e-sdk/AgentLoreSDK -mindepth 1 | wc -l
+count=0
+$ find C:/S_LAB/e-sdk/VectorMachineSDK -mindepth 1 | wc -l
+count=0
+$ find C:/S_LAB/e-sdk/VectorMachineUI -mindepth 1 | wc -l
+count=0
+
+######## 4 · Agentes barrio 20 en OASIS (definición) ########
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/bartleby.agent.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/bartleby.agent.md"
+exit=0 bytes=6652
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/cristalizador.agent.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/cristalizador.agent.md"
+exit=0 bytes=8586
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/mod/agents/pipeline.agent.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/mod/agents/pipeline.agent.md"
+exit=0 bytes=3612
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/engine-plan/SKILL.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/engine-plan/SKILL.md"
+exit=0 bytes=25893
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/futures-engine/SKILL.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/futures-engine/SKILL.md"
+exit=0 bytes=18587
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/documental-analysis/SKILL.md" && wc -c < "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/skills/documental-analysis/SKILL.md"
+exit=0 bytes=5640
+
+######## 5 · ¿Hay proceso ejecutable / package.json / bin? ########
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/package.json"; echo exit=$?
+exit=1
+$ find "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" -name 'package.json' | head
+$ ls "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents"
+archivero.agent.md
+bartleby.agent.md
+cristalizador.agent.md
+dramaturgo.agent.md
+portal.agent.md
+$ ls "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/mod/agents"
+archivero-lore.agent.md
+demiurgo.agent.md
+dramaturgo.agent.md
+grafista.agent.md
+pipeline.agent.md
+portal.agent.md
+puzzle.agent.md
+voz.agent.md
+
+######## 6 · Intentos de ejecución como proceso (deben fallar o no existir) ########
+--- orden: which bartleby; command -v bartleby ---
+which: no bartleby in (/c/Users/aleph/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/aleph/bin:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/node_modules/@vscode/ripgrep/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin/x64:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin:/c/Python314/Scripts:/c/Python314:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files (x86)/Common Files/Siemens/ACE:/c/Program Files (x86)/Common Files/Siemens:/c/Program Files (x86)/Common Files/Siemens/Interfaces:/c/Program Files (x86)/Common Files/Siemens/ACE/Interfaces:/c/Program Files/nodejs:/c/ProgramData/chocolatey/bin:/c/Program Files/Common Files/Siemens/bin:/cmd:/c/Program Files/GitHub CLI:/c/Program Files/Docker/Docker/resources/bin:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Ruby34-x64/bin:/c/Users/aleph/AppData/Local/Microsoft/WindowsApps:/c/Users/aleph/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/aleph/AppData/Roaming/npm:/c/Users/aleph/.bun/bin:/c/Users/aleph/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-N-123778-g3b55818764-win64-gpl/bin:/c/Users/aleph/AppData/Local/Programs/Ollama:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/bin:/usr/bin/vendor_perl:/usr/bin/core_perl)
+which_exit=1
+command_exit=1
+--- orden: which cristalizador ---
+which: no cristalizador in (/c/Users/aleph/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/aleph/bin:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/node_modules/@vscode/ripgrep/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin/x64:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin:/c/Python314/Scripts:/c/Python314:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files (x86)/Common Files/Siemens/ACE:/c/Program Files (x86)/Common Files/Siemens:/c/Program Files (x86)/Common Files/Siemens/Interfaces:/c/Program Files (x86)/Common Files/Siemens/ACE/Interfaces:/c/Program Files/nodejs:/c/ProgramData/chocolatey/bin:/c/Program Files/Common Files/Siemens/bin:/cmd:/c/Program Files/GitHub CLI:/c/Program Files/Docker/Docker/resources/bin:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Ruby34-x64/bin:/c/Users/aleph/AppData/Local/Microsoft/WindowsApps:/c/Users/aleph/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/aleph/AppData/Roaming/npm:/c/Users/aleph/.bun/bin:/c/Users/aleph/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-N-123778-g3b55818764-win64-gpl/bin:/c/Users/aleph/AppData/Local/Programs/Ollama:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/bin:/usr/bin/vendor_perl:/usr/bin/core_perl)
+which_exit=1
+--- orden: which pipeline ---
+which: no pipeline in (/c/Users/aleph/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/aleph/bin:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/node_modules/@vscode/ripgrep/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin/x64:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.2/bin:/c/Python314/Scripts:/c/Python314:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/c/Program Files (x86)/Common Files/Siemens/ACE:/c/Program Files (x86)/Common Files/Siemens:/c/Program Files (x86)/Common Files/Siemens/Interfaces:/c/Program Files (x86)/Common Files/Siemens/ACE/Interfaces:/c/Program Files/nodejs:/c/ProgramData/chocolatey/bin:/c/Program Files/Common Files/Siemens/bin:/cmd:/c/Program Files/GitHub CLI:/c/Program Files/Docker/Docker/resources/bin:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Ruby34-x64/bin:/c/Users/aleph/AppData/Local/Microsoft/WindowsApps:/c/Users/aleph/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/aleph/AppData/Roaming/npm:/c/Users/aleph/.bun/bin:/c/Users/aleph/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-N-123778-g3b55818764-win64-gpl/bin:/c/Users/aleph/AppData/Local/Programs/Ollama:/c/Users/aleph/AppData/Local/Programs/cursor/resources/app/bin:/usr/bin/vendor_perl:/usr/bin/core_perl)
+which_exit=1
+--- orden: node "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/bartleby.agent.md" ---
+C:\Users\aleph\OASIS\aleph-scriptorium\DocumentMachineSDK\.github\agents\bartleby.agent.md:1
+---
+
+SyntaxError: Invalid left-hand side expression in prefix operation
+    at wrapSafe (node:internal/modules/cjs/loader:1638:18)
+    at Module._compile (node:internal/modules/cjs/loader:1680:20)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
+
+Node.js v22.21.1
+node_exit=0
+--- orden: npm --prefix "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" run 2>&1 | head ---
+npm error code ENOENT
+npm error syscall open
+npm error path C:\Users\aleph\OASIS\aleph-scriptorium\DocumentMachineSDK\package.json
+npm error errno -4058
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open 'C:\Users\aleph\OASIS\aleph-scriptorium\DocumentMachineSDK\package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: C:\Users\aleph\AppData\Local\npm-cache\_logs\2026-08-02T00_49_27_535Z-debug-0.log
+npm_exit=0
+--- orden: npm --prefix AgentLoreSDK run ---
+Scripts available in @aleph-scriptorium/agent-lore-sdk@0.1.0 via `npm run-script`:
+  docs:web
+    http-server docs -a 127.0.0.1 -p 4173 -c-1
+  docs:web:open
+    http-server docs -a 127.0.0.1 -p 4173 -c-1 -o
+  audit:anchors
+    node .github/hooks/audit-anchors.mjs
+  validate
+    npm run audit:anchors
+  ynsy-engine:start
+    npm run ynsy-engine:check && http-server docs -a 127.0.0.1 -p 4174 -c-1
+  ynsy-engine:check
+    npm run ynsy-engine:dispose
+  ynsy-engine:dispose
+    lsof -t -i:4174 | xargs kill -9 2>/dev/null || true
+npm_exit=0
+
+######## 7 · Intentos sobre e-sdk vacío ########
+$ ls -la C:/S_LAB/e-sdk/DocumentMachineSDK
+total 4
+drwxr-xr-x 1 aleph 197121 0 jul. 22 23:40 ./
+drwxr-xr-x 1 aleph 197121 0 jul. 25 13:05 ../
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1
+node:internal/modules/cjs/loader:1386
+  throw err;
+  ^
+
+Error: Cannot find module 'C:\S_LAB\e-sdk\DocumentMachineSDK\package.json'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    at Function._load (node:internal/modules/cjs/loader:1192:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+exit=0
+$ test -f C:/S_LAB/e-sdk/DocumentMachineSDK/.github/agents/bartleby.agent.md; echo exit=$?
+exit=1
+
+######## 8 · Hub / s-sdk CI (contexto heredado, re-verificado) ########
+$ ls C:/S/scriptorium/.github/workflows
+docs.yml
+$ ls C:/S_LAB/s-sdk/.github/workflows
+docs.yml
+
+######## 9 · Frontmatter agentes (user-invocable / tools) ########
+$ head -n 18 bartleby.agent.md
+---
+name: Bartleby
+description: Analista documental desde la posición Bartleby. No juzga, no debate. Ve la coreografía porque no participa en la danza. Extrae herencia, taxonomía, mecanismos retóricos y emergencia de documentos.
+argument-hint: "[ruta o texto del documento a analizar]"
+tools: [vscode, execute, read, agent, edit, search, web, 'playwright/*', browser, todo]
+model: Claude Sonnet 4.5
+user-invocable: true
+disable-model-invocation: false
+handoffs:
+  - label: Archivar análisis en corpus
+    agent: Archivero
+    prompt: Ejecuta diff-corpus con el análisis que acabo de generar y muestra el delta.
+    send: false
+  - label: Proponer cristalización agéntica
+    agent: Cristalizador
+    prompt: Revisa el corpus actualizado y propone nuevos artefactos agénticos de VS Code Copilot.
+    send: false
+---
+
+$ head -n 18 cristalizador.agent.md
+---
+name: Cristalizador
+description: Diseñador agéntico SDK por defecto. Lee el workspace y la documentación real de COPILOT para proponer o implementar cristalizaciones branch-aware con pacto explícito de maximización.
+argument-hint: "[proponer cristalización | implementar propuesta aprobada]"
+tools: [vscode, execute, read, agent, edit, search, web, browser, todo]
+handoffs:
+  - label: Volver al corpus
+    agent: Archivero
+    prompt: Muestra el status actual del corpus antes de cristalizar.
+    send: true
+hooks:
+  SessionStart:
+    - type: command
+      command: "python -c \"import json; print(json.dumps({'hookSpecificOutput': {'hookEventName': 'SessionStart', 'additionalContext': 'Como Cristalizador, tu primer paso OBLIGATORIO en esta sesión es leer COPILOT/indice.md, calcular los días desde ultima_sincronizacion y si ha expirado, emitir un WARNING antes de sugerir diseños.'}}))\""
+---
+
+# Cristalizador — Diseñador de infraestructura agéntica
+
+
+$ head -n 20 pipeline.agent.md
+---
+name: Pipeline
+description: "Refresca la cadena de derivados tras modificar piezas del lore. Ejecuta paso a paso, muestra deltas y para si no hay cambios."
+argument-hint: "[refresh | refresh --desde corpus|hilo|artefacto|universo | status]"
+tools: [vscode, execute, read, agent, edit, search, todo]
+agents: [Bartleby, Archivero, Puzzle, Archivero Lore, Grafista, Demiurgo, Dramaturgo Cortos]
+handoffs:
+  - label: Validar pack de lore
+    agent: Puzzle
+    prompt: Valida las piezas del lore antes de re-ingestar.
+    send: true
+  - label: Re-ingestar lore
+    agent: Archivero Lore
+    prompt: ingest
+    send: true
+  - label: Regenerar grafo
+    agent: Grafista
+    prompt: actualizar grafo
+    send: true
+  - label: Diseñar universo
+
+######## 10 · Ficha barrio 20 en cantera S (RO) ########
+$ test -f "C:/S_LAB/s-sdk/plan/SPRINTS/sprint-game-city/cantera/CIUDAD/01-BARRIOS/20-DocumentMachineSDK.md" && head -n 25 "C:/S_LAB/s-sdk/plan/SPRINTS/sprint-game-city/cantera/CIUDAD/01-BARRIOS/20-DocumentMachineSDK.md"
+exit=0
+# Barrio 20 — `DocumentMachineSDK`
+
+> Distrito: **Lore/voz** · 🔒 Solo tipologías nativas
+
+| Campo | Valor |
+|-------|-------|
+| Path | `DocumentMachineSDK/` |
+| Submodule git | `DocumentMachineSDK` |
+| Branch | `integration/beta/scriptorium` |
+| Runtime | Markdown + Jekyll / SDK editorial |
+| Locales/naves | `lore-sdk` |
+| README-SCRIPTORIUM | `DocumentMachineSDK/README-SCRIPTORIUM.md` |
+| Agentes / skills / prompts | 13 / 6 / 57 |
+| Chatmodes | 0 |
+
+## Qué es
+
+SDK editorial: cristalizar Voces desde corpus ideológico.
+
+## Puertos
+
+- _(ninguno documentado)_
+
+## Zonificación (qué se puede edificar)
+
+
+=== FIN MEDIDAS ===
+
+######## ADDENDA · exit codes sin pipe ########
+node_bartleby_exit=1
+npm_dm_exit=127
+which_bartleby_exit=1
+e_sdk_bartleby_exit=1
+sha256_2024-05-01=a186993d4420792d94a261ed68a801793af033a5fe32f0b00be224c780c9796a
+sha256_2026-05-01=86f3cb6deb8d01cef4546a81fc650fff0913291aeb7ad3dfa504d9a7c02186f0
+
+######## ADDENDA ZV 2026-08-02 · la cicatriz de :148 y el anclaje que faltaba ########
+
+# POR QUE ESTA ADDENDA
+# Este log registra `exit=0` en las lineas 103, 113 y 148 para tres ordenes que
+# FALLARON. La addenda anterior (lineas 253-256) corrigio dos de las tres y
+# dejo la :148 sin corregir. Es decir: la evidencia literal contradecia al
+# informe en uno de los dos fallos que lo sostienen.
+#
+# NO SE BORRA NADA. Las lineas 103/113/148 se quedan donde estan. Esto explica
+# que son y cuanto valen.
+
+# CAUSA MEDIDA (no excusa)
+# Las ordenes se capturaron a traves de tuberia (`... 2>&1 | head`, `| tee`).
+# En bash, `$?` tras una tuberia es el estado del ULTIMO eslabon, no el del
+# comando medido. Un log que mide exit codes a traves de un pipe no mide exit
+# codes. Correccion de metodo: una orden por linea, sin tuberia, y `echo exit=$?`
+# inmediatamente despues.
+
+# LINEA A LINEA
+# :103  node_exit=0   <- node .../bartleby.agent.md ; salida real: SyntaxError
+#                        corregido en :253 (node_bartleby_exit=1)
+# :113  npm_exit=0    <- npm --prefix .../DocumentMachineSDK run ; salida real: ENOENT
+#                        corregido en :254 (npm_dm_exit=127)
+# :148  exit=0        <- node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json
+#                        salida real (lineas 138-147): Error: Cannot find module
+#                        NUNCA CORREGIDO hasta esta addenda.
+#                        (la :256 `e_sdk_bartleby_exit=1` corrige la :150,
+#                         que es `test -f .../bartleby.agent.md`, otra orden)
+
+######## RE-MEDIDA ZV · sin tuberia, una orden por linea ########
+
+$ node "C:/S_LAB/e-sdk/DocumentMachineSDK/package.json" > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ node "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/.github/agents/bartleby.agent.md" > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ npm --prefix "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" run > /dev/null 2>&1 ; echo exit=$?
+exit=127
+$ test -f "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK/package.json" ; echo exit=$?
+exit=1
+$ command -v bartleby > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ command -v cristalizador > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ command -v pipeline > /dev/null 2>&1 ; echo exit=$?
+exit=1
+
+# Conclusion: el veredicto del informe NO cambia. Los cuatro fallos en que se
+# apoya siguen fallando hoy, ahora con exit codes que se corresponden con lo
+# que se ve en pantalla.
+
+######## ANCLAJE ZV · el arbol auditado, por fin con commit ########
+
+# El cuerpo de este log identifica lo auditado con rutas y 10 conteos `bytes=`,
+# sin un solo rev-parse, rama ni tag. Un veredicto sobre un arbol sin anclar es
+# infalsificable por nombre. Anclado hoy:
+
+$ git -C "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" rev-parse HEAD
+0d65d068c8a0f2c7ab36e5ca4130658f4ddc4880
+$ git -C "C:/Users/aleph/OASIS/aleph-scriptorium/DocumentMachineSDK" rev-parse --abbrev-ref HEAD
+integration/beta/scriptorium
+$ git -C ".../DocumentMachineSDK" status --porcelain | wc -l
+0
+$ git -C ".../DocumentMachineSDK" rev-parse HEAD:.github/agents/bartleby.agent.md
+46656140851ee52cdb25a20140aa4f65792a3d76
+$ git -C ".../DocumentMachineSDK" rev-parse HEAD:.github/agents/cristalizador.agent.md
+7c35c1c803c753282376a8d43cd22cb212968012
+$ git -C ".../DocumentMachineSDK" rev-parse HEAD:mod/agents/pipeline.agent.md
+f6629b203db8dcc367cfb9a3afa89d03dd79e48c
+$ git -C ".../DocumentMachineSDK" ls-tree HEAD -- package.json
+(vacio: package.json no existe EN EL COMMIT, no solo en disco)
+$ git -C ".../DocumentMachineSDK" ls-tree -r --name-only HEAD | grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$"
+0
+
+$ git -C "C:/Users/aleph/OASIS/aleph-scriptorium/onfalo-asesor-sdk" rev-parse HEAD
+d049e01ce4a33bc53fa0d34518ee7f15bc38da93
+$ git -C ".../onfalo-asesor-sdk" rev-parse --abbrev-ref HEAD
+integration/beta/scriptorium
+$ git -C ".../onfalo-asesor-sdk" rev-parse HEAD:PROYECTOS/BARTLEBY/corpus/editoriales/2024-05-01_primero-de-mayo.md
+7dcc6fad67b57f3bf9bdcd60381f8bdba2092580
+$ git -C ".../onfalo-asesor-sdk" rev-parse HEAD:PROYECTOS/BARTLEBY/corpus/editoriales/2026-05-01_auge-de-la-educacion-emocional.md
+38a47e355c00176c39fdc0a7ca543cd27b05fedc
+
+$ git -C "C:/S_LAB/e-sdk" rev-parse HEAD
+e4b34a870df266c181846110a63438f103e26b80
+$ git -C "C:/S_LAB/e-sdk" rev-parse --abbrev-ref HEAD
+main
+$ git -C "C:/S_LAB/a-sdk" rev-parse HEAD
+936196f3682edec1934c9b5a09297ac65fdd107f
+$ git -C "C:/S_LAB/a-sdk" rev-parse --abbrev-ref HEAD
+integration/beta/scriptorium
+
+######## LO QUE HOY NO SE PUEDE ANCLAR (dicho con esas palabras) ########
+
+$ git -C "C:/Users/aleph/OASIS/aleph-scriptorium" rev-parse HEAD
+fatal: bad config line 1 in file .git/config
+
+# El superproyecto OASIS `aleph-scriptorium` NO SE PUEDE ANCLAR HOY: git rechaza
+# su .git/config. Los submodulos si responden, asi que el arbol del veredicto
+# (DocumentMachineSDK) queda anclado; lo que queda sin anclar es el contenedor.
+#
+# Ademas, cada consulta al almacen de objetos del submodulo emite:
+#   error: wrong index v1 file size in
+#   .git/modules/DocumentMachineSDK/objects/pack/pack-56b2eb9056090df28f73c0a88974827e2a16218c.idx
+# Resuelve, pero esta degradado. Ambas cosas son del entorno del custodio;
+# ZV no las toca (OASIS es read-only para este worker).
+
+######## RECORTE DE TITULAR · la medida que lo obliga ########
+
+$ python --version
+Python 3.14.0
+$ python -c "import ast,sys; ast.parse(open(sys.argv[1],encoding='utf-8').read()); print('parse_ok')" ".../DocumentMachineSDK/workers/escribiente-whisper/worker.py"
+parse_ok
+$ command -v python > /dev/null 2>&1 ; echo exit=$?
+exit=0
+$ python -B -c "import faster_whisper"
+ModuleNotFoundError: No module named 'faster_whisper'
+exit=1
+$ cat ".../workers/escribiente-whisper/requirements.txt"
+faster-whisper>=1.2.1
+av>=11
+
+# Lectura: whisper TIENE forma de proceso (argparse + def main(), Python en PATH)
+# -> por eso "no hay proceso invocable" era demasiado ancho.
+# Pero HOY TAMPOCO CORRE: sus dependencias declaradas no estan instaladas.
+# Y no es la cadena B->C->P ni ingesta editorial Onfalo.
+# Titular acotado que sostiene la evidencia:
+#   "La cadena B->C->P no es proceso autonomo invocable fuera de IDE, hoy."
+
+# NOTA DE METODO: la primera comprobacion del worker se hizo con
+# `python -m py_compile`, que ESCRIBIO un __pycache__/worker.cpython-314.pyc
+# dentro de OASIS (fuera del worktree de este worker). Se detecto, se borro el
+# .pyc y el __pycache__ creados, y se repitio con ast.parse en memoria. Queda
+# solo el mtime del directorio padre; `git status` de ese arbol sigue en 0.
+
+=== FIN ADDENDA ZV ===
+
+######## ADDENDA ZV · II · 2026-08-02 · el instrumento roto que la addenda I no declaro ########
+
+# POR QUE HAY UNA SEGUNDA ADDENDA
+# La ADDENDA ZV (I) diagnostico que "un log que mide exit codes a traves de un
+# pipe no mide exit codes" -- y acto seguido incurrio en la misma trampa en sus
+# DOS medidas nuevas: el `status --porcelain | wc -l` de :320-321 y el
+# `ls-tree -r ... | grep -c` de :330-331. Las dos leen el recuento de lineas de
+# una orden que FALLA, y el `|` se traga el codigo de salida.
+#
+# Causa raiz comun, no declarada en ninguna parte hasta aqui: el arbol del
+# veredicto (OASIS DocumentMachineSDK) tiene el INDICE CORRUPTO, ademas del
+# .git/config del superproyecto roto y del pack degradado que si se declararon.
+#
+# NO SE BORRA NADA. Las lineas 320-321 y 330-331 se quedan donde estan. Esto
+# dice que son y cuanto valen, y las rehace con instrumento que si mide.
+
+
+######## II.A · EL DEFECTO DE INSTRUMENTO · indice corrupto ########
+
+# Forma correcta: redirigir stdout y stderr a fichero, `echo rc=$?` inmediato,
+# y contar lineas DESPUES. Nunca a traves de tuberia.
+
+$ git --no-optional-locks -C ".../DocumentMachineSDK" status --porcelain > st.out 2> st.err ; echo rc=$?
+rc=128
+$ wc -l < st.out
+0
+$ cat st.err
+error: bad signature 0x00000000
+fatal: index file corrupt
+
+$ git --no-optional-locks -C ".../DocumentMachineSDK" ls-files > lf.out 2> lf.err ; echo rc=$?
+rc=128
+$ wc -l < lf.out
+0
+$ cat lf.err
+error: bad signature 0x00000000
+fatal: index file corrupt
+
+$ git --no-optional-locks -C ".../DocumentMachineSDK" check-ignore -v workers > ci.out 2> ci.err ; echo rc=$?
+rc=128
+$ cat ci.err
+error: bad signature 0x00000000
+fatal: index file corrupt
+
+# El fichero de indice existe y tiene tamano, pero su cabecera esta a cero
+# (deberia empezar por la firma `DIRC` = 44 49 52 43):
+
+$ git --no-optional-locks -C ".../DocumentMachineSDK" rev-parse --git-dir
+C:/Users/aleph/OASIS/aleph-scriptorium/.git/modules/DocumentMachineSDK
+$ ls -la ".../.git/modules/DocumentMachineSDK/index"
+-rw-r--r-- 1 aleph 197121 74174 Apr 30 19:41 .../.git/modules/DocumentMachineSDK/index
+$ od -A d -t x1 -N 16 ".../.git/modules/DocumentMachineSDK/index"
+0000000 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+0000016
+
+# CONTROL POSITIVO (el instrumento no esta roto en todas partes):
+$ git --no-optional-locks -C ".../onfalo-asesor-sdk" status --porcelain > oa.out 2> oa.err ; echo rc=$?
+rc=0
+$ wc -l < oa.out
+0
+$ cat oa.err
+(vacio)
+
+# LECTURA. En onfalo-asesor-sdk el `0` SI significa "0 ficheros sucios": la
+# orden termino en 0 y no emitio nada. En DocumentMachineSDK el `0` de :321
+# significa "la orden aborto sin emitir nada". Son dos ceros distintos y el
+# log los escribio igual. Se retira la afirmacion "limpio: si (0 sucios)"
+# para DocumentMachineSDK; se conserva para onfalo-asesor-sdk.
+
+
+######## II.B · LO QUE SI SE PUEDE AFIRMAR DEL ARBOL DE DISCO ########
+
+# Con git inservible para este arbol, la unica comprobacion disponible es de
+# SISTEMA DE FICHEROS. No es equivalente a `git status`: no sabe de tracking,
+# de .gitignore ni de contenido modificado. Dice solo si hay o no ciertos
+# ficheros en disco.
+
+$ find ".../DocumentMachineSDK" -name '__pycache__' -type d | wc -l
+0
+$ find ".../DocumentMachineSDK" -name '*.pyc' -type f | wc -l
+0
+$ find ".../DocumentMachineSDK" -type f -not -path '*/.git/*' | wc -l
+585
+
+$ find ".../DocumentMachineSDK/workers/escribiente-whisper" -maxdepth 1 -printf '%TY-%Tm-%Td %TH:%TM:%TS  %y  %p\n'
+2026-08-02 17:24:52.5393746000  d  .../workers/escribiente-whisper
+2026-04-29 19:52:40.9431536000  f  .../workers/escribiente-whisper/precheck.py
+2026-04-29 19:52:40.9264093000  f  .../workers/escribiente-whisper/requirements.txt
+2026-04-29 19:52:40.9336243000  f  .../workers/escribiente-whisper/worker.py
+
+# LECTURA. Cero .pyc y cero __pycache__ bajo el arbol: el borrado de la
+# violacion confesada (ver ADDENDA I, NOTA DE METODO) esta comprobado POR
+# SISTEMA DE FICHEROS, no por git. Los tres ficheros del directorio conservan
+# su mtime de abril; solo el mtime del directorio padre es de hoy 17:24:52.
+# Lo que NO se puede afirmar hoy de ese arbol: si tiene o no cambios sucios
+# respecto a HEAD. El indice esta corrupto y `git status` no responde.
+
+
+######## II.C · EL `0` DE ENTRYPOINTS ERA UN FLUJO VACIO ########
+
+# La linea :330-331 registra `ls-tree -r ... | grep -icE ... -> 0`. El
+# recorrido recursivo del arbol MUERE por el pack degradado; el `0` no mide
+# ausencia de entrypoints, mide que la orden no emitio nada.
+
+$ for i in 1 2 3; do git --no-optional-locks -C "$DM" ls-tree -r --name-only HEAD > lt.out 2> lt.err; echo "rc=$? lineas=$(wc -l < lt.out)"; done
+rc=1 lineas=0
+rc=1 lineas=0
+rc=1 lineas=0
+$ cat lt.err
+error: wrong index v1 file size in .../objects/pack/pack-56b2eb9056090df28f73c0a88974827e2a16218c.idx
+   (x5)
+error: Could not read 971aee0998805ac89c08b323a0a4ee7391130ff7
+
+# CONTROL DE SANIDAD DEL PATRON (flujo NO vacio):
+$ printf 'mod/agents/pipeline.js\n' | grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$"
+1
+# El patron funciona. Lo que estaba vacio era el flujo.
+
+# SIN -r (no recursivo) el arbol SI responde:
+$ git --no-optional-locks -C "$DM" ls-tree --name-only HEAD > root.out 2> root.err ; echo rc=$?
+rc=0
+$ wc -l < root.out
+25
+
+
+######## II.D · RECORRIDO SUBARBOL POR SUBARBOL · lo que se deja ver y lo que no ########
+
+$ git --no-optional-locks -C "$DM" ls-tree HEAD | awk '$2=="tree"{print $4}' | while read d; do
+    git --no-optional-locks -C "$DM" ls-tree -r --name-only HEAD -- "$d" > sub.out 2> sub.err
+    echo "$d rc=$? entradas=$(wc -l < sub.out)"
+  done
+
+subarbol                 rc   entradas
+.githooks                1    0
+.github                  1    6
+.vscode                  1    0
+COPILOT                  1    0
+DRAFT2                   0    5
+DRAFTS2                  1    0
+banner                   1    0
+corpus                   1    1
+docs                     1    10
+engine-logs              1    0
+guiones                  1    0
+mod                      1    11
+sala                     1    2
+tmp                      128  1
+workers                  0    3
+
+# 15 subarboles de raiz (las otras 10 entradas de las 25 son blobs).
+#  - 2 de 15 se recorren COMPLETOS (rc=0): DRAFT2, workers.
+#  - 7 de 15 devuelven CERO entradas: .githooks, .vscode, COPILOT, DRAFTS2,
+#    banner, engine-logs, guiones. Entre ellos `.githooks`, que es justo donde
+#    viviria un ejecutable.
+#  - 6 de 15 emiten salida PARCIAL con rc distinto de 0.
+# `tmp` falla con rc=128 por otra causa, un objeto suelto corrupto:
+$ git --no-optional-locks -C "$DM" ls-tree -r --name-only HEAD -- tmp 2>&1 >/dev/null | tail -3
+error: inflate: data stream error (unknown compression method)
+error: unable to unpack c23985afb2f21aea2a238274e39a5cbab37fa4ea header
+fatal: loose object c23985afb2f21aea2a238274e39a5cbab37fa4ea (stored in
+  .../objects/c2/3985afb2f21aea2a238274e39a5cbab37fa4ea) is corrupt
+
+# UNION DE LO VISIBLE: 10 blobs de raiz + 39 entradas de subarbol = 49 rutas.
+$ wc -l < visible.txt
+49
+$ grep -icE "(bartleby|cristalizador|pipeline).*\.(py|js|mjs|cjs|ts|exe|sh)$" visible.txt
+0
+$ grep -E "\.(py|js|mjs|cjs|ts|exe|sh|bat|cmd|ps1)$" visible.txt
+workers/escribiente-whisper/precheck.py
+workers/escribiente-whisper/worker.py
+
+# LECTURA HONESTA. Sobre las 49 rutas que el arbol SI se deja leer no hay
+# ningun entrypoint ejecutable de la cadena B->C->P; los dos unicos ficheros
+# ejecutables visibles del arbol entero son los de escribiente-whisper, que no
+# es la cadena. Pero esto NO es "cero entrypoints en el commit": 7 de 15
+# subarboles no se dejan recorrer, `.githooks` entre ellos, y no se puede
+# afirmar que esten vacios -- solo que no se pueden leer. La afirmacion "cero
+# entrypoints en el commit anclado" queda RETIRADA del reporte y sustituida
+# por esta, que es lo que la medida sostiene.
+
+
+######## II.E · LA LINEA :137 NO ES VERBATIM · faltaba un `| head` ########
+
+# :137 transcribe:  `$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1`
+# y muestra 10 lineas de salida (:138-:147) y `exit=0` (:148). Las dos cosas
+# son incompatibles con esa orden:
+
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1 | wc -l
+18
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1 | head -n 10 | wc -l
+10
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ node C:/S_LAB/e-sdk/DocumentMachineSDK/package.json 2>&1 | head -n 10 > /dev/null ; echo exit=$?
+exit=0
+
+# La salida real tiene 18 lineas, no 10; y la orden tal como esta transcrita da
+# exit=1, no 0. La unica forma que produce a la vez 10 lineas y exit=0 es
+# `| head -n 10`. Conclusion que hay que decir y la ADDENDA I no dijo: las
+# lineas "$ ..." del cuerpo de este log NO SON VERBATIM -- se les elidieron
+# tuberias, y es precisamente la tuberia elidida la que fabrico el exit=0 falso.
+
+
+######## II.F · DERIVACION DEL exit=127 DE npm ########
+
+# El 127 invita a leerse como "orden no encontrada". No lo es: npm esta en PATH
+# y ejecuto. Cadena medida:
+
+$ command -v npm > /dev/null 2>&1 ; echo exit=$?
+exit=0
+$ node -e "try{require('fs').readFileSync('C:/no/existe/x.json')}catch(e){console.log('code='+e.code+' errno='+e.errno)}"
+code=ENOENT errno=-4058
+$ node -e "process.exit(-4058)" > /dev/null 2>&1 ; echo exit=$?
+exit=127
+$ node -e "process.exit(254)" > /dev/null 2>&1 ; echo exit=$?
+exit=254
+$ node -e "process.exit(1)" > /dev/null 2>&1 ; echo exit=$?
+exit=1
+$ npm --prefix ".../DocumentMachineSDK" run > /dev/null 2>&1 ; echo exit=$?
+exit=127
+
+# node v22.21.1 · npm 10.9.4 · bash 5.2.37 · MINGW64_NT-10.0-26200
+# LECTURA: npm propaga el `errno` del error, y `UV_ENOENT` en Windows es -4058.
+# Este shell reporta 127 para ese valor negativo, y NO es un clamp generico:
+# 254 sale como 254 y 1 como 1. El 127 significa "npm corrio y no encontro
+# package.json", no "npm no existe".
+
+
+######## II.G · ANCLAJE QUE FALTABA · escribiente-whisper en el commit ########
+
+$ git --no-optional-locks -C "$DM" ls-tree -r HEAD -- workers ; echo rc=$?
+100644 blob 46e57b5c422aa7b8f152d760e3a755745ef43e07	workers/escribiente-whisper/precheck.py
+100644 blob db085fad0e202131c25d07db6648bfdc2e299e00	workers/escribiente-whisper/requirements.txt
+100644 blob 353d8bf9f0e5ff6d046d2e06348b0f1af36c83cd	workers/escribiente-whisper/worker.py
+rc=0
+
+# `workers` es uno de los dos subarboles que si se recorren completos. La fila
+# de whisper deja de ser la unica sin anclaje.
+
+
+######## II.H · REFUERZO · el gitlink que e-sdk fija, y el upstream comun ########
+
+$ git --no-optional-locks -C "C:/S_LAB/e-sdk" ls-tree HEAD -- DocumentMachineSDK
+160000 commit 073be841da91422d9bac696f96cfc5a12c002b35	DocumentMachineSDK
+$ git --no-optional-locks -C "C:/S_LAB/e-sdk" config -f .gitmodules --get submodule.DocumentMachineSDK.url
+https://github.com/escrivivir-co/para-la-voz-sdk.git
+$ git --no-optional-locks -C ".../OASIS/aleph-scriptorium/DocumentMachineSDK" remote -v
+origin	https://github.com/escrivivir-co/para-la-voz-sdk.git (fetch)
+origin	https://github.com/escrivivir-co/para-la-voz-sdk.git (push)
+
+$ git --no-optional-locks -C "C:/S_LAB/e-sdk" submodule status
+-1498d67e631cbe395bb4577e2c8d57e0451d551a AgentLoreSDK
+-073be841da91422d9bac696f96cfc5a12c002b35 DocumentMachineSDK
+-820e63d1c5592d7c9930630be1b30e1cf6efa90f VectorMachineSDK
+-b31e4088c12c82634a2bb71a945a585d501a8c43 VectorMachineUI
+$ for d in AgentLoreSDK VectorMachineSDK VectorMachineUI DocumentMachineSDK; do
+    echo "count=$(find "C:/S_LAB/e-sdk/$d" -mindepth 1 | wc -l)  $d"; done
+count=0  AgentLoreSDK
+count=0  VectorMachineSDK
+count=0  VectorMachineUI
+count=0  DocumentMachineSDK
+
+# LECTURA: el arbol de OASIS (0d65d068) y el que e-sdk espera (073be841) son
+# el MISMO upstream (para-la-voz-sdk.git) a distinto commit. e-sdk no aporta
+# arbol -- el prefijo `-` y count=0 lo dicen -- pero si fija que commit querria.
+
+
+######## II.I · MEDIDAS QUE FALTABAN A DOS FILAS DE LA TABLA A ########
+
+$ for f in ".../onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus/analisis/"*.analisis.md; do
+    test -f "$f"; echo "exit=$?  bytes=$(wc -c < "$f")  $(basename "$f")"; done
+exit=0  bytes=11025  2024-05-01_primero-de-mayo.analisis.md
+exit=0  bytes=13293  2026-05-01_auge-de-la-educacion-emocional.analisis.md
+
+# (los conteos de e-sdk para AgentLoreSDK / VectorMachineSDK / VectorMachineUI
+#  estan arriba, en II.H)
+
+
+######## II.J · OBSERVACION DE TERCEROS · para el custodio, no imputable a ZV ########
+
+$ find ".../onfalo-asesor-sdk/PROYECTOS/BARTLEBY/corpus" -maxdepth 1 -printf '%TY-%Tm-%Td %TH:%TM:%TS  %y  %p\n'
+2026-08-02 11:07:21.0487284000  d  .../corpus
+2026-05-01 11:36:43.3171165000  d  .../corpus/analisis
+2026-05-01 11:37:43.1414780000  f  .../corpus/corpus.md
+2026-05-01 11:35:55.9270780000  d  .../corpus/editoriales
+$ find ".../corpus" -newermt '2026-08-02 00:00:00' -printf '%TY-%Tm-%Td %TH:%TM:%TS  %y  %p\n'
+2026-08-02 11:07:21.0487284000  d  .../corpus
+   (ningun hijo)
+
+# El directorio `corpus` tiene mtime de hoy 11:07:21 y NINGUN hijo de hoy. No
+# encaja en ninguna ventana de este trabajo: el spike original corrio ~02:49 y
+# el turno ZV ~17:24-17:32. `git status` de onfalo-asesor-sdk da rc=0 y 0
+# lineas, o sea que nada versionado cambio. Se anota como observacion para el
+# custodio; ZV no lo produjo y no lo toca.
+
+=== FIN ADDENDA ZV · II ===
+
+######## ADDENDA ZV · II.K · las dos celdas que describian en vez de medir ########
+
+# Tres filas de la Tabla A decian "frontmatter tools: [vscode,...]" y una decia
+# "`npm run` los lista" sin salida literal. Medido:
+
+$ for f in .github/agents/bartleby.agent.md .github/agents/cristalizador.agent.md mod/agents/pipeline.agent.md; do head -n 12 "$DM/$f" | grep -n "tools:"; done
+5:tools: [vscode, execute, read, agent, edit, search, web, 'playwright/*', browser, todo]
+5:tools: [vscode, execute, read, agent, edit, search, web, browser, todo]
+5:tools: [vscode, execute, read, agent, edit, search, todo]
+
+# Los tres declaran `vscode` en la linea 5 de su frontmatter. Es la superficie
+# que declaran: herramientas de sesion IDE, no CLI.
+
+$ npm --prefix ".../OASIS/aleph-scriptorium/AgentLoreSDK" run > al.out 2> al.err ; echo rc=$?
+rc=0
+$ cat al.out
+Scripts available in @aleph-scriptorium/agent-lore-sdk@0.1.0 via `npm run-script`:
+  docs:web
+    http-server docs -a 127.0.0.1 -p 4173 -c-1
+  docs:web:open
+    http-server docs -a 127.0.0.1 -p 4173 -c-1 -o
+  audit:anchors
+    node .github/hooks/audit-anchors.mjs
+  validate
+    npm run audit:anchors
+  ynsy-engine:start
+    npm run ynsy-engine:check && http-server docs -a 127.0.0.1 -p 4174 -c-1
+  ynsy-engine:check
+    npm run ynsy-engine:dispose
+  ynsy-engine:dispose
+    lsof -t -i:4174 | xargs kill -9 2>/dev/null || true
+$ cat al.err
+(vacio)
+$ grep -icE "bartleby|cristalizador|pipeline" al.out
+0
+
+# AgentLoreSDK SI corre (rc=0, package.json presente, 7 scripts) y NINGUNO de
+# sus scripts es de la cadena. Contraste util: es el unico "corre" de la tabla,
+# y no sirve para la cadena.
+
+=== FIN ADDENDA ZV · II.K ===
+
+######## ADDENDA ZV · II.L · los `find | wc -l` que quedan, comprobados uno a uno ########
+
+# Tras retirar los dos `| wc -l` sobre ordenes que fallan, quedan varios
+# `find ... | wc -l` en la Tabla A y en la coartada de §5. NO son el mismo caso,
+# pero eso hay que DEMOSTRARLO, no afirmarlo. rc separado de stdout:
+
+$ for d in AgentLoreSDK VectorMachineSDK VectorMachineUI DocumentMachineSDK; do
+    find "C:/S_LAB/e-sdk/$d" -mindepth 1 > f.out 2> f.err
+    echo "$d rc=$? lineas=$(wc -l < f.out) stderr=[$(cat f.err)]"; done
+AgentLoreSDK        rc=0  lineas=0  stderr=[]
+VectorMachineSDK    rc=0  lineas=0  stderr=[]
+VectorMachineUI     rc=0  lineas=0  stderr=[]
+DocumentMachineSDK  rc=0  lineas=0  stderr=[]
+
+$ find ".../DocumentMachineSDK" -name '__pycache__' -type d > p.out 2> p.err ; echo rc=$?
+rc=0   lineas=0   stderr=[]
+$ find ".../DocumentMachineSDK" -name '*.pyc' -type f > p2.out 2> p2.err ; echo rc=$?
+rc=0   lineas=0   stderr=[]
+
+# CONTROL NEGATIVO (que el instrumento SI distingue "vacio" de "fallo"):
+$ find "C:/S_LAB/e-sdk/NoExiste" -mindepth 1 > f2.out 2> f2.err ; echo rc=$?
+rc=1   lineas=0
+stderr=[find: 'C:/S_LAB/e-sdk/NoExiste': No such file or directory]
+
+# CONCLUSION: todos los `find` que sostienen afirmaciones en este informe
+# terminan en rc=0 con stderr vacio. Sus ceros son ceros de verdad. El control
+# negativo demuestra que un fallo se habria visto como rc=1 + mensaje.
+
+=== FIN ADDENDA ZV · II.L ===
