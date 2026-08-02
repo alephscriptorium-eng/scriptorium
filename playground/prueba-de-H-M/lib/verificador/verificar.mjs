@@ -628,6 +628,15 @@ function validateProvenance(provenanceDoc, report, wires) {
 
   // upstream son causalDigests recomputables: cada uno debe corresponder al
   // núcleo causal de una pareja realmente presente en activities/.
+  //
+  // DEFENSA EN PROFUNDIDAD HOY INALCANZABLE — declarado, no disimulado.
+  // El chequeo de enganche de `validateBilateralCausal` corre antes y exige
+  // igualdad EXACTA con el upstream que declara CEREMONY_STEPS; la pertenencia
+  // que se comprueba aquí es estrictamente más débil, así que todo caso que
+  // la violaría ya ha enrojecido. Por eso esta rama no tiene negativo propio
+  // en ci/test-107: no se puede escribir uno que la alcance sin desactivar
+  // antes el guardián de enganche. Se conserva porque volvería a ser
+  // alcanzable si aquel se debilitara; no se conserva como guardián probado.
   const causals = new Set(wires.map((w) => causalDigest(w.wire)));
   for (const { dir, wire } of wires) {
     const ups = wire.provenance?.upstream ?? [];

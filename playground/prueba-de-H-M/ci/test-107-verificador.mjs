@@ -200,9 +200,26 @@ function repairShallow(dir) {
   writeJson(path.join(dir, "pack/manifest.json"), man);
 }
 
-/** Fabrica una pareja bilateral H/M coherente consigo misma. */
-function fabricatePair(acts, sample, sampleView, order, verb, tag, runId) {
-  const base = `urn:scriptorium:hm:${runId}:step:${order}:${verb}`;
+/**
+ * Fabrica una pareja bilateral H/M coherente consigo misma.
+ *
+ * `secondary` NO es opcional en la práctica: sin emitir el sufijo `:sec`, las
+ * seis parejas secundarias de EXPECTED_ACTIVITY_PAIRS salían con claves no
+ * declaradas y el negativo enrojecía por «paso/verbo no declarado» en vez de
+ * por lo que decía probar. Es la misma trampa que estos negativos existen
+ * para evitar.
+ */
+function fabricatePair(
+  acts,
+  sample,
+  sampleView,
+  order,
+  verb,
+  tag,
+  runId,
+  secondary = false,
+) {
+  const base = `urn:scriptorium:hm:${runId}:step:${order}:${verb}${secondary ? ":sec" : ""}`;
   for (const side of ["H", "M"]) {
     const env = {
       id: `${base}:${side}`,
@@ -219,7 +236,7 @@ function fabricatePair(acts, sample, sampleView, order, verb, tag, runId) {
     const sealed = { ...env, digest: digestObject(env) };
     const d = path.join(
       acts,
-      `${tag}-${order}-${verb.replace(/\./g, "_")}-${side}`,
+      `${tag}-${order}-${verb.replace(/\./g, "_")}-${secondary ? "sec-" : ""}${side}`,
     );
     fs.mkdirSync(d, { recursive: true });
     writeJson(path.join(d, "wire.json"), sealed);
@@ -238,7 +255,7 @@ function fabricatePair(acts, sample, sampleView, order, verb, tag, runId) {
  * @param {(isoRoot: string) => void} mutate
  * @param {string} isoBase
  */
-function expectFrontier(frontier, mutate, isoBase) {
+function expectFrontier(frontier, mutate, isoBase, msgIncludes = null) {
   const slug = FRONTIER_SLUG[frontier] ?? frontier.replace(/\s+/g, "-");
   const dir = path.join(isoBase, `neg-${slug}-${Date.now().toString(36)}`);
   copyDir(path.join(isoBase, "evidence-pass"), dir);
@@ -248,7 +265,17 @@ function expectFrontier(frontier, mutate, isoBase) {
     fail(`negativo "${frontier}" debió fallar`);
   } catch (e) {
     if (e instanceof VerifierError && e.frontier === frontier) {
-      ok(`negativo «${frontier}»`);
+      // El mensaje importa: dos vectores muy distintos comparten frontera, y
+      // comparar solo la frontera deja pasar un negativo que enrojece por otra
+      // razon que la que dice probar.
+      if (msgIncludes && !String(e.message).includes(msgIncludes)) {
+        fail(
+          `negativo "${frontier}": enrojece por otra razon — esperaba `
+            + `"${msgIncludes}", got: ${String(e.message).slice(0, 120)}`,
+        );
+      } else {
+        ok(`negativo «${frontier}»${msgIncludes ? ` (${msgIncludes})` : ""}`);
+      }
     } else {
       fail(
         `negativo "${frontier}": got ${e?.frontier || e?.message || e} (espera ${frontier})`,
@@ -745,11 +772,13 @@ function main() {
           p.verb,
           "fantasma",
           "CORRIDA-QUE-NUNCA-EXISTIO",
+          p.secondary,
         );
       }
       repairSuperficial(dir);
     },
     isoBase,
+    "prefijo de otra corrida",
   );
 
   // B1b · Vaciar la cadena: el check llamado «cadena causal» no exigía que
