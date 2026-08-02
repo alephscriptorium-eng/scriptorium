@@ -444,7 +444,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   línea propio · cero ids inventados: cada barrio/distrito citado existe en
   `CENSO-ESTADOS.md` de la cantera · `prueba-de-dos` con **diff vacío**.
 - **Pri:** P0 · BLOQUEA la lane
-- **Estado:** ✅ ola 1 · tip `44685a0`+addenda · rama `wp/hub-100-hm-escenario-y-schemas` · PASS_CON_ADDENDA · **sin merge main** · verde local; CI tras push
+- **Estado:** ✅ ola 1 · tip `ddb4d8b` · rama `wp/hub-100-hm-escenario-y-schemas` · PASS_CON_ADDENDA · **sin merge main** · verde local; CI tras push
 
 ### WP-HUB-101 · hm-ontologia-y-verbos ✅
 - **BRIEF:** `ontology/hm-v1.context.jsonld`, `ontology/hm-v1.ttl` y
@@ -465,7 +465,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   bytes sellados) — probado mutando la vista y exigiendo huella idéntica ·
   cada alias resuelve a exactamente una actividad tipada.
 - **Pri:** P0
-- **Estado:** ✅ ola 1 · tip `3f0a40c`+addenda · rama `wp/hub-101-hm-ontologia-y-verbos` · PASS_CON_ADDENDA (AS2 falso corregido) · **sin merge main**
+- **Estado:** ✅ ola 1 · tip `35125f3` · rama `wp/hub-101-hm-ontologia-y-verbos` · PASS_CON_ADDENDA (AS2 falso corregido) · **sin merge main**
 
 ### WP-HUB-102 · hm-generador-idempotente
 - **BRIEF:** `scripts/generar.mjs` produce corridas regenerables en
