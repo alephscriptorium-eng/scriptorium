@@ -4,7 +4,7 @@
 | ----- | ----- |
 | rama | `wp/lore-hm-accum` |
 | tip de partida | `8c38119` |
-| commits | `9ac352b` `aa98be7` `b124b74` `4695cd0` `c8113c3` · **vuelta 2:** `a653d3c` |
+| commits | `9ac352b` `aa98be7` `b124b74` `4695cd0` `c8113c3` · **v2:** `a653d3c` · **v3:** `7064f6b` |
 | alcance | `playground/prueba-de-H-M/**` |
 | suite | `node ci/suite.mjs` → **PASS** (100…109) |
 | denominador | 117 ficheros versionados · 52 `.mjs` |
@@ -396,6 +396,32 @@ negativo «0 reales» enrojecía por los verbos `zzz.*`, no por el guardián. Lo
 negativos de clave usan ahora el `runId` **real**, de modo que siguen probando
 el guardián de clave y no el de prefijo.
 
+#### Vuelta 3 · y el negativo B1 tampoco probaba lo que decía
+
+`fabricatePair` **nunca emitía el sufijo `:sec`**, así que las seis parejas
+secundarias salían con claves no declaradas y el negativo enrojecía por
+«paso/verbo no declarado», no por el guardián de prefijo. `expectFrontier`
+comparaba **sólo la frontera**, nunca el mensaje, y por eso la sustitución
+pasó inadvertida. Es el espejo exacto de la trampa que evité en los otros dos
+negativos y que declaré haber evitado; aquí se me coló.
+
+Verificado **por desactivación**, que es la prueba que faltaba:
+
+```
+ANTES   guardián de prefijo anulado  -> test-107 PASS  (32 PASS, 0 FAIL)
+        == se podía revertir el guardián entero y el test seguía verde
+
+DESPUÉS guardián ACTIVO      -> test-107 PASS
+        guardián DESACTIVADO -> test-107 FAIL (1)
+        restaurado           -> test-107 PASS
+```
+
+Arreglado por partida doble: `fabricatePair` toma `secondary` y emite `:sec`
+(y distingue el directorio, que si no colisionaban las dos parejas del mismo
+paso), y `expectFrontier` acepta `msgIncludes`, con el negativo B1 exigiendo
+el texto «prefijo de otra corrida». Que sólo se comparase la frontera es lo
+que dejó pasar el defecto: vectores muy distintos comparten frontera.
+
 ### B2 · El verificador nunca leía `wire.result`
 
 ```
@@ -477,13 +503,31 @@ reetiquetado `$id`+`title` · rutas de máquina +7 patrones · el guardián de l
    revisado ni actualizado; el encargo era código y guardianes.
 7. **Cobertura de `lib/despertar/`** (WP-109): no había vectores en el encargo
    y no la he auditado por mi cuenta.
-8. **Vuelta 2 — sigue abierto:** el sexto vector es más ancho de lo que cierro.
+8. **El residuo de B1 — límite estructural, no cerrado.** El prefijo ata la
+   evidencia a **una sola corrida declarada** —impide montar el pack con
+   actividades de otra corrida o de una plantilla— pero **no cierra «corrida
+   enteramente fabricada»**. Medido por mí, no transcrito: 34 mitades
+   fabricadas con el prefijo **correcto**, la cadena reconstruida, objetos
+   `urn:INVENTADO:esta-ceremonia-jamas-se-celebro` y timestamps de 1999 →
+   `ok=true`, `checks=12`, solapamiento 0 con la corrida real. Es el **suelo
+   de un verificador puramente interno**: sin una raíz de confianza externa a
+   la corrida (firma de un tercero, ancla temporal, ledger), no hay más. No
+   debe leerse como cerrado.
+9. **Rama `PROVENANCE_ROTA` sin negativo — inalcanzable hoy.** «upstream no
+   corresponde a ninguna actividad presente» quedó subsumida por el chequeo de
+   enganche, que corre antes y exige igualdad **exacta** con `CEREMONY_STEPS`;
+   la pertenencia es estrictamente más débil. No se puede escribir un negativo
+   que la alcance sin desactivar antes el guardián de enganche. Se conserva
+   —volvería a ser alcanzable si aquél se debilitara— y está declarada como
+   tal en el código, igual que la rama de `authorize()`. No es un guardián
+   probado y no cuenta como tal.
+10. **Vuelta 2 — sigue abierto:** el sexto vector es más ancho de lo que cierro.
    `report.md` y `provenance.ceremonyId/scenarioId` ya se contrastan, pero
    siguen fuera del sello del pack los campos de `pack/manifest.json` que no
    son de los seis documentos y los campos de `report.json` que no entran en
    ninguna comprobación. Se contrastan por otras vías o no se contrastan; no
    están sellados. Lo dejo dicho en vez de afirmar que la clase está cerrada.
-9. **Vuelta 2 — el guardián de los 12 checks vigila etiquetas, no ejecución.**
+11. **Vuelta 2 — el guardián de los 12 checks vigila etiquetas, no ejecución.**
    Detecta renombrar, impostores, duplicados y cardinalidad, pero comentar la
    llamada dejando el `push` seguiría devolviendo 12 nombres. Quien lo salva es
    la suite —los negativos enrojecerían—, no el guardián. Verificar ejecución
