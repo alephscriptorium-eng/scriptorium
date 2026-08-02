@@ -1,0 +1,126 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix hm: <urn:scriptorium:hm:v1:> .
+@prefix lore: <urn:scriptorium:lore:v1:> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# H/M playground ceremony language v1.
+# Future Machine does NOT run in v1; verbs describe the simulacro envelope
+# language, not live FM processes (spike 112).
+
+hm:ontology-v1 a hm:Ontology ;
+  dcterms:title "H/M playground ceremony language v1" ;
+  dcterms:description "Typed activity ontology for prueba-de-H-M playground simulacro." ;
+  dcterms:created "2026-08-02"^^xsd:date .
+
+# --- coined classes (hm:) ---
+
+hm:PodLease a rdfs:Class ;
+  rdfs:label "Pod lease" ;
+  rdfs:comment "Bilateral pod lease in playground simulacro; not a live Solid pod." .
+
+hm:PodRevoke a rdfs:Class ;
+  rdfs:label "Pod revoke" .
+
+hm:UnitInflate a rdfs:Class ;
+  rdfs:label "Unit inflate" ;
+  rdfs:comment "M requests inflation; H validates identity and emits lease." .
+
+hm:UnitDebug a rdfs:Class ;
+  rdfs:label "Unit debug" .
+
+hm:MachineDeploy a rdfs:Class ;
+  rdfs:label "Machine deploy" ;
+  rdfs:comment "Deploy machine manifest in simulacro; FM does not run." .
+
+hm:UnitInspect a rdfs:Class ;
+  rdfs:label "Unit inspect" .
+
+hm:PipelineGapAnalysis a rdfs:Class ;
+  rdfs:label "Pipeline gap analysis" .
+
+hm:ArtifactValidation a rdfs:Class ;
+  rdfs:label "Artifact validation" .
+
+hm:CoverageMeasure a rdfs:Class ;
+  rdfs:label "Coverage measure" .
+
+# --- coined classes (lore:) ---
+
+lore:VectorMockIndex a rdfs:Class ;
+  rdfs:label "Vector mock index" ;
+  rdfs:comment "Deterministic mock index; mock=true always in v1." .
+
+lore:LineMaterialize a rdfs:Class ;
+  rdfs:label "Line materialize" .
+
+lore:GraphBifurcate a rdfs:Class ;
+  rdfs:label "Graph bifurcate" .
+
+lore:UniverseInstantiate a rdfs:Class ;
+  rdfs:label "Universe instantiate" .
+
+lore:CortoEmit a rdfs:Class ;
+  rdfs:label "Corto emit" ;
+  rdfs:comment "hm:CortoDeEjecucion chunk; not literary corto." .
+
+lore:CortoQuery a rdfs:Class ;
+  rdfs:label "Corto query" .
+
+# --- base H/M ---
+
+hm:verb-peer-join a hm:Verb ; hm:verb "peer.join" ; hm:family "base" ; hm:activityType as:Join ; hm:coined false .
+hm:verb-peer-announce a hm:Verb ; hm:verb "peer.announce" ; hm:family "base" ; hm:activityType as:Announce ; hm:coined false .
+hm:verb-state-inspect a hm:Verb ; hm:verb "state.inspect" ; hm:family "base" ; hm:activityType as:View ; hm:coined false .
+hm:verb-session-exit a hm:Verb ; hm:verb "session.exit" ; hm:family "base" ; hm:activityType as:Leave ; hm:coined false .
+
+# --- pods ---
+
+hm:verb-pod-lease a hm:Verb ; hm:verb "pod.lease" ; hm:family "pods" ; hm:activityType hm:PodLease ; hm:coined true .
+hm:verb-pod-revoke a hm:Verb ; hm:verb "pod.revoke" ; hm:family "pods" ; hm:activityType hm:PodRevoke ; hm:coined true .
+hm:verb-unit-inflate a hm:Verb ; hm:verb "unit.inflate" ; hm:family "pods" ; hm:activityType hm:UnitInflate ; hm:coined true .
+hm:verb-unit-start a hm:Verb ; hm:verb "unit.start" ; hm:family "pods" ; hm:activityType hm:UnitStart ; hm:coined true .
+hm:verb-unit-pause a hm:Verb ; hm:verb "unit.pause" ; hm:family "pods" ; hm:activityType hm:UnitPause ; hm:coined true .
+hm:verb-unit-resume a hm:Verb ; hm:verb "unit.resume" ; hm:family "pods" ; hm:activityType hm:UnitResume ; hm:coined true .
+hm:verb-unit-stop a hm:Verb ; hm:verb "unit.stop" ; hm:family "pods" ; hm:activityType hm:UnitStop ; hm:coined true .
+hm:verb-unit-debug a hm:Verb ; hm:verb "unit.debug" ; hm:family "pods" ; hm:activityType hm:UnitDebug ; hm:coined true .
+hm:verb-machine-deploy a hm:Verb ; hm:verb "machine.deploy" ; hm:family "pods" ; hm:activityType hm:MachineDeploy ; hm:coined true .
+
+# --- LORE ---
+
+hm:verb-source-ingest a hm:Verb ; hm:verb "source.ingest" ; hm:family "lore" ; hm:activityType prov:Usage ; hm:coined false .
+hm:verb-document-analyze a hm:Verb ; hm:verb "document.analyze" ; hm:family "lore" ; hm:activityType lore:DocumentAnalyze ; hm:coined true .
+hm:verb-vector-mock-index a hm:Verb ; hm:verb "vector.mock-index" ; hm:family "lore" ; hm:activityType lore:VectorMockIndex ; hm:coined true .
+hm:verb-line-materialize a hm:Verb ; hm:verb "line.materialize" ; hm:family "lore" ; hm:activityType lore:LineMaterialize ; hm:coined true .
+hm:verb-graph-bifurcate a hm:Verb ; hm:verb "graph.bifurcate" ; hm:family "lore" ; hm:activityType lore:GraphBifurcate ; hm:coined true .
+hm:verb-universe-instantiate a hm:Verb ; hm:verb "universe.instantiate" ; hm:family "lore" ; hm:activityType lore:UniverseInstantiate ; hm:coined true .
+hm:verb-corto-emit a hm:Verb ; hm:verb "corto.emit" ; hm:family "lore" ; hm:activityType lore:CortoEmit ; hm:coined true .
+
+# --- diagnóstico ---
+
+hm:verb-machine-status a hm:Verb ; hm:verb "machine.status" ; hm:family "diagnostico" ; hm:activityType as:View ; hm:coined false .
+hm:verb-unit-inspect a hm:Verb ; hm:verb "unit.inspect" ; hm:family "diagnostico" ; hm:activityType hm:UnitInspect ; hm:coined true .
+hm:verb-artifact-data a hm:Verb ; hm:verb "artifact.data" ; hm:family "diagnostico" ; hm:activityType dcterms:Dataset ; hm:coined false .
+hm:verb-artifact-spec a hm:Verb ; hm:verb "artifact.spec" ; hm:family "diagnostico" ; hm:activityType dcterms:BibliographicResource ; hm:coined false .
+hm:verb-pipeline-gaps a hm:Verb ; hm:verb "pipeline.gaps" ; hm:family "diagnostico" ; hm:activityType hm:PipelineGapAnalysis ; hm:coined true .
+hm:verb-artifact-validate a hm:Verb ; hm:verb "artifact.validate" ; hm:family "diagnostico" ; hm:activityType hm:ArtifactValidation ; hm:coined true .
+hm:verb-provenance-trace a hm:Verb ; hm:verb "provenance.trace" ; hm:family "diagnostico" ; hm:activityType prov:Activity ; hm:coined false .
+hm:verb-coverage-measure a hm:Verb ; hm:verb "coverage.measure" ; hm:family "diagnostico" ; hm:activityType hm:CoverageMeasure ; hm:coined true .
+hm:verb-corto-query a hm:Verb ; hm:verb "corto.query" ; hm:family "diagnostico" ; hm:activityType lore:CortoQuery ; hm:coined true .
+
+# --- TUI aliases (translate to exactly one typed verb each) ---
+
+hm:alias-boot hm:resolvesTo "peer.join" .
+hm:alias-status hm:resolvesTo "machine.status" .
+hm:alias-loadMOCK hm:resolvesTo "vector.mock-index" .
+hm:alias-run hm:resolvesTo "unit.start" .
+hm:alias-inspect hm:resolvesTo "unit.inspect" .
+hm:alias-data hm:resolvesTo "artifact.data" .
+hm:alias-spec hm:resolvesTo "artifact.spec" .
+hm:alias-gaps hm:resolvesTo "pipeline.gaps" .
+hm:alias-validate hm:resolvesTo "artifact.validate" .
+hm:alias-trace hm:resolvesTo "provenance.trace" .
+hm:alias-coverage hm:resolvesTo "coverage.measure" .
+hm:alias-exit hm:resolvesTo "session.exit" .

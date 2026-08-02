@@ -1,0 +1,53 @@
+{
+  "$id": "urn:scriptorium:vocab-registry:stub:v1",
+  "_comment": "Stub for WP-SDK-L04 registro-de-vocabulario. Production registry is WP-SDK-L04 (consumed, not copied). Gate in test-101 reads this path until L04 ships.",
+  "_productionRegistry": "WP-SDK-L04:registro-de-vocabulario",
+  "_expectedFuturePath": "reference/vocab-registry.json",
+  "w3cEquivalents": {
+    "peer.join": {
+      "term": "as:Join",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "peer.announce": {
+      "term": "as:Announce",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "state.inspect": {
+      "term": "as:View",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "session.exit": {
+      "term": "as:Leave",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "source.ingest": {
+      "term": "prov:Usage",
+      "namespace": "http://www.w3.org/ns/prov#",
+      "family": "PROV-O"
+    },
+    "machine.status": {
+      "term": "as:View",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "artifact.data": {
+      "term": "dcterms:Dataset",
+      "namespace": "http://purl.org/dc/terms/",
+      "family": "DCTERMS"
+    },
+    "artifact.spec": {
+      "term": "dcterms:BibliographicResource",
+      "namespace": "http://purl.org/dc/terms/",
+      "family": "DCTERMS"
+    },
+    "provenance.trace": {
+      "term": "prov:Activity",
+      "namespace": "http://www.w3.org/ns/prov#",
+      "family": "PROV-O"
+    }
+  }
+}

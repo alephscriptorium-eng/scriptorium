@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (WP-HUB-113 + WP-HUB-100 + WP-HUB-102 + WP-HUB-103 + WP-HUB-104).
+ * Suite mínima LORE-HM (113+100+101+102+103+104).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -34,15 +34,20 @@ const required = [
   "scenarios/barrio-lore/scenario.json",
   "units/catalog/bartleby.json",
   "package.json",
+  // WP-HUB-101
+  "ci/test-101-ontologia.mjs",
+  "ontology/hm-v1.context.jsonld",
+  "ontology/hm-v1.ttl",
+  "reference/VERBOS.md",
   // WP-HUB-102
   "ci/test-102-generador.mjs",
   "scripts/generar.mjs",
-  // # WP-HUB-103
+  // WP-HUB-103
   "ci/test-103-podstore.mjs",
   "lib/podstore/LocalPodProvider.mjs",
   "lib/podstore/tipestate.mjs",
   "lib/podstore/acl.mjs",
-  // # WP-HUB-104
+  // WP-HUB-104
   "ci/test-104-onfalo.mjs",
   "scripts/importar-onfalo.mjs",
   "fixtures/onfalo/source.manifest.json",
@@ -67,7 +72,6 @@ if (pkg.scripts?.["test:lore-hm"] !== "node playground/prueba-de-H-M/ci/suite.mj
 const wf = path.resolve(root, "../../.github/workflows/ci-lore-hm.yml");
 if (!fs.existsSync(wf)) fail("falta .github/workflows/ci-lore-hm.yml");
 
-// WP-HUB-100 · schemas dominio + linea-kit reuse
 const kitPkg = path.join(root, "package.json");
 if (!fs.existsSync(kitPkg)) fail("falta package.json del kit");
 
@@ -81,40 +85,31 @@ if (!fs.existsSync(kitNodeModules)) {
   if (npm.status !== 0) fail("npm install en kit falló");
 }
 
-const test100 = path.join(here, "test-100-schemas.mjs");
-const run100 = spawnSync(process.execPath, [test100], {
-  cwd: root,
-  stdio: "inherit",
-  env: { ...process.env },
-});
-if (run100.status !== 0) fail("test-100-schemas.mjs falló");
+function runTest(rel, label) {
+  const abs = path.join(here, rel);
+  const run = spawnSync(process.execPath, [abs], {
+    cwd: root,
+    stdio: "inherit",
+    env: { ...process.env },
+  });
+  if (run.status !== 0) fail(`${label} falló`);
+}
 
-// WP-HUB-102 · generador idempotente
-const test102 = path.join(here, "test-102-generador.mjs");
-const run102 = spawnSync(process.execPath, [test102], {
-  cwd: root,
-  stdio: "inherit",
-  env: { ...process.env },
-});
-if (run102.status !== 0) fail("test-102-generador.mjs falló");
+runTest("test-100-schemas.mjs", "test-100-schemas.mjs");
 
-// # WP-HUB-103 · LocalPodProvider / leases / tipestate
-const test103 = path.join(here, "test-103-podstore.mjs");
-const run103 = spawnSync(process.execPath, [test103], {
-  cwd: root,
-  stdio: "inherit",
-  env: { ...process.env },
-});
-if (run103.status !== 0) fail("test-103-podstore.mjs falló");
+// WP-HUB-101 (node --test historically; also try direct)
+{
+  const test101 = path.join(here, "test-101-ontologia.mjs");
+  const r101 = spawnSync(process.execPath, ["--test", test101], {
+    stdio: "inherit",
+    cwd: path.resolve(root, "../.."),
+  });
+  if (r101.status !== 0) fail("test-101-ontologia.mjs");
+}
 
-// # WP-HUB-104 · Onfalo import-once
-const test104 = path.join(here, "test-104-onfalo.mjs");
-const run104 = spawnSync(process.execPath, [test104], {
-  cwd: root,
-  stdio: "inherit",
-  env: { ...process.env },
-});
-if (run104.status !== 0) fail("test-104-onfalo.mjs falló");
+runTest("test-102-generador.mjs", "test-102-generador.mjs");
+runTest("test-103-podstore.mjs", "test-103-podstore.mjs");
+runTest("test-104-onfalo.mjs", "test-104-onfalo.mjs");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);
