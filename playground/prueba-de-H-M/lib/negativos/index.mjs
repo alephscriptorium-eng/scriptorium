@@ -1,10 +1,14 @@
 export {
   NEG_FRONTIER,
-  NegativoError,
-  failNegativo,
+  Refusal,
+  ProvocadorError,
+  provocadorRoto,
+  sistemaNoSeNego,
 } from "./frontiers.mjs";
 export {
   MATRIX,
+  NEG_CLOCK_ISO,
+  NEG_INJECTION,
   provokeCorpusAusente,
   provokeHashRoto,
   provokeSchemaInvalido,
@@ -12,5 +16,4 @@ export {
   provokeVectorMockNoDeclarado,
   provokeUpstreamAusente,
   provokeRunnerCaido,
-  provokeHashRotoEvidence,
 } from "./matrix.mjs";

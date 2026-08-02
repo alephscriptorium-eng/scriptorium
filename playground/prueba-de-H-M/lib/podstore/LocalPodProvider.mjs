@@ -40,6 +40,12 @@ export class LocalPodProvider {
    * @param {string} opts.storeRoot — raíz privada de archivos (no se publica)
    * @param {string} [opts.hostIri]
    * @param {string} [opts.maestroIri]
+   * @param {() => number} [opts.clock] — fuente de tiempo INYECTADA (ms epoch).
+   *   Por defecto `Date.now`. No congela nada en producción: quien quiera una
+   *   corrida reproducible inyecta su reloj y se hace responsable de él.
+   * @param {(unitId: string) => string} [opts.leaseIdFactory] — fuente de
+   *   identidad de lease INYECTADA. Por defecto aleatoria (4 bytes). Es el
+   *   único origen de no-determinismo del pack de evidencia.
    */
   constructor(opts) {
     if (!opts?.runId || typeof opts.runId !== "string") {
@@ -55,6 +61,14 @@ export class LocalPodProvider {
     this.runId = opts.runId;
     this.hostIri = opts.hostIri ?? "urn:scriptorium:hm:actor:anfitrion-h";
     this.maestroIri = opts.maestroIri ?? "urn:scriptorium:hm:actor:maestro-m";
+
+    /** @private @type {() => number} */
+    this._clock = typeof opts.clock === "function" ? opts.clock : Date.now;
+    /** @private @type {(unitId: string) => string} */
+    this._leaseIdFactory =
+      typeof opts.leaseIdFactory === "function"
+        ? opts.leaseIdFactory
+        : (unitId) => `lease-${unitId}-${crypto.randomBytes(4).toString("hex")}`;
 
     /** @private */
     this._storeRoot = path.resolve(opts.storeRoot);
@@ -204,7 +218,7 @@ export class LocalPodProvider {
       unitId,
       actorIri,
       identity,
-      requestedAt: new Date().toISOString(),
+      requestedAt: this._nowIso(req.now),
     };
     this._pendingInflate.set(unitId, ticket);
     this._appendEvent(unitId, { type: "unit.inflate", ...ticket }, false);
@@ -242,7 +256,7 @@ export class LocalPodProvider {
 
     // Un lease sin caducidad válida y futura no es un lease.
     // Antes se aceptaba expiresAt en 1999, "no-soy-una-fecha" y omitido.
-    const nowMs = req.now == null ? Date.now() : new Date(req.now).getTime();
+    const nowMs = this._nowMs(req.now);
     if (typeof expiresAt !== "string" || expiresAt.length === 0) {
       throw new Error("pod.lease: expiresAt requerido (ISO-8601)");
     }
@@ -267,7 +281,7 @@ export class LocalPodProvider {
     }
 
     const issuedAt = new Date(nowMs).toISOString();
-    const leaseId = `lease-${unitId}-${crypto.randomBytes(4).toString("hex")}`;
+    const leaseId = this._leaseIdFactory(unitId);
     const lease = {
       leaseId,
       emitterIri: this.hostIri,
@@ -384,7 +398,7 @@ export class LocalPodProvider {
    */
   authorize(opts) {
     const pod = this._require(opts.unitId);
-    const nowMs = opts.now == null ? Date.now() : new Date(opts.now).getTime();
+    const nowMs = this._nowMs(opts.now);
 
     let decision = evaluatePodAcl({
       acl: pod.acl,
@@ -444,7 +458,7 @@ export class LocalPodProvider {
     if (typeof actor !== "string" || actor.length === 0) {
       throw new Error(`setAcl ${unitId}: actor requerido`);
     }
-    const nowMs = opts?.now == null ? Date.now() : new Date(opts.now).getTime();
+    const nowMs = this._nowMs(opts?.now);
 
     const lease = pod.leaseRef ? this._leases.get(pod.leaseRef) : null;
     if (!lease) {
@@ -573,6 +587,22 @@ export class LocalPodProvider {
     }
   }
 
+  /**
+   * @private
+   * Instante actual en ms. Un `now` explícito del llamador manda sobre el
+   * reloj inyectado; el reloj inyectado manda sobre `Date.now`.
+   * @param {Date|string|number} [explicit]
+   */
+  _nowMs(explicit) {
+    if (explicit != null) return new Date(explicit).getTime();
+    return this._clock();
+  }
+
+  /** @private @param {Date|string|number} [explicit] */
+  _nowIso(explicit) {
+    return new Date(this._nowMs(explicit)).toISOString();
+  }
+
   /** @private */
   _require(unitId) {
     const pod = this._pods.get(unitId);
@@ -624,7 +654,7 @@ export class LocalPodProvider {
       state: pod.state,
       leaseRef: pod.leaseRef,
       acl: pod.acl,
-      updatedAt: new Date().toISOString(),
+      updatedAt: this._nowIso(),
     };
     fs.writeFileSync(path.join(abs, "state.json"), JSON.stringify(state, null, 2));
 
@@ -659,7 +689,7 @@ export class LocalPodProvider {
       return;
     }
     const line = JSON.stringify({
-      ts: new Date().toISOString(),
+      ts: this._nowIso(),
       ...event,
     });
     fs.appendFileSync(path.join(abs, "events.ndjson"), line + "\n");

@@ -165,7 +165,13 @@ export function readFailureActa(kitRoot, runId) {
  *   skipStep?: number,
  *   forceNew?: boolean,
  *   generateRun?: boolean,
+ *   clock?: () => number,
+ *   leaseIdFactory?: (unitId: string) => string,
  * }} [opts]
+ *
+ * `clock` y `leaseIdFactory` son INYECCIONES, no congelaciones: sin ellas la
+ * ceremonia usa `Date.now` y leases aleatorios, como en producción. Quien
+ * quiera una corrida reproducible las aporta y se hace responsable de ellas.
  */
 export function runCeremonia(opts = {}) {
   const kitRoot = opts.kitRoot ?? defaultKitRoot;
@@ -199,6 +205,8 @@ export function runCeremonia(opts = {}) {
     storeRoot,
     hostIri: SIDE_ACTOR.H,
     maestroIri: SIDE_ACTOR.M,
+    clock: opts.clock,
+    leaseIdFactory: opts.leaseIdFactory,
   });
 
   /** @type {CeremonyContext} */

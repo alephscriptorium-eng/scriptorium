@@ -90,6 +90,9 @@ const required = [
   "lib/negativos/frontiers.mjs",
   "lib/negativos/matrix.mjs",
   "lib/offline/instrument.mjs",
+  // La guardia offline sólo llega a los procesos hijo por este preload: si
+  // desaparece, el test seguiría verde midiendo únicamente el padre.
+  "lib/offline/preload.mjs",
 
   // # WP-HUB-111
   "ci/test-111-escenarios.mjs",

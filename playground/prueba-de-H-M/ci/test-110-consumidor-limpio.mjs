@@ -1,33 +1,46 @@
 #!/usr/bin/env node
 /**
- * WP-HUB-110 · consumidor limpio:
- * npm ci en checkout temporal · generación sin sibling paths ·
- * runtime offline tras seed · rerun determinista · shutdown sin huérfanos.
+ * WP-HUB-110 · consumidor limpio.
+ *
+ * LO QUE ESTA VERSIÓN DEJA DE FINGIR
+ * ----------------------------------
+ * · **Offline instrumentado donde importa.** La guardia va dentro de cada
+ *   proceso hijo vía `NODE_OPTIONS=--import lib/offline/preload.mjs`, y
+ *   BLOQUEA. Antes era un monkeypatch en el padre —ciego a `generar.mjs` y a
+ *   la ceremonia, que son procesos aparte— y además sólo anotaba.
+ * · **Puertos comprobados.** Cada `listen()` de cada proceso queda registrado.
+ *   Antes no había ni una referencia a puertos en todo el test, y la CA los
+ *   exigía.
+ * · **Procesos: se cuentan los que hay, no los que no hay.** `residualProcesses`
+ *   era la lista de unidades cuya transición lanzó: no había procesos de SO en
+ *   ninguna parte, así que nada podía quedar huérfano. Aquí se instrumenta
+ *   `child_process.*`, se recogen los PID reales creados y se comprueba que
+ *   ninguno sigue vivo.
+ * · **Determinismo sin trucos.** Se comparan los árboles COMPLETOS byte a byte,
+ *   sin borrar ningún campo. El reloj y el `leaseId` se INYECTAN por CLI; no
+ *   hay reloj congelado en producción. Y hay control: una corrida con otro
+ *   reloj tiene que DIFERIR, o la comparación no demostraría nada.
+ * · **Nada se salta en silencio.** El chequeo de tipestate exige el fichero.
+ * · **Cero escrituras fuera del checkout temporal.** No se instala nada en el
+ *   árbol del hub.
  */
 import fs from "node:fs";
-import path from "node:path";
 import os from "node:os";
-import { fileURLToPath } from "node:url";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawnSync } from "node:child_process";
-import { runCeremonia } from "../lib/ceremonia/index.mjs";
-import { withOfflineGuard } from "../lib/offline/index.mjs";
+import { OFFLINE_LOG_ENV } from "../lib/offline/index.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const kitRoot = path.resolve(here, "..");
 const hubRoot = path.resolve(kitRoot, "../..");
 let failed = 0;
 
-/** Campos de tiempo / aleatorios declarados — excluidos del compare byte-a-byte. */
-const TIME_FIELDS = Object.freeze([
-  "issuedAt",
-  "expiresAt",
-  "requestedAt",
-  "generatedAt",
-  "sealedAt",
-  "leaseId",
-  "timestamp",
-  "signedAt",
-]);
+/** Reloj y semilla de lease inyectados para la corrida reproducible. */
+const DET_NOW = "2026-08-02T00:03:00.000Z";
+const DET_SEED = "consumidor110";
+/** Control de falsabilidad: otro reloj tiene que dar OTROS bytes. */
+const CONTROL_NOW = "2026-09-15T12:34:56.000Z";
 
 const SIBLING_PATTERNS = [
   /C:[\\/]S[\\/]/i,
@@ -45,35 +58,29 @@ const SIBLING_PATTERNS = [
 function ok(msg) {
   console.log(`test-110-consumidor-limpio: PASS — ${msg}`);
 }
-
 function fail(msg) {
   console.error(`test-110-consumidor-limpio: FAIL — ${msg}`);
   failed += 1;
 }
 
-function listFiles(dir, base = dir, acc = []) {
+function listFiles(dir, acc = []) {
   if (!fs.existsSync(dir)) return acc;
   for (const name of fs.readdirSync(dir)) {
     if (name === "node_modules" || name === ".git") continue;
     const abs = path.join(dir, name);
     const st = fs.statSync(abs);
-    if (st.isDirectory()) listFiles(abs, base, acc);
+    if (st.isDirectory()) listFiles(abs, acc);
     else acc.push(abs);
   }
   return acc;
 }
 
-function relPosix(from, to) {
-  return path.relative(from, to).split(path.sep).join("/");
-}
+const relPosix = (from, to) => path.relative(from, to).split(path.sep).join("/");
 
-/**
- * Copia kit a checkout temporal (sin node_modules / .runs).
- * @returns {string}
- */
+/** Copia el kit a un checkout temporal (sin node_modules ni .runs). */
 function materializeTempCheckout() {
   const dst = fs.mkdtempSync(path.join(os.tmpdir(), "hm-110-consumer-"));
-  const copyNames = [
+  for (const name of [
     "ci",
     "ciudad",
     "fixtures",
@@ -89,8 +96,7 @@ function materializeTempCheckout() {
     ".npmrc",
     ".gitignore",
     "README.md",
-  ];
-  for (const name of copyNames) {
+  ]) {
     const src = path.join(kitRoot, name);
     if (!fs.existsSync(src)) continue;
     fs.cpSync(src, path.join(dst, name), { recursive: true });
@@ -102,7 +108,6 @@ function scanSiblingHits(root) {
   const hits = [];
   for (const abs of listFiles(root)) {
     const rel = relPosix(root, abs);
-    if (rel.startsWith("node_modules/")) continue;
     let text;
     try {
       text = fs.readFileSync(abs, "utf8");
@@ -110,58 +115,17 @@ function scanSiblingHits(root) {
       continue;
     }
     for (const re of SIBLING_PATTERNS) {
-      if (re.test(text) || re.test(rel) || re.test(abs)) {
-        hits.push(`${rel} ~ ${re}`);
-      }
+      if (re.test(text) || re.test(rel)) hits.push(`${rel} ~ ${re}`);
     }
   }
   return hits;
 }
 
-/**
- * Normaliza JSON: elimina campos de tiempo declarados (recursivo).
- * @param {unknown} value
- * @returns {unknown}
- */
-function stripTimeFields(value) {
-  if (Array.isArray(value)) return value.map(stripTimeFields);
-  if (value && typeof value === "object") {
-    const out = {};
-    for (const [k, v] of Object.entries(value)) {
-      if (TIME_FIELDS.includes(k)) continue;
-      out[k] = stripTimeFields(v);
-    }
-    return out;
-  }
-  return value;
-}
-
-/**
- * Snapshot de árbol con tiempo strippeado en .json / .jsonld.
- * @param {string} dir
- */
-function snapshotNormalized(dir) {
+/** Snapshot BYTE A BYTE del árbol completo. Cero campos excluidos. */
+function snapshotBytes(dir) {
   const out = {};
   for (const abs of listFiles(dir)) {
-    const rel = relPosix(dir, abs);
-    if (rel.includes("node_modules/")) continue;
-    if (rel.includes(".podstore/")) continue;
-    const raw = fs.readFileSync(abs);
-    if (/\.(json|jsonld)$/i.test(rel)) {
-      try {
-        const parsed = JSON.parse(raw.toString("utf8"));
-        out[rel] = JSON.stringify(stripTimeFields(parsed));
-        continue;
-      } catch {
-        /* fallthrough text */
-      }
-    }
-    // Texto (md/ndjson/…) en utf8 para poder normalizar runId embebido
-    if (/\.(md|txt|ndjson|csv)$/i.test(rel) || !rel.includes(".")) {
-      out[rel] = raw.toString("utf8");
-      continue;
-    }
-    out[rel] = raw.toString("base64");
+    out[relPosix(dir, abs)] = fs.readFileSync(abs).toString("base64");
   }
   return out;
 }
@@ -170,178 +134,373 @@ function snapshotsEqual(a, b) {
   const ka = Object.keys(a).sort();
   const kb = Object.keys(b).sort();
   if (ka.join("\0") !== kb.join("\0")) {
+    const soloA = ka.filter((k) => !(k in b));
+    const soloB = kb.filter((k) => !(k in a));
+    return { ok: false, reason: `claves divergen (+${soloA.length}/-${soloB.length})` };
+  }
+  const distintos = ka.filter((k) => a[k] !== b[k]);
+  if (distintos.length > 0) {
     return {
       ok: false,
-      reason: `keys diverge +${ka.filter((k) => !b[k]).length}/-${kb.filter((k) => !a[k]).length}`,
+      reason: `${distintos.length}/${ka.length} ficheros divergen: ${distintos.slice(0, 3).join(", ")}`,
+      distintos: distintos.length,
+      total: ka.length,
     };
   }
-  for (const k of ka) {
-    if (a[k] !== b[k]) return { ok: false, reason: `byte diverge: ${k}` };
+  return { ok: true, total: ka.length };
+}
+
+// ── fase offline: instrumentación que viaja a los hijos ───────────────────
+
+/**
+ * Env que instala la guardia BLOQUEANTE en todo descendiente Node y hace que
+ * cada uno deje su parte en `logDir`.
+ * @param {string} consumerRoot
+ * @param {string} logDir
+ */
+function offlineEnv(consumerRoot, logDir) {
+  const preload = pathToFileURL(
+    path.join(consumerRoot, "lib/offline/preload.mjs"),
+  ).href;
+  const prev = process.env.NODE_OPTIONS ? `${process.env.NODE_OPTIONS} ` : "";
+  return {
+    ...process.env,
+    NODE_OPTIONS: `${prev}--import ${preload}`,
+    [OFFLINE_LOG_ENV]: logDir,
+  };
+}
+
+/** Lee todos los partes de los procesos de la fase offline. */
+function readOfflineParts(logDir) {
+  if (!fs.existsSync(logDir)) return [];
+  return fs
+    .readdirSync(logDir)
+    .filter((n) => n.endsWith(".json"))
+    .map((n) => JSON.parse(fs.readFileSync(path.join(logDir, n), "utf8")));
+}
+
+/** @param {number} pid */
+function sigueVivo(pid) {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (e) {
+    if (e?.code === "ESRCH") return false;
+    // EPERM u otro: no se puede afirmar que esté muerto → se dice.
+    return `indeterminado(${e?.code})`;
   }
-  return { ok: true };
+}
+
+// ── corridas ──────────────────────────────────────────────────────────────
+
+/**
+ * Ceremonia como CONSUMIDOR: proceso hijo, dentro del checkout temporal,
+ * usando su propio `scripts/ceremonia.mjs` y su propio `lib/`.
+ */
+function runCeremoniaConsumidor(consumerRoot, env, { runId, now, seed = DET_SEED }) {
+  return spawnSync(
+    process.execPath,
+    [
+      path.join(consumerRoot, "scripts/ceremonia.mjs"),
+      "--run",
+      runId,
+      "--force-new",
+      "--now",
+      now,
+      "--lease-seed",
+      seed,
+    ],
+    { cwd: consumerRoot, encoding: "utf8", env },
+  );
+}
+
+/**
+ * ¿Muerde la guardia? Un sondeo que intenta salir de verdad, con su propio
+ * directorio de partes para no contaminar la medida de la corrida.
+ *
+ * Sin esto, «cero salidas no-loopback» podría estar verde simplemente porque
+ * nadie lo intentó nunca — que es justo el vicio que se está corrigiendo.
+ */
+function probarQueLaGuardiaMuerde(consumerRoot) {
+  const probeDir = fs.mkdtempSync(path.join(os.tmpdir(), "hm-110-probe-"));
+  const probePath = path.join(probeDir, "sonda-red.mjs");
+  fs.writeFileSync(
+    probePath,
+    [
+      "import net from 'node:net';",
+      "const out = { loopback: null, externo: null };",
+      "try { const s = net.connect({ host: '127.0.0.1', port: 9 }); s.destroy(); out.loopback = 'permitido'; }",
+      "catch (e) { out.loopback = `BLOQUEADO:${e.name}`; }",
+      "try { net.connect({ host: 'example.com', port: 443 }); out.externo = 'PERMITIDO'; }",
+      "catch (e) { out.externo = `bloqueado:${e.name}`; }",
+      "console.log(JSON.stringify(out));",
+    ].join("\n"),
+  );
+  const r = spawnSync(process.execPath, [probePath], {
+    cwd: consumerRoot,
+    encoding: "utf8",
+    env: offlineEnv(consumerRoot, probeDir),
+  });
+  let veredicto = null;
+  try {
+    veredicto = JSON.parse((r.stdout || "").trim().split("\n").pop());
+  } catch {
+    /* se reporta como sonda ilegible */
+  }
+  const partes = readOfflineParts(probeDir);
+  fs.rmSync(probeDir, { recursive: true, force: true });
+  return { veredicto, partes, pid: r.pid ?? null };
 }
 
 function main() {
-  // ── 1. npm ci en checkout temporal ──────────────────────────────────────
   const consumerRoot = materializeTempCheckout();
-  const npmCi = spawnSync("npm", ["ci", "--no-audit", "--no-fund"], {
-    cwd: consumerRoot,
-    encoding: "utf8",
-    shell: true,
-    env: { ...process.env },
-  });
-  if (npmCi.status !== 0) {
-    fail(`npm ci: ${npmCi.stderr || npmCi.stdout}`);
-    fs.rmSync(consumerRoot, { recursive: true, force: true });
-    console.error(`test-110-consumidor-limpio: FAIL (${failed})`);
-    process.exit(1);
-  }
-  ok("npm ci en checkout temporal");
+  const logDir = fs.mkdtempSync(path.join(os.tmpdir(), "hm-110-offlinelog-"));
+  /** @type {Array<{ que: string, pid: number|null, status: number|null }>} */
+  const misHijos = [];
 
-  // ── 2. generación sin sibling paths ─────────────────────────────────────
-  const runId = `consumer-110-${process.pid}`;
-  const gen = spawnSync(
-    process.execPath,
-    [
-      path.join(consumerRoot, "scripts/generar.mjs"),
-      "--scenario",
-      "barrio-lore",
-      "--run",
-      runId,
-      "--sin-install",
-      "--force-new",
-    ],
-    { cwd: consumerRoot, encoding: "utf8" },
-  );
-  if (gen.status !== 0) {
-    fail(`generar: ${gen.stderr || gen.stdout}`);
-  } else {
-    const runRoot = path.join(consumerRoot, ".runs", runId);
-    const hits = scanSiblingHits(runRoot);
-    if (hits.length > 0) {
-      fail(`sibling paths en generación: ${hits.slice(0, 3).join(" | ")}`);
-    } else {
-      ok("generación sin sibling paths");
-    }
-  }
+  const registrar = (que, r) =>
+    misHijos.push({ que, pid: r?.pid ?? null, status: r?.status ?? null });
 
-  // ── 3–4. offline instrumentado + rerun determinista (mismo runId) ──────
-  const detRunId = `${runId}-det`;
-  let ceremonyA;
-  let ceremonyB;
   try {
-    ceremonyA = withOfflineGuard(() =>
-      runCeremonia({
-        kitRoot: consumerRoot,
-        runId: detRunId,
-        forceNew: true,
-      }),
-    );
-    if (!ceremonyA.ok || ceremonyA.report?.verdict !== "pass") {
-      fail("ceremonia offline verdict≠pass");
-    } else {
-      ok("runtime offline tras seed (cero salidas no-loopback)");
+    // ── 1 · SEED: npm ci en el checkout temporal ────────────────────────────
+    // Declarado: esto es la semilla, y la semilla SÍ puede usar red. Lo que la
+    // CA exige offline es todo lo que viene después.
+    const npmCi = spawnSync("npm", ["ci", "--no-audit", "--no-fund"], {
+      cwd: consumerRoot,
+      encoding: "utf8",
+      shell: true,
+      env: { ...process.env },
+    });
+    registrar("npm ci (seed)", npmCi);
+    if (npmCi.status !== 0) {
+      fail(`npm ci: ${(npmCi.stderr || npmCi.stdout || "").slice(0, 400)}`);
+      throw new Error("sin seed no hay consumidor");
     }
-    const snapA = snapshotNormalized(ceremonyA.evidenceRoot);
-    fs.rmSync(ceremonyA.runRoot, { recursive: true, force: true });
-    ceremonyB = withOfflineGuard(() =>
-      runCeremonia({
-        kitRoot: consumerRoot,
-        runId: detRunId,
-        forceNew: true,
-      }),
-    );
-    if (!ceremonyB.ok) {
-      fail("rerun ceremonia falló");
+    if (!fs.existsSync(path.join(consumerRoot, "node_modules"))) {
+      fail("npm ci terminó en 0 pero no dejó node_modules");
     } else {
-      const snapB = snapshotNormalized(ceremonyB.evidenceRoot);
-      const cmp = snapshotsEqual(snapA, snapB);
-      if (!cmp.ok) fail(`rerun no determinista: ${cmp.reason}`);
-      else ok(`rerun byte-a-byte (TIME_FIELDS=${TIME_FIELDS.join(",")})`);
+      ok("npm ci en checkout temporal (fase seed, red permitida y declarada)");
+    }
+
+    const env = offlineEnv(consumerRoot, logDir);
+
+    // ── 2 · generación sin sibling paths (ya offline) ───────────────────────
+    const runId = `consumer-110-${process.pid}`;
+    const gen = spawnSync(
+      process.execPath,
+      [
+        path.join(consumerRoot, "scripts/generar.mjs"),
+        "--scenario",
+        "barrio-lore",
+        "--run",
+        runId,
+        "--sin-install",
+        "--force-new",
+      ],
+      { cwd: consumerRoot, encoding: "utf8", env },
+    );
+    registrar("generar.mjs", gen);
+    if (gen.status !== 0) {
+      fail(`generar: ${(gen.stderr || gen.stdout || "").slice(0, 400)}`);
+    } else {
+      const hits = scanSiblingHits(path.join(consumerRoot, ".runs", runId));
+      if (hits.length > 0) {
+        fail(`sibling paths en generación: ${hits.slice(0, 3).join(" | ")}`);
+      } else {
+        ok("generación sin sibling paths");
+      }
+    }
+
+    // ── 3 · rerun determinista: dos corridas, MISMO reloj inyectado ─────────
+    const detRunId = `${runId}-det`;
+    const detRoot = path.join(consumerRoot, ".runs", detRunId);
+
+    const a = runCeremoniaConsumidor(consumerRoot, env, { runId: detRunId, now: DET_NOW });
+    registrar("ceremonia A", a);
+    if (a.status !== 0) {
+      fail(`ceremonia A: ${(a.stderr || a.stdout || "").slice(0, 400)}`);
+    }
+    const snapA = snapshotBytes(detRoot);
+    fs.rmSync(detRoot, { recursive: true, force: true });
+
+    const b = runCeremoniaConsumidor(consumerRoot, env, { runId: detRunId, now: DET_NOW });
+    registrar("ceremonia B", b);
+    if (b.status !== 0) {
+      fail(`ceremonia B: ${(b.stderr || b.stdout || "").slice(0, 400)}`);
+    }
+    const snapB = snapshotBytes(detRoot);
+
+    const cmp = snapshotsEqual(snapA, snapB);
+    if (Object.keys(snapA).length === 0) {
+      fail("la corrida A no dejó árbol que comparar");
+    } else if (!cmp.ok) {
+      fail(`rerun no determinista: ${cmp.reason}`);
+    } else {
+      ok(
+        `rerun byte a byte sobre el árbol COMPLETO: ${cmp.total}/${cmp.total} ficheros idénticos, cero campos excluidos`,
+      );
+    }
+
+    // ── 3b · control: otro reloj tiene que DIFERIR ──────────────────────────
+    // Sin esto, una comparación que siempre da igual (p. ej. porque se borran
+    // los campos que cambian) pasaría por demostración de reproducibilidad.
+    fs.rmSync(detRoot, { recursive: true, force: true });
+    const c = runCeremoniaConsumidor(consumerRoot, env, {
+      runId: detRunId,
+      now: CONTROL_NOW,
+      seed: `${DET_SEED}-control`,
+    });
+    registrar("ceremonia control", c);
+    if (c.status !== 0) {
+      fail(`ceremonia control: ${(c.stderr || c.stdout || "").slice(0, 400)}`);
+    }
+    const snapC = snapshotBytes(detRoot);
+    const cmpC = snapshotsEqual(snapA, snapC);
+    if (cmpC.ok) {
+      fail(
+        "control de falsabilidad: con OTRO reloj y otra semilla los bytes salen iguales — la comparación no demuestra nada",
+      );
+    } else {
+      // Y tiene que alcanzar al PACK DE EVIDENCIA, no sólo al podstore: si sólo
+      // divergiera `.podstore/`, la comparación no cubriría lo que se publica.
+      const tocaEvidencia = Object.keys(snapA).some(
+        (k) => k.startsWith("evidence/") && snapA[k] !== snapC[k],
+      );
+      if (!tocaEvidencia) {
+        fail(
+          "control de falsabilidad: la divergencia no alcanza a evidence/ — la comparación no cubre el pack publicado",
+        );
+      } else {
+        ok(`control de falsabilidad: otro reloj+semilla → otros bytes, también en evidence/ (${cmpC.reason})`);
+      }
+    }
+
+    // ── 4 · offline: cero salidas no-loopback, medidas en cada proceso ──────
+    const partes = readOfflineParts(logDir);
+    const procesosOffline = 4; // generar + ceremonia A + B + control (mínimo)
+    if (partes.length < procesosOffline) {
+      fail(
+        `sólo ${partes.length} procesos dejaron parte offline; se esperaban al menos ${procesosOffline}: la guardia no viajó a los hijos`,
+      );
+    } else {
+      ok(`guardia offline instalada en ${partes.length} procesos (padre e hijos)`);
+    }
+    const violaciones = partes.flatMap((p) =>
+      (p.violations ?? []).map((v) => `${path.basename(String(p.argv?.[0] ?? p.pid))}: ${v.api}→${v.host}`),
+    );
+    if (violaciones.length > 0) {
+      fail(`salidas no-loopback: ${violaciones.slice(0, 5).join(" | ")}`);
+    } else {
+      ok("cero salidas no-loopback en la fase offline (bloqueante, no anotador)");
+    }
+
+    // ── 4b · ¿muerde la guardia? ───────────────────────────────────────────
+    const sonda = probarQueLaGuardiaMuerde(consumerRoot);
+    registrar("sonda-red", { pid: sonda.pid, status: 0 });
+    const violSonda = sonda.partes.flatMap((p) => p.violations ?? []);
+    if (!sonda.veredicto) {
+      fail("la sonda de red no dio veredicto legible: la guardia queda sin comprobar");
+    } else if (sonda.veredicto.externo === "PERMITIDO") {
+      fail("la guardia NO bloquea: la sonda salió a example.com:443 sin que nadie la parara");
+    } else if (violSonda.length === 0) {
+      fail("la guardia bloqueó pero no dejó constancia: no hay violación registrada");
+    } else if (sonda.veredicto.loopback !== "permitido") {
+      fail(`la guardia bloquea 127.0.0.1, que es loopback legítimo: ${sonda.veredicto.loopback}`);
+    } else {
+      ok(
+        `la guardia muerde: externo ${sonda.veredicto.externo} y registrado (${violSonda[0].api}→${violSonda[0].host}); loopback intacto`,
+      );
+    }
+
+    // ── 5 · puertos: ningún proceso escuchó ────────────────────────────────
+    const escuchas = partes.flatMap((p) =>
+      (p.listens ?? []).map((l) => `${p.pid}:${l.host ?? "*"}:${l.port}`),
+    );
+    if (escuchas.length > 0) {
+      fail(`puertos abiertos durante la corrida: ${escuchas.join(", ")}`);
+    } else {
+      ok(`cero puertos abiertos (listen() instrumentado en ${partes.length} procesos)`);
+    }
+
+    // ── 6 · procesos: los que hubo, muertos ────────────────────────────────
+    // La CA dice «sin procesos huérfanos». Lo verificable es esto: los procesos
+    // de SO que de verdad se crearon —los del test y los que crearon los hijos—
+    // tienen código de salida recogido y ya no viven.
+    const hijosDeHijos = partes.flatMap((p) =>
+      (p.children ?? []).map((c) => ({ que: `${p.pid}→${c.api} ${path.basename(c.command)}`, pid: c.pid })),
+    );
+    const todos = [...misHijos, ...hijosDeHijos].filter((c) => c.pid != null);
+    const vivos = todos.filter((c) => sigueVivo(c.pid) === true);
+    const dudosos = todos.filter((c) => typeof sigueVivo(c.pid) === "string");
+    const sinCodigo = misHijos.filter((c) => c.status == null);
+    if (todos.length === 0) {
+      fail("no se registró ni un proceso: la instrumentación de procesos no midió nada");
+    } else if (vivos.length > 0) {
+      fail(`procesos huérfanos vivos: ${vivos.map((c) => `${c.que}#${c.pid}`).join(", ")}`);
+    } else if (sinCodigo.length > 0) {
+      fail(`procesos sin código de salida recogido: ${sinCodigo.map((c) => c.que).join(", ")}`);
+    } else {
+      ok(
+        `${todos.length} procesos de SO creados, 0 vivos al cierre, ${misHijos.length} con código de salida recogido${dudosos.length ? ` (${dudosos.length} indeterminados)` : ""}`,
+      );
+    }
+
+    // ── 7 · shutdown: tipestate EXIGIDO, sin locks ni pids ──────────────────
+    const tipPath = path.join(detRoot, "evidence/pack/tipestate.json");
+    if (!fs.existsSync(tipPath)) {
+      // Antes esto era `if (existsSync(...))`: si el fichero dejaba de
+      // escribirse, el chequeo no corría y el test decía PASS.
+      fail(`no hay tipestate que comprobar en ${relPosix(consumerRoot, tipPath)}`);
+    } else {
+      const tip = JSON.parse(fs.readFileSync(tipPath, "utf8"));
+      const finals = tip.finals ?? {};
+      if (Object.keys(finals).length === 0) {
+        fail("tipestate.finals vacío: no hay cierre que comprobar");
+      } else {
+        const malos = Object.entries(finals).filter(
+          ([, st]) => st !== "stopped" && st !== "failed" && st !== "declared",
+        );
+        if (malos.length > 0) fail(`finals sin cerrar: ${JSON.stringify(malos)}`);
+        else ok(`shutdown: ${Object.keys(finals).length} unidades en estado final`);
+      }
+    }
+
+    const locks = listFiles(detRoot).filter((p) => /\.(lock|pid)$/i.test(p));
+    if (locks.length > 0) {
+      fail(`locks/pids huérfanos: ${locks.map((p) => relPosix(detRoot, p)).join(",")}`);
+    } else {
+      ok("cero locks/pids huérfanos en el árbol de la corrida");
+    }
+
+    // ── 8 · skills:ceguera desde la raíz del hub ────────────────────────────
+    // Fase aparte y declarada: no es parte de la corrida offline, y NO se
+    // instala nada aquí. Antes se hacía `npm ci` en el árbol real del hub
+    // después de declarar la corrida offline.
+    if (!fs.existsSync(path.join(hubRoot, "node_modules/@alephscript"))) {
+      fail(
+        "skills:ceguera no se puede comprobar: faltan deps del hub y este test NO instala nada fuera de su checkout temporal (corre `npm ci` en el hub antes)",
+      );
+    } else {
+      const ceguera = spawnSync("npm", ["run", "skills:ceguera"], {
+        cwd: hubRoot,
+        encoding: "utf8",
+        shell: true,
+        env: { ...process.env },
+      });
+      registrar("skills:ceguera", ceguera);
+      if (ceguera.status !== 0) {
+        fail(`skills:ceguera: ${(ceguera.stderr || ceguera.stdout || "").slice(0, 400)}`);
+      } else {
+        ok("npm run skills:ceguera desde la raíz del hub");
+      }
     }
   } catch (e) {
-    fail(`offline/rerun: ${e.message || e}`);
-  }
-
-  // ── 5. shutdown sin huérfanos ──────────────────────────────────────────
-  if (ceremonyB?.ok) {
-    const residual = ceremonyB.state?.residualProcesses ?? [];
-    if (residual.length > 0) {
-      fail(`residualProcesses: ${residual.join(",")}`);
-    } else {
-      ok("shutdown residualProcesses=[]");
+    fail(`corrida: ${e?.message ?? e}`);
+  } finally {
+    if (!process.env.KEEP_HM_RUNS) {
+      fs.rmSync(consumerRoot, { recursive: true, force: true });
+      fs.rmSync(logDir, { recursive: true, force: true });
     }
-    const pods = ceremonyB.state?.runners ?? [];
-    const tipPath = path.join(
-      ceremonyB.evidenceRoot,
-      "pack/tipestate.json",
-    );
-    if (fs.existsSync(tipPath)) {
-      const tip = JSON.parse(fs.readFileSync(tipPath, "utf8"));
-      const badFinals = Object.entries(tip.finals ?? {}).filter(
-        ([, st]) => st !== "stopped" && st !== "failed",
-      );
-      if (badFinals.length > 0) {
-        fail(`finals no stopped: ${JSON.stringify(badFinals)}`);
-      } else {
-        ok("shutdown tipestate finals stopped|failed");
-      }
-    }
-    const locks = listFiles(ceremonyB.runRoot).filter((p) =>
-      /\.(lock|pid)$/i.test(p),
-    );
-    if (locks.length > 0) {
-      fail(
-        `locks huérfanos: ${locks.map((p) => relPosix(ceremonyB.runRoot, p)).join(",")}`,
-      );
-    } else {
-      ok(`shutdown sin locks/pids (runners=${pods.length})`);
-    }
-  }
-
-  // ── 6. skills:ceguera desde raíz hub ────────────────────────────────────
-  const ceguera = spawnSync("npm", ["run", "skills:ceguera"], {
-    cwd: hubRoot,
-    encoding: "utf8",
-    shell: true,
-    env: { ...process.env },
-  });
-  if (ceguera.status !== 0) {
-    // si faltan deps del hub, intentar instalar skills
-    if (!fs.existsSync(path.join(hubRoot, "node_modules/@alephscript"))) {
-      const hubInstall = spawnSync(
-        "npm",
-        ["ci", "--no-audit", "--no-fund"],
-        {
-          cwd: hubRoot,
-          encoding: "utf8",
-          shell: true,
-        },
-      );
-      if (hubInstall.status !== 0) {
-        fail(`hub npm ci (ceguera): ${hubInstall.stderr || hubInstall.stdout}`);
-      } else {
-        const retry = spawnSync("npm", ["run", "skills:ceguera"], {
-          cwd: hubRoot,
-          encoding: "utf8",
-          shell: true,
-        });
-        if (retry.status !== 0) {
-          fail(`skills:ceguera: ${retry.stderr || retry.stdout}`);
-        } else {
-          ok("npm run skills:ceguera desde raíz hub PASS");
-        }
-      }
-    } else {
-      fail(`skills:ceguera: ${ceguera.stderr || ceguera.stdout}`);
-    }
-  } else {
-    ok("npm run skills:ceguera desde raíz hub PASS");
-  }
-
-  // cleanup
-  if (!process.env.KEEP_HM_RUNS) {
-    fs.rmSync(consumerRoot, { recursive: true, force: true });
   }
 
   if (failed > 0) {
