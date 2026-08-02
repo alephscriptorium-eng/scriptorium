@@ -351,6 +351,32 @@ export class LocalPodProvider {
     return this._leases.get(leaseId) ?? null;
   }
 
+  /**
+   * Append a ceremony/activity event to a materialized pod (WP-HUB-106).
+   * @param {string} unitId
+   * @param {object} event
+   */
+  recordEvent(unitId, event) {
+    const pod = this._require(unitId);
+    if (!pod.materialized) {
+      throw new Error(`recordEvent: pod no materializado: ${unitId}`);
+    }
+    this._appendEvent(unitId, event, true);
+  }
+
+  /**
+   * Wipe all materialized pod files for this provider (cero estado parcial).
+   */
+  wipe() {
+    this._pods.clear();
+    this._paths.clear();
+    this._pendingInflate.clear();
+    this._leases.clear();
+    if (fs.existsSync(this._storeRoot)) {
+      fs.rmSync(this._storeRoot, { recursive: true, force: true });
+    }
+  }
+
   /** @private */
   _validateMaestroIdentity(identity) {
     // Simulacro: exige actorId de M o peercard mock.

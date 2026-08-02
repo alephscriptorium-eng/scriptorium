@@ -48,16 +48,16 @@
     "id": "barrio-lore-v1",
     "steps": [
       { "order": 1, "verb": "peer.join", "description": "Preflight e identidad H/M" },
-      { "order": 2, "verb": "pod.lease", "description": "Room y autoridad; leases bilaterales" },
-      { "order": 3, "verb": "unit.inflate", "description": "Inflación conjunta Bartleby/Cristalizador" },
-      { "order": 4, "verb": "machine.deploy", "description": "Machine manifest y despliegue simulado" },
-      { "order": 5, "verb": "source.ingest", "description": "Ingest Onfalo desde snapshot import-once" },
-      { "order": 6, "verb": "document.analyze", "description": "Análisis Bartleby (handler mock)" },
-      { "order": 7, "verb": "vector.mock-index", "description": "VectorMock determinista" },
-      { "order": 8, "verb": "line.materialize", "description": "Dos líneas validadas con linea-kit" },
-      { "order": 9, "verb": "graph.bifurcate", "description": "Grafo enlazado con bifurcación" },
-      { "order": 10, "verb": "universe.instantiate", "description": "Dos universos con runners" },
-      { "order": 11, "verb": "corto.emit", "description": "Emisión y consulta de cortos; trace y shutdown" }
+      { "order": 2, "verb": "peer.announce", "description": "Room y autoridad" },
+      { "order": 3, "verb": "unit.inflate", "description": "Leases e inflación Bartleby/Cristalizador" },
+      { "order": 4, "verb": "machine.deploy", "description": "Machine manifest y despliegue del resto" },
+      { "order": 5, "verb": "source.ingest", "description": "Ingest Onfalo y análisis Bartleby" },
+      { "order": 6, "verb": "vector.mock-index", "description": "VectorMock determinista" },
+      { "order": 7, "verb": "line.materialize", "description": "Dos líneas validadas con linea-kit" },
+      { "order": 8, "verb": "graph.bifurcate", "description": "Grafo enlazado" },
+      { "order": 9, "verb": "universe.instantiate", "description": "Dos universos con runners y pods" },
+      { "order": 10, "verb": "corto.emit", "description": "Emisión y consulta de cortos" },
+      { "order": 11, "verb": "coverage.measure", "description": "Trace, coverage y shutdown limpio" }
     ]
   },
   "lineaRefs": [

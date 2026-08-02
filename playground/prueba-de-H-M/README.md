@@ -12,6 +12,8 @@ Machine viva **NO CORRE** hoy). No toca `prueba-de-dos`.
 | `scripts/importar-onfalo.mjs` | import-once build-time Onfalo → `fixtures/onfalo/` (WP-HUB-104) |
 | `fixtures/onfalo/` | snapshot sellado (2 editoriales); corrida normal sin OASIS |
 | `lib/cadena/` | handlers mock deterministas + orquestación (WP-HUB-105) |
+| `lib/ceremonia/` | ceremonia bilateral 11 pasos + evidence (WP-HUB-106) |
+| `scripts/ceremonia.mjs` | CLI corrida `barrio-lore-v1` |
 | `.runs/` | salidas regenerables (gitignored) |
 | `ontology/` | WP-HUB-101 |
 | `reference/` | WP-HUB-101 |
@@ -25,6 +27,10 @@ npm run import:onfalo -- --source-root <path> --attest fixtures/onfalo-attest.re
 
 # Corrida normal (solo snapshot sellado):
 npm run import:onfalo -- --consume-sealed
+
+# Ceremonia bilateral (11 pasos → evidence/):
+npm run ceremonia -- --run demo-ceremonia-1 --force-new
+npm run test:ceremonia
 ```
 
 **Líneas:** reusan schemas publicados de `@zeus/linea-kit` (v0.3.0). Tipos

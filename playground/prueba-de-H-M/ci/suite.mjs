@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (113+100+101+102+103+104+105).
+ * Suite mínima LORE-HM (113+100+101+102+103+104+105+106).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -58,6 +58,12 @@ const required = [
   "lib/cadena/bartleby.mjs",
   "lib/cadena/cristalizador.mjs",
   "lib/cadena/vector-mock.mjs",
+  // # WP-HUB-106
+  "ci/test-106-ceremonia.mjs",
+  "lib/ceremonia/run-ceremonia.mjs",
+  "lib/ceremonia/steps.mjs",
+  "lib/ceremonia/envelope.mjs",
+  "scripts/ceremonia.mjs",
 ];
 
 for (const rel of required) {
@@ -125,6 +131,15 @@ const run105 = spawnSync(process.execPath, [test105], {
   env: { ...process.env },
 });
 if (run105.status !== 0) fail("test-105-cadena.mjs falló");
+
+// # WP-HUB-106 · ceremonia bilateral 11 pasos
+const test106 = path.join(here, "test-106-ceremonia.mjs");
+const run106 = spawnSync(process.execPath, [test106], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env },
+});
+if (run106.status !== 0) fail("test-106-ceremonia.mjs falló");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);
