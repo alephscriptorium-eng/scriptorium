@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/activity.schema.json",
+  "title": "HmActivity",
+  "description": "Envelope de actividad tipada (wire JSON)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "actor",
+    "verb",
+    "object",
+    "timestamp",
+    "digest"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "actor": { "type": "string" },
+    "verb": { "type": "string" },
+    "object": { "type": "string" },
+    "target": { "type": "string" },
+    "context": { "type": "object", "additionalProperties": true },
+    "instrument": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "result": {
+      "enum": ["pass", "fail", "pending"]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source"],
+      "properties": {
+        "source": { "type": "string" },
+        "upstream": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    }
+  }
+}

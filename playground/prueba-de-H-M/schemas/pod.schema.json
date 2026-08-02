@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/pod.schema.json",
+  "title": "HmPod",
+  "description": "Pod file-backed de una unidad HM",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "podIri",
+    "unitId",
+    "runId",
+    "state",
+    "descriptor",
+    "artifacts"
+  ],
+  "properties": {
+    "podIri": {
+      "type": "string",
+      "pattern": "^urn:scriptorium:hm:[^:]+:pod:[a-z][a-z0-9-]*$"
+    },
+    "unitId": { "type": "string" },
+    "runId": { "type": "string" },
+    "state": {
+      "enum": [
+        "declared",
+        "leased",
+        "inflated",
+        "ready",
+        "running",
+        "paused",
+        "stopped",
+        "failed"
+      ]
+    },
+    "descriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "condition"],
+      "properties": {
+        "type": { "enum": ["agent", "machine"] },
+        "condition": { "enum": ["bootstrap", "deployed", "dynamic"] }
+      }
+    },
+    "leaseRef": { "type": "string" },
+    "eventsPath": { "type": "string" },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest"],
+      "properties": {
+        "manifest": { "type": "string" },
+        "inbox": { "type": "string" },
+        "outbox": { "type": "string" }
+      }
+    },
+    "acl": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["actor", "verbs"],
+        "properties": {
+          "actor": { "type": "string" },
+          "verbs": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

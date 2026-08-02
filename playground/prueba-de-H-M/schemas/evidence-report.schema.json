@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/evidence-report.schema.json",
+  "title": "HmEvidenceReport",
+  "description": "Reporte de evidencia generado desde eventos (no a mano)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reportId",
+    "scenarioId",
+    "runId",
+    "generatedAt",
+    "simulacro",
+    "matrix",
+    "pods",
+    "artifactChain",
+    "coverage",
+    "verdict"
+  ],
+  "properties": {
+    "reportId": { "type": "string" },
+    "scenarioId": { "type": "string" },
+    "runId": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "simulacro": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["futureMachine", "note"],
+      "properties": {
+        "futureMachine": { "const": true },
+        "note": { "type": "string" }
+      }
+    },
+    "matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["verb", "actor", "object", "result"],
+        "properties": {
+          "verb": { "type": "string" },
+          "actor": { "type": "string" },
+          "object": { "type": "string" },
+          "result": { "enum": ["pass", "fail", "skip"] }
+        }
+      }
+    },
+    "pods": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "artifactChain": { "type": "string" },
+    "hashes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verbsPercent", "unitsPercent"],
+      "properties": {
+        "verbsPercent": { "type": "number", "minimum": 0, "maximum": 100 },
+        "unitsPercent": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "cortosQueried": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "failures": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "residualProcesses": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "verdict": { "enum": ["pass", "fail", "partial"] }
+  }
+}

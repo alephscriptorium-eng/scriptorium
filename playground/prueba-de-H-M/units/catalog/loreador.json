@@ -1,0 +1,23 @@
+{
+  "unitId": "loreador",
+  "displayName": "Loreador",
+  "type": "agent",
+  "condition": "bootstrap",
+  "inputs": [
+    { "name": "catalog", "mediaType": "application/json" }
+  ],
+  "outputs": [
+    { "name": "lore-context", "mediaType": "application/json" }
+  ],
+  "dependencies": [],
+  "verbs": ["source.ingest", "state.inspect"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["phase"],
+    "properties": {
+      "phase": { "enum": ["idle", "ingesting", "ready"] }
+    }
+  },
+  "note": "Agente bootstrap de contexto lore; simulacro playground."
+}

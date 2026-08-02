@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/scenario.schema.json",
+  "title": "HmScenario",
+  "description": "Escenario playground LORE-HM — barrio, roles H/M, ceremonia y CA",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "scenarioId",
+    "version",
+    "barrioId",
+    "distrito",
+    "simulacro",
+    "roles",
+    "sources",
+    "units",
+    "ceremony",
+    "expectedArtifacts",
+    "cleanup",
+    "acceptanceCriteria"
+  ],
+  "properties": {
+    "scenarioId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "barrioId": { "type": "string", "minLength": 1 },
+    "distrito": { "type": "string", "minLength": 1 },
+    "simulacro": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["futureMachine", "declared", "runtime"],
+      "properties": {
+        "futureMachine": { "const": true },
+        "declared": { "type": "string", "minLength": 10 },
+        "runtime": { "const": "playground-mock" }
+      }
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["H", "M"],
+      "properties": {
+        "H": { "$ref": "#/$defs/role" },
+        "M": { "$ref": "#/$defs/role" }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["onfalo", "agentLore", "vectorMachine"],
+      "properties": {
+        "onfalo": { "$ref": "#/$defs/sourceRef" },
+        "agentLore": { "$ref": "#/$defs/sourceRef" },
+        "vectorMachine": { "$ref": "#/$defs/sourceRef" }
+      }
+    },
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" }
+    },
+    "ceremony": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "steps"],
+      "properties": {
+        "id": { "type": "string" },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["order", "verb", "description"],
+            "properties": {
+              "order": { "type": "integer", "minimum": 1 },
+              "verb": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "expectedArtifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/artifactExpectation" }
+    },
+    "lineaRefs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/lineaRef" }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shutdownVerbs", "removeRuns"],
+      "properties": {
+        "shutdownVerbs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "removeRuns": { "type": "boolean" }
+      }
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 5 }
+    }
+  },
+  "$defs": {
+    "role": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actorId", "mandate"],
+      "properties": {
+        "actorId": { "type": "string" },
+        "mandate": { "type": "string" }
+      }
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "note"],
+      "properties": {
+        "mode": { "enum": ["import-once", "catalog-ro", "mock-contract"] },
+        "note": { "type": "string" }
+      }
+    },
+    "artifactExpectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "producedBy"],
+      "properties": {
+        "kind": { "type": "string" },
+        "producedBy": { "type": "string" },
+        "lineaKitSchema": {
+          "type": "string",
+          "description": "When kind is linea, validate artifact with @zeus/linea-kit schema id"
+        }
+      }
+    },
+    "lineaRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lineId", "lineaKitSchema"],
+      "properties": {
+        "lineId": { "type": "string" },
+        "lineaKitSchema": {
+          "type": "string",
+          "enum": [
+            "manifest-tronco",
+            "manifest-satelite",
+            "nodo-meta",
+            "registro",
+            "lineas-registry",
+            "nodo-sections",
+            "nodos-document"
+          ]
+        }
+      }
+    }
+  }
+}

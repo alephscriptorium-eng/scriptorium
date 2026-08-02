@@ -1,0 +1,22 @@
+{
+  "unitId": "demiurgo",
+  "displayName": "Demiurgo",
+  "type": "agent",
+  "condition": "dynamic",
+  "inputs": [
+    { "name": "futures-graph", "mediaType": "application/json" }
+  ],
+  "outputs": [
+    { "name": "universe", "mediaType": "application/json" }
+  ],
+  "dependencies": ["grafista"],
+  "verbs": ["universe.instantiate"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["universes"],
+    "properties": {
+      "universes": { "type": "array", "items": { "type": "string" } }
+    }
+  }
+}

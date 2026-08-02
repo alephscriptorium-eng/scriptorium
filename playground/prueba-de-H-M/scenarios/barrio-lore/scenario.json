@@ -1,0 +1,98 @@
+{
+  "scenarioId": "barrio-lore",
+  "version": "1.0.0",
+  "barrioId": "document-machine-sdk",
+  "distrito": "lore-voz",
+  "simulacro": {
+    "futureMachine": true,
+    "declared": "Future Machine no corre hoy; kit playground simula ceremonia y handlers locales (spike WP-HUB-112).",
+    "runtime": "playground-mock"
+  },
+  "roles": {
+    "H": {
+      "actorId": "anfitrion-h",
+      "mandate": "Aloja nodo/autoridad, valida identidad, emite/revoca leases y observa."
+    },
+    "M": {
+      "actorId": "maestro-m",
+      "mandate": "Solicita inflación, controla Future Machine simulada y consulta resultados."
+    }
+  },
+  "sources": {
+    "onfalo": {
+      "mode": "import-once",
+      "note": "Dos editoriales Onfalo selladas en fixtures; sin OASIS en runtime."
+    },
+    "agentLore": {
+      "mode": "catalog-ro",
+      "note": "AgentLoreSDK como catálogo RO; no fusionado con identidad del barrio."
+    },
+    "vectorMachine": {
+      "mode": "mock-contract",
+      "note": "VectorMachine simulado (vector-mock) con mock=true y seed declarado."
+    }
+  },
+  "units": [
+    "loreador",
+    "bartleby",
+    "archivero",
+    "vector-mock",
+    "grafista",
+    "demiurgo",
+    "dramaturgo",
+    "pipeline",
+    "portal",
+    "cristalizador"
+  ],
+  "ceremony": {
+    "id": "barrio-lore-v1",
+    "steps": [
+      { "order": 1, "verb": "peer.join", "description": "Preflight e identidad H/M" },
+      { "order": 2, "verb": "pod.lease", "description": "Room y autoridad; leases bilaterales" },
+      { "order": 3, "verb": "unit.inflate", "description": "Inflación conjunta Bartleby/Cristalizador" },
+      { "order": 4, "verb": "machine.deploy", "description": "Machine manifest y despliegue simulado" },
+      { "order": 5, "verb": "source.ingest", "description": "Ingest Onfalo desde snapshot import-once" },
+      { "order": 6, "verb": "document.analyze", "description": "Análisis Bartleby (handler mock)" },
+      { "order": 7, "verb": "vector.mock-index", "description": "VectorMock determinista" },
+      { "order": 8, "verb": "line.materialize", "description": "Dos líneas validadas con linea-kit" },
+      { "order": 9, "verb": "graph.bifurcate", "description": "Grafo enlazado con bifurcación" },
+      { "order": 10, "verb": "universe.instantiate", "description": "Dos universos con runners" },
+      { "order": 11, "verb": "corto.emit", "description": "Emisión y consulta de cortos; trace y shutdown" }
+    ]
+  },
+  "lineaRefs": [
+    {
+      "lineId": "barrio-lore-onfalo",
+      "lineaKitSchema": "manifest-tronco"
+    },
+    {
+      "lineId": "barrio-lore-futuros",
+      "lineaKitSchema": "manifest-tronco"
+    }
+  ],
+  "expectedArtifacts": [
+    { "kind": "onfalo-raw", "producedBy": "archivero" },
+    { "kind": "analysis", "producedBy": "bartleby" },
+    { "kind": "vector-mock", "producedBy": "vector-mock" },
+    {
+      "kind": "linea",
+      "producedBy": "pipeline",
+      "lineaKitSchema": "manifest-tronco"
+    },
+    { "kind": "graph", "producedBy": "grafista" },
+    { "kind": "universe", "producedBy": "demiurgo" },
+    { "kind": "corto", "producedBy": "dramaturgo" },
+    { "kind": "evidence-report", "producedBy": "portal" }
+  ],
+  "cleanup": {
+    "shutdownVerbs": ["session.exit", "unit.stop", "pod.revoke"],
+    "removeRuns": true
+  },
+  "acceptanceCriteria": [
+    "Todos los schemas dominio validan positivos y rechazan negativos",
+    "Líneas reutilizan schemas @zeus/linea-kit sin copia local",
+    "barrioId y distrito existen en CENSO-ESTADOS cantera",
+    "Ceremonia de 11 pasos ejecutable solo como simulacro playground",
+    "VectorMock declara mock=true en todo momento"
+  ]
+}

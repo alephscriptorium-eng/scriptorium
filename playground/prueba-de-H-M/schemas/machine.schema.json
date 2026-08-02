@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/machine.schema.json",
+  "title": "HmMachineManifest",
+  "description": "Manifiesto de Future Machine simulada en playground",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "machineId",
+    "barrioId",
+    "simulacro",
+    "capabilities",
+    "units",
+    "status"
+  ],
+  "properties": {
+    "machineId": { "type": "string" },
+    "barrioId": { "type": "string" },
+    "simulacro": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mock", "declared"],
+      "properties": {
+        "mock": { "const": true },
+        "declared": { "type": "string" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "units": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "enum": ["declared", "ready", "running", "stopped", "failed"]
+    },
+    "deployedAt": { "type": "string", "format": "date-time" }
+  }
+}

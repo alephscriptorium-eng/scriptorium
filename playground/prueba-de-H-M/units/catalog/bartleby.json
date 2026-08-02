@@ -1,0 +1,25 @@
+{
+  "unitId": "bartleby",
+  "displayName": "Bartleby",
+  "type": "agent",
+  "condition": "bootstrap",
+  "inputs": [
+    { "name": "onfalo-raw", "mediaType": "text/markdown" }
+  ],
+  "outputs": [
+    { "name": "analysis", "mediaType": "application/json" },
+    { "name": "sections", "mediaType": "application/json" }
+  ],
+  "dependencies": ["archivero"],
+  "verbs": ["document.analyze", "unit.start", "unit.inspect"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["phase", "sectionsCount"],
+    "properties": {
+      "phase": { "enum": ["declared", "analyzing", "done"] },
+      "sectionsCount": { "type": "integer", "minimum": 0 }
+    }
+  },
+  "note": "Definición OASIS existe; proceso real no corre — handler mock playground."
+}
