@@ -8,6 +8,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { execSync } from "node:child_process";
 import crypto from "node:crypto";
 import Ajv2020Module from "ajv/dist/2020.js";
+import { STATIC_UNIT_IDS } from "../lib/podstore/constants.mjs";
 
 const Ajv2020 = Ajv2020Module.default ?? Ajv2020Module;
 
@@ -473,8 +474,16 @@ function verifyPruebaDeDosClean() {
 function validateAllUnits(validators) {
   const catalogDir = path.join(kitRoot, "units/catalog");
   const files = fs.readdirSync(catalogDir).filter((f) => f.endsWith(".json"));
-  if (files.length !== 10) {
-    fail(`catálogo debe tener 10 unidades, tiene ${files.length}`);
+  if (files.length !== STATIC_UNIT_IDS.length) {
+    fail(
+      `catálogo debe tener ${STATIC_UNIT_IDS.length} unidades (STATIC_UNIT_IDS), tiene ${files.length}`,
+    );
+  }
+  // Y los nombres, no solo la cardinalidad: diez ficheros cualesquiera
+  // cuadraban con «10» sin que ninguno fuese la unidad esperada.
+  const enCatalogo = new Set(files.map((f) => f.replace(/\.json$/, "")));
+  for (const unitId of STATIC_UNIT_IDS) {
+    if (!enCatalogo.has(unitId)) fail(`falta units/catalog/${unitId}.json`);
   }
   for (const file of files) {
     const unit = JSON.parse(fs.readFileSync(path.join(catalogDir, file), "utf8"));

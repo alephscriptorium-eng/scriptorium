@@ -26,6 +26,7 @@ import { causalDigest } from "../lib/ceremonia/envelope.mjs";
 import {
   CAUSAL_STRIPPED_FIELDS,
   CAUSAL_STRIPPED_CONTEXT_FIELDS,
+  EXPECTED_ACTIVITY_PAIRS,
 } from "../lib/ceremonia/constants.mjs";
 
 /** Valor distinto del original, del mismo tipo cuando es posible. */
@@ -207,10 +208,10 @@ function main() {
 
   // Primarios: 11 pasos presentes
   const primaryH = result.chainH.filter((r) => !r.secondary);
-  if (primaryH.length !== 11) {
-    fail(`pasos primarios H=${primaryH.length} (espera 11)`);
+  if (primaryH.length !== CEREMONY_STEPS.length) {
+    fail(`pasos primarios H=${primaryH.length} (espera ${CEREMONY_STEPS.length})`);
   } else {
-    ok("11 pasos primarios en handoff H");
+    ok(`${CEREMONY_STEPS.length} pasos primarios en handoff H`);
   }
 
   // ── 3. Wire + view + schema activity ────────────────────────────────────
@@ -236,8 +237,9 @@ function main() {
     const h2 = huellaLedger(sealed);
     if (h1 !== h2) fail("DIC-4 roto: vista afectó huella");
   }
-  if (wireCount < 22) {
-    fail(`wire count ${wireCount} < 22 (11×2)`);
+  const wiresEsperados = EXPECTED_ACTIVITY_PAIRS.length * 2;
+  if (wireCount !== wiresEsperados) {
+    fail(`wire count ${wireCount} ≠ ${wiresEsperados} (${EXPECTED_ACTIVITY_PAIRS.length} parejas × 2)`);
   } else {
     ok(`wire.json sellado + view.jsonld ×${wireCount}`);
   }
@@ -293,7 +295,7 @@ function main() {
     const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
     if (!validateEvidence(report)) {
       fail(`evidence schema: ${JSON.stringify(validateEvidence.errors)}`);
-    } else if (report.matrix.length < 11) {
+    } else if (report.matrix.length !== EXPECTED_ACTIVITY_PAIRS.length * 2) {
       fail("matrix incompleta");
     } else if (!report.artifactChain || !report.coverage) {
       fail("report sin artifactChain/coverage");
@@ -335,7 +337,7 @@ function main() {
 
   // ── 7. Fallo → cero estado parcial (matar en cada uno de los 11) ───────
   let killPass = 0;
-  for (let step = 1; step <= 11; step += 1) {
+  for (let step = 1; step <= CEREMONY_STEPS.length; step += 1) {
     const kid = `test-106-kill-${step}-${Date.now().toString(36)}`;
     const killRoot = path.join(kitRoot, ".runs", kid);
     try {
@@ -354,7 +356,7 @@ function main() {
       killPass += 1;
     }
   }
-  if (killPass === 11) {
+  if (killPass === CEREMONY_STEPS.length) {
     ok("fallo→cero estado parcial (kill en cada uno de los 11)");
   } else {
     fail(`kill limpio solo ${killPass}/11`);
@@ -389,7 +391,7 @@ function main() {
   );
   if (scenario.ceremony?.id !== "barrio-lore-v1") {
     fail("ceremony.id != barrio-lore-v1");
-  } else if (scenario.ceremony.steps.length !== 11) {
+  } else if (scenario.ceremony.steps.length !== CEREMONY_STEPS.length) {
     fail(`scenario steps=${scenario.ceremony.steps.length}`);
   } else {
     const verbs = scenario.ceremony.steps.map((s) => s.verb);

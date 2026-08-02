@@ -118,7 +118,7 @@ if (!existsSync(join(sealedOut, "source.manifest.json"))) {
 } else {
   try {
     const snap = loadSealedSnapshot(sealedOut);
-    if (snap.pieces.length !== 2) {
+    if (snap.pieces.length !== EXPECTED_PIECES.length) {
       fail(`piezas=${snap.pieces.length} esperado=2`);
     } else {
       let hashesOk = true;

@@ -118,15 +118,15 @@ async function main() {
 
     // ── Bartleby: 5 secciones + meta ───────────────────────────────────────
     for (const a of cadena.bartleby.analyses) {
-      if (a.sections.length !== 5) {
+      if (a.sections.length !== SECTION_IDS.length) {
         fail(`${a.pieceId}: sections=${a.sections.length} (espera 5)`);
       }
       const ids = a.sections.map((s) => s.id);
       if (JSON.stringify(ids) !== JSON.stringify(SECTION_IDS)) {
         fail(`${a.pieceId}: SECTION_IDS mismatch`);
       }
-      if (!a.meta || a.meta.sectionsCount !== 5) {
-        fail(`${a.pieceId}: meta.sectionsCount != 5`);
+      if (!a.meta || a.meta.sectionsCount !== SECTION_IDS.length) {
+        fail(`${a.pieceId}: meta.sectionsCount != ${SECTION_IDS.length}`);
       }
       if (a.mock !== true) fail(`${a.pieceId}: bartleby.mock != true`);
     }

@@ -102,6 +102,25 @@ export const HOLONES_META = Object.freeze([
   }),
 ]);
 
+/**
+ * Cifras de la proyección, en UN solo sitio.
+ *
+ * `HOLONES` y `DISTRITOS` se derivan de sus catálogos (7 y 6 dejan de estar
+ * escritos). `BARRIOS` no se puede derivar —el censo ES la fuente— así que
+ * queda como pin declarado: antes el 24 estaba escrito cuatro veces y el 7 y
+ * el 6 tres veces cada uno, sin relación entre sí.
+ */
+export const CONTEO = Object.freeze({
+  get HOLONES() {
+    return HOLONES_META.length;
+  },
+  get DISTRITOS() {
+    return Object.keys(DISTRITO_HOLON).length;
+  },
+  /** Pin explícito del censo sellado (no derivable: el censo es la fuente). */
+  BARRIOS: 24,
+});
+
 const DISTRITO_DISPLAY = Object.freeze({
   zigurat: "Zigurat",
   editores: "Editores visuales",
@@ -277,13 +296,17 @@ export function buildProjection({
   holonesRootListing = [],
 }) {
   const censo = parseCenso(censoMd);
-  if (censo.length !== 24) {
-    throw new Error(`censo debe tener 24 barrios, got ${censo.length}`);
+  if (censo.length !== CONTEO.BARRIOS) {
+    throw new Error(
+      `censo debe tener ${CONTEO.BARRIOS} barrios, got ${censo.length}`,
+    );
   }
 
   const holonesReg = parseHolonesMd(holonesMd);
-  if (holonesReg.length !== 7) {
-    throw new Error(`HOLONES.md debe listar 7 holones, got ${holonesReg.length}`);
+  if (holonesReg.length !== CONTEO.HOLONES) {
+    throw new Error(
+      `HOLONES.md debe listar ${CONTEO.HOLONES} holones (HOLONES_META), got ${holonesReg.length}`,
+    );
   }
 
   const grafoCounts = parseGrafoHandoffs(grafoTsv || "");
@@ -299,8 +322,10 @@ export function buildProjection({
   }
 
   if (barrioFichas.length) {
-    if (barrioFichas.length !== 24) {
-      throw new Error(`01-BARRIOS fichas esperadas 24, got ${barrioFichas.length}`);
+    if (barrioFichas.length !== CONTEO.BARRIOS) {
+      throw new Error(
+        `01-BARRIOS fichas esperadas ${CONTEO.BARRIOS}, got ${barrioFichas.length}`,
+      );
     }
   }
 
@@ -321,8 +346,10 @@ export function buildProjection({
     if (!d) throw new Error(`falta distrito canónico ${id} en censo`);
     return d;
   });
-  if (distritos.length !== 6) {
-    throw new Error(`esperados 6 distritos, got ${distritos.length}`);
+  if (distritos.length !== CONTEO.DISTRITOS) {
+    throw new Error(
+      `esperados ${CONTEO.DISTRITOS} distritos (DISTRITO_HOLON), got ${distritos.length}`,
+    );
   }
 
   const barrios = censo.map((b) => ({
@@ -523,14 +550,25 @@ export function loadSealedMapa(outDir = DEFAULT_OUT) {
 
 export function validateProjection(mapa) {
   const errors = [];
-  if (mapa.counts?.barrios !== 24 || mapa.barrios?.length !== 24) {
-    errors.push(`barrios≠24 (counts=${mapa.counts?.barrios} len=${mapa.barrios?.length})`);
+  if (
+    mapa.counts?.barrios !== CONTEO.BARRIOS ||
+    mapa.barrios?.length !== CONTEO.BARRIOS
+  ) {
+    errors.push(
+      `barrios≠${CONTEO.BARRIOS} (counts=${mapa.counts?.barrios} len=${mapa.barrios?.length})`,
+    );
   }
-  if (mapa.counts?.distritos !== 6 || mapa.distritos?.length !== 6) {
-    errors.push("distritos≠6");
+  if (
+    mapa.counts?.distritos !== CONTEO.DISTRITOS ||
+    mapa.distritos?.length !== CONTEO.DISTRITOS
+  ) {
+    errors.push(`distritos≠${CONTEO.DISTRITOS}`);
   }
-  if (mapa.counts?.holones !== 7 || mapa.holones?.length !== 7) {
-    errors.push("holones≠7");
+  if (
+    mapa.counts?.holones !== CONTEO.HOLONES ||
+    mapa.holones?.length !== CONTEO.HOLONES
+  ) {
+    errors.push(`holones≠${CONTEO.HOLONES}`);
   }
   const censoIds = new Set((mapa.barrios || []).map((b) => b.id));
   for (const b of mapa.barrios || []) {

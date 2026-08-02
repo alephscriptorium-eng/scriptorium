@@ -16,6 +16,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import {
+  CONTEO,
   DISTRITO_HOLON,
   loadSealedMapa,
   parseCenso,
@@ -79,8 +80,12 @@ const errs = validateProjection(mapa);
 if (errs.length) fail(`validateProjection: ${errs.join("; ")}`);
 else ok("validateProjection 7×6×24");
 
-if (mapa.barrios.length === 24 && mapa.distritos.length === 6 && mapa.holones.length === 7) {
-  ok("conteos 7 holones × 6 distritos × 24 barrios");
+if (
+  mapa.barrios.length === CONTEO.BARRIOS &&
+  mapa.distritos.length === CONTEO.DISTRITOS &&
+  mapa.holones.length === CONTEO.HOLONES
+) {
+  ok(`conteos ${CONTEO.HOLONES} holones × ${CONTEO.DISTRITOS} distritos × ${CONTEO.BARRIOS} barrios`);
 } else {
   fail(`conteos mal: ${JSON.stringify(mapa.counts)}`);
 }
@@ -106,7 +111,7 @@ for (const b of mapa.barrios) {
     barrioOk = false;
   }
 }
-if (barrioOk) ok("24 barrios con distrito+holón; cero slugs inventados");
+if (barrioOk) ok(`${CONTEO.BARRIOS} barrios con distrito+holón; cero slugs inventados`);
 
 // --- 4. Holones ≥1 barrio O razón; 05/06/07 especiales ---
 let holOk = true;

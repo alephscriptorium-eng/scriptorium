@@ -275,7 +275,18 @@ function fullAcl(actor = "maestro-m") {
   for (const id of runners) p.declareUniverseRunner(id);
 
   const ids = p.listUnitIds();
-  if (STATIC_UNIT_IDS.length !== 10) fail("STATIC_UNIT_IDS debe ser 10");
+  // El catálogo en disco es la segunda fuente: antes el 10 solo se comparaba
+  // consigo mismo. Si se añade una unidad, hay que añadir su ficha (y al revés).
+  const catalogIds = fs
+    .readdirSync(path.join(kitRoot, "units/catalog"))
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => f.replace(/\.json$/, ""))
+    .sort();
+  if (JSON.stringify([...STATIC_UNIT_IDS].sort()) !== JSON.stringify(catalogIds)) {
+    fail(
+      `STATIC_UNIT_IDS ≠ units/catalog: [${STATIC_UNIT_IDS}] vs [${catalogIds}]`,
+    );
+  }
   for (const id of STATIC_UNIT_IDS) {
     if (!ids.includes(id)) fail(`falta pod estático ${id}`);
   }
@@ -294,10 +305,11 @@ function fullAcl(actor = "maestro-m") {
     }
   }
 
-  if (p.listPods().length !== 10 + runners.length) {
-    fail(`esperados ${10 + runners.length} pods, got ${p.listPods().length}`);
+  const esperados = STATIC_UNIT_IDS.length + runners.length;
+  if (p.listPods().length !== esperados) {
+    fail(`esperados ${esperados} pods, got ${p.listPods().length}`);
   }
-  ok(`10 estáticos + ${runners.length} universe-runner dinámicos`);
+  ok(`${STATIC_UNIT_IDS.length} estáticos + ${runners.length} universe-runner dinámicos`);
 }
 
 // ── 6. Transición ilegal rompe ─────────────────────────────────────────────

@@ -10,6 +10,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
+import { EXPECTED_CEREMONY_VERBS } from "../lib/ceremonia/constants.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -162,7 +163,17 @@ describe("WP-HUB-101 · ontología H/M", () => {
   it("cada verbo tiene activityType y razón si acuñado", () => {
     const doc = loadOntology();
     const verbs = doc["hm:verbs"];
-    assert.ok(Array.isArray(verbs) && verbs.length >= 29, "catálogo de verbos");
+    assert.ok(Array.isArray(verbs), "catálogo de verbos");
+    // Propiedad en vez de cifra: TODO verbo que la ceremonia emite debe estar
+    // en la ontología. El `>= 29` no relacionaba el catálogo con nada — se
+    // podían quitar los verbos usados y añadir 29 inventados sin enrojecer.
+    const declarados = new Set(verbs.map((v) => v.verb));
+    const faltan = EXPECTED_CEREMONY_VERBS.filter((v) => !declarados.has(v));
+    assert.deepStrictEqual(
+      faltan,
+      [],
+      `verbos de la ceremonia ausentes de la ontología: ${faltan.join(", ")}`
+    );
     for (const v of verbs) {
       assert.ok(v.verb, "verb id");
       assert.ok(v.activityType, `${v.verb}: sin activityType`);

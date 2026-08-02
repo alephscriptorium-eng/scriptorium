@@ -67,8 +67,12 @@ export function analyzePiece(piece) {
     runtime: "playground-mock",
   };
 
-  if (sections.length !== 5) {
-    throw new Error(`Bartleby exige 5 secciones, obtuvo ${sections.length}`);
+  // Cifra derivada de SECTION_IDS: antes el 5 estaba escrito aquí y otras
+  // tres veces en ci/test-105, sin relación con la constante que lo define.
+  if (sections.length !== SECTION_IDS.length) {
+    throw new Error(
+      `Bartleby exige ${SECTION_IDS.length} secciones (SECTION_IDS), obtuvo ${sections.length}`,
+    );
   }
 
   const analysis = {

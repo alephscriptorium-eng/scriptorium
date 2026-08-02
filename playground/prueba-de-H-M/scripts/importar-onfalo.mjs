@@ -347,7 +347,10 @@ export function loadSealedSnapshot(outDir = DEFAULT_OUT) {
   if (manifest.logicalRepo !== LOGICAL_REPO) {
     throw new Error(`logicalRepo inesperado: ${manifest.logicalRepo}`);
   }
-  if (!Array.isArray(manifest.pieces) || manifest.pieces.length !== 2) {
+  if (
+    !Array.isArray(manifest.pieces) ||
+    manifest.pieces.length !== EXPECTED_PIECES.length
+  ) {
     throw new Error(`se esperaban exactamente 2 piezas, got=${manifest.pieces?.length}`);
   }
 
