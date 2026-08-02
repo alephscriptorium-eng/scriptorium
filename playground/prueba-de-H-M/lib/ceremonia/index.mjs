@@ -33,6 +33,10 @@ export {
   runCeremonia,
   wipePartialState,
   compareCausalChains,
+  writeFailureActa,
+  readFailureActa,
+  actasRoot,
+  ACTAS_DIRNAME,
   CeremonyError,
   CeremonyKillError,
 } from "./run-ceremonia.mjs";

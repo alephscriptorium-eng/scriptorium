@@ -14,6 +14,7 @@ import {
   CeremonyError,
   CEREMONY_STEPS,
   SIDE_ACTOR,
+  readFailureActa,
   signHalf,
   assertCannotSignPeer,
   sealWire,
@@ -337,6 +338,7 @@ function main() {
 
   // ── 7. Fallo → cero estado parcial (matar en cada uno de los 11) ───────
   let killPass = 0;
+  let actaPass = true;
   for (let step = 1; step <= CEREMONY_STEPS.length; step += 1) {
     const kid = `test-106-kill-${step}-${Date.now().toString(36)}`;
     const killRoot = path.join(kitRoot, ".runs", kid);
@@ -355,11 +357,69 @@ function main() {
     } else {
       killPass += 1;
     }
+
+    // ── El fracaso DEJA ACTA, fuera del root que se borra ────────────────
+    const acta = readFailureActa(kitRoot, kid);
+    if (!acta) {
+      fail(`killAtStep=${step}: sin acta de fracaso`);
+      actaPass = false;
+    } else if (acta.verdict !== "fail") {
+      fail(`killAtStep=${step}: acta con verdict=${acta.verdict}`);
+      actaPass = false;
+    } else if (acta.step !== step) {
+      fail(`killAtStep=${step}: el acta dice step=${acta.step}`);
+      actaPass = false;
+    } else if (acta.verb !== CEREMONY_STEPS[step - 1].verb) {
+      fail(`killAtStep=${step}: el acta dice verb=${acta.verb}`);
+      actaPass = false;
+    } else if (acta.stepsCompleted.length !== step - 1) {
+      fail(
+        `killAtStep=${step}: acta con ${acta.stepsCompleted.length} pasos completados (espera ${step - 1})`,
+      );
+      actaPass = false;
+    } else if (!acta.wipedRunRoot) {
+      fail(`killAtStep=${step}: el acta no declara qué se borró`);
+      actaPass = false;
+    }
   }
   if (killPass === CEREMONY_STEPS.length) {
-    ok("fallo→cero estado parcial (kill en cada uno de los 11)");
+    ok(`fallo→cero estado parcial (kill en cada uno de los ${CEREMONY_STEPS.length})`);
   } else {
-    fail(`kill limpio solo ${killPass}/11`);
+    fail(`kill limpio solo ${killPass}/${CEREMONY_STEPS.length}`);
+  }
+  if (actaPass) {
+    ok(
+      `fallo→acta con paso, verbo y causa fuera del runRoot borrado (${CEREMONY_STEPS.length}/${CEREMONY_STEPS.length})`,
+    );
+  }
+
+  // ── 7b. ROJO: un fallo NO inyectado (throw genuino) también deja acta ────
+  // Antes, un throw real en la cadena no daba veredicto negativo: daba que
+  // `report.json` no existía en absoluto. El wipe se lleva la corrida entera.
+  {
+    const kid = `test-106-genuino-${Date.now().toString(36)}`;
+    const genRoot = path.join(kitRoot, ".runs", kid);
+    let lanzo = false;
+    try {
+      // upstream imposible: el paso 2 exige identidades del 1
+      runCeremonia({ kitRoot, runId: kid, forceNew: true, skipStep: 1 });
+    } catch {
+      lanzo = true;
+    }
+    const acta = readFailureActa(kitRoot, kid);
+    if (!lanzo) {
+      fail("skipStep=1 debía romper la cadena de upstream");
+    } else if (fs.existsSync(genRoot)) {
+      fail("el wipe dejó estado parcial tras fallo genuino");
+    } else if (!acta || acta.verdict !== "fail") {
+      fail("fallo genuino sin acta de veredicto negativo");
+    } else if (!acta.message || acta.step == null) {
+      fail(`acta sin paso o sin causa: ${JSON.stringify(acta)}`);
+    } else {
+      ok(
+        `fallo genuino deja acta (step=${acta.step} code=${acta.code}) y el wipe se mantiene`,
+      );
+    }
   }
 
   // ── 8. Eventos en pods ──────────────────────────────────────────────────

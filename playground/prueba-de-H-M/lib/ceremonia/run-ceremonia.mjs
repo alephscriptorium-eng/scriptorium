@@ -58,6 +58,72 @@ export class CeremonyKillError extends CeremonyError {
 }
 
 /**
+ * Actas de fracaso: FUERA del runRoot que el wipe borra.
+ *
+ * El borrado de estado parcial es correcto y no se toca. Pero hacía que un
+ * fallo no dejara acta ninguna: al inyectar un throw genuino el resultado no
+ * era un veredicto negativo, era que `report.json` no existía en absoluto.
+ * La ceremonia no sabía registrar su propio fracaso.
+ *
+ * `.runs/_actas/` es hermano de `.runs/<runId>/`, así que sobrevive.
+ */
+export const ACTAS_DIRNAME = "_actas";
+
+/** @param {string} kitRoot */
+export function actasRoot(kitRoot) {
+  return join(kitRoot, ".runs", ACTAS_DIRNAME);
+}
+
+/**
+ * Acta de fracaso: paso, causa y frontera. Se escribe ANTES del wipe para
+ * que exista aunque el borrado falle a medias.
+ *
+ * @param {object} input
+ * @returns {string} ruta del acta
+ */
+export function writeFailureActa(input) {
+  const dir = actasRoot(input.kitRoot);
+  mkdirSync(dir, { recursive: true });
+  const acta = {
+    kind: "hm-ceremony-failure-acta",
+    verdict: "fail",
+    ceremonyId: CEREMONY_ID,
+    scenarioId: SCENARIO_ID,
+    runId: input.runId,
+    // dónde
+    step: input.step ?? null,
+    verb: input.verb ?? null,
+    unitId: input.unitId ?? null,
+    stepsCompleted: input.stepsCompleted ?? [],
+    // por qué
+    code: input.code ?? "unexpected",
+    frontier: input.frontier ?? null,
+    message: input.message ?? null,
+    // qué se borró (el wipe es correcto: se declara, no se deshace)
+    wipedRunRoot: input.runRoot,
+    wipeNote:
+      "Estado parcial borrado por contrato (cero estado parcial). " +
+      "Esta acta vive fuera del runRoot precisamente por eso.",
+    recordedAt: input.recordedAt ?? new Date().toISOString(),
+    simulacro: SIMULACRO_NOTE,
+  };
+  const path = join(dir, `${input.runId}.json`);
+  writeFileSync(path, `${JSON.stringify(acta, null, 2)}\n`);
+  return path;
+}
+
+/**
+ * Lee el acta de fracaso de una corrida (null si la corrida no fracasó).
+ * @param {string} kitRoot
+ * @param {string} runId
+ */
+export function readFailureActa(kitRoot, runId) {
+  const p = join(actasRoot(kitRoot), `${runId}.json`);
+  if (!existsSync(p)) return null;
+  return JSON.parse(readFileSync(p, "utf8"));
+}
+
+/**
  * @typedef {{
  *   kitRoot: string,
  *   runId: string,
@@ -130,9 +196,12 @@ export function runCeremonia(opts = {}) {
   const signatures = { H: [], M: [] };
   /** @type {object[]} */
   const failures = [];
+  /** Paso en vuelo: sin esto el acta no sabe DÓNDE falló (`step` era undefined). */
+  let stepEnCurso = null;
 
   try {
     for (const step of CEREMONY_STEPS) {
+      stepEnCurso = step;
       // upstream bloqueante
       for (const up of step.upstream) {
         if (!completed.has(up)) {
@@ -298,12 +367,47 @@ export function runCeremonia(opts = {}) {
       state: ctx.state,
     };
   } catch (err) {
-    // Cero estado parcial: wipe completo de la corrida
-    wipePartialState(runRoot, provider);
-    if (err instanceof CeremonyError) throw err;
-    throw new CeremonyError(String(err.message || err), {
-      code: "unexpected",
+    const paso = err instanceof CeremonyError && err.step ? err.step : stepEnCurso?.order;
+    const decl = CEREMONY_STEPS.find((s) => s.order === paso) ?? stepEnCurso;
+    const mensaje = String(err?.message ?? err);
+    failures.push({
+      step: paso ?? null,
+      verb: decl?.verb ?? null,
+      code: err instanceof CeremonyError ? err.code : "unexpected",
+      message: mensaje,
     });
+
+    // El acta se escribe ANTES del wipe y FUERA del runRoot: un fallo tiene
+    // que dejar constancia aunque el borrado se lleve la corrida entera.
+    let actaPath = null;
+    try {
+      actaPath = writeFailureActa({
+        kitRoot,
+        runId,
+        runRoot,
+        step: paso ?? null,
+        verb: decl?.verb ?? null,
+        unitId: decl?.unitId ?? null,
+        stepsCompleted: [...completed.keys()],
+        code: err instanceof CeremonyError ? err.code : "unexpected",
+        frontier: err?.frontier ?? null,
+        message: mensaje,
+      });
+    } catch {
+      /* si ni el acta se puede escribir, al menos no se enmascara el error */
+    }
+
+    // Cero estado parcial: wipe completo de la corrida (contrato intacto).
+    wipePartialState(runRoot, provider);
+
+    const out =
+      err instanceof CeremonyError
+        ? err
+        : new CeremonyError(mensaje, { code: "unexpected" });
+    if (out.step == null) out.step = paso ?? undefined;
+    out.verdict = "fail";
+    out.actaPath = actaPath;
+    throw out;
   }
 }
 
