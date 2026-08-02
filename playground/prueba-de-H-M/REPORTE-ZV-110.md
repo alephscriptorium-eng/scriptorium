@@ -6,13 +6,57 @@
 | fecha | 2026-08-02 |
 | rama | `wp/hub-110-hm-negativos-y-consumidor-limpio` |
 | worktree | `C:/S_LAB/wt/scriptorium-wp-hub-110` |
-| base | rebasada sobre `main` (`c44ee91`) |
+| base | rebasada sobre `main` `3c43613` (con 111 y 112 ya dentro) |
 | veredicto previo | **NO ENTRA** |
 | alcance del diff | `playground/prueba-de-H-M/**` |
 
 ---
 
 ## 1 · El rebase, y qué se tomó de `main`
+
+### Segunda vuelta de rebase: sobre `3c43613`, con 111 y 112 dentro
+
+`main` avanzó 19 commits mientras esta ficha estaba en revisión (WP-HUB-111,
+que depende de 110, y WP-HUB-112). Rebase sobre `3c43613`. **Dos conflictos,
+los dos de la clase «conservar los dos lados»**, y ninguno sustituye a nadie:
+
+| fichero | qué chocaba | cómo se resolvió |
+| ------- | ----------- | ----------------- |
+| `package.json` · `description` | `main` decía «100…109 + 111 (escenarios descubribles)», yo «100…110 (… negativos + consumidor limpio)» | una sola línea que nombra **los dos**: «WP-HUB-100…111 (GHM + mapa + despertar + negativos + consumidor limpio + escenarios descubribles)» |
+| `package.json` · `scripts` | `main` añadía `test:escenarios`, yo `test:negativos` y `test:consumidor-limpio` | los tres, en orden numérico. **18 scripts**, ninguno perdido |
+| `ci/suite.mjs` · cabecera | `(113+100…107+109+111)` vs `(…+110)` | `(113+100…107+109+110+111)` |
+| `ci/suite.mjs` · `required` | bloque 111 (5 rutas) vs bloque 110 (6 rutas) | **los dos bloques**, 110 y luego 111 |
+| `ci/suite.mjs` · ejecución | `runTest` de 111 vs los dos `runTest` de 110 | **los tres tests**, 110 y luego 111 |
+
+Hubo un cuarto choque al replicar mi propio commit siguiente (añadir
+`lib/offline/preload.mjs` al `required`): también resuelto conservando ambos,
+con el preload cerrando el bloque 110 y el bloque 111 intacto detrás.
+
+**Ninguna defensa de `main`, 111 o 112 desaparece.** Comprobado de tres formas:
+
+1. **Ni un fichero de 111/112 se toca.** Los 15 que toca esta rama son los de
+   110 más `suite.mjs` y `package.json`. `ci/test-111-escenarios.mjs`,
+   `lib/escenarios/{discover,conformidad,v1-allowlist}.mjs` y
+   `scenarios/segundo-minimo/scenario.json` tienen **sha idéntico al de
+   `main`**.
+2. **Toda línea que la rama borra respecto a `main` está justificada**: son 13,
+   y todas mías por diseño — la cabecera de la suite y la `description`
+   (sustituidas por superconjuntos que nombran 110 **y** 111), el
+   `import { spawnSync }` de `run-ceremonia.mjs` (la causa raíz de B2), las
+   siete líneas de reloj/azar de `LocalPodProvider` (la inyección) y dos
+   líneas de `scripts/ceremonia.mjs` sustituidas por su versión con `--now` y
+   `--lease-seed`. Cero líneas de 111 o 112.
+3. **La suite completa pasa con 111 dentro**, incluidos sus once chequeos
+   (descubrimiento 2/2, arnés sin hardcode, conformidad 15 c/u, allowlist v1,
+   ejecución real 2/2 con sello sha256).
+
+De paso se cerró el fantasma de CRLF que arrastraba el worktree: los dos
+fixtures que aparecían como `M` con `git diff` vacío se restauraron desde el
+índice y ahora **salen del checkout en LF**, que es lo que el `-text` de
+`.gitattributes` promete. `git status` limpio.
+
+### Primera vuelta de rebase (sobre `c44ee91`)
+
 
 La rama salía 31 commits por detrás. `git rebase main` reconoció **5 de los 6
 commits como ya aplicados aguas arriba** (equivalentes por patch-id): las
@@ -166,11 +210,10 @@ Lo que se corrigió, uno a uno:
 > compruebas que enrojece.**
 
 Cada experimento parchea el guardián en el árbol, corre el test y restaura el
-fichero (`restaurado: intacto=True` en los nueve). **Salida recapturada del
-código que entra en este commit**, no retocada a mano: en la entrega anterior
-estos bloques mostraban el formato viejo del denominador y les faltaba la
-línea `fronteras del catálogo sin negativo verificado`, que sí aparecía en la
-prosa de §6. Cita rancia; corregido re-ejecutando.
+fichero (`restaurado: intacto=True` en los nueve). **Salida recapturada contra
+el árbol REBASADO sobre `main` `3c43613`**, no retocada a mano. Se recaptura
+entera en cada vuelta, y es cara: la evidencia tiene que salir del código que
+entra, y un rebase cambia el código que entra.
 
 ```
 == G1-corpus :: DESACTIVADO lib/cadena/run-cadena.mjs
@@ -317,7 +360,7 @@ Y el cruce es falsable. Devolviendo `run-ceremonia.mjs` al named import:
 exit=1
 test-110-consumidor-limpio: PASS — guardia offline instalada en 7 procesos descendientes
 test-110-consumidor-limpio: FAIL — censo incompleto: 3 de 7 procesos dejaron parte offline
-  y NO están en el censo (pids 37956,41644,6648) — existieron y nadie los contó
+  y NO están en el censo (pids 31352,38824,628)
 test-110-consumidor-limpio: FAIL (1)
 == restaurado: intacto=True
 ```
@@ -359,11 +402,12 @@ fuera invisible. Con el barrido puesto, el mismo sabotaje:
 exit=1
 PASS — censo cruzado: 7/7 procesos que dejaron parte están censados (censo 10 pids distintos = 7 del test + 3 nietos)
 PASS — 10 pids distintos creados, 0 vivos al cierre, 7 con código de salida recogido
-FAIL — procesos huérfanos VIVOS según el SO: node.exe#37468(padre 34884),
-       node.exe#43548(padre 35436), node.exe#43428(padre 43208)
+FAIL — procesos huérfanos VIVOS según el SO: node.exe#41960(padre 40024),
+       node.exe#41956(padre 43036), node.exe#30852(padre 36456)
 FAIL (1)
 
-=== PIDS HUERFANOS CREADOS === 37468 43548 43428
+=== PIDS HUERFANOS CREADOS === 41960 41956 30852
+   41960 VIVO · 41956 VIVO · 30852 VIVO
 ```
 
 Los tres PIDs que denuncia son exactamente los tres creados. Y el rojo lo pone
