@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "barrioId": "document-machine-sdk",
   "distrito": "lore-voz",
+  "fixture": {
+    "path": "fixtures/onfalo",
+    "note": "Snapshot Onfalo sellado (WP-HUB-104); corrida sin OASIS en runtime."
+  },
   "simulacro": {
     "futureMachine": true,
     "declared": "Future Machine no corre hoy; kit playground simula ceremonia y handlers locales (spike WP-HUB-112).",
