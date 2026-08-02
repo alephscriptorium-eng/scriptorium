@@ -74,3 +74,7 @@ este WP no modificó el workflow.
 ## Revisión del orquestador
 
 _(pendiente)_
+
+## Addenda orquestador · PASS_CON_ADDENDA
+
+Contrarrevisión: `PASS_CON_ADDENDA`. Tip post-fix `44685a0`. Fuente: `C:/S_LAB/wt/_lore-hm-ola1-vigilancia/`.
