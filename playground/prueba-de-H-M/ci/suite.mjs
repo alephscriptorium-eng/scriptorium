@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (WP-HUB-113 + WP-HUB-100 + WP-HUB-102 + WP-HUB-103).
+ * Suite mínima LORE-HM (WP-HUB-113 + WP-HUB-100 + WP-HUB-102 + WP-HUB-103 + WP-HUB-104).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -42,6 +42,11 @@ const required = [
   "lib/podstore/LocalPodProvider.mjs",
   "lib/podstore/tipestate.mjs",
   "lib/podstore/acl.mjs",
+  // # WP-HUB-104
+  "ci/test-104-onfalo.mjs",
+  "scripts/importar-onfalo.mjs",
+  "fixtures/onfalo/source.manifest.json",
+  "fixtures/onfalo-attest.redistributable.json",
 ];
 
 for (const rel of required) {
@@ -101,6 +106,15 @@ const run103 = spawnSync(process.execPath, [test103], {
   env: { ...process.env },
 });
 if (run103.status !== 0) fail("test-103-podstore.mjs falló");
+
+// # WP-HUB-104 · Onfalo import-once
+const test104 = path.join(here, "test-104-onfalo.mjs");
+const run104 = spawnSync(process.execPath, [test104], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env },
+});
+if (run104.status !== 0) fail("test-104-onfalo.mjs falló");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);
