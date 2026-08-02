@@ -1,0 +1,207 @@
+# scope	path	src	dst	label
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/archivero.agent.md	archivero	Bartleby	Re-analizar con Bartleby
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/archivero.agent.md	archivero	Cristalizador	Proponer cristalización agéntica
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/bartleby.agent.md	bartleby	Archivero	Archivar análisis en corpus
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/bartleby.agent.md	bartleby	Cristalizador	Proponer cristalización agéntica
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/cristalizador.agent.md	cristalizador	Archivero	Volver al corpus
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/dramaturgo.agent.md	dramaturgo	Bartleby	Anclar nodo con análisis documental
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/dramaturgo.agent.md	dramaturgo	Cristalizador	Materializar el universo como artefacto
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/dramaturgo.agent.md	dramaturgo	Portal	Volver al portal
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/portal.agent.md	portal	Bartleby	Analizar nuevo documento
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/portal.agent.md	portal	Archivero	Ver estado del corpus
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/portal.agent.md	portal	Cristalizador	Diseñar mejoras agénticas
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/portal.agent.md	portal	Portal	Generar guion de ciclo
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/portal.agent.md	portal	Voz	Generar poema desde el corpus
+DocumentMachineSDK	DocumentMachineSDK/.github/agents/portal.agent.md	portal	Dramaturgo	Crear universo propio
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/archivero-lore.agent.md	archivero-lore	Grafista	Pasar corpus al grafista
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/archivero-lore.agent.md	archivero-lore	Bartleby	Analizar pieza con Bartleby
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/archivero-lore.agent.md	archivero-lore	Pipeline	Refrescar pipeline
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/archivero-lore.agent.md	archivero-lore	Puzzle	Pedir validación de piezas
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/demiurgo.agent.md	demiurgo	Dramaturgo Cortos	Generar corto desde universo
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/demiurgo.agent.md	demiurgo	Grafista	Actualizar grafo
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/demiurgo.agent.md	demiurgo	Pipeline	Refrescar pipeline
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/dramaturgo.agent.md	dramaturgo	Pipeline	Ejecutar refresh del pipeline
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/dramaturgo.agent.md	dramaturgo	Demiurgo	Pedir universo actualizado
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/grafista.agent.md	grafista	Demiurgo	Diseñar universo desde grafo
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/grafista.agent.md	grafista	Archivero Lore	Volver al corpus
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/grafista.agent.md	grafista	Pipeline	Refrescar pipeline
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/pipeline.agent.md	pipeline	Puzzle	Validar pack de lore
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/pipeline.agent.md	pipeline	Archivero Lore	Re-ingestar lore
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/pipeline.agent.md	pipeline	Grafista	Regenerar grafo
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/pipeline.agent.md	pipeline	Demiurgo	Diseñar universo
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/pipeline.agent.md	pipeline	Dramaturgo Cortos	Generar corto desde universo-1
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/pipeline.agent.md	pipeline	Archivero	Ver estado del corpus
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Portal	🗺️ Empieza aquí — mapa del taller
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Portal	📊 Estado del lore — dashboard completo
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Archivero Lore	📥 Ingestar piezas de lore
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Grafista	🔀 Ver o generar el grafo de futuros
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Demiurgo	🌍 Diseñar un universo
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Dramaturgo Cortos	🎬 Generar un corto
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Pipeline	🔄 Refrescar el pipeline
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Bartleby	🔬 Analizar un documento
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Cristalizador	💎 Proponer cristalización
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Portal	🎯 Activar orquestador (sala)
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/portal.agent.md	portal	Portal	🔧 Entrar en sala como agente
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/puzzle.agent.md	puzzle	Archivero Lore	Pasar pack verificado al Archivero Lore
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/puzzle.agent.md	puzzle	Pipeline	Refrescar pipeline
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/voz.agent.md	voz	Bartleby	¿Por qué este poema dice lo que dice?
+DocumentMachineSDK	DocumentMachineSDK/mod/agents/voz.agent.md	voz	Portal Editorial	Adaptar para otro perfil de lector
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/aceleracionista.agent.md	aceleracionista	Penitente	Turno del Penitente
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/articulista.agent.md	articulista	Santome	Revision literaria
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/articulista.agent.md	articulista	Revisor	Revision doctrinal
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blackflag.agent.md	blackflag	Aleph	Llevar crítica a redacción
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blackflag.agent.md	blackflag	Redflag	Tensionar con Bandera Roja
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blackflag.agent.md	blackflag	yellowflag	Tensionar con Bandera Amarilla
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blackflag.agent.md	blackflag	Orangeflag	Tensionar con Bandera Naranja
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blackflag.agent.md	blackflag	Revisor	Verificar coherencia doctrinal
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blueflag.agent.md	blueflag	Aleph	Llevar crítica a redacción
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blueflag.agent.md	blueflag	Blackflag	Tensionar con Bandera Negra
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blueflag.agent.md	blueflag	Redflag	Tensionar con Bandera Roja
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blueflag.agent.md	blueflag	yellowflag	Tensionar con Bandera Amarilla
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blueflag.agent.md	blueflag	Orangeflag	Tensionar con Bandera Naranja
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/blueflag.agent.md	blueflag	Revisor	Verificar coherencia doctrinal
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/capitulista.agent.md	capitulista	Santome	Revision literaria
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/capitulista.agent.md	capitulista	Revisor	Revision doctrinal
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/capitulista.agent.md	capitulista	Orangeflag	Revision de registro
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/cartas-puerta.agent.md	cartas-puerta	Vestibulo	Volver a vestíbulo
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/cartas-puerta.agent.md	cartas-puerta	Aleph	Volver a producción
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/optimista.agent.md	optimista	Penitente	Turno del Penitente
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/orangeflag.agent.md	orangeflag	Blueflag	Escalar a test de verdad
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/orangeflag.agent.md	orangeflag	Blackflag	Escalar a test de poder
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/orangeflag.agent.md	orangeflag	Redflag	Escalar a test de viabilidad
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/orangeflag.agent.md	orangeflag	yellowflag	Escalar a test de límites
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/orangeflag.agent.md	orangeflag	Aleph	Devolver a producción
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/panoptico.agent.md	panoptico	Penitente	Turno del Penitente
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/penitente.agent.md	penitente	Optimista	Debate con Optimista (Pinker)
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/penitente.agent.md	penitente	Aceleracionista	Debate con Aceleracionista (Andreessen)
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/penitente.agent.md	penitente	Panoptico	Debate con Panoptico (Han)
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/redflag.agent.md	redflag	Aleph	Llevar crítica a redacción
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/redflag.agent.md	redflag	Blackflag	Tensionar con Bandera Negra
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/redflag.agent.md	redflag	yellowflag	Tensionar con Bandera Amarilla
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/redflag.agent.md	redflag	Orangeflag	Tensionar con Bandera Naranja
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/redflag.agent.md	redflag	Revisor	Verificar coherencia doctrinal
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/relatista.agent.md	relatista	Santome	Revision literaria
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/relatista.agent.md	relatista	Revisor	Revision doctrinal
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/relatista.agent.md	relatista	Orangeflag	Revision de registro
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/LABORATORIO/PROYECTO_FUNDACION/FUNDACION/.claude/agents/relatista.agent.md	relatista	Articulista	Publicar como articulo
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/antagonistas/aceleracionista.agent.md	aceleracionista	protagonista	Turno del Protagonista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/antagonistas/estructuralista.agent.md	estructuralista	protagonista	Turno del Protagonista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/antagonistas/integralista.agent.md	integralista	protagonista	Turno del Protagonista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/antagonistas/pesimista.agent.md	pesimista	protagonista	Turno del Protagonista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/antagonistas/racionalista.agent.md	racionalista	protagonista	Turno del Protagonista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/campo.agent.md	campo	verdad	Escalar a Verdad
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/campo.agent.md	campo	sombra	Escalar a Sombra
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/campo.agent.md	campo	registro	Escalar a Registro
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/campo.agent.md	campo	integrador	Informar a Integrador
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/campo.agent.md	campo	articulador	Devolver a Articulador
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/registro.agent.md	registro	verdad	Escalar a Verdad
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/registro.agent.md	registro	sombra	Escalar a Sombra
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/registro.agent.md	registro	campo	Escalar a Campo
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/registro.agent.md	registro	articulador	Devolver a Articulador
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/registro.agent.md	registro	integrador	Devolver a Integrador
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/sombra.agent.md	sombra	verdad	Escalar a Verdad
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/sombra.agent.md	sombra	registro	Escalar a Registro
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/sombra.agent.md	sombra	campo	Escalar a Campo
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/sombra.agent.md	sombra	articulador	Devolver a Articulador
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/sombra.agent.md	sombra	integrador	Devolver a Integrador
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/verdad.agent.md	verdad	sombra	Escalar a Sombra
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/verdad.agent.md	verdad	registro	Escalar a Registro
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/verdad.agent.md	verdad	campo	Escalar a Campo
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/verdad.agent.md	verdad	articulador	Devolver a Articulador
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/auditores/verdad.agent.md	verdad	integrador	Devolver a Integrador
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/calibrador.agent.md	calibrador	observatorio	Busqueda compensatoria en fuentes externas
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/calibrador.agent.md	calibrador	verdad	Verificar si la correccion introduce nuevos sesgos
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/calibrador.agent.md	calibrador	sombra	Analizar el poder detras del sesgo
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/calibrador.agent.md	calibrador	protagonista	Devolver terreno corregido al Protagonista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/calibrador.agent.md	calibrador	articulador	Alimentar articulo con perspectivas compensadas
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/calibrador.agent.md	calibrador	registro	Analizar la retorica del sesgo
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/observatorio.agent.md	observatorio	verdad	Verificar afirmacion del collage
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/observatorio.agent.md	observatorio	sombra	Analizar quien controla la narrativa
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/observatorio.agent.md	observatorio	registro	Analizar retorica de los marcos
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/observatorio.agent.md	observatorio	protagonista	Alimentar debate con terreno real
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/observatorio.agent.md	observatorio	articulador	Alimentar articulo con collage
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/turin.agent.md	turin	calibrador	Medir distorsion post-etiqueta
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/turin.agent.md	turin	sombra	Analizar economia politica del sesgo etiquetado
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/turin.agent.md	turin	portal	Presentar etiqueta a publico externo
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/turin.agent.md	turin	nexo	Evaluar viabilidad tecnica de etiquetado automatico
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/inteligencia/turin.agent.md	turin	protagonista	Posicionar el proyecto desde la etiqueta
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/navegacion/portal.agent.md	portal	protagonista	Continuar sesion desde la puerta correcta
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/produccion/articulador.agent.md	articulador	verdad	Auditoria de Verdad
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/produccion/articulador.agent.md	articulador	sombra	Auditoria de Sombra
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/produccion/articulador.agent.md	articulador	registro	Auditoria de Registro
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/produccion/integrador.agent.md	integrador	verdad	Auditoria de Verdad
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/produccion/integrador.agent.md	integrador	sombra	Auditoria de Sombra
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/produccion/integrador.agent.md	integrador	registro	Auditoria de Registro
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/voz/protagonista.agent.md	protagonista	racionalista	Debate con Racionalista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/voz/protagonista.agent.md	protagonista	aceleracionista	Debate con Aceleracionista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/voz/protagonista.agent.md	protagonista	pesimista	Debate con Pesimista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/voz/protagonista.agent.md	protagonista	estructuralista	Debate con Estructuralista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PLUGIN_SCRIPTORIUM/consejo-asesor/agentes/voz/protagonista.agent.md	protagonista	integralista	Debate con Integralista
+onfalo-asesor-sdk	onfalo-asesor-sdk/PROYECTOS/BARTLEBY/.github/agents/archivero.agent.md	archivero	bartleby	Re-analizar con Bartleby
+onfalo-asesor-sdk	onfalo-asesor-sdk/PROYECTOS/BARTLEBY/.github/agents/archivero.agent.md	archivero	cristalizador	Proponer cristalización agéntica
+onfalo-asesor-sdk	onfalo-asesor-sdk/PROYECTOS/BARTLEBY/.github/agents/bartleby.agent.md	bartleby	archivero	Archivar análisis en corpus
+onfalo-asesor-sdk	onfalo-asesor-sdk/PROYECTOS/BARTLEBY/.github/agents/bartleby.agent.md	bartleby	cristalizador	Proponer cristalización agéntica
+onfalo-asesor-sdk	onfalo-asesor-sdk/PROYECTOS/BARTLEBY/.github/agents/cristalizador.agent.md	cristalizador	archivero	Volver al corpus
+onfalo-asesor-sdk	onfalo-asesor-sdk/PROYECTOS/BARTLEBY/.github/agents/portal-editorial.agent.md	portal-editorial	bartleby	Analizar nueva editorial
+onfalo-asesor-sdk	onfalo-asesor-sdk/PROYECTOS/BARTLEBY/.github/agents/portal-editorial.agent.md	portal-editorial	archivero	Ver estado del corpus
+onfalo-asesor-sdk	onfalo-asesor-sdk/PROYECTOS/BARTLEBY/.github/agents/portal-editorial.agent.md	portal-editorial	cristalizador	Diseñar mejoras agénticas
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-biblioteca.agent.md	bot-biblioteca	bot-biblioteca	Cultivar mapa (nuevo dossier / extender)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-biblioteca.agent.md	bot-biblioteca	bot-taller	Mecánico · construir / reparar nave (taller)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-biblioteca.agent.md	bot-biblioteca	bot-parking	Piloto · viajar este dossier (con o sin nave)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-biblioteca.agent.md	bot-biblioteca	bot-volatil	Orador · snapshot volátil (sin disco)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-biblioteca.agent.md	bot-biblioteca	bot-biblioteca	Cristalizar · proponer mapa / nave / itinerario / customization
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-biblioteca.agent.md	bot-biblioteca	bot-hilbert	Volver al orquestador (Bot Hilbert)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-hilbert.agent.md	bot-hilbert	bot-biblioteca	Cartógrafo · cultivar mapa (biblioteca)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-hilbert.agent.md	bot-hilbert	bot-taller	Mecánico · construir / reparar nave (taller)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-hilbert.agent.md	bot-hilbert	bot-parking	Piloto · viajar dossier (parking · con o sin nave)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-hilbert.agent.md	bot-hilbert	bot-volatil	Orador · snapshot volátil (sin disco)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-hilbert.agent.md	bot-hilbert	bot-biblioteca	Cristalizar · proponer mapa / nave / itinerario / customization
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-parking.agent.md	bot-parking	bot-parking	Viajar dossier (con o sin nave)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-parking.agent.md	bot-parking	bot-biblioteca	Cartógrafo · cultivar mapa (extender dossier)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-parking.agent.md	bot-parking	bot-taller	Mecánico · nave que falta (taller)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-parking.agent.md	bot-parking	bot-volatil	Orador · snapshot volátil (sin disco)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-parking.agent.md	bot-parking	bot-parking	Cristalizar · itinerario (rama nativa del viaje)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-parking.agent.md	bot-parking	bot-biblioteca	Cristalizar · mapa / nave / customization
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-parking.agent.md	bot-parking	bot-hilbert	Volver al orquestador (Bot Hilbert)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-taller.agent.md	bot-taller	bot-taller	Taller · construir / reparar nave
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-taller.agent.md	bot-taller	bot-biblioteca	Cartógrafo · cultivar mapa (biblioteca)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-taller.agent.md	bot-taller	bot-parking	Piloto · viajar dossier (con o sin nave)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-taller.agent.md	bot-taller	bot-volatil	Orador · snapshot volátil (sin disco)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-taller.agent.md	bot-taller	bot-biblioteca	Cristalizar · proponer mapa / nave / itinerario / customization
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-taller.agent.md	bot-taller	bot-hilbert	Volver al orquestador (Bot Hilbert)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-volatil.agent.md	bot-volatil	bot-biblioteca	Cartógrafo · persistir snapshot (biblioteca)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-volatil.agent.md	bot-volatil	bot-taller	Mecánico · construir nave detectada (taller)
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-volatil.agent.md	bot-volatil	bot-parking	Piloto · viajar dossier existente
+AgentLoreSDK	AgentLoreSDK/.github/agents/bot-volatil.agent.md	bot-volatil	bot-hilbert	Volver al orquestador (Bot Hilbert)
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/albacea.agent.md	albacea	editor	Initialize Memory Container
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/albacea.agent.md	albacea	lector	Query Memory Structures
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/albacea.agent.md	albacea	escritor	Start Writing Session
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/editor.agent.md	editor	albacea	Create Memory Content
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/editor.agent.md	editor	lector	Query Memory Structures
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/editor.agent.md	editor	escritor	Start Writing Session
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/escritor.agent.md	escritor	Albacea	Crear Contenido de Memoria
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/escritor.agent.md	escritor	Editor	Inicializar Contenedor
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/escritor.agent.md	escritor	Lector	Consultar Información
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/escritor.agent.md	escritor	agent	Auditoría Scriptorium
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/escritor.agent.md	escritor	Escritor	Arrancar Servidor MCP
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/escritor.agent.md	escritor	Escritor	Sincronizar Obra Completa
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/lector.agent.md	lector	albacea	Create Memory Content
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/lector.agent.md	lector	editor	Initialize Container
+VectorMachineSDK	VectorMachineSDK/apps/notebook-app-sample/.github/agents/lector.agent.md	lector	escritor	Start Writing Session
+NovelistEditor	NovelistEditor/.github/agents/albacea.agent.md	albacea	editor	Initialize Memory Container
+NovelistEditor	NovelistEditor/.github/agents/albacea.agent.md	albacea	lector	Query Memory Structures
+NovelistEditor	NovelistEditor/.github/agents/albacea.agent.md	albacea	escritor	Start Writing Session
+NovelistEditor	NovelistEditor/.github/agents/editor.agent.md	editor	albacea	Create Memory Content
+NovelistEditor	NovelistEditor/.github/agents/editor.agent.md	editor	lector	Query Memory Structures
+NovelistEditor	NovelistEditor/.github/agents/editor.agent.md	editor	escritor	Start Writing Session
+NovelistEditor	NovelistEditor/.github/agents/escritor.agent.md	escritor	Albacea	Crear Contenido de Memoria
+NovelistEditor	NovelistEditor/.github/agents/escritor.agent.md	escritor	Editor	Inicializar Contenedor
+NovelistEditor	NovelistEditor/.github/agents/escritor.agent.md	escritor	Lector	Consultar Información
+NovelistEditor	NovelistEditor/.github/agents/escritor.agent.md	escritor	agent	Auditoría Scriptorium
+NovelistEditor	NovelistEditor/.github/agents/escritor.agent.md	escritor	Escritor	Arrancar Servidor MCP
+NovelistEditor	NovelistEditor/.github/agents/escritor.agent.md	escritor	Escritor	Sincronizar Obra Completa
+NovelistEditor	NovelistEditor/.github/agents/lector.agent.md	lector	albacea	Create Memory Content
+NovelistEditor	NovelistEditor/.github/agents/lector.agent.md	lector	editor	Initialize Container
+NovelistEditor	NovelistEditor/.github/agents/lector.agent.md	lector	escritor	Start Writing Session
+CopilotEngine	CopilotEngine/assets/agents/Plan.agent.md	Plan	agent	Start Implementation
+CopilotEngine	CopilotEngine/assets/agents/Plan.agent.md	Plan	agent	Open in Editor

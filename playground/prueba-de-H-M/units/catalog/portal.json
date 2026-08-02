@@ -1,0 +1,23 @@
+{
+  "unitId": "portal",
+  "displayName": "Portal",
+  "type": "machine",
+  "condition": "deployed",
+  "inputs": [
+    { "name": "evidence-events", "mediaType": "application/x-ndjson" }
+  ],
+  "outputs": [
+    { "name": "evidence-report", "mediaType": "application/json" }
+  ],
+  "dependencies": ["pipeline", "dramaturgo"],
+  "verbs": ["artifact.validate", "coverage.measure", "provenance.trace"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["reportReady"],
+    "properties": {
+      "reportReady": { "type": "boolean" }
+    }
+  },
+  "note": "Genera evidence/report desde eventos; condición deployed en simulacro."
+}

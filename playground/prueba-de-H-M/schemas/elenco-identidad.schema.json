@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/elenco-identidad.schema.json",
+  "title": "HmElencoIdentidad",
+  "description": "Elenco NovelistEditor por identidad H/M con lease por personaje (no pipeline)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "version",
+    "runId",
+    "sourceBarrioId",
+    "sourceDistrito",
+    "aporte",
+    "notPipeline",
+    "bindings",
+    "digest"
+  ],
+  "properties": {
+    "kind": { "const": "hm-elenco-identidad" },
+    "version": { "const": 1 },
+    "runId": { "type": "string" },
+    "sourceBarrioId": { "const": "novelist-editor" },
+    "sourceDistrito": { "const": "runtime-mcp" },
+    "aporte": { "const": "elenco" },
+    "notPipeline": { "const": true },
+    "bindings": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["identity", "character", "lease"],
+        "properties": {
+          "identity": { "enum": ["H", "M"] },
+          "actorId": { "type": "string" },
+          "character": {
+            "type": "object",
+            "required": ["characterId", "name"],
+            "properties": {
+              "characterId": { "type": "string" },
+              "name": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          },
+          "lease": {
+            "type": "object",
+            "required": [
+              "leaseId",
+              "characterId",
+              "signature",
+              "notPipeline"
+            ],
+            "properties": {
+              "leaseId": { "type": "string" },
+              "emitterIri": { "type": "string" },
+              "receiverIri": { "type": "string" },
+              "characterId": { "type": "string" },
+              "unitId": { "type": "string" },
+              "permissions": { "type": "array" },
+              "issuedAt": { "type": "string" },
+              "expiresAt": { "type": "string" },
+              "signature": { "type": "object" },
+              "sourceBarrioId": { "const": "novelist-editor" },
+              "notPipeline": { "const": true }
+            }
+          }
+        }
+      }
+    },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

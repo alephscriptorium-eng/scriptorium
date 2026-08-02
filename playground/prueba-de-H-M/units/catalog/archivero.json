@@ -1,0 +1,24 @@
+{
+  "unitId": "archivero",
+  "displayName": "Archivero",
+  "type": "agent",
+  "condition": "bootstrap",
+  "inputs": [
+    { "name": "source-manifest", "mediaType": "application/json" }
+  ],
+  "outputs": [
+    { "name": "onfalo-raw", "mediaType": "text/markdown" }
+  ],
+  "dependencies": [],
+  "verbs": ["source.ingest", "artifact.data"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["sealed"],
+    "properties": {
+      "sealed": { "type": "boolean" },
+      "pieceCount": { "type": "integer", "minimum": 0 }
+    }
+  },
+  "note": "Sirve snapshot import-once; sin OASIS en runtime."
+}

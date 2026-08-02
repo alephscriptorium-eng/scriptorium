@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/universe.schema.json",
+  "title": "HmUniverse",
+  "description": "Universo determinista instanciado desde un grafo de futuros",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "universeId",
+    "graphDigest",
+    "runnerUnitId",
+    "state",
+    "simulacro"
+  ],
+  "properties": {
+    "universeId": { "type": "string" },
+    "graphDigest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "runnerUnitId": { "type": "string" },
+    "state": {
+      "enum": ["instantiated", "running", "completed", "failed"]
+    },
+    "simulacro": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mock"],
+      "properties": {
+        "mock": { "const": true },
+        "seed": { "type": "string" }
+      }
+    },
+    "lineaRefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["uri", "lineaKitSchema"],
+        "properties": {
+          "uri": { "type": "string", "pattern": "^linea://" },
+          "lineaKitSchema": { "type": "string" }
+        }
+      }
+    },
+    "eventsEmitted": { "type": "integer", "minimum": 0 }
+  }
+}

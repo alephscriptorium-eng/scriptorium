@@ -1,0 +1,266 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "as": "https://www.w3.org/ns/activitystreams#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "hm": "urn:scriptorium:hm:v1:",
+    "lore": "urn:scriptorium:lore:v1:",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "id": "@id",
+    "type": "@type",
+    "verb": { "@id": "hm:verb", "@type": "xsd:string" },
+    "activityType": { "@id": "hm:activityType", "@type": "@id" },
+    "family": { "@id": "hm:family", "@type": "xsd:string" },
+    "coined": { "@id": "hm:coined", "@type": "xsd:boolean" },
+    "coinReason": { "@id": "hm:coinReason", "@type": "xsd:string" },
+    "aliases": { "@id": "hm:aliases", "@container": "@set" },
+    "resolvesTo": { "@id": "hm:resolvesTo", "@type": "xsd:string" },
+    "verbs": { "@id": "hm:verbs", "@container": "@set", "@type": "@id" },
+    "tuiAliases": { "@id": "hm:tuiAliases", "@container": "@set", "@type": "@id" }
+  },
+  "@id": "urn:scriptorium:hm:ontology:v1",
+  "@type": "hm:Ontology",
+  "dcterms:title": "H/M playground ceremony language v1",
+  "dcterms:description": "Typed activity ontology for the prueba-de-H-M playground simulacro. Future Machine does NOT run in v1; verbs describe ceremony envelopes and evidence, not live FM processes (spike 112).",
+  "dcterms:created": "2026-08-02",
+  "hm:verbs": [
+  {
+    "@id": "hm:verb/peer.join",
+    "verb": "peer.join",
+    "family": "base",
+    "activityType": "as:Join",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/peer.announce",
+    "verb": "peer.announce",
+    "family": "base",
+    "activityType": "as:Announce",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/state.inspect",
+    "verb": "state.inspect",
+    "family": "base",
+    "activityType": "as:View",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/session.exit",
+    "verb": "session.exit",
+    "family": "base",
+    "activityType": "as:Leave",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/pod.lease",
+    "verb": "pod.lease",
+    "family": "pods",
+    "activityType": "hm:PodLease",
+    "coined": true,
+    "coinReason": "No AS2/PROV-O term for bilateral pod lease in the playground simulacro."
+  },
+  {
+    "@id": "hm:verb/pod.revoke",
+    "verb": "pod.revoke",
+    "family": "pods",
+    "activityType": "hm:PodRevoke",
+    "coined": true,
+    "coinReason": "No W3C term for lease revocation scoped to file-backed playground pods."
+  },
+  {
+    "@id": "hm:verb/unit.inflate",
+    "verb": "unit.inflate",
+    "family": "pods",
+    "activityType": "hm:UnitInflate",
+    "coined": true,
+    "coinReason": "Bilateral inflation ceremony (M requests, H validates) is playground-specific."
+  },
+  {
+    "@id": "hm:verb/unit.start",
+    "verb": "unit.start",
+    "family": "pods",
+    "activityType": "hm:UnitStart",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Start activity; unit lifecycle start is playground tipestate."
+  },
+  {
+    "@id": "hm:verb/unit.pause",
+    "verb": "unit.pause",
+    "family": "pods",
+    "activityType": "hm:UnitPause",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Pause activity for unit tipestate."
+  },
+  {
+    "@id": "hm:verb/unit.resume",
+    "verb": "unit.resume",
+    "family": "pods",
+    "activityType": "hm:UnitResume",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Resume activity for unit tipestate."
+  },
+  {
+    "@id": "hm:verb/unit.stop",
+    "verb": "unit.stop",
+    "family": "pods",
+    "activityType": "hm:UnitStop",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Stop activity for unit tipestate; Leave/Delete are not equivalent."
+  },
+  {
+    "@id": "hm:verb/unit.debug",
+    "verb": "unit.debug",
+    "family": "pods",
+    "activityType": "hm:UnitDebug",
+    "coined": true,
+    "coinReason": "AS2 has no debug activity for unit diagnostics in the simulacro."
+  },
+  {
+    "@id": "hm:verb/machine.deploy",
+    "verb": "machine.deploy",
+    "family": "pods",
+    "activityType": "hm:MachineDeploy",
+    "coined": true,
+    "coinReason": "Deployment of a machine manifest in the playground; not a live FM deploy."
+  },
+  {
+    "@id": "hm:verb/source.ingest",
+    "verb": "source.ingest",
+    "family": "lore",
+    "activityType": "prov:Usage",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/document.analyze",
+    "verb": "document.analyze",
+    "family": "lore",
+    "activityType": "lore:DocumentAnalyze",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Analyze; as:Read is weaker than Bartleby five-section analysis."
+  },
+  {
+    "@id": "hm:verb/vector.mock-index",
+    "verb": "vector.mock-index",
+    "family": "lore",
+    "activityType": "lore:VectorMockIndex",
+    "coined": true,
+    "coinReason": "Mock vector index with mock=true; no W3C term for deterministic mock embeddings."
+  },
+  {
+    "@id": "hm:verb/line.materialize",
+    "verb": "line.materialize",
+    "family": "lore",
+    "activityType": "lore:LineMaterialize",
+    "coined": true,
+    "coinReason": "Materialization via @zeus/linea-kit; domain-specific to LORE barrio."
+  },
+  {
+    "@id": "hm:verb/graph.bifurcate",
+    "verb": "graph.bifurcate",
+    "family": "lore",
+    "activityType": "lore:GraphBifurcate",
+    "coined": true,
+    "coinReason": "Graph bifurcation into parallel universes; no W3C equivalent."
+  },
+  {
+    "@id": "hm:verb/universe.instantiate",
+    "verb": "universe.instantiate",
+    "family": "lore",
+    "activityType": "lore:UniverseInstantiate",
+    "coined": true,
+    "coinReason": "Instantiation of a LORE universe runner in the simulacro."
+  },
+  {
+    "@id": "hm:verb/corto.emit",
+    "verb": "corto.emit",
+    "family": "lore",
+    "activityType": "lore:CortoEmit",
+    "coined": true,
+    "coinReason": "hm:CortoDeEjecucion chunk emission; not literary corto nor AS2."
+  },
+  {
+    "@id": "hm:verb/machine.status",
+    "verb": "machine.status",
+    "family": "diagnostico",
+    "activityType": "as:View",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/unit.inspect",
+    "verb": "unit.inspect",
+    "family": "diagnostico",
+    "activityType": "hm:UnitInspect",
+    "coined": true,
+    "coinReason": "Deep unit inspection beyond as:View scope for playground pods."
+  },
+  {
+    "@id": "hm:verb/artifact.data",
+    "verb": "artifact.data",
+    "family": "diagnostico",
+    "activityType": "dcterms:Dataset",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/artifact.spec",
+    "verb": "artifact.spec",
+    "family": "diagnostico",
+    "activityType": "dcterms:BibliographicResource",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/pipeline.gaps",
+    "verb": "pipeline.gaps",
+    "family": "diagnostico",
+    "activityType": "hm:PipelineGapAnalysis",
+    "coined": true,
+    "coinReason": "Pipeline readiness gap analysis; playground ceremony-specific."
+  },
+  {
+    "@id": "hm:verb/artifact.validate",
+    "verb": "artifact.validate",
+    "family": "diagnostico",
+    "activityType": "hm:ArtifactValidation",
+    "coined": true,
+    "coinReason": "Schema/contract validation of artifact chains in evidence."
+  },
+  {
+    "@id": "hm:verb/provenance.trace",
+    "verb": "provenance.trace",
+    "family": "diagnostico",
+    "activityType": "prov:Activity",
+    "coined": false
+  },
+  {
+    "@id": "hm:verb/coverage.measure",
+    "verb": "coverage.measure",
+    "family": "diagnostico",
+    "activityType": "hm:CoverageMeasure",
+    "coined": true,
+    "coinReason": "Ceremony coverage measurement over verb matrix; no DCMI term."
+  },
+  {
+    "@id": "hm:verb/corto.query",
+    "verb": "corto.query",
+    "family": "diagnostico",
+    "activityType": "lore:CortoQuery",
+    "coined": true,
+    "coinReason": "Query over hm:CortoDeEjecucion chunks; LORE-specific."
+  }
+  ],
+  "hm:tuiAliases": [
+  { "@id": "hm:alias/boot", "aliases": ["boot"], "resolvesTo": "peer.join" },
+  { "@id": "hm:alias/status", "aliases": ["status"], "resolvesTo": "machine.status" },
+  { "@id": "hm:alias/loadMOCK", "aliases": ["loadMOCK"], "resolvesTo": "vector.mock-index" },
+  { "@id": "hm:alias/run", "aliases": ["run"], "resolvesTo": "unit.start" },
+  { "@id": "hm:alias/inspect", "aliases": ["inspect"], "resolvesTo": "unit.inspect" },
+  { "@id": "hm:alias/data", "aliases": ["data"], "resolvesTo": "artifact.data" },
+  { "@id": "hm:alias/spec", "aliases": ["spec"], "resolvesTo": "artifact.spec" },
+  { "@id": "hm:alias/gaps", "aliases": ["gaps"], "resolvesTo": "pipeline.gaps" },
+  { "@id": "hm:alias/validate", "aliases": ["validate"], "resolvesTo": "artifact.validate" },
+  { "@id": "hm:alias/trace", "aliases": ["trace"], "resolvesTo": "provenance.trace" },
+  { "@id": "hm:alias/coverage", "aliases": ["coverage"], "resolvesTo": "coverage.measure" },
+  { "@id": "hm:alias/exit", "aliases": ["exit"], "resolvesTo": "session.exit" }
+  ]
+}

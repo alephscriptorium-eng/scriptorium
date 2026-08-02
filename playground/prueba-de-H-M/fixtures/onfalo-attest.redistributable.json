@@ -1,0 +1,11 @@
+{
+  "redistributable": true,
+  "scope": "playground-fixture",
+  "logicalRepo": "onfalo-asesor-sdk",
+  "logicalPath": "PROYECTOS/BARTLEBY/corpus/editoriales",
+  "allowedSha256": [
+    "a186993d4420792d94a261ed68a801793af033a5fe32f0b00be224c780c9796a",
+    "86f3cb6deb8d01cef4546a81fc650fff0913291aeb7ad3dfa504d9a7c02186f0"
+  ],
+  "note": "Attest WP-HUB-104: dos editoriales medidas como fixture playground LORE-HM. No implica redistribución del corpus OASIS completo."
+}

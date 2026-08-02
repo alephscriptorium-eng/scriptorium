@@ -1,0 +1,27 @@
+{
+  "unitId": "vector-mock",
+  "displayName": "VectorMock",
+  "type": "machine",
+  "condition": "bootstrap",
+  "mock": true,
+  "inputs": [
+    { "name": "analysis", "mediaType": "application/json" }
+  ],
+  "outputs": [
+    { "name": "embeddings", "mediaType": "application/json" },
+    { "name": "neighbors", "mediaType": "application/json" }
+  ],
+  "dependencies": ["bartleby"],
+  "verbs": ["vector.mock-index", "machine.status"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["mock", "algorithm", "seed"],
+    "properties": {
+      "mock": { "const": true },
+      "algorithm": { "type": "string" },
+      "seed": { "type": "string" }
+    }
+  },
+  "note": "VectorMachine determinista; mock=true obligatorio."
+}

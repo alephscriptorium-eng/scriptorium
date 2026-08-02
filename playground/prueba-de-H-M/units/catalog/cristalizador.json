@@ -1,0 +1,23 @@
+{
+  "unitId": "cristalizador",
+  "displayName": "Cristalizador",
+  "type": "agent",
+  "condition": "bootstrap",
+  "inputs": [
+    { "name": "machine-intent", "mediaType": "application/json" }
+  ],
+  "outputs": [
+    { "name": "machine-manifest", "mediaType": "application/json" }
+  ],
+  "dependencies": [],
+  "verbs": ["machine.deploy", "machine.status", "unit.inflate"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["capabilitiesDeclared"],
+    "properties": {
+      "capabilitiesDeclared": { "type": "boolean" }
+    }
+  },
+  "note": "Inspecciona capacidades y emite machine manifest simulado."
+}

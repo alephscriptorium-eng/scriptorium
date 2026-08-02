@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/unit.schema.json",
+  "title": "HmUnit",
+  "description": "Unidad estática del kit LORE-HM",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "unitId",
+    "displayName",
+    "type",
+    "condition",
+    "inputs",
+    "outputs",
+    "dependencies",
+    "verbs",
+    "stateSchema"
+  ],
+  "properties": {
+    "unitId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "displayName": { "type": "string", "minLength": 1 },
+    "type": { "enum": ["agent", "machine"] },
+    "condition": { "enum": ["bootstrap", "deployed", "dynamic"] },
+    "mock": {
+      "type": "boolean",
+      "description": "Required true for vector-mock and playground simulacra"
+    },
+    "inputs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ioPort" }
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ioPort" }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "verbs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "stateSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["$schema", "type"],
+      "properties": {
+        "$schema": { "type": "string" },
+        "type": { "const": "object" },
+        "required": { "type": "array", "items": { "type": "string" } },
+        "properties": { "type": "object" }
+      }
+    },
+    "note": { "type": "string" }
+  },
+  "$defs": {
+    "ioPort": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "mediaType"],
+      "properties": {
+        "name": { "type": "string" },
+        "mediaType": { "type": "string" },
+        "optional": { "type": "boolean" }
+      }
+    }
+  }
+}

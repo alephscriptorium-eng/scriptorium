@@ -1,0 +1,68 @@
+# CI LORE-HM (WP-HUB-113) — gates que BLOQUEAN.
+# Hasta este flujo, hub solo tenía docs.yml (sin pruebas).
+# Cero continue-on-error funcionales; guarda anti-regreso en el job.
+name: CI LORE-HM
+
+on:
+  push:
+    branches:
+      - main
+      - 'wp/**'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-lore-hm-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    name: lore-hm gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Registro vocabulario L04 canónico (fail-closed si falta/se mueve).
+      - name: Checkout s-sdk vocab (L04 canónico)
+        uses: actions/checkout@v4
+        with:
+          repository: alephscriptorium-eng/S_SDK
+          ref: wp/sdk-l05-sellado-de-network-engine
+          path: _s-sdk-vocab
+          sparse-checkout: |
+            NETWORK-ENGINE/LANGUAGES/lore-hm/vocab
+          sparse-checkout-cone-mode: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install (npm ci)
+        run: npm ci
+
+      # Guarda anti-regreso (patrón V93). Comentarios con la frase no disparan.
+      # LÍMITE DECLARADO: si este mismo paso se marca continue-on-error, no tumba
+      # el job; convierte regresión silenciosa en diff visible, no imposible.
+      - name: Guarda · ningún paso blando (continue-on-error)
+        run: bash playground/prueba-de-H-M/ci/guarda-continue-on-error.sh
+
+      # Preflight canónico en CI (no solo local). Raíz = checkout del runner.
+      - name: Preflight identidad-raíz
+        env:
+          WORLD_ROOT: ${{ github.workspace }}
+          CANONICAL_WORLD_ROOT: ${{ github.workspace }}
+          READ_ONLY_ROOTS: '[]'
+          DOWNSTREAM_PATTERNS: '[]'
+        run: node node_modules/@alephscript/skills-scriptorium/skills/vigilancia/scripts/verificar-identidad-raiz.mjs
+
+      - name: skills:ceguera
+        run: npm run skills:ceguera
+
+      - name: verificar-evidencia (WP-HUB-107)
+        run: node playground/prueba-de-H-M/ci/test-107-verificador.mjs
+
+      - name: Suite playground LORE-HM
+        env:
+          LORE_HM_VOCAB_REGISTRY: ${{ github.workspace }}/_s-sdk-vocab/NETWORK-ENGINE/LANGUAGES/lore-hm/vocab/registro.json
+        run: npm run test:lore-hm

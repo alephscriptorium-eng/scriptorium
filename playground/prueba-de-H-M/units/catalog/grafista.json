@@ -1,0 +1,22 @@
+{
+  "unitId": "grafista",
+  "displayName": "Grafista",
+  "type": "agent",
+  "condition": "dynamic",
+  "inputs": [
+    { "name": "linea-manifests", "mediaType": "application/json" }
+  ],
+  "outputs": [
+    { "name": "futures-graph", "mediaType": "application/json" }
+  ],
+  "dependencies": ["pipeline", "vector-mock"],
+  "verbs": ["graph.bifurcate", "line.materialize"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["nodeCount"],
+    "properties": {
+      "nodeCount": { "type": "integer", "minimum": 1 }
+    }
+  }
+}

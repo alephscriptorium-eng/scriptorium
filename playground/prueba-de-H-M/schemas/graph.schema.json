@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/graph.schema.json",
+  "title": "HmFuturesGraph",
+  "description": "Grafo de futuros enlazando líneas linea:// y referencias vectoriales",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["graphId", "digest", "nodes", "edges"],
+  "properties": {
+    "graphId": { "type": "string" },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/node" }
+    },
+    "edges": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/edge" }
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodeId", "ref"],
+      "properties": {
+        "nodeId": { "type": "string" },
+        "ref": {
+          "type": "string",
+          "pattern": "^(linea://|urn:)[^\\s]+$"
+        },
+        "lineaKitSchema": {
+          "type": "string",
+          "description": "When ref is linea://, associated manifest validates via @zeus/linea-kit"
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "relation"],
+      "properties": {
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "relation": { "enum": ["bifurcates", "references", "derives"] }
+      }
+    }
+  }
+}

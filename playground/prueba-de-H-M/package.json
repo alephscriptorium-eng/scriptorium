@@ -1,0 +1,32 @@
+{
+  "name": "@scriptorium/prueba-hm-kit",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Kit LORE-HM playground — WP-HUB-100…109 (GHM + mapa + despertar)",
+  "type": "module",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@zeus/linea-kit": "0.3.0",
+    "ajv": "^8.17.1"
+  },
+  "scripts": {
+    "test:schemas": "node ci/test-100-schemas.mjs",
+    "test:generador": "node ci/test-102-generador.mjs",
+    "generate": "node scripts/generar.mjs",
+    "test:podstore": "node ci/test-103-podstore.mjs",
+    "import:onfalo": "node scripts/importar-onfalo.mjs",
+    "test:onfalo": "node ci/test-104-onfalo.mjs",
+    "test:cadena": "node ci/test-105-cadena.mjs",
+    "ceremonia": "node scripts/ceremonia.mjs",
+    "test:ceremonia": "node ci/test-106-ceremonia.mjs",
+    "verificar-evidencia": "node scripts/verificar-evidencia.mjs",
+    "test:verificador": "node ci/test-107-verificador.mjs",
+    "generar-mapa": "node scripts/generar-mapa.mjs",
+    "test:mapa": "node ci/test-108-mapa.mjs",
+    "despertar": "node scripts/despertar.mjs",
+    "test:despierta": "node ci/test-109-despierta.mjs"
+  },
+  "comments": {
+    "linea-kit": "U245: consume public package surface @zeus/linea-kit (+ ./schemas/* exports); no local schema copies. JSON schema imports use package exports (explicit), not vendored duplicates."
+  }
+}

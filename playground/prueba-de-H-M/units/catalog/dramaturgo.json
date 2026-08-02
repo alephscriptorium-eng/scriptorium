@@ -1,0 +1,22 @@
+{
+  "unitId": "dramaturgo",
+  "displayName": "Dramaturgo",
+  "type": "agent",
+  "condition": "dynamic",
+  "inputs": [
+    { "name": "universe-events", "mediaType": "application/json" }
+  ],
+  "outputs": [
+    { "name": "corto", "mediaType": "application/json" }
+  ],
+  "dependencies": ["demiurgo"],
+  "verbs": ["corto.emit", "corto.query"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["cortosEmitted"],
+    "properties": {
+      "cortosEmitted": { "type": "integer", "minimum": 0 }
+    }
+  }
+}

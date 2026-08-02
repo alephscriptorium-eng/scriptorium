@@ -1,0 +1,54 @@
+{
+  "$id": "urn:scriptorium:vocab-registry:stub:v1",
+  "_deprecated": true,
+  "_comment": "DEPRECATED — no es fuente de verdad. El gate test-101 resuelve el registro canónico L04 vía LORE_HM_VOCAB_REGISTRY o sibling s-sdk (CONSUMO-HUB-101.md). Conservado solo como fósil/documentación.",
+  "_productionRegistry": "NETWORK-ENGINE/LANGUAGES/lore-hm/vocab/registro.json",
+  "_expectedFuturePath": "RESOLVE via LORE_HM_VOCAB_REGISTRY — never copy as source of truth",
+  "w3cEquivalents": {
+    "peer.join": {
+      "term": "as:Join",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "peer.announce": {
+      "term": "as:Announce",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "state.inspect": {
+      "term": "as:View",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "session.exit": {
+      "term": "as:Leave",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "source.ingest": {
+      "term": "prov:Usage",
+      "namespace": "http://www.w3.org/ns/prov#",
+      "family": "PROV-O"
+    },
+    "machine.status": {
+      "term": "as:View",
+      "namespace": "https://www.w3.org/ns/activitystreams#",
+      "family": "AS2"
+    },
+    "artifact.data": {
+      "term": "dcterms:Dataset",
+      "namespace": "http://purl.org/dc/terms/",
+      "family": "DCTERMS"
+    },
+    "artifact.spec": {
+      "term": "dcterms:BibliographicResource",
+      "namespace": "http://purl.org/dc/terms/",
+      "family": "DCTERMS"
+    },
+    "provenance.trace": {
+      "term": "prov:Activity",
+      "namespace": "http://www.w3.org/ns/prov#",
+      "family": "PROV-O"
+    }
+  }
+}

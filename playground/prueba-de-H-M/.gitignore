@@ -1,0 +1,5 @@
+# Corridas regenerables del generador (WP-HUB-102) — fuera de git
+.runs/
+# Censo runtime derivado (WP-HUB-109) — regenerable vía scripts/despertar.mjs
+ciudad/censo-runtime/
+node_modules/

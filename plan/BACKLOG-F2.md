@@ -8,6 +8,8 @@
 | Método | `swarm-orquestacion` · un WP/brief/rama/worktree |
 | Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **392 WPs totales** en el Scriptorium (V 71 · O 75 · Z 67 · G 54 · L 73 · HUB 52) |
 | ✎ 2026-08-02 | **HUB 52 → 64**: lane **LORE-HM** (`WP-HUB-100`–`111`), promoción de la cola A del intake por orden del product owner. Las cifras de los demás mundos son **las de la edición F2-unificada, no las de hoy** — no se re-miden aquí para no sembrar un número nuevo sin medirlo (V y Z ya divergen). |
+| ✎ 2026-08-02 | **LORE-HM ola 0**: `WP-HUB-112` ✅ (`wp/hub-112-hm-spike-viabilidad`, verde **local**, PASS_CON_ADDENDA) · `WP-HUB-113` ✅ CI LORE-HM (`ci-lore-hm.yml`) · run-ids gh verde `30726224409` / rojo plantado `30726279433` · rama `wp/hub-113-hm-ci-que-verifica` · **PASS_CON_ADDENDA** (CA hub medible; no «bloquea merge»; s-sdk verde local / follow-up) · `ci/CONTRARREVISION-WP-HUB-113.md` · **no merge main**. |
+| ✎ 2026-08-02 | **Hotfix LORE-HM CI**: tip `wp/lore-hm-accum` `2c4abea` estaba **CI rojo medido** (run `30734537647`) — `test-100-schemas` exigía `length===11` con 14 schemas legítimos post-109. Arreglo: guardian por **presencia de los once nombrados** (no cardinalidad). Tras `176439b`, schemas+sellos PASS en CI (`30741057136`); quedó rojo por `test-104` exigiendo OASIS `C:/Users/...` en runner. Follow-ups CI-safe: source-root Onfalo desde fixture; gate mapa sin cantera S (`--gate` excerpt). **NO-GO merge** hasta custodio. Run-id gh **VERDE** tip `ad36a27`: `30741139873`. |
 | ✎ 2026-08-02 | **LORE-HM ola 1 ✅**: `100`·`101` aceptados (PASS_CON_ADDENDA; sin merge main). |
 | ✎ 2026-08-02 | **LORE-HM ola 1 GO**: `WP-HUB-100` 🔶 · `WP-HUB-101` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-100` / `-101`, base tip `wp/hub-113-hm-ci-que-verifica`) · herencia spike 112 **NO CORRE** FM viva → kit/ceremonia = **simulacro playground**; 112/113 ✅ en ramas, **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 2 GO**: `WP-HUB-102` 🔶 · `WP-HUB-103` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-102` / `-103`, base tip `wp/hub-100-hm-escenario-y-schemas`=`ddb4d8b`) · herencia 112 simulacro; U245 sin fingir. |
@@ -401,8 +403,11 @@ nunca dueño del dominio.
 `GD`) · lengua y notaría `WP-SDK-L01`–`L05` en `s-sdk` · provider real de
 Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 
-### WP-HUB-112 · hm-spike-viabilidad
-> **PRIMERA DE LA LANE. Nada más se despacha hasta su veredicto.**
+### WP-HUB-112 · hm-spike-viabilidad · ✅
+> Aceptado en rama `wp/hub-112-hm-spike-viabilidad` (commit `03a0511`) · verde
+> **local** · contrarrevisión **PASS_CON_ADDENDA** · veredicto **NO CORRE**
+> cadena B→C→P · reporte+addenda en esa rama bajo `playground/prueba-de-H-M/spike/`.
+> **No merge a main** sin gate (`113`).
 - **BRIEF:** antes de construir el kit, contestar **con medida** la pregunta
   que abrió esta rama: **¿pueden H y M operar procesos reales con material de
   Onfalo en la Future Machine, hoy?** Spike acotado, **read-only sobre OASIS**:
@@ -424,7 +429,16 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   o cambia de forma.
 - **Pri:** **P0 · BLOQUEA la lane entera**
 
-### WP-HUB-113 · hm-ci-que-verifica
+### WP-HUB-113 · hm-ci-que-verifica · ✅
+> Aceptado con evidencia `gh` · **PASS_CON_ADDENDA** · rama
+> `wp/hub-113-hm-ci-que-verifica` · worktree `C:/S_LAB/wt/scriptorium-wp-hub-113`
+> · workflow `.github/workflows/ci-lore-hm.yml` · reporte
+> `playground/prueba-de-H-M/ci/REPORTE-WP-HUB-113.md` · contrarrevisión
+> `playground/prueba-de-H-M/ci/CONTRARREVISION-WP-HUB-113.md` · run-id verde
+> **30726224409** · run-id rojo plantado **30726279433** · CA hub medible OK
+> (rojo tumba job; preflight+ceguera en CI; sin continue-on-error) · **no**
+> afirma bloquea merge (sin branch protection) · s-sdk sin espejo (verde local
+> / follow-up). **No merge a main**.
 - **BRIEF:** hoy `C:\S\scriptorium` y `C:\S_LAB\s-sdk` tienen **un único flujo,
   `docs.yml`**: ni una prueba, ni un gate, nada que bloquee. Montar CI que
   ejecute la suite del playground y los gates de la lane **y que bloquee**.

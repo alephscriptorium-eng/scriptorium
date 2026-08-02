@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/artifact-chain.schema.json",
+  "title": "HmArtifactChain",
+  "description": "Cadena causal de artefactos Onfalo → derivados; líneas validadas con @zeus/linea-kit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chainId", "runId", "links"],
+  "properties": {
+    "chainId": { "type": "string" },
+    "runId": { "type": "string" },
+    "links": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/link" }
+    }
+  },
+  "$defs": {
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["order", "artifactId", "kind", "hash"],
+      "properties": {
+        "order": { "type": "integer", "minimum": 1 },
+        "artifactId": { "type": "string" },
+        "kind": {
+          "enum": ["onfalo-raw", "analysis", "vector-mock", "linea", "graph", "universe", "corto"]
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "producedBy": { "type": "string" },
+        "upstream": { "type": "array", "items": { "type": "string" } },
+        "lineaKit": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "When kind=linea, payload MUST validate against the referenced @zeus/linea-kit schema",
+          "required": ["schemaId", "payload"],
+          "properties": {
+            "schemaId": {
+              "type": "string",
+              "enum": [
+                "manifest-tronco",
+                "manifest-satelite",
+                "nodo-meta",
+                "registro",
+                "lineas-registry",
+                "nodo-sections",
+                "nodos-document"
+              ]
+            },
+            "payload": { "type": "object" }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "linea" } } },
+          "then": { "required": ["lineaKit"] }
+        }
+      ]
+    }
+  }
+}

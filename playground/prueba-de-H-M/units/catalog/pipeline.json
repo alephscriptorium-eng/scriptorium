@@ -1,0 +1,25 @@
+{
+  "unitId": "pipeline",
+  "displayName": "Pipeline",
+  "type": "machine",
+  "condition": "bootstrap",
+  "inputs": [
+    { "name": "analysis", "mediaType": "application/json" },
+    { "name": "vector-mock", "mediaType": "application/json" }
+  ],
+  "outputs": [
+    { "name": "linea-onfalo", "mediaType": "application/json" },
+    { "name": "linea-futuros", "mediaType": "application/json" }
+  ],
+  "dependencies": ["bartleby", "vector-mock", "cristalizador"],
+  "verbs": ["line.materialize", "pipeline.gaps", "machine.deploy"],
+  "stateSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["linesReady"],
+    "properties": {
+      "linesReady": { "type": "integer", "minimum": 0 }
+    }
+  },
+  "note": "Orquesta handoffs locales; líneas validadas con @zeus/linea-kit."
+}

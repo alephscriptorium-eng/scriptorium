@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scriptorium.local/hm/schemas/corto.schema.json",
+  "title": "HmCortoDeEjecucion",
+  "description": "Chunk inmutable del log de un universe-runner (no equivalente al corto literario histórico)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cortoId",
+    "universeId",
+    "graphDigest",
+    "interval",
+    "events",
+    "digest"
+  ],
+  "properties": {
+    "cortoId": { "type": "string" },
+    "universeId": { "type": "string" },
+    "graphDigest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "lineaRefs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^linea://" }
+    },
+    "vectorRefs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "onfaloTrace": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "URNs traceables al raw Onfalo import-once"
+    }
+  }
+}

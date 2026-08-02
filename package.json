@@ -12,6 +12,8 @@
   "scripts": {
     "skills:sync": "alephscript-skills-sync --runtime claude",
     "skills:ceguera": "bash node_modules/@alephscript/skills-scriptorium/skills/swarm-orquestacion/scripts/comprobar-ceguera.sh",
+    "ci:identidad": "node node_modules/@alephscript/skills-scriptorium/skills/vigilancia/scripts/verificar-identidad-raiz.mjs",
+    "test:lore-hm": "node playground/prueba-de-H-M/ci/suite.mjs",
     "docs:dev": "node ./node_modules/vitepress/bin/vitepress.js dev docs",
     "docs:build": "node ./node_modules/vitepress/bin/vitepress.js build docs",
     "docs:verificar": "node ./node_modules/@alephscript/skills-scriptorium/skills/site-web/scripts/verificar-sitio.mjs --dist docs/.vitepress/dist --base /"
