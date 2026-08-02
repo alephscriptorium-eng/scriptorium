@@ -1,0 +1,39 @@
+{
+  "sourceBarrioId": "novelist-editor",
+  "sourceDistrito": "runtime-mcp",
+  "aporte": "elenco",
+  "notPipeline": true,
+  "note": "Elenco reducido fixture — NovelistEditor tipa personajes; no orquesta pipeline FM.",
+  "identities": {
+    "H": {
+      "actorId": "anfitrion-h",
+      "characters": [
+        {
+          "characterId": "nov-h-cronista",
+          "name": "Cronista del nodo",
+          "description": "Observa autoridad y campanas; no ejecuta pipeline."
+        },
+        {
+          "characterId": "nov-h-portero",
+          "name": "Portero de peercard",
+          "description": "Valida identidad y leases de personajes."
+        }
+      ]
+    },
+    "M": {
+      "actorId": "maestro-m",
+      "characters": [
+        {
+          "characterId": "nov-m-titiritero",
+          "name": "Titiritero de voces",
+          "description": "Asigna personajes a identidades; no es la unidad pipeline."
+        },
+        {
+          "characterId": "nov-m-narrador",
+          "name": "Narrador de cortos",
+          "description": "Enmarca chunks narrables; elenco ≠ dramaturgo-unidad."
+        }
+      ]
+    }
+  }
+}

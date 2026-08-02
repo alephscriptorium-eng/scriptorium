@@ -16,6 +16,9 @@ Machine viva **NO CORRE** hoy). No toca `prueba-de-dos`.
 | `lib/cadena/` | handlers mock deterministas + orquestación (WP-HUB-105) |
 | `lib/ceremonia/` | ceremonia bilateral 11 pasos + evidence (WP-HUB-106) |
 | `scripts/ceremonia.mjs` | CLI corrida `barrio-lore-v1` |
+| `lib/despertar/` | despertar `lore-voz` + actas + elenco novelist (WP-HUB-109) |
+| `ciudad/` | proyección runtime; hook mapa 108 + `censo-runtime/` derivado |
+| `scripts/despertar.mjs` | CLI proyección censo desde evidencia / `--revert` |
 | `.runs/` | salidas regenerables (gitignored) |
 | `ontology/` | WP-HUB-101 |
 | `reference/` | WP-HUB-101 |
@@ -33,6 +36,11 @@ npm run import:onfalo -- --consume-sealed
 # Ceremonia bilateral (11 pasos → evidence/):
 npm run ceremonia -- --run demo-ceremonia-1 --force-new
 npm run test:ceremonia
+
+# Despertar lore-voz (actas + elenco novelist; estado solo por evidencia):
+npm run despertar -- --evidence .runs/<id>/evidence
+npm run despertar -- --revert
+npm run test:despierta
 ```
 
 **Líneas:** reusan schemas publicados de `@zeus/linea-kit` (v0.3.0). Tipos

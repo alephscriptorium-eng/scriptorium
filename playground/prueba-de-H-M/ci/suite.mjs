@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (113+100+101+102+103+104+105+106+107+108).
+ * Suite mínima LORE-HM (113+100…107+109).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -69,11 +69,17 @@ const required = [
   "scripts/verificar-evidencia.mjs",
   "lib/verificador/verificar.mjs",
   "lib/ceremonia/evidence-pack.mjs",
-  // # WP-HUB-108
-  "ci/test-108-mapa.mjs",
-  "scripts/generar-mapa.mjs",
-  "fixtures/mapa/mapa.json",
-  "fixtures/mapa/source.manifest.json",
+  // # WP-HUB-109
+  "ci/test-109-despierta.mjs",
+  "scripts/despertar.mjs",
+  "lib/despertar/despertar.mjs",
+  "lib/despertar/actas.mjs",
+  "lib/despertar/elenco.mjs",
+  "lib/despertar/projection-hook.mjs",
+  "fixtures/censo-excerpt-lore-voz.md",
+  "fixtures/censo-excerpt-novelist-editor.md",
+  "fixtures/novelist-elenco.json",
+  "ciudad/README.md",
 ];
 
 for (const rel of required) {
@@ -160,14 +166,14 @@ const run107 = spawnSync(process.execPath, [test107], {
 });
 if (run107.status !== 0) fail("test-107-verificador.mjs falló");
 
-// # WP-HUB-108 · mapa holones×distritos×barrios
-const test108 = path.join(here, "test-108-mapa.mjs");
-const run108 = spawnSync(process.execPath, [test108], {
+// # WP-HUB-109 · despertar lore-voz + actas + elenco
+const test109 = path.join(here, "test-109-despierta.mjs");
+const run109 = spawnSync(process.execPath, [test109], {
   cwd: root,
   stdio: "inherit",
   env: { ...process.env },
 });
-if (run108.status !== 0) fail("test-108-mapa.mjs falló");
+if (run109.status !== 0) fail("test-109-despierta.mjs falló");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);
