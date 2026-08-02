@@ -1,0 +1,5 @@
+# Sellos LORE-HM: bytes exactos del manifest (CRLF medido en SOURCE-ROOT / sellado).
+# Sin -text, core.autocrlf/LF en runner rompe sha256 de piezas.
+playground/prueba-de-H-M/fixtures/onfalo/pieces/** -text
+playground/prueba-de-H-M/fixtures/mapa/excerpts/** -text
+playground/prueba-de-H-M/fixtures/mapa/mapa.json -text

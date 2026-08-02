@@ -370,7 +370,7 @@ function grepZeroOwnLineSchemas() {
     }
   }
   // Extras de WPs posteriores (p.ej. 109: acta-unidad, censo-runtime, elenco)
-  // son dominio HM; solo se veta copia de linea-kit.
+  // son dominio HM; el guardian exige presencia de los once nombrados, no cardinalidad.
 
   ok(`cero archivos linea-kit copiados (${domainOnly.length} schemas dominio; base=${DOMAIN_SCHEMAS.length})`);
 }
