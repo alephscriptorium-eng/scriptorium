@@ -221,6 +221,7 @@ exit=1
 test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
 test-110-negativos: FAIL — negativo «corpus ausente» — provocador «corpus ausente» no probó nada: el sistema falló, pero no por el corpus que quité: code=undefined path=undefined msg=linea-kit rechazó linea:barrio-lore-onfalo (manifest-tronco): [{"instancePath":"/nodos","schemaPath":"#/properties/nodos/minItems","keyword":"minItems","params":{"limit":1},"message":"must NOT have fewer than 1 items"}]
 test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: corpus ausente
+test-110-negativos: FAIL (2)
 == restaurado: intacto=True
 
 == G2-hash :: DESACTIVADO lib/verificador/verificar.mjs
@@ -228,6 +229,7 @@ exit=1
 test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
 test-110-negativos: FAIL — negativo «hash roto» — provocador «hash roto» no probó nada: el verificador se negó por OTRA frontera: esperaba «hash roto», dio «cadena causal diverge» (cadena causal diverge: urn:scriptorium:hm:neg-110-base:step:1:peer.join: causalDigest H≠M (sha256:4881f2f71bbd807a7627ce359fc63f3f0ca0197570b2f229237a841f94a1016e≠sha256:886dc4c3f0ab726909f9dbbfe527aeaa85c7c88d3ac69e2a2d5f22c4380e55df))
 test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: hash roto
+test-110-negativos: FAIL (2)
 == restaurado: intacto=True
 
 == G3-schema :: DESACTIVADO lib/verificador/verificar.mjs
@@ -235,6 +237,7 @@ exit=1
 test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
 test-110-negativos: FAIL — negativo «schema inválido» — provocador «schema inválido» no probó nada: EL SISTEMA NO SE NEGÓ — verificarEvidencia con un campo no declarado en report.json → el sistema siguió adelante y devolvió {"ok":true,"runId":"neg-110-base","checks":["piezas pack presentes","wire + JSON-LD + hashes","cadena causal H/M desde wires","reporte","provenance","cobertura","ACL","tipestate","VectorMock declarado
 test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: schema inválido
+test-110-negativos: FAIL (2)
 == restaurado: intacto=True
 
 == G4-lease :: DESACTIVADO lib/podstore/LocalPodProvider.mjs
@@ -242,6 +245,7 @@ exit=1
 test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
 test-110-negativos: FAIL — negativo «pod sin lease» — provocador «pod sin lease» no probó nada: EL SISTEMA NO SE NEGÓ — recordEvent sobre un pod sin lease → el sistema siguió adelante y devolvió undefined
 test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: pod sin lease
+test-110-negativos: FAIL (2)
 == restaurado: intacto=True
 
 == G4b-authorize :: DESACTIVADO lib/podstore/LocalPodProvider.mjs
@@ -249,6 +253,7 @@ exit=1
 test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
 test-110-negativos: FAIL — negativo «pod sin lease» — provocador «pod sin lease» no probó nada: transition falló, pero no por la política: tipestate: transición ilegal declared → ready
 test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: pod sin lease
+test-110-negativos: FAIL (2)
 == restaurado: intacto=True
 
 == G5-vectormock :: DESACTIVADO lib/verificador/verificar.mjs
@@ -256,6 +261,7 @@ exit=1
 test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
 test-110-negativos: FAIL — negativo «VectorMock no declarado» — provocador «VectorMock no declarado» no probó nada: el verificador se negó por OTRA frontera: esperaba «VectorMock sin declarar», dio «sello del pack roto» (sello del pack roto: digest declarado=sha256:5726766423861eee72d32ccf0019809bf752201f44e6873f50e0e075a667d2fa recomputado=sha256:7ecd2b01ae129a155717930a1a5144b777a2b1de8c46e65d4bb30d3f3fc01c16)
 test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: VectorMock no declarado
+test-110-negativos: FAIL (2)
 == restaurado: intacto=True
 
 == G6-upstream :: DESACTIVADO lib/ceremonia/run-ceremonia.mjs
@@ -264,6 +270,7 @@ test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
 test-110-negativos: FAIL — negativo «upstream ausente» — provocador «upstream ausente» no probó nada: la ceremonia falló por otra cosa: CeremonyError code=unexpected «upstream ausente: machine»
 test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: upstream ausente
 test-110-negativos: FAIL — actas de negativos sin recoger: neg-110-upstream.json
+test-110-negativos: FAIL (3)
 == restaurado: intacto=True
 
 == G7-wipe :: DESACTIVADO lib/ceremonia/run-ceremonia.mjs
@@ -273,6 +280,7 @@ test-110-negativos: FAIL — negativo «upstream ausente» — provocador «upst
 test-110-negativos: FAIL — negativo «runner caído» — provocador «runner caído» no probó nada: EL SISTEMA NO SE NEGÓ — runner caído dejó estado parcial en C:\S_LAB\wt\scriptorium-wp-hub-110\playground\prueba-de-H-M\.runs\neg-110-runner: .podstore,evidence,H,M,manifest.json,room.json
 test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: upstream ausente, runner caído
 test-110-negativos: FAIL — actas de negativos sin recoger: neg-110-runner.json,neg-110-upstream.json
+test-110-negativos: FAIL (4)
 == restaurado: intacto=True
 
 == G8-offline-block :: DESACTIVADO lib/offline/preload.mjs
@@ -360,7 +368,7 @@ Y el cruce es falsable. Devolviendo `run-ceremonia.mjs` al named import:
 exit=1
 test-110-consumidor-limpio: PASS — guardia offline instalada en 7 procesos descendientes
 test-110-consumidor-limpio: FAIL — censo incompleto: 3 de 7 procesos dejaron parte offline
-  y NO están en el censo (pids 31352,38824,628)
+  y NO están en el censo (pids 34076,42724,43080)
 test-110-consumidor-limpio: FAIL (1)
 == restaurado: intacto=True
 ```
@@ -400,28 +408,39 @@ fuera invisible. Con el barrido puesto, el mismo sabotaje:
 
 ```
 exit=1
-PASS — censo cruzado: 7/7 procesos que dejaron parte están censados (censo 10 pids distintos = 7 del test + 3 nietos)
-PASS — 10 pids distintos creados, 0 vivos al cierre, 7 con código de salida recogido
-FAIL — procesos huérfanos VIVOS según el SO: node.exe#41960(padre 40024),
-       node.exe#41956(padre 43036), node.exe#30852(padre 36456)
-FAIL (1)
+test-110-consumidor-limpio: PASS — censo cruzado: 7/7 procesos que dejaron parte están censados
+  (censo 10 pids distintos = 7 del test + 3 nietos)
+test-110-consumidor-limpio: PASS — 10 pids distintos creados, 0 vivos al cierre, 7 con código de salida recogido
+test-110-consumidor-limpio: FAIL — procesos huérfanos VIVOS según el SO: node.exe#39804(padre 14340),
+  node.exe#41952(padre 43368), node.exe#23656(padre 480)
+test-110-consumidor-limpio: FAIL — no se pudo limpiar el checkout temporal: EBUSY EBUSY: resource
+  busy or locked, rmdir '…/Temp/hm-110-consumer-CxL5sM'
+test-110-consumidor-limpio: FAIL (2)
 
-=== PIDS HUERFANOS CREADOS === 41960 41956 30852
-   41960 VIVO · 41956 VIVO · 30852 VIVO
+=== PIDS HUERFANOS CREADOS === 39804 41952 23656
+   39804 VIVO · 41952 VIVO · 23656 VIVO
 ```
 
-Los tres PIDs que denuncia son exactamente los tres creados. Y el rojo lo pone
-**una aserción**: en la primera pasada del revisor el test moría con
-`EBUSY: rmdir` en el `finally` porque el huérfano heredaba el `cwd` — exit 1
-por accidente de limpieza, con `failed = 0` y las dos líneas del censo ya
-impresas en PASS. Que se pusiera rojo no era mérito de nadie.
+Los tres PIDs que denuncia son exactamente los tres creados.
+
+**Esa salida es la de la configuración POR DEFECTO**, sin `KEEP_HM_RUNS`, y con
+el huérfano heredando el `cwd` del checkout — el peor caso. De ahí el `EBUSY`:
+el huérfano tiene agarrado el directorio y `rmSync` no puede borrarlo. La
+entrega anterior pegaba este bloque sin esa línea porque el sabotaje lanzaba el
+huérfano con `cwd` en `%TEMP%` y el choque no ocurría. Se recaptura con el
+vector duro y se muestra entero.
+
+**Y el accidente de limpieza está cerrado, no esquivado.** Antes esa excepción
+se comía la línea `FAIL (n)` y el exit 1 lo ponía el `EBUSY`, no la aserción.
+Ahora la limpieza va en `try/catch` y un fallo de borrado es **un `fail()` más**:
+se imprime `FAIL (2)` —el huérfano y la limpieza— y el código de salida sale de
+las aserciones. Además el `EBUSY` deja de ser ruido: que algo agarre el checkout
+**es** señal de que quedó un proceso vivo.
 
 Corrida limpia: `PASS — barrido del SO: cero procesos vivos colgando de los 11
-pids conocidos`.
+pids conocidos (0 candidatos, 0 descartados por ser anteriores al arranque)`.
 
-**Lo que el barrido NO cierra** está en §8: sólo Windows, sólo hijos directos
-de PIDs conocidos, y los PID se reciclan (se contrasta la fecha de creación
-contra el arranque de la corrida).
+**Lo que el barrido NO cierra** está en §8.
 
 ---
 
@@ -437,6 +456,9 @@ contra el arranque de la corrida).
 | «sin procesos huérfanos» **infalsificable** (`residualProcesses` = unidades cuya transición lanzó; no había procesos de SO) | se instrumenta `child_process.*` —incluidas `execSync` y `execFileSync`, que se capturaban y nunca se envolvían—, se recogen los **PID reales** creados por el test y por sus hijos, se exige que ninguno siga vivo (`process.kill(pid,0)` → `ESRCH`) y con código de salida recogido, **y se CRUZA contra los partes offline**: un PID que dejó parte y no está censado es FAIL. Medido: **censo 10 = 7 del test + 3 nietos, cruce 7/7, 0 vivos**. Ver G9 |
 | el censo corría **antes** de `skills:ceguera`, que se registraba después y no lo miraba nadie | el censo va el **último**, así que ese proceso también entra |
 | el censo **no veía** lo que no pasa por su instrumentación: verde con huérfanos vivos | **barrido del SO** (`barrerHuerfanosDelSO`): procesos vivos colgando de PIDs conocidos, preguntando a Windows. Ver G10 |
+| el descarte por fecha del barrido era **código muerto** (`/Date(ms)/` ⇒ `Invalid Date` ⇒ nunca filtraba) y prometía una cota inexistente | la fecha se pide en ISO, con respaldo para el formato viejo; **verificado en los dos sentidos**; y sin fecha legible el barrido falla en vez de acusar |
+| el barrido se podía **neutralizar sin enrojecer**: un fallo de la consulta salía por `console.log` | fallo del instrumento ⇒ `fail()`; sólo el límite de plataforma se declara sin enrojecer |
+| un `EBUSY` en la limpieza **se comía** la línea `FAIL (n)` y ponía él el exit 1 | la limpieza va en `try/catch` y su fallo es un `fail()` más: el veredicto lo dan las aserciones |
 | `todos.length` contaba **registros, no PIDs distintos** (`cp.exec` deja dos entradas para un proceso) | se cuenta `censoPids.size` |
 | la sonda se autoadjudicaba `status: 0` descartando el real de `spawnSync` | se registra el `status` real |
 | aserción que se saltaba en silencio (`if (existsSync(tipPath))`) | el fichero es **obligatorio**; si falta, FAIL. Y `finals` vacío también es FAIL |
@@ -466,6 +488,7 @@ PASS — npm run skills:ceguera desde la raíz del hub
 PASS — censo cruzado: 7/7 procesos que dejaron parte están censados (censo 10 pids distintos = 7 del test + 3 nietos)
 PASS — 10 pids distintos creados, 0 vivos al cierre, 7 con código de salida recogido
 PASS — barrido del SO: cero procesos vivos colgando de los 11 pids conocidos
+       (0 candidatos, 0 descartados por ser anteriores al arranque)
 ```
 
 ---
@@ -559,8 +582,12 @@ Dicho antes de que lo encuentre nadie.
    clásico de exfiltración por DNS, saliendo sin bloquear ni registrar—. La
    lista a mano **era** el agujero: ahora la superficie se **enumera** en
    tiempo de ejecución sobre `dns`, `dns/promises`, `dns.Resolver.prototype` y
-   `dns.promises.Resolver.prototype`. Medido después: **49 APIs bloquean y
-   registran, 0 escapan**. Sigue sin haber comprobación de red a nivel de SO:
+   `dns.promises.Resolver.prototype` — cuatro superficies distintas, porque
+   `dns.Resolver !== dns.promises.Resolver` (medido). Medido después:
+   **64 APIs bloquean y registran, 0 escapan** (17 + 17 + 15 + 15). La entrega
+   anterior dijo **49**: la sonda no ejercitaba la cuarta superficie, así que
+   declaraba menos cobertura de la real. Una cifra equivocada **a favor** es
+   tan rancia como una en contra. Sigue sin haber comprobación de red a nivel de SO:
    ni sockets del sistema, ni firewall, ni `netstat`.
 6. **El proceso padre del test NO está bajo la guardia.** Los partes son de sus
    descendientes. Lo que el padre haga por red no lo mide nadie; hoy no hace
@@ -575,11 +602,28 @@ Dicho antes de que lo encuentre nadie.
    cuenta a los que responden, y los que no responden son exactamente los que
    no se supo lanzar. Por eso se añadió el barrido del SO, que mira lo que hay
    en vez de lo que el arnés recuerda. **Lo que el barrido sigue sin cubrir**:
-   sólo Windows —en otra plataforma imprime `NO CUBIERTO` y no se calla—; sólo
+   sólo Windows —en otra plataforma imprime `NO CUBIERTO (límite de
+   plataforma)` y no se calla, aunque tampoco enrojece: es un límite declarado,
+   no un fallo. En cambio, si la consulta al SO **se rompe**, eso sí es `fail()`
+   desde esta entrega: antes salía por `console.log` y el barrido se podía
+   neutralizar sin que la suite enrojeciera—; sólo
    ve hijos **directos** de PIDs conocidos, así que un nieto de un proceso
-   invisible queda fuera; y los PID se reciclan, de modo que se descarta por
-   fecha de creación anterior al arranque, lo cual acota el falso positivo pero
-   no lo elimina. El censo, además, sólo ve lo que pasa por el namespace de
+   invisible queda fuera; y los PID se reciclan. Ese descarte por fecha **era
+   código muerto en la entrega anterior**: PowerShell 5.1 serializa
+   `CreationDate` como `/Date(1785…)/`, que `new Date()` lee como
+   `Invalid Date`, así que la comparación daba siempre `false` y **no se
+   descartaba nunca nada**. El reporte prometía una cota que no existía, y el
+   falso positivo era ilimitado: en esta máquina hay **14 procesos vivos con el
+   padre muerto**, todos de hace más de media hora, varios con PID de padre en
+   la misma banda que los que crea esta corrida — o sea, la población entera de
+   candidatos era justo la que el filtro debía excluir. **Una corrida limpia se
+   podía poner roja**, que es peor que el hueco: un guardián con falsos
+   positivos se desactiva solo. Ahora la fecha se pide en ISO a PowerShell, con
+   respaldo que sabe leer `/Date(ms)/`, y el filtro **se verificó en los dos
+   sentidos**: un proceso anterior al arranque queda fuera, uno posterior entra.
+   Y si alguna fila llega sin fecha legible, el barrido **no acusa a nadie**:
+   falla diciendo que no puede fechar, porque sin fecha no se distingue un
+   huérfano de un PID reciclado. El censo, además, sólo ve lo que pasa por el namespace de
    `child_process`: ve los nietos porque se cambió el llamador del kit, no
    porque la instrumentación sepa alcanzarlos.
 8. **Dos de las seis vías visibles por namespace son INCONTABLES por
