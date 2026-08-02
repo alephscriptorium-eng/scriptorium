@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: alephscriptorium-eng/S_SDK
-          ref: wp/sdk-l05-sellado-de-network-engine
+          ref: main
           path: _s-sdk-vocab
           sparse-checkout: |
             NETWORK-ENGINE/LANGUAGES/lore-hm/vocab

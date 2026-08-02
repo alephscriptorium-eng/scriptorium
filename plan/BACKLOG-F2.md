@@ -705,6 +705,14 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 
 ## Lane · HORIZONTE
 
+### WP-HUB-114 · ci-ancla-viva · ✅
+- **BRIEF:** el CI del hub leía el **registro de vocabulario canónico de L04** desde una **rama de trabajo** (`ci-lore-hm.yml` → `ref: wp/sdk-l05-sellado-de-network-engine`), y esa rama sale en `git branch --merged main` de `s-sdk`: **es podable**. Hallado por el Anfitrión del swarm Z·V el 2026-08-02 al auditar el reparto, no por una ficha.
+- **Por qué importa, y falla en las DOS direcciones:** si alguien **poda la rama** —y el protocolo de este programa manda podar la rama fusionada; se podaron tres iguales esa misma tarde— **el CI del hub se cae**, y se cae *fail-closed*, o sea que **parecerá una rotura del producto y no una referencia muerta en un fichero de configuración**. Y al revés, que es peor: si el vocabulario cambia en `s-sdk/main`, **el CI sigue verde leyendo la foto congelada de la rama** — un verde que ya no dice lo que dice.
+- **Estado medido al abrir:** el blob del registro **coincidía** en las dos referencias (`484647c…`), o sea que **no mentía todavía**; pero la rama iba **11 commits por detrás de `main`** y lo único que la mantenía viva era que nadie la había podado.
+- **CA:** el `ref` apunta a una referencia **viva por contrato** · el CI sigue verde con el cambio · la poda de cualquier rama `wp/*` de `s-sdk` **no puede** tumbar el CI del hub.
+- **Pri:** P1
+- **Estado:** ✅ **ACEPTADO 2026-08-02** — `ref: wp/sdk-l05-sellado-de-network-engine` → **`ref: main`**. Verificado antes de tocar: `s-sdk/main` contiene el mismo blob del registro (`484647c…`) e incluye esa rama entera (merge `699856c`), así que **el cambio no altera qué vocabulario se valida, sólo deja de depender de una rama podable**. **Es el patrón del programa una vez más**: un guardián que prometía validar contra «el registro canónico» y leía **una instantánea atada a un tip**.
+
 ### WP-HUB-090 · C6-P2P-segundo-acto
 - **BRIEF:** contrato futuro de descubrimiento, anuncio, pull/push/cursor,
   divergencia y reconciliación por driver.
