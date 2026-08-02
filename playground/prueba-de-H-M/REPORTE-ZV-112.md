@@ -265,6 +265,30 @@ control negativo `find C:/S_LAB/e-sdk/NoExiste -mindepth 1` da `rc=1` con
 `find: … No such file or directory`. El instrumento distingue «vacío» de
 «falló»; `git status` en ese árbol no llegaba ni a intentarlo.
 
+### Segunda confesión, de la 2.ª ronda: `npm` escribe aunque sólo lo consultes
+
+Barrido de frontera al cerrar. Bajo OASIS y bajo los seis `READ_ONLY_ROOTS`:
+**cero ficheros creados o modificados** en mi ventana de trabajo. Pero `npm`
+escribe un log de depuración **por invocación** en su propio caché, y lo poda a
+`logs-max`:
+
+```
+C:\Users\aleph\AppData\Local\npm-cache\_logs\2026-08-02T16_03_49_447Z-debug-0.log
+   verbose argv "--prefix" "…/OASIS/aleph-scriptorium/AgentLoreSDK" "run"
+   verbose cwd  C:\S_LAB\v-sdk        ← invocación mía
+git -C C:/Users/aleph/AppData/Local/npm-cache rev-parse --show-toplevel
+   → fatal: not a git repository
+```
+
+Mis tres `npm` de hoy escribieron ahí. Ese directorio **no es un repositorio,
+no es mi worktree y no es ninguno de los `READ_ONLY_ROOTS`** — es el caché de
+la herramienta—, así que no es la clase de violación de la primera confesión,
+que fue escribir dentro de un árbol auditado. Pero **es una escritura fuera de
+mi worktree causada por una medida mía**, y la regla de este turno no admitía
+ninguna. **No se puede medir `npm` sin producirla:** el log se escribe también
+cuando la orden sale `exit=0`. Se declara en vez de callarse; quien quiera la
+medida de `npm` sin este efecto tendrá que decidir si le vale.
+
 ---
 
 ## 6 · Qué NO cubro
