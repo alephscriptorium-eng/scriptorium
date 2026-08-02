@@ -106,3 +106,24 @@ export const CEREMONY_STEPS = Object.freeze([
 
 export const SIMULACRO_NOTE =
   "Future Machine no corre hoy; ceremonia playground-mock (spike WP-HUB-112).";
+
+/**
+ * Raíz de confianza del shutdown (fuera del pack de evidencia).
+ * El verificador ignora `shutdownDoc.requiredVerbs` autocertificado.
+ */
+export const REQUIRED_SHUTDOWN_VERBS = Object.freeze([
+  "coverage.measure",
+  "provenance.trace",
+  "unit.stop",
+  "pod.revoke",
+  "session.exit",
+]);
+
+/** Campos excluidos del núcleo causal H/M (declaración honesta). */
+export const CAUSAL_STRIPPED_FIELDS = Object.freeze([
+  "actor",
+  "timestamp",
+  "instrument",
+  "context",
+  "digest",
+]);

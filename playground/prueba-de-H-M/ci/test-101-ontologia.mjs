@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * WP-HUB-101 · ontología y verbos H/M.
- * Gate real: falla si acuña existiendo equivalente W3C/DCMI en registro L04 stub.
+ * Gate real: falla si acuña existiendo equivalente W3C/DCMI en registro L04.
+ * Resolución fail-closed del registro canónico (CONSUMO-HUB-101.md).
  */
 import assert from "node:assert/strict";
 import crypto from "node:crypto";
@@ -12,10 +13,13 @@ import { describe, it } from "node:test";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
+const hubRoot = path.resolve(root, "../..");
 const ontologyPath = path.join(root, "ontology", "hm-v1.context.jsonld");
 const ttlPath = path.join(root, "ontology", "hm-v1.ttl");
-const registryPath = path.join(root, "reference", "vocab-registry.stub.json");
+const stubPath = path.join(root, "reference", "vocab-registry.stub.json");
 const verbosPath = path.join(root, "reference", "VERBOS.md");
+const CANONICAL_REL =
+  "NETWORK-ENGINE/LANGUAGES/lore-hm/vocab/registro.json";
 
 const W3C_PREFIXES = ["as:", "prov:", "dcterms:"];
 const COIN_PREFIXES = ["hm:", "lore:"];
@@ -28,12 +32,64 @@ const AS2_ACTIVITY_TYPES = new Set([
   "IntransitiveActivity",
 ]);
 
+/**
+ * Protocolo CONSUMO-HUB-101: env → sibling s-sdk → fail-closed.
+ * Nunca usa el stub local como fuente de verdad.
+ * @param {{ env?: NodeJS.ProcessEnv, hubRoot?: string }} [opts]
+ * @returns {{ path: string, source: string }}
+ */
+export function resolveVocabRegistry(opts = {}) {
+  const env = opts.env ?? process.env;
+  const base = opts.hubRoot ?? hubRoot;
+
+  // Env explícito: fail-closed si falta (no caer al stub ni a siblings).
+  if (env.LORE_HM_VOCAB_REGISTRY) {
+    const p = path.isAbsolute(env.LORE_HM_VOCAB_REGISTRY)
+      ? env.LORE_HM_VOCAB_REGISTRY
+      : path.resolve(base, env.LORE_HM_VOCAB_REGISTRY);
+    if (!fs.existsSync(p)) {
+      throw new Error(
+        `registro vocabulario L04 ausente/movido (fail-closed): env LORE_HM_VOCAB_REGISTRY=${p}`,
+      );
+    }
+    return { path: p, source: "env:LORE_HM_VOCAB_REGISTRY" };
+  }
+
+  const siblings = [
+    path.join(base, "_s-sdk-vocab", ...CANONICAL_REL.split("/")),
+    path.join(base, "..", "s-sdk", ...CANONICAL_REL.split("/")),
+    path.join(base, "..", "S_SDK", ...CANONICAL_REL.split("/")),
+    path.join(base, "..", "s-sdk-wp-sdk-l05", ...CANONICAL_REL.split("/")),
+  ];
+  for (const p of siblings) {
+    if (fs.existsSync(p)) {
+      return { path: p, source: "sibling" };
+    }
+  }
+
+  throw new Error(
+    `registro vocabulario L04 ausente/movido (fail-closed). ` +
+      `Probad: LORE_HM_VOCAB_REGISTRY o sibling …/${CANONICAL_REL}. ` +
+      `Stub local NO es fuente de verdad.`,
+  );
+}
+
 function loadOntology() {
   return JSON.parse(fs.readFileSync(ontologyPath, "utf8"));
 }
 
 function loadRegistry() {
-  return JSON.parse(fs.readFileSync(registryPath, "utf8"));
+  const resolved = resolveVocabRegistry();
+  const doc = JSON.parse(fs.readFileSync(resolved.path, "utf8"));
+  if (doc.$id === "urn:scriptorium:vocab-registry:stub:v1") {
+    throw new Error(
+      `resolveVocabRegistry devolvió stub (${resolved.path}); se exige registro canónico L04`,
+    );
+  }
+  if (!doc.w3cEquivalents || typeof doc.w3cEquivalents !== "object") {
+    throw new Error(`registro sin w3cEquivalents: ${resolved.path}`);
+  }
+  return doc;
 }
 
 function isW3cType(activityType) {
@@ -72,9 +128,35 @@ export function gateVocabCoining(verbs, registry) {
 
 describe("WP-HUB-101 · ontología H/M", () => {
   it("artefactos obligatorios existen", () => {
-    for (const p of [ontologyPath, ttlPath, registryPath, verbosPath]) {
+    for (const p of [ontologyPath, ttlPath, stubPath, verbosPath]) {
       assert.ok(fs.existsSync(p), `falta ${p}`);
     }
+    const resolved = resolveVocabRegistry();
+    assert.ok(fs.existsSync(resolved.path), `registro L04: ${resolved.path}`);
+  });
+
+  it("fail-closed si registro canónico ausente (no cae al stub)", () => {
+    assert.throws(
+      () =>
+        resolveVocabRegistry({
+          env: {
+            LORE_HM_VOCAB_REGISTRY: path.join(
+              root,
+              "reference",
+              "__missing_registro__.json",
+            ),
+          },
+        }),
+      /ausente|movido|fail-closed/i,
+    );
+    assert.throws(
+      () =>
+        resolveVocabRegistry({
+          env: {},
+          hubRoot: path.join(root, "__no_siblings_hub__"),
+        }),
+      /ausente|movido|fail-closed/i,
+    );
   });
 
   it("cada verbo tiene activityType y razón si acuñado", () => {
@@ -116,9 +198,31 @@ describe("WP-HUB-101 · ontología H/M", () => {
     assert.deepEqual(fake, [], `as: no-AS2: ${fake.join("; ")}`);
   });
 
-  it("gate L04 stub: falla si acuña con equivalente W3C existente", () => {
+  it("gate L04 canónico: falla si acuña con equivalente W3C existente", () => {
     const doc = loadOntology();
     const registry = loadRegistry();
+    assert.notEqual(
+      registry.$id,
+      "urn:scriptorium:vocab-registry:stub:v1",
+      "gate no debe leer stub",
+    );
+    const named = [
+      "peer.join",
+      "peer.announce",
+      "state.inspect",
+      "session.exit",
+      "source.ingest",
+      "machine.status",
+      "artifact.data",
+      "artifact.spec",
+      "provenance.trace",
+    ];
+    for (const verb of named) {
+      assert.ok(
+        registry.w3cEquivalents[verb],
+        `registro canónico debe nombrar ${verb}`,
+      );
+    }
     const errors = gateVocabCoining(doc["hm:verbs"], registry);
     assert.deepEqual(errors, [], errors.join("; "));
 

@@ -27,6 +27,6 @@
     "test:despierta": "node ci/test-109-despierta.mjs"
   },
   "comments": {
-    "linea-kit": "U245 types not landed — consume without @types; schemas via @zeus/linea-kit/schemas/*"
+    "linea-kit": "U245: consume public package surface @zeus/linea-kit (+ ./schemas/* exports); no local schema copies. JSON schema imports use package exports (explicit), not vendored duplicates."
   }
 }

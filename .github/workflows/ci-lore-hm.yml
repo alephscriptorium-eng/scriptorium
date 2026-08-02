@@ -22,6 +22,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Registro vocabulario L04 canónico (fail-closed si falta/se mueve).
+      - name: Checkout s-sdk vocab (L04 canónico)
+        uses: actions/checkout@v4
+        with:
+          repository: alephscriptorium-eng/S_SDK
+          ref: wp/sdk-l05-sellado-de-network-engine
+          path: _s-sdk-vocab
+          sparse-checkout: |
+            NETWORK-ENGINE/LANGUAGES/lore-hm/vocab
+          sparse-checkout-cone-mode: true
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -52,4 +63,6 @@ jobs:
         run: node playground/prueba-de-H-M/ci/test-107-verificador.mjs
 
       - name: Suite playground LORE-HM
+        env:
+          LORE_HM_VOCAB_REGISTRY: ${{ github.workspace }}/_s-sdk-vocab/NETWORK-ENGINE/LANGUAGES/lore-hm/vocab/registro.json
         run: npm run test:lore-hm

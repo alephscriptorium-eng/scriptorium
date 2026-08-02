@@ -15,6 +15,8 @@ export const FRONTIER = Object.freeze({
   COBERTURA_INSUFICIENTE: "cobertura insuficiente",
   REPORTE_INVALIDO: "reporte inválido",
   SHUTDOWN_INCOMPLETO: "shutdown incompleto",
+  SHUTDOWN_AUTOCERTIFICADO: "shutdown autocertificado",
+  CADENA_CAUSAL_DIVERGE: "cadena causal diverge",
 });
 
 export class VerifierError extends Error {

@@ -96,6 +96,19 @@ function main() {
     ok(`H y M misma cadena causal fila a fila (${cmp.rows} filas)`);
   }
 
+  // Test rojo: mutar object en M → compareCausalChains detecta diverge
+  {
+    const tamperedM = result.chainM.map((row, i) =>
+      i === 0 ? { ...row, object: `${row.object}#tampered`, causalDigest: "sha256:dead" } : row,
+    );
+    const bad = compareCausalChains(result.chainH, tamperedM);
+    if (bad.ok) {
+      fail("compareCausalChains debió fallar tras mutar object M");
+    } else {
+      ok("rojo: compareCausalChains detecta diverge H/M (object/digest)");
+    }
+  }
+
   // Primarios: 11 pasos presentes
   const primaryH = result.chainH.filter((r) => !r.secondary);
   if (primaryH.length !== 11) {

@@ -4,7 +4,11 @@
  */
 import { mkdirSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { CEREMONY_ID, SCENARIO_ID } from "./constants.mjs";
+import {
+  CEREMONY_ID,
+  SCENARIO_ID,
+  REQUIRED_SHUTDOWN_VERBS,
+} from "./constants.mjs";
 import { digestObject } from "../cadena/hash.mjs";
 
 /** Piezas obligatorias bajo evidence/ — falta cualquiera = pieza-ausente. */
@@ -81,13 +85,6 @@ export function sealEvidencePack(evidenceRoot, input) {
     cortosQueried: [...(/** @type {string[]} */ (input.state.cortosQueried ?? []))],
   };
 
-  const shutdownVerbs = [
-    "coverage.measure",
-    "provenance.trace",
-    "unit.stop",
-    "pod.revoke",
-    "session.exit",
-  ];
   const matrixVerbs = new Set(
     (input.report.matrix ?? []).map((/** @type {{verb:string}} */ m) => m.verb),
   );
@@ -98,8 +95,10 @@ export function sealEvidencePack(evidenceRoot, input) {
     residualProcesses: [
       ...(/** @type {string[]} */ (input.state.residualProcesses ?? [])),
     ],
-    requiredVerbs: shutdownVerbs,
-    verbsPresent: shutdownVerbs.filter((v) => matrixVerbs.has(v)),
+    // Declarativo en el pack; el verificador usa REQUIRED_SHUTDOWN_VERBS
+    // (raíz de confianza) y recomputea verbsPresent desde wires.
+    requiredVerbs: [...REQUIRED_SHUTDOWN_VERBS],
+    verbsPresent: REQUIRED_SHUTDOWN_VERBS.filter((v) => matrixVerbs.has(v)),
     clean:
       input.state.shutdown === true &&
       (/** @type {string[]} */ (input.state.residualProcesses ?? [])).length === 0,

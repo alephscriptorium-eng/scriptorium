@@ -41,7 +41,11 @@ export function buildEnvelope(opts) {
   return env;
 }
 
-/** Núcleo causal (sin actor/timestamp/firma) — fila compartida H/M. */
+/**
+ * Núcleo causal — fila compartida H/M.
+ * Excluye actor/timestamp/instrument/context/digest (ver CAUSAL_STRIPPED_FIELDS).
+ * La igualdad H/M se verifica recomputeando este núcleo desde wires independientes.
+ */
 export function causalCore(envelope) {
   return {
     id: envelope.id.replace(/:(H|M)$/, ""),

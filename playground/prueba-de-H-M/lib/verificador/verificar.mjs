@@ -16,6 +16,12 @@ import { digestObject } from "../cadena/hash.mjs";
 import { transitionAllowed } from "../podstore/tipestate.mjs";
 import { evaluatePodAcl } from "../podstore/acl.mjs";
 import { REQUIRED_EVIDENCE_PIECES } from "../ceremonia/evidence-pack.mjs";
+import {
+  ACTOR_H,
+  ACTOR_M,
+  REQUIRED_SHUTDOWN_VERBS,
+} from "../ceremonia/constants.mjs";
+import { causalDigest } from "../ceremonia/envelope.mjs";
 import { FRONTIER, failFrontier, VerifierError } from "./errors.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -56,8 +62,11 @@ export function verificarEvidencia(evidenceRoot, opts = {}) {
   validateReport(report, root);
   checks.push("reporte");
 
-  validateActivities(root, report, provenanceDoc);
+  const wireVerbs = validateActivities(root, report, provenanceDoc);
   checks.push("wire + JSON-LD + hashes");
+
+  validateBilateralCausal(root);
+  checks.push("cadena causal H/M desde wires");
 
   validateProvenance(provenanceDoc, report, root);
   checks.push("provenance");
@@ -77,7 +86,7 @@ export function verificarEvidencia(evidenceRoot, opts = {}) {
   validateCortos(cortosDoc);
   checks.push("cortos→Onfalo");
 
-  validateShutdown(shutdownDoc, report);
+  validateShutdown(shutdownDoc, report, wireVerbs);
   checks.push("shutdown");
 
   if (packManifest.runId !== report.runId) {
@@ -181,6 +190,8 @@ function validateActivities(root, report, provenanceDoc) {
 
   /** @type {string[]} */
   const digests = [];
+  /** @type {Set<string>} */
+  const wireVerbs = new Set();
   for (const dir of dirs) {
     const wirePath = join(actRoot, dir, "wire.json");
     const viewPath = join(actRoot, dir, "view.jsonld");
@@ -198,6 +209,7 @@ function validateActivities(root, report, provenanceDoc) {
         `${dir}: ${JSON.stringify(activitySchemaValidate.errors?.[0])}`,
       );
     }
+    if (typeof wire.verb === "string") wireVerbs.add(wire.verb);
 
     // Hash: digest declarado = digestObject(envelope sin digest)
     const { digest, ...without } = wire;
@@ -258,6 +270,75 @@ function validateActivities(root, report, provenanceDoc) {
     if (!reported.has(d)) {
       failFrontier(FRONTIER.HASH_ROTO, `digest wire ausente en report/pack: ${d}`);
     }
+  }
+  return wireVerbs;
+}
+
+/**
+ * Dos observadores (wires H y M): recomputea causalDigest por pareja.
+ * No confía en chain.ndjson del productor.
+ */
+function validateBilateralCausal(root) {
+  const actRoot = join(root, "activities");
+  /** @type {Map<string, { H?: object, M?: object }>} */
+  const pairs = new Map();
+  for (const dir of readdirSync(actRoot)) {
+    const wirePath = join(actRoot, dir, "wire.json");
+    if (!existsSync(wirePath)) continue;
+    const wire = JSON.parse(readFileSync(wirePath, "utf8"));
+    const side =
+      wire.context?.side ??
+      (wire.actor === ACTOR_H ? "H" : wire.actor === ACTOR_M ? "M" : null);
+    if (side !== "H" && side !== "M") {
+      failFrontier(
+        FRONTIER.CADENA_CAUSAL_DIVERGE,
+        `${dir}: actor/side no es H|M (actor=${wire.actor})`,
+      );
+    }
+    const baseId = String(wire.id ?? "").replace(/:(H|M)$/, "");
+    if (!baseId) {
+      failFrontier(FRONTIER.CADENA_CAUSAL_DIVERGE, `${dir}: id sin base bilateral`);
+    }
+    const slot = pairs.get(baseId) ?? {};
+    slot[side] = wire;
+    pairs.set(baseId, slot);
+  }
+
+  let paired = 0;
+  for (const [baseId, slot] of pairs) {
+    if (!slot.H || !slot.M) {
+      failFrontier(
+        FRONTIER.CADENA_CAUSAL_DIVERGE,
+        `pareja incompleta ${baseId}: H=${!!slot.H} M=${!!slot.M}`,
+      );
+    }
+    if (slot.H.actor !== ACTOR_H || slot.M.actor !== ACTOR_M) {
+      failFrontier(
+        FRONTIER.CADENA_CAUSAL_DIVERGE,
+        `${baseId}: actores H/M inválidos`,
+      );
+    }
+    const digH = causalDigest(slot.H);
+    const digM = causalDigest(slot.M);
+    if (digH !== digM) {
+      failFrontier(
+        FRONTIER.CADENA_CAUSAL_DIVERGE,
+        `${baseId}: causalDigest H≠M (${digH}≠${digM})`,
+      );
+    }
+    if (slot.H.digest === slot.M.digest) {
+      failFrontier(
+        FRONTIER.CADENA_CAUSAL_DIVERGE,
+        `${baseId}: wireDigest H≡M (deben diferir por actor)`,
+      );
+    }
+    paired += 1;
+  }
+  if (paired < 11) {
+    failFrontier(
+      FRONTIER.CADENA_CAUSAL_DIVERGE,
+      `parejas bilaterales=${paired} (esperado ≥11 primarias)`,
+    );
   }
 }
 
@@ -427,7 +508,13 @@ function validateCortos(cortosDoc) {
   }
 }
 
-function validateShutdown(shutdownDoc, report) {
+/**
+ * Shutdown con raíz de confianza fuera del pack.
+ * - required = REQUIRED_SHUTDOWN_VERBS (constants, no shutdownDoc)
+ * - present = verbos recomputeados desde wires (no verbsPresent del pack)
+ * Si el pack declara requiredVerbs distinto → shutdown autocertificado.
+ */
+function validateShutdown(shutdownDoc, report, wireVerbs) {
   if (shutdownDoc.shutdown !== true || shutdownDoc.clean !== true) {
     failFrontier(
       FRONTIER.SHUTDOWN_INCOMPLETO,
@@ -440,13 +527,25 @@ function validateShutdown(shutdownDoc, report) {
       `residuales: ${shutdownDoc.residualProcesses.join(",")}`,
     );
   }
-  const required = shutdownDoc.requiredVerbs ?? [];
-  const present = new Set(shutdownDoc.verbsPresent ?? []);
-  for (const v of required) {
-    if (!present.has(v)) {
-      failFrontier(FRONTIER.SHUTDOWN_INCOMPLETO, `falta verbo ${v}`);
+
+  const packRequired = [...(shutdownDoc.requiredVerbs ?? [])].sort();
+  const trustRequired = [...REQUIRED_SHUTDOWN_VERBS].sort();
+  if (JSON.stringify(packRequired) !== JSON.stringify(trustRequired)) {
+    failFrontier(
+      FRONTIER.SHUTDOWN_AUTOCERTIFICADO,
+      `requiredVerbs del pack ≠ raíz de confianza (${packRequired.join(",")} ≠ ${trustRequired.join(",")})`,
+    );
+  }
+
+  for (const v of REQUIRED_SHUTDOWN_VERBS) {
+    if (!wireVerbs.has(v)) {
+      failFrontier(
+        FRONTIER.SHUTDOWN_INCOMPLETO,
+        `falta verbo ${v} en wires (no se acepta verbsPresent dopado del pack)`,
+      );
     }
   }
+
   if ((report.residualProcesses ?? []).length > 0) {
     failFrontier(FRONTIER.SHUTDOWN_INCOMPLETO, "report.residualProcesses no vacío");
   }

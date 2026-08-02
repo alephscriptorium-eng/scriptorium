@@ -12,6 +12,7 @@ import {
   VerifierError,
   FRONTIER,
 } from "../lib/verificador/verificar.mjs";
+import { digestObject } from "../lib/cadena/hash.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const kitRoot = path.resolve(here, "..");
@@ -58,6 +59,9 @@ const FRONTIER_SLUG = Object.freeze({
   [FRONTIER.CORTO_SIN_TRAZA_ONFALO]: "corto-sin-traza-onfalo",
   [FRONTIER.VECTORMOCK_SIN_DECLARAR]: "vectormock-sin-declarar",
   [FRONTIER.PIEZA_AUSENTE]: "pieza-ausente",
+  [FRONTIER.SHUTDOWN_INCOMPLETO]: "shutdown-incompleto",
+  [FRONTIER.SHUTDOWN_AUTOCERTIFICADO]: "shutdown-autocertificado",
+  [FRONTIER.CADENA_CAUSAL_DIVERGE]: "cadena-causal-diverge",
 });
 
 /**
@@ -215,6 +219,82 @@ function main() {
       v.mock = false;
       v.declared = false;
       writeJson(path.join(dir, "pack/vector-mock.json"), v);
+    },
+    isoBase,
+  );
+
+  // Shutdown dopado: pack declara verbos presentes pero wires no los tienen
+  expectFrontier(
+    FRONTIER.SHUTDOWN_INCOMPLETO,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      for (const name of fs.readdirSync(acts)) {
+        const wirePath = path.join(acts, name, "wire.json");
+        const wire = readJson(wirePath);
+        if (wire.verb === "session.exit") {
+          fs.rmSync(path.join(acts, name), { recursive: true, force: true });
+        }
+      }
+      const shut = readJson(path.join(dir, "pack/shutdown.json"));
+      shut.verbsPresent = [
+        "coverage.measure",
+        "provenance.trace",
+        "unit.stop",
+        "pod.revoke",
+        "session.exit",
+      ];
+      writeJson(path.join(dir, "pack/shutdown.json"), shut);
+    },
+    isoBase,
+  );
+
+  // Autocertificación: requiredVerbs del pack ≠ raíz de confianza
+  expectFrontier(
+    FRONTIER.SHUTDOWN_AUTOCERTIFICADO,
+    (dir) => {
+      const shut = readJson(path.join(dir, "pack/shutdown.json"));
+      shut.requiredVerbs = ["peer.join"];
+      shut.verbsPresent = ["peer.join"];
+      writeJson(path.join(dir, "pack/shutdown.json"), shut);
+    },
+    isoBase,
+  );
+
+  // Cadena causal: mutar object en wire M (re-sellado + hashes/report alineados)
+  expectFrontier(
+    FRONTIER.CADENA_CAUSAL_DIVERGE,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      for (const name of fs.readdirSync(acts)) {
+        const wirePath = path.join(acts, name, "wire.json");
+        const viewPath = path.join(acts, name, "view.jsonld");
+        const wire = readJson(wirePath);
+        if (wire.context?.side === "M" || /:M$/.test(wire.id)) {
+          const oldDigest = wire.digest;
+          const { digest: _old, ...rest } = wire;
+          rest.object = `${rest.object}#tampered`;
+          const sealed = { ...rest, digest: digestObject(rest) };
+          writeJson(wirePath, sealed);
+          if (fs.existsSync(viewPath)) {
+            const view = readJson(viewPath);
+            view["hm:digest"] = sealed.digest;
+            if (view.object != null) view.object = sealed.object;
+            writeJson(viewPath, view);
+          }
+          // Mantener hashes del pack coherentes para no disparar HASH_ROTO antes
+          for (const rel of ["report.json", "pack/provenance.json"]) {
+            const p = path.join(dir, rel);
+            const doc = readJson(p);
+            if (Array.isArray(doc.hashes)) {
+              doc.hashes = doc.hashes.map((h) =>
+                h === oldDigest ? sealed.digest : h,
+              );
+              writeJson(p, doc);
+            }
+          }
+          break;
+        }
+      }
     },
     isoBase,
   );

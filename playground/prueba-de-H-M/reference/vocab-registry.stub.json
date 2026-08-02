@@ -1,8 +1,9 @@
 {
   "$id": "urn:scriptorium:vocab-registry:stub:v1",
-  "_comment": "Stub for WP-SDK-L04 registro-de-vocabulario. Production registry is WP-SDK-L04 (consumed, not copied). Gate in test-101 reads this path until L04 ships.",
-  "_productionRegistry": "WP-SDK-L04:registro-de-vocabulario",
-  "_expectedFuturePath": "reference/vocab-registry.json",
+  "_deprecated": true,
+  "_comment": "DEPRECATED — no es fuente de verdad. El gate test-101 resuelve el registro canónico L04 vía LORE_HM_VOCAB_REGISTRY o sibling s-sdk (CONSUMO-HUB-101.md). Conservado solo como fósil/documentación.",
+  "_productionRegistry": "NETWORK-ENGINE/LANGUAGES/lore-hm/vocab/registro.json",
+  "_expectedFuturePath": "RESOLVE via LORE_HM_VOCAB_REGISTRY — never copy as source of truth",
   "w3cEquivalents": {
     "peer.join": {
       "term": "as:Join",
