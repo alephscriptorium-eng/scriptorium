@@ -217,10 +217,15 @@ function sigueVivo(pid) {
  */
 function barrerHuerfanosDelSO(censoPids, desde) {
   if (process.platform !== "win32") {
-    return { soportado: false, motivo: `no implementado en ${process.platform}` };
+    return { soportado: false, causa: "plataforma", motivo: `no implementado en ${process.platform}` };
   }
   const padres = [...censoPids, process.pid];
   const filtro = padres.map((pid) => `ParentProcessId=${pid}`).join(" or ");
+  // La fecha se pide YA en ISO. PowerShell 5.1 serializa `CreationDate` como
+  // `/Date(1785689628467)/`, que `new Date()` no sabe leer: devolvia
+  // `Invalid Date`, la comparacion daba NaN y el descarte por fecha NO
+  // descartaba NUNCA. Era codigo muerto que ademas prometia una cota que no
+  // existia. Se pide ISO y, por si acaso, abajo se sabe leer el formato viejo.
   const r = spawnSync(
     "powershell",
     [
@@ -228,33 +233,53 @@ function barrerHuerfanosDelSO(censoPids, desde) {
       "-NonInteractive",
       "-Command",
       `Get-CimInstance Win32_Process -Filter "${filtro}" | ` +
-        "Select-Object ProcessId,ParentProcessId,Name,CreationDate | ConvertTo-Json -Compress",
+        "Select-Object ProcessId,ParentProcessId,Name,@{n='CreationIso';" +
+        "e={$_.CreationDate.ToUniversalTime().ToString('o')}} | ConvertTo-Json -Compress",
     ],
     { encoding: "utf8" },
   );
   if (r.status !== 0) {
-    return { soportado: false, motivo: `consulta al SO falló: ${(r.stderr || "").slice(0, 120)}` };
+    return {
+      soportado: false,
+      causa: "instrumento",
+      motivo: `consulta al SO fallo: ${(r.stderr || "").slice(0, 160)}`,
+    };
   }
   let filas;
   try {
-    const raw = (r.stdout || "").trim();
-    if (!raw) filas = [];
+    const bruto = (r.stdout || "").trim();
+    if (!bruto) filas = [];
     else {
-      const j = JSON.parse(raw);
+      const j = JSON.parse(bruto);
       filas = Array.isArray(j) ? j : [j];
     }
   } catch (e) {
-    return { soportado: false, motivo: `respuesta del SO ilegible: ${e.message}` };
+    return { soportado: false, causa: "instrumento", motivo: `respuesta del SO ilegible: ${e.message}` };
   }
+
+  /** ISO primero; `/Date(ms)/` como respaldo. null = no se pudo fechar. */
+  function nacimiento(f) {
+    const v = f.CreationIso ?? f.CreationDate;
+    if (typeof v !== "string" || v === "") return null;
+    const ms = /^\/Date\((\d+)\)\/$/.exec(v);
+    if (ms) return new Date(Number(ms[1]));
+    const d = new Date(v);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
   const propio = r.pid;
-  const vivos = filas.filter((f) => {
-    if (f.ProcessId === propio || f.ParentProcessId === propio) return false; // el barrido
-    if (f.ProcessId === process.pid) return false;
-    const nacido = f.CreationDate ? new Date(f.CreationDate) : null;
-    if (nacido && nacido < desde) return false; // PID reciclado de antes
-    return true;
+  const candidatos = filas.filter(
+    (f) => f.ProcessId !== propio && f.ParentProcessId !== propio && f.ProcessId !== process.pid,
+  );
+  // Sin fecha no se acusa a nadie, pero tampoco se calla: si el instrumento no
+  // sabe fechar, es un fallo del instrumento, no un huerfano.
+  const sinFecha = candidatos.filter((f) => nacimiento(f) === null);
+  const vivos = candidatos.filter((f) => {
+    const nacido = nacimiento(f);
+    return nacido !== null && nacido >= desde;
   });
-  return { soportado: true, vivos };
+  const descartadosPorFecha = candidatos.length - vivos.length - sinFecha.length;
+  return { soportado: true, vivos, sinFecha, descartadosPorFecha, candidatos: candidatos.length };
 }
 
 // ── corridas ──────────────────────────────────────────────────────────────
@@ -613,10 +638,21 @@ function main() {
     // hay. Sin este barrido, «shutdown sin procesos huérfanos» podía
     // imprimirse en verde con huérfanos vivos — demostrado, no supuesto.
     const barrido = barrerHuerfanosDelSO(censoPids, arranque);
-    if (!barrido.soportado) {
-      // No se calla: si no se puede mirar, se dice que no se ha mirado.
+    if (!barrido.soportado && barrido.causa === "plataforma") {
+      // Límite DECLARADO, no fallo: se dice que no se ha mirado y no se calla.
       console.log(
-        `test-110-consumidor-limpio: NO CUBIERTO — barrido de huérfanos del SO: ${barrido.motivo}`,
+        `test-110-consumidor-limpio: NO CUBIERTO (límite de plataforma) — barrido de huérfanos del SO: ${barrido.motivo}`,
+      );
+    } else if (!barrido.soportado) {
+      // El instrumento se rompió. Antes esto salía por `console.log` y la suite
+      // seguía verde: el barrido se podía neutralizar sin enrojecer nada.
+      fail(`el barrido de huérfanos del SO no pudo ejecutarse: ${barrido.motivo}`);
+    } else if (barrido.sinFecha.length > 0) {
+      // Sin fecha no se acusa a nadie —eso sería el falso positivo sin cota que
+      // desactiva un guardián— pero tampoco se da por bueno.
+      fail(
+        `el barrido no pudo fechar ${barrido.sinFecha.length} de ${barrido.candidatos} procesos: ` +
+          `sin fecha no se puede distinguir un huérfano de un PID reciclado`,
       );
     } else if (barrido.vivos.length > 0) {
       fail(
@@ -627,16 +663,30 @@ function main() {
       );
     } else {
       ok(
-        `barrido del SO: cero procesos vivos colgando de los ${censoPids.size + 1} pids conocidos`,
+        `barrido del SO: cero procesos vivos colgando de los ${censoPids.size + 1} pids conocidos ` +
+          `(${barrido.candidatos} candidatos, ${barrido.descartadosPorFecha} descartados por ser anteriores al arranque)`,
       );
     }
 
   } catch (e) {
     fail(`corrida: ${e?.message ?? e}`);
   } finally {
+    // La limpieza NO puede decidir el veredicto. Si un huérfano se quedó con
+    // el `cwd` del checkout, `rmSync` lanza `EBUSY` y la excepción se comía la
+    // línea `FAIL (n)`: el exit 1 lo ponía el accidente, no la aserción. Ahora
+    // un fallo de limpieza es un `fail()` más —y encima es señal de que algo
+    // sigue agarrando el directorio—.
     if (!process.env.KEEP_HM_RUNS) {
-      fs.rmSync(consumerRoot, { recursive: true, force: true });
-      fs.rmSync(logDir, { recursive: true, force: true });
+      for (const [etiqueta, dir] of [
+        ["checkout temporal", consumerRoot],
+        ["directorio de partes", logDir],
+      ]) {
+        try {
+          fs.rmSync(dir, { recursive: true, force: true });
+        } catch (e) {
+          fail(`no se pudo limpiar el ${etiqueta}: ${e.code ?? ""} ${e.message}`);
+        }
+      }
     }
   }
 
