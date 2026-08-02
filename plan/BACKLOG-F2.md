@@ -8,6 +8,7 @@
 | Método | `swarm-orquestacion` · un WP/brief/rama/worktree |
 | Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **392 WPs totales** en el Scriptorium (V 71 · O 75 · Z 67 · G 54 · L 73 · HUB 52) |
 | ✎ 2026-08-02 | **HUB 52 → 64**: lane **LORE-HM** (`WP-HUB-100`–`111`), promoción de la cola A del intake por orden del product owner. Las cifras de los demás mundos son **las de la edición F2-unificada, no las de hoy** — no se re-miden aquí para no sembrar un número nuevo sin medirlo (V y Z ya divergen). |
+| ✎ 2026-08-02 | **LORE-HM ola 1 GO**: `WP-HUB-100` 🔶 · `WP-HUB-101` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-100` / `-101`, base tip `wp/hub-113-hm-ci-que-verifica`) · herencia spike 112 **NO CORRE** FM viva → kit/ceremonia = **simulacro playground**; 112/113 ✅ en ramas, **sin merge main**. |
 
 ## Visión
 
@@ -425,7 +426,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** **P0** · es la lección más cara del programa: Z y V cerraron **tres
   olas** con su CI en rojo porque nadie lo miró.
 
-### WP-HUB-100 · hm-escenario-y-schemas
+### WP-HUB-100 · hm-escenario-y-schemas 🔶
 - **BRIEF:** kit autocontenido `playground/prueba-de-H-M`;
   `scenarios/barrio-lore/scenario.json` (barrio canónico `document-machine-sdk`,
   distrito `lore-voz`, roles H/M fijos, unidades, ceremonia, artefactos
@@ -442,8 +443,9 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   línea propio · cero ids inventados: cada barrio/distrito citado existe en
   `CENSO-ESTADOS.md` de la cantera · `prueba-de-dos` con **diff vacío**.
 - **Pri:** P0 · BLOQUEA la lane
+- **Estado:** 🔶 ola 1 · rama `wp/hub-100-hm-escenario-y-schemas` · wt `C:/S_LAB/wt/scriptorium-wp-hub-100` · simulacro playground (112)
 
-### WP-HUB-101 · hm-ontologia-y-verbos
+### WP-HUB-101 · hm-ontologia-y-verbos 🔶
 - **BRIEF:** `ontology/hm-v1.context.jsonld`, `ontology/hm-v1.ttl` y
   `reference/VERBOS.md`. Catálogo en cuatro familias — base H/M (`peer.join`,
   `peer.announce`, `state.inspect`, `session.exit`) · pods (`pod.lease`,
@@ -462,6 +464,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   bytes sellados) — probado mutando la vista y exigiendo huella idéntica ·
   cada alias resuelve a exactamente una actividad tipada.
 - **Pri:** P0
+- **Estado:** 🔶 ola 1 · rama `wp/hub-101-hm-ontologia-y-verbos` · wt `C:/S_LAB/wt/scriptorium-wp-hub-101` · simulacro playground (112)
 
 ### WP-HUB-102 · hm-generador-idempotente
 - **BRIEF:** `scripts/generar.mjs` produce corridas regenerables en
