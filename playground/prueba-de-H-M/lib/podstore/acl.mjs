@@ -3,8 +3,9 @@
  * H solo emite/transporta capacidades; el pod decide.
  *
  * Regla: solo ACL positiva y vigente concede. Omitida / inválida / expirada → deny.
- * No existe override de administrador.
+ * No existe override de administrador. No existe comodín.
  */
+import { FORBIDDEN_ACL_VERBS } from "./constants.mjs";
 
 /**
  * @typedef {{ actor: string, verbs: string[], expiresAt?: string|null }} AclEntry
@@ -20,6 +21,9 @@ export function isValidAclEntry(entry) {
   if (typeof e.actor !== "string" || e.actor.length === 0) return false;
   if (!Array.isArray(e.verbs) || e.verbs.length === 0) return false;
   if (!e.verbs.every((v) => typeof v === "string" && v.length > 0)) return false;
+  // El comodín no concede: una entrada que lo use es inválida, no universal.
+  // Antes `verbs:["*"]` autorizaba verbos que nadie había declarado nunca.
+  if (e.verbs.some((v) => FORBIDDEN_ACL_VERBS.includes(v))) return false;
   if (e.expiresAt != null && typeof e.expiresAt !== "string") return false;
   if (typeof e.expiresAt === "string" && Number.isNaN(Date.parse(e.expiresAt))) {
     return false;
@@ -90,7 +94,7 @@ export function evaluatePodAcl(opts) {
         continue;
       }
     }
-    if (entry.verbs.includes(verb) || entry.verbs.includes("*")) {
+    if (entry.verbs.includes(verb)) {
       return { allowed: true, reason: "acl-positive" };
     }
   }

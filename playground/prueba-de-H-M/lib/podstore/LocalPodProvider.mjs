@@ -14,6 +14,8 @@ import {
   POD_STATES,
   PROVIDER_META,
   STATIC_UNIT_IDS,
+  TRANSITION_VERB,
+  POLICY_VERB,
   podIri,
   universeRunnerUnitId,
 } from "./constants.mjs";
@@ -238,7 +240,33 @@ export class LocalPodProvider {
       throw new Error("pod.lease: permissions requeridas");
     }
 
-    const issuedAt = new Date().toISOString();
+    // Un lease sin caducidad válida y futura no es un lease.
+    // Antes se aceptaba expiresAt en 1999, "no-soy-una-fecha" y omitido.
+    const nowMs = req.now == null ? Date.now() : new Date(req.now).getTime();
+    if (typeof expiresAt !== "string" || expiresAt.length === 0) {
+      throw new Error("pod.lease: expiresAt requerido (ISO-8601)");
+    }
+    const expMs = Date.parse(expiresAt);
+    if (Number.isNaN(expMs)) {
+      throw new Error(`pod.lease: expiresAt no es fecha ISO: ${expiresAt}`);
+    }
+    if (expMs <= nowMs) {
+      throw new Error(`pod.lease: expiresAt ya caducado: ${expiresAt}`);
+    }
+
+    // La ACL transportada no puede conceder verbos fuera de las permissions
+    // del lease: si el lease no transporta la capacidad, el pod no puede darla.
+    for (const entry of acl ?? []) {
+      for (const v of entry?.verbs ?? []) {
+        if (!permissions.includes(v)) {
+          throw new Error(
+            `pod.lease: la ACL concede '${v}' fuera de permissions [${permissions.join(", ")}]`,
+          );
+        }
+      }
+    }
+
+    const issuedAt = new Date(nowMs).toISOString();
     const leaseId = `lease-${unitId}-${crypto.randomBytes(4).toString("hex")}`;
     const lease = {
       leaseId,
@@ -280,12 +308,35 @@ export class LocalPodProvider {
   }
 
   /**
-   * Avanza tipestate (post-inflated).
+   * Avanza tipestate (post-inflated). AUTORIZADO por la política del pod.
+   *
+   * Antes movía el pod sin consultar nada: `authorize()` no se invocaba en
+   * ningún punto del camino de ejecución, solo desde el test. La ceremonia
+   * transicionaba seis veces sin autorizar.
+   *
    * @param {string} unitId
    * @param {string} to
+   * @param {{ actor: string, now?: Date|string|number }} opts
    */
-  transition(unitId, to) {
+  transition(unitId, to, opts) {
     const pod = this._require(unitId);
+    const actor = opts?.actor;
+    if (typeof actor !== "string" || actor.length === 0) {
+      throw new Error(
+        `transition ${unitId}→${to}: actor requerido (la política decide, no el llamador)`,
+      );
+    }
+    const verb = TRANSITION_VERB[to];
+    if (!verb) {
+      throw new Error(`transition: sin verbo declarado para el estado '${to}'`);
+    }
+    const decision = this.authorize({ unitId, actor, verb, now: opts?.now });
+    if (!decision.allowed) {
+      throw new Error(
+        `transition ${unitId}: ${pod.state}→${to} denegada para ${actor} (${verb}): ${decision.reason}`,
+      );
+    }
+
     assertTransition(pod.state, to);
     const from = pod.state;
     this._tipestateLog.push({ unitId, from, to });
@@ -333,13 +384,30 @@ export class LocalPodProvider {
    */
   authorize(opts) {
     const pod = this._require(opts.unitId);
-    const decision = evaluatePodAcl({
+    const nowMs = opts.now == null ? Date.now() : new Date(opts.now).getTime();
+
+    let decision = evaluatePodAcl({
       acl: pod.acl,
       actor: opts.actor,
       verb: opts.verb,
-      now: opts.now,
+      now: nowMs,
       adminOverride: opts.adminOverride,
     });
+
+    // Un lease caducado deniega aunque la ACL siga diciendo que sí.
+    // Antes la caducidad del lease no la miraba nadie: solo la de la fila ACL.
+    if (decision.allowed) {
+      const lease = pod.leaseRef ? this._leases.get(pod.leaseRef) : null;
+      if (!lease) {
+        decision = { allowed: false, reason: "lease-ausente" };
+      } else if (Date.parse(lease.expiresAt) <= nowMs) {
+        decision = { allowed: false, reason: "lease-expired" };
+      } else if (!lease.permissions.includes(opts.verb)) {
+        // Las permissions del lease acotan lo que el pod puede conceder.
+        decision = { allowed: false, reason: "verbo-fuera-de-permissions" };
+      }
+    }
+
     if (pod.materialized) {
       this._appendEvent(
         opts.unitId,
@@ -358,13 +426,84 @@ export class LocalPodProvider {
 
   /**
    * Instala/reemplaza ACL en el pod (capacidades que H transportó; el pod guarda).
+   *
+   * Exige autoridad y DEJA EVENTO. Antes bastaba `setAcl(unitId, acl)`: sin
+   * actor, sin lease, sin firma y sin rastro — cualquiera reescribía la
+   * política del pod y no quedaba constancia de que hubiera pasado.
+   *
+   * Autoridad: el emisor del lease (H), o un actor con `pod.policy` en la ACL
+   * vigente. El lease debe estar vivo.
+   *
    * @param {string} unitId
    * @param {import("./acl.mjs").AclEntry[]|null} acl
+   * @param {{ actor: string, now?: Date|string|number, reason?: string }} opts
    */
-  setAcl(unitId, acl) {
+  setAcl(unitId, acl, opts) {
     const pod = this._require(unitId);
+    const actor = opts?.actor;
+    if (typeof actor !== "string" || actor.length === 0) {
+      throw new Error(`setAcl ${unitId}: actor requerido`);
+    }
+    const nowMs = opts?.now == null ? Date.now() : new Date(opts.now).getTime();
+
+    const lease = pod.leaseRef ? this._leases.get(pod.leaseRef) : null;
+    if (!lease) {
+      throw new Error(`setAcl ${unitId}: sin lease vigente`);
+    }
+    if (Date.parse(lease.expiresAt) <= nowMs) {
+      throw new Error(`setAcl ${unitId}: lease caducado (${lease.expiresAt})`);
+    }
+
+    const isEmitter = actor === lease.emitterIri;
+    const byPolicy = evaluatePodAcl({
+      acl: pod.acl,
+      actor,
+      verb: POLICY_VERB,
+      now: nowMs,
+    });
+    if (!isEmitter && !byPolicy.allowed) {
+      this._appendEvent(
+        unitId,
+        {
+          type: "acl.set.denied",
+          actor,
+          reason: byPolicy.reason,
+          leaseRef: lease.leaseId,
+        },
+        true,
+      );
+      throw new Error(
+        `setAcl ${unitId}: ${actor} sin autoridad (${byPolicy.reason})`,
+      );
+    }
+
+    // La nueva política tampoco puede exceder las permissions del lease.
+    for (const entry of acl ?? []) {
+      for (const v of entry?.verbs ?? []) {
+        if (!lease.permissions.includes(v) && v !== POLICY_VERB) {
+          throw new Error(
+            `setAcl ${unitId}: '${v}' fuera de permissions del lease`,
+          );
+        }
+      }
+    }
+
+    const previous = pod.acl;
     pod.acl = acl;
     if (pod.materialized) this._writePodFiles(unitId);
+    this._appendEvent(
+      unitId,
+      {
+        type: "acl.set",
+        actor,
+        via: isEmitter ? "lease-emitter" : POLICY_VERB,
+        leaseRef: lease.leaseId,
+        reason: opts?.reason ?? null,
+        previousDigest: aclDigest(previous),
+        nextDigest: aclDigest(acl),
+      },
+      true,
+    );
     this._writeManifest();
   }
 
@@ -406,14 +545,25 @@ export class LocalPodProvider {
     }
   }
 
-  /** @private */
+  /**
+   * @private
+   * Identidad de M contra la identidad conocida del proveedor.
+   *
+   * Se retira la rama `{ role:'M', trusted:true }`: era autoafirmación pura
+   * —cualquiera que se declarase de confianza lo era—. Queda el contraste
+   * contra `maestroIri`.
+   *
+   * FRONTERA DECLARADA: en este simulacro no hay autoridad de credenciales.
+   * Quien llama sigue aportando la identidad, y el único gate real es que
+   * `issueLease` solo lo puede invocar H. Cerrar esto de verdad exige una
+   * peercard firmada y verificable, que no existe en el playground: es
+   * contrato pendiente, no código que se pueda escribir aquí.
+   */
   _validateMaestroIdentity(identity) {
-    // Simulacro: exige actorId de M o peercard mock.
     if (!identity || typeof identity !== "object") return false;
     const id = /** @type {Record<string, unknown>} */ (identity);
-    if (id.actorId === "maestro-m" || id.actorIri === this.maestroIri) return true;
-    if (id.role === "M" && id.trusted === true) return true;
-    return false;
+    if (id.actorIri != null) return id.actorIri === this.maestroIri;
+    return id.actorId === "maestro-m";
   }
 
   /** @private */
@@ -544,4 +694,22 @@ export class LocalPodProvider {
   }
 }
 
-export { POD_STATES, PROVIDER_META, STATIC_UNIT_IDS, podIri, universeRunnerUnitId };
+/** Huella estable de una ACL, para dejar rastro del cambio sin volcarla entera. */
+function aclDigest(acl) {
+  if (acl == null) return null;
+  return crypto
+    .createHash("sha256")
+    .update(JSON.stringify(acl))
+    .digest("hex")
+    .slice(0, 16);
+}
+
+export {
+  POD_STATES,
+  PROVIDER_META,
+  STATIC_UNIT_IDS,
+  TRANSITION_VERB,
+  POLICY_VERB,
+  podIri,
+  universeRunnerUnitId,
+};

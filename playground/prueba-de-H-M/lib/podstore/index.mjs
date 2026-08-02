@@ -4,9 +4,12 @@ export {
   POD_STATES,
   PROVIDER_META,
   STATIC_UNIT_IDS,
+  TRANSITION_VERB,
+  POLICY_VERB,
   podIri,
   universeRunnerUnitId,
 } from "./LocalPodProvider.mjs";
+export { FORBIDDEN_ACL_VERBS } from "./constants.mjs";
 export {
   TRANSITION_TABLE,
   transitionAllowed,

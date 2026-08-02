@@ -44,6 +44,30 @@ export const STATIC_UNIT_IDS = Object.freeze([
 export const POD_IRI_PREFIX = "urn:scriptorium:hm:";
 
 /**
+ * Verbo que autoriza cada transición de tipestate.
+ *
+ * Sin esto `transition()` no consultaba política alguna: la ceremonia movía
+ * pods seis veces sin autorizar. Toda transición pasa ahora por `authorize()`
+ * con el verbo de esta tabla.
+ *
+ * `leased`/`inflated` no aparecen: los gobierna la inflación bilateral
+ * (M pide, H concede) antes de que exista ACL que consultar.
+ */
+export const TRANSITION_VERB = Object.freeze({
+  ready: "unit.start",
+  running: "unit.start",
+  paused: "unit.stop",
+  stopped: "unit.stop",
+  failed: "unit.stop",
+});
+
+/** Verbo requerido para reescribir la política del pod (setAcl). */
+export const POLICY_VERB = "pod.policy";
+
+/** Comodín prohibido en ACL: una política que concede todo no es una política. */
+export const FORBIDDEN_ACL_VERBS = Object.freeze(["*"]);
+
+/**
  * @param {string} runId
  * @param {string} unitId
  */

@@ -18,26 +18,41 @@ import { digestObject } from "../cadena/hash.mjs";
 import { universeRunnerUnitId } from "../podstore/index.mjs";
 import { ACTOR_H, ACTOR_M, SIMULACRO_NOTE } from "./constants.mjs";
 
+/**
+ * Capacidades transportadas por el lease. Deben cubrir todo lo que la ACL
+ * concede: `authorize()` acota por permissions, así que una ACL que conceda
+ * algo fuera de esta lista ya no se puede emitir.
+ */
+const LEASE_PERMISSIONS = Object.freeze([
+  "unit.start",
+  "unit.inspect",
+  "artifact.data",
+  "unit.stop",
+  "pod.revoke",
+]);
+
 function inflateLease(provider, unitId) {
   provider.requestInflate({
     unitId,
     actorIri: ACTOR_M,
-    identity: { actorId: "maestro-m", role: "M", trusted: true },
+    identity: { actorIri: ACTOR_M, actorId: "maestro-m" },
   });
   const expiresAt = new Date(Date.UTC(2026, 11, 31, 23, 59, 59)).toISOString();
   return provider.issueLease({
     unitId,
     actorIri: ACTOR_H,
-    permissions: ["unit.start", "unit.inspect", "artifact.data"],
+    permissions: [...LEASE_PERMISSIONS],
     expiresAt,
-    identity: { actorId: "maestro-m", role: "M", trusted: true },
+    identity: { actorIri: ACTOR_M, actorId: "maestro-m" },
     acl: [
       {
+        // M arranca e inspecciona.
         actor: ACTOR_M,
         verbs: ["unit.start", "unit.inspect", "artifact.data"],
         expiresAt,
       },
       {
+        // H inspecciona, para y revoca.
         actor: ACTOR_H,
         verbs: ["unit.inspect", "pod.revoke", "unit.stop"],
         expiresAt,
@@ -46,10 +61,11 @@ function inflateLease(provider, unitId) {
   });
 }
 
+/** M arranca las unidades: transición autorizada por su ACL (`unit.start`). */
 function ensureReady(provider, unitId) {
   const pod = provider.describe(unitId);
   if (pod.state === "inflated") {
-    provider.transition(unitId, "ready");
+    provider.transition(unitId, "ready", { actor: ACTOR_M });
   }
 }
 
@@ -185,12 +201,12 @@ function step4DeployRest(ctx) {
   for (const unitId of rest) {
     inflateLease(ctx.provider, unitId);
     ensureReady(ctx.provider, unitId);
-    ctx.provider.transition(unitId, "running");
+    ctx.provider.transition(unitId, "running", { actor: ACTOR_M });
     deployed.push(unitId);
   }
   for (const unitId of ["bartleby", "cristalizador", "portal"]) {
     const st = ctx.provider.describe(unitId).state;
-    if (st === "ready") ctx.provider.transition(unitId, "running");
+    if (st === "ready") ctx.provider.transition(unitId, "running", { actor: ACTOR_M });
   }
   ctx.state.deployed = deployed;
   return {
@@ -326,7 +342,7 @@ function step9Universes(ctx) {
     const unitId = universeRunnerUnitId(u.universeId);
     inflateLease(ctx.provider, unitId);
     ensureReady(ctx.provider, unitId);
-    ctx.provider.transition(unitId, "running");
+    ctx.provider.transition(unitId, "running", { actor: ACTOR_M });
     runners.push(unitId);
   }
   ctx.state.demiurgo = demiurgo;
@@ -407,10 +423,11 @@ function step11TraceCoverageShutdown(ctx) {
   for (const unitId of ctx.provider.listUnitIds()) {
     const pod = ctx.provider.describe(unitId);
     try {
-      if (pod.state === "running") ctx.provider.transition(unitId, "paused");
+      // El apagado lo ordena H (verbo unit.stop de su ACL).
+      if (pod.state === "running") ctx.provider.transition(unitId, "paused", { actor: ACTOR_H });
       const st = ctx.provider.describe(unitId).state;
       if (st === "paused" || st === "ready") {
-        ctx.provider.transition(unitId, "stopped");
+        ctx.provider.transition(unitId, "stopped", { actor: ACTOR_H });
       }
     } catch (e) {
       residual.push(`${unitId}:${String(e.message || e)}`);

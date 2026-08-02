@@ -15,6 +15,7 @@ import {
   assertTipestateExhaustive,
   transitionAllowed,
   evaluatePodAcl,
+  isValidAclEntry,
   podIri,
   universeRunnerUnitId,
 } from "../lib/podstore/index.mjs";
@@ -43,21 +44,29 @@ function makeProvider(runId = "run-103") {
   });
 }
 
-function inflateBilateral(provider, unitId, acl = null) {
+const TEST_PERMISSIONS = ["unit.start", "unit.inspect", "unit.stop", "pod.policy"];
+
+function inflateBilateral(provider, unitId, acl = null, opts = {}) {
   provider.requestInflate({
     unitId,
     actorIri: provider.maestroIri,
-    identity: { actorId: "maestro-m", role: "M", trusted: true },
+    identity: { actorIri: provider.maestroIri, actorId: "maestro-m" },
   });
-  const expires = new Date(Date.now() + 3600_000).toISOString();
+  const expires =
+    opts.expiresAt ?? new Date(Date.now() + 3600_000).toISOString();
   return provider.issueLease({
     unitId,
     actorIri: provider.hostIri,
-    permissions: ["unit.start", "unit.inspect"],
+    permissions: opts.permissions ?? TEST_PERMISSIONS,
     expiresAt: expires,
-    identity: { actorId: "maestro-m", role: "M", trusted: true },
+    identity: { actorIri: provider.maestroIri, actorId: "maestro-m" },
     acl,
   });
+}
+
+/** ACL que concede a maestro-m todo el vocabulario de prueba. */
+function fullAcl(actor = "maestro-m") {
+  return [{ actor, verbs: [...TEST_PERMISSIONS] }];
 }
 
 // ── 1. Marca simulación (nunca Solid) ──────────────────────────────────────
@@ -148,9 +157,7 @@ function inflateBilateral(provider, unitId, acl = null) {
   }
   if (!leaseWithoutInflate) fail("lease sin inflate debía fallar");
 
-  const { pod } = inflateBilateral(p, "bartleby", [
-    { actor: "maestro-m", verbs: ["unit.start"] },
-  ]);
+  const { pod } = inflateBilateral(p, "bartleby", fullAcl());
   if (pod.state !== "inflated") fail(`post-lease state=${pod.state}, esperado inflated`);
 
   const abs = p._paths.get("bartleby");
@@ -168,10 +175,11 @@ function inflateBilateral(provider, unitId, acl = null) {
   const desc = JSON.parse(fs.readFileSync(path.join(abs, "descriptor.jsonld"), "utf8"));
   if (desc.provider?.isSolidPod !== false) fail("descriptor.jsonld sin marca no-Solid");
 
-  p.transition("bartleby", "ready");
-  p.transition("bartleby", "running");
-  p.transition("bartleby", "paused");
-  p.transition("bartleby", "stopped");
+  const A = { actor: "maestro-m" };
+  p.transition("bartleby", "ready", A);
+  p.transition("bartleby", "running", A);
+  p.transition("bartleby", "paused", A);
+  p.transition("bartleby", "stopped", A);
   ok("inflación bilateral + tipestate + contenido mínimo + IRI");
 }
 
@@ -231,11 +239,13 @@ function inflateBilateral(provider, unitId, acl = null) {
   const omit = p.authorize({ unitId: "portal", actor: "otro", verb: "unit.inspect" });
   if (omit.allowed) fail("actor sin ACL debía denegar");
 
-  p.setAcl("portal", null);
+  p.setAcl("portal", null, { actor: p.hostIri });
   const om2 = p.authorize({ unitId: "portal", actor: "maestro-m", verb: "unit.inspect" });
   if (om2.allowed || om2.reason !== "acl-omitted") fail("setAcl null → omitted");
 
-  p.setAcl("portal", [{ actor: "maestro-m", verbs: ["unit.inspect"] }]);
+  p.setAcl("portal", [{ actor: "maestro-m", verbs: ["unit.inspect"] }], {
+    actor: p.hostIri,
+  });
   const adm = p.authorize({
     unitId: "portal",
     actor: "admin",
@@ -276,7 +286,7 @@ function inflateBilateral(provider, unitId, acl = null) {
   }
 
   for (const id of [...STATIC_UNIT_IDS, ...runners.map(universeRunnerUnitId)]) {
-    inflateBilateral(p, id, [{ actor: "maestro-m", verbs: ["*"] }]);
+    inflateBilateral(p, id, fullAcl());
     if (p.describe(id).state !== "inflated") fail(`${id} no inflated`);
     const pub = p.describe(id);
     if (JSON.stringify(pub).includes(p._storeRoot)) {
@@ -294,14 +304,257 @@ function inflateBilateral(provider, unitId, acl = null) {
 {
   const p = makeProvider();
   p.declare({ unitId: "loreador", type: "agent", condition: "bootstrap" });
-  let bad = false;
+  inflateBilateral(p, "loreador", fullAcl());
+  let bad = "";
   try {
-    p.transition("loreador", "running");
-  } catch {
-    bad = true;
+    // inflated→running no está en la tabla (falta pasar por ready)
+    p.transition("loreador", "running", { actor: "maestro-m" });
+  } catch (e) {
+    bad = String(e.message);
   }
-  if (!bad) fail("declared→running debía ser ilegal");
+  if (!/transición ilegal/.test(bad)) {
+    fail(`inflated→running debía ser ilegal por tipestate, got: ${bad}`);
+  }
   ok("transición ilegal rechazada");
+}
+
+// ── 7. La política gobierna el camino real (ZV ⑤) ──────────────────────────
+{
+  const FUT = new Date(Date.now() + 3600_000).toISOString();
+
+  // 7.1 — Un lease sin caducidad válida y futura no es un lease.
+  // Se llama a issueLease en crudo: cualquier helper con `?? porDefecto`
+  // taparía justo los casos «omitido» y «null» que hay que probar.
+  const CASOS_EXPIRES = [
+    ["1999", { expiresAt: "1999-01-01T00:00:00.000Z" }],
+    ["no-fecha", { expiresAt: "no-soy-una-fecha" }],
+    ["omitido", {}],
+    ["null", { expiresAt: null }],
+    ["numero", { expiresAt: 12345 }],
+  ];
+  for (const [etiqueta, campo] of CASOS_EXPIRES) {
+    const p = makeProvider();
+    p.declare({ unitId: "portal", type: "agent", condition: "bootstrap" });
+    p.requestInflate({
+      unitId: "portal",
+      actorIri: p.maestroIri,
+      identity: { actorIri: p.maestroIri },
+    });
+    let threw = false;
+    try {
+      p.issueLease({
+        unitId: "portal",
+        actorIri: p.hostIri,
+        permissions: TEST_PERMISSIONS,
+        identity: { actorIri: p.maestroIri },
+        acl: fullAcl(),
+        ...campo,
+      });
+    } catch {
+      threw = true;
+    }
+    if (!threw) fail(`lease con expiresAt ${etiqueta} debía rechazarse`);
+  }
+  ok(`lease sin expiresAt válido y futuro rechazado (${CASOS_EXPIRES.map(([e]) => e).join(" · ")})`);
+
+  // 7.2 — transition() consulta la política: sin ACL no se mueve el pod.
+  {
+    const p = makeProvider();
+    p.declare({ unitId: "portal", type: "agent", condition: "bootstrap" });
+    inflateBilateral(p, "portal", []);
+    let denied = false;
+    try {
+      p.transition("portal", "ready", { actor: "maestro-m" });
+    } catch (e) {
+      denied = /denegada/.test(String(e.message));
+    }
+    if (!denied) fail("transition con ACL vacía debía denegarse");
+
+    // ni un actor ajeno con ACL de otro
+    const p2 = makeProvider();
+    p2.declare({ unitId: "portal", type: "agent", condition: "bootstrap" });
+    inflateBilateral(p2, "portal", fullAcl());
+    let denied2 = false;
+    try {
+      p2.transition("portal", "ready", { actor: "intruso" });
+    } catch (e) {
+      denied2 = /denegada/.test(String(e.message));
+    }
+    if (!denied2) fail("transition de actor sin ACL debía denegarse");
+
+    // y sin actor no se puede ni pedir
+    let noActor = false;
+    try {
+      p2.transition("portal", "ready");
+    } catch (e) {
+      noActor = /actor requerido/.test(String(e.message));
+    }
+    if (!noActor) fail("transition sin actor debía exigir actor");
+    ok("transition autorizada por la política (ACL vacía · actor ajeno · sin actor)");
+  }
+
+  // 7.3 — permissions del lease acotan lo que la ACL puede conceder.
+  {
+    const p = makeProvider();
+    p.declare({ unitId: "portal", type: "agent", condition: "bootstrap" });
+    let threw = false;
+    try {
+      inflateBilateral(p, "portal", [{ actor: "maestro-m", verbs: ["unit.start"] }], {
+        permissions: ["unit.inspect"],
+      });
+    } catch (e) {
+      threw = /fuera de permissions/.test(String(e.message));
+    }
+    if (!threw) fail("ACL que excede permissions debía rechazarse");
+    ok("permissions del lease acotan la ACL");
+  }
+
+  // 7.4 — setAcl exige autoridad y DEJA EVENTO.
+  {
+    const p = makeProvider();
+    p.declare({ unitId: "portal", type: "agent", condition: "bootstrap" });
+    inflateBilateral(p, "portal", fullAcl());
+
+    let noActor = false;
+    try {
+      p.setAcl("portal", [{ actor: "x", verbs: ["unit.start"] }]);
+    } catch (e) {
+      noActor = /actor requerido/.test(String(e.message));
+    }
+    if (!noActor) fail("setAcl sin actor debía exigir actor");
+
+    let noAuth = false;
+    try {
+      p.setAcl("portal", [{ actor: "x", verbs: ["unit.start"] }], {
+        actor: "intruso",
+      });
+    } catch (e) {
+      noAuth = /sin autoridad/.test(String(e.message));
+    }
+    if (!noAuth) fail("setAcl de actor sin autoridad debía denegarse");
+
+    const evPath = path.join(p._paths.get("portal"), "events.ndjson");
+    const readEvents = () =>
+      fs
+        .readFileSync(evPath, "utf8")
+        .split("\n")
+        .filter(Boolean)
+        .map((l) => JSON.parse(l));
+
+    if (readEvents().filter((e) => e.type === "acl.set.denied").length !== 1) {
+      fail("el intento denegado de setAcl debía dejar evento acl.set.denied");
+    }
+
+    const before = readEvents().length;
+    p.setAcl("portal", [{ actor: "maestro-m", verbs: ["unit.inspect"] }], {
+      actor: p.hostIri,
+      reason: "rotacion",
+    });
+    const after = readEvents();
+    const sets = after.filter((e) => e.type === "acl.set");
+    if (after.length <= before) fail("setAcl legítimo no dejó evento");
+    if (sets.length !== 1) fail(`esperado 1 acl.set, got ${sets.length}`);
+    if (!sets[0].previousDigest || !sets[0].nextDigest) {
+      fail("acl.set sin huella previa/siguiente");
+    }
+    if (sets[0].previousDigest === sets[0].nextDigest) {
+      fail("acl.set con huellas idénticas pese al cambio");
+    }
+    ok("setAcl exige autoridad, acota por permissions y deja evento (concedido y denegado)");
+  }
+
+  // 7.5 — el comodín no concede.
+  {
+    if (isValidAclEntry({ actor: "x", verbs: ["*"] })) {
+      fail("verbs:['*'] debía ser entrada ACL inválida");
+    }
+    const d = evaluatePodAcl({
+      acl: [{ actor: "x", verbs: ["*"] }],
+      actor: "x",
+      verb: "verbo.jamas.declarado",
+    });
+    if (d.allowed || d.reason !== "acl-invalid") {
+      fail(`comodín debía dar acl-invalid: ${JSON.stringify(d)}`);
+    }
+    ok("verbs:['*'] no concede: entrada inválida");
+  }
+
+  // 7.6 — un lease caducado deniega aunque la ACL siga diciendo que sí.
+  {
+    const p = makeProvider();
+    p.declare({ unitId: "portal", type: "agent", condition: "bootstrap" });
+    // ACL SIN expiresAt: solo puede pararlo la caducidad del lease.
+    inflateBilateral(p, "portal", [
+      { actor: "maestro-m", verbs: ["unit.start"] },
+    ], { expiresAt: FUT });
+
+    const vivo = p.authorize({
+      unitId: "portal",
+      actor: "maestro-m",
+      verb: "unit.start",
+    });
+    if (!vivo.allowed) fail(`con lease vivo debía conceder: ${vivo.reason}`);
+
+    const caduco = p.authorize({
+      unitId: "portal",
+      actor: "maestro-m",
+      verb: "unit.start",
+      now: new Date(Date.parse(FUT) + 60_000),
+    });
+    if (caduco.allowed || caduco.reason !== "lease-expired") {
+      fail(`lease caducado debía denegar: ${JSON.stringify(caduco)}`);
+    }
+    ok("lease caducado deniega aunque la ACL no tenga expiresAt");
+  }
+
+  // 7.7 — identidad de M: se retira la autoafirmación `trusted:true`.
+  {
+    const p = makeProvider();
+    p.declare({ unitId: "portal", type: "agent", condition: "bootstrap" });
+    p.requestInflate({
+      unitId: "portal",
+      actorIri: p.maestroIri,
+      identity: { role: "M", trusted: true },
+    });
+    let threw = false;
+    try {
+      p.issueLease({
+        unitId: "portal",
+        actorIri: p.hostIri,
+        permissions: TEST_PERMISSIONS,
+        expiresAt: FUT,
+        identity: { role: "M", trusted: true },
+        acl: fullAcl(),
+      });
+    } catch (e) {
+      threw = /identidad M inválida/.test(String(e.message));
+    }
+    if (!threw) fail("identidad autoafirmada {role:'M',trusted:true} debía rechazarse");
+
+    // Un actorIri que NO es el de M tampoco cuela.
+    const p2 = makeProvider();
+    p2.declare({ unitId: "portal", type: "agent", condition: "bootstrap" });
+    p2.requestInflate({
+      unitId: "portal",
+      actorIri: p2.maestroIri,
+      identity: { actorIri: "urn:quien:sea" },
+    });
+    let threw2 = false;
+    try {
+      p2.issueLease({
+        unitId: "portal",
+        actorIri: p2.hostIri,
+        permissions: TEST_PERMISSIONS,
+        expiresAt: FUT,
+        identity: { actorIri: "urn:quien:sea" },
+        acl: fullAcl(),
+      });
+    } catch {
+      threw2 = true;
+    }
+    if (!threw2) fail("identidad con actorIri ajeno debía rechazarse");
+    ok("identidad de M contrastada contra maestroIri (sin rama trusted:true)");
+  }
 }
 
 if (failed > 0) {
