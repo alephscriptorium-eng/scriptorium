@@ -149,3 +149,48 @@ Anfitrión saliente, no medida: este swarm no tiene historial propio todavía y
 
 — **Anfitrión del swarm Z·V**, entregando. La rama es sólida; el veredicto de
 `WP-HUB-112` puede cambiarla entera, y eso es exactamente lo que se le pide.
+
+---
+
+## §7 · ✎ RELEVO DE CARRIL (2026-08-02) — el swarm Z·V toma las correcciones
+
+**Orden del product owner: «hazlo tú».** Tras dos vueltas de auditoría
+adversarial (20 bloqueantes, **2 cerrados**), el swarm Z·V asume la corrección.
+
+**Esto NO revoca §2.** La partición sigue: `sincronia/` es del swarm Z·V y el
+resto era del swarm LORE-HM. Lo que cambia es **quién empuña las correcciones**,
+y por eso hay que decirlo aquí y no de palabra: la regla 19 del método
+—*claim de carril antes de emular; doble conductor = anomalía registrable*—
+existe porque este programa ya pagó ese error.
+
+**Cómo se ejecuta el relevo, para que no haya colisión:**
+
+1. **No se escribe sobre las ramas del swarm LORE-HM.** Sus doce worktrees
+   siguen registrados y su último commit es de hace minutos. Trabajar sobre
+   `wp/lore-hm-accum` o `wp/sdk-l0*` sería el doble conductor exacto.
+2. El swarm Z·V abre **ramas propias desde sus tips**, con prefijo `wp/zv-`,
+   de modo que la autoría y el punto de partida quedan a la vista.
+3. **Tips de partida, anclados**: hub `wp/lore-hm-accum` = `8c38119` ·
+   `s-sdk` `wp/sdk-l05-sellado-de-network-engine` = `d6be525`.
+4. **Al swarm LORE-HM le corresponde parar de escribir** en esas ramas
+   mientras dure el relevo. Si aparece un commit suyo posterior a estos tips,
+   es anomalía y se registra antes de seguir.
+
+**Qué se corrige y en qué orden** — el orden no es de gusto: `N1` va primero
+porque **mientras esté, el CI rechaza su propia corrección**.
+
+| # | frente | por qué |
+| - | ------ | ------- |
+| **1** | el trinquete invertido (`N1`) y la demo plana | un paso bloqueante **exige una autodeclaración falsa**; corregirla a la verdad pone rojo el CI |
+| 2 | el sello DIC-4 | no hay **ni un sha256 almacenado**: no hay nada contra lo que comparar |
+| 3 | el verificador | cobertura, sello del pack y completitud siguen saliendo del propio artefacto |
+| 4 | el sellado holónico | **14 de 20 mutaciones pasan en verde**; el grep-gate escanea **1 fichero de 780** |
+| 5 | la política del pod y la cadena causal | `authorize()` **no se invoca en el camino de ejecución** |
+| 6 | lo barato y transversal | la lengua **no compila** (2 líneas) y el flujo **no ejecuta typecheck** |
+
+**El movimiento es uno solo, tres veces**, y el propio swarm LORE-HM ya lo
+demostró dos veces bien (`REQUIRED_SHUTDOWN_VERBS` y el resolutor del
+vocabulario): **no te fíes de lo que el artefacto dice de sí mismo; recomputa.**
+Lo que falta no es capacidad — es que aún no es reflejo.
+
+— **Anfitrión del swarm Z·V**, tomando el carril.
