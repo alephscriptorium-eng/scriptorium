@@ -166,66 +166,78 @@ Lo que se corrigió, uno a uno:
 > compruebas que enrojece.**
 
 Cada experimento parchea el guardián en el árbol, corre el test y restaura el
-fichero (`restaurado: intacto=True` en los nueve). Salida literal:
+fichero (`restaurado: intacto=True` en los nueve). **Salida recapturada del
+código que entra en este commit**, no retocada a mano: en la entrega anterior
+estos bloques mostraban el formato viejo del denominador y les faltaba la
+línea `fronteras del catálogo sin negativo verificado`, que sí aparecía en la
+prosa de §6. Cita rancia; corregido re-ejecutando.
 
 ```
 == G1-corpus :: DESACTIVADO lib/cadena/run-cadena.mjs
 exit=1
-test-110-negativos: negativos verificados 6/7 (catálogo 7)
-test-110-negativos: FAIL — negativo «corpus ausente» — provocador «corpus ausente» no probó nada:
-  el sistema falló, pero no por el corpus que quité: code=undefined path=undefined
-  msg=linea-kit rechazó linea:barrio-lore-onfalo (manifest-tronco): [{"instancePath":"/nodos",...}]
+test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
+test-110-negativos: FAIL — negativo «corpus ausente» — provocador «corpus ausente» no probó nada: el sistema falló, pero no por el corpus que quité: code=undefined path=undefined msg=linea-kit rechazó linea:barrio-lore-onfalo (manifest-tronco): [{"instancePath":"/nodos","schemaPath":"#/properties/nodos/minItems","keyword":"minItems","params":{"limit":1},"message":"must NOT have fewer than 1 items"}]
+test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: corpus ausente
+== restaurado: intacto=True
 
-== G2-hash :: DESACTIVADO lib/verificador/verificar.mjs   (if (digest !== expected))
+== G2-hash :: DESACTIVADO lib/verificador/verificar.mjs
 exit=1
-test-110-negativos: negativos verificados 6/7 (catálogo 7)
-test-110-negativos: FAIL — negativo «hash roto» — el verificador se negó por OTRA frontera:
-  esperaba «hash roto», dio «cadena causal diverge»
+test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
+test-110-negativos: FAIL — negativo «hash roto» — provocador «hash roto» no probó nada: el verificador se negó por OTRA frontera: esperaba «hash roto», dio «cadena causal diverge» (cadena causal diverge: urn:scriptorium:hm:neg-110-base:step:1:peer.join: causalDigest H≠M (sha256:4881f2f71bbd807a7627ce359fc63f3f0ca0197570b2f229237a841f94a1016e≠sha256:886dc4c3f0ab726909f9dbbfe527aeaa85c7c88d3ac69e2a2d5f22c4380e55df))
+test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: hash roto
+== restaurado: intacto=True
 
-== G3-schema :: DESACTIVADO lib/verificador/verificar.mjs   (if (!validate(report)))
+== G3-schema :: DESACTIVADO lib/verificador/verificar.mjs
 exit=1
-test-110-negativos: negativos verificados 6/7 (catálogo 7)
-test-110-negativos: FAIL — negativo «schema inválido» — EL SISTEMA NO SE NEGÓ —
-  verificarEvidencia con un campo no declarado en report.json → devolvió {"ok":true,...}
+test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
+test-110-negativos: FAIL — negativo «schema inválido» — provocador «schema inválido» no probó nada: EL SISTEMA NO SE NEGÓ — verificarEvidencia con un campo no declarado en report.json → el sistema siguió adelante y devolvió {"ok":true,"runId":"neg-110-base","checks":["piezas pack presentes","wire + JSON-LD + hashes","cadena causal H/M desde wires","reporte","provenance","cobertura","ACL","tipestate","VectorMock declarado
+test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: schema inválido
+== restaurado: intacto=True
 
-== G4-lease :: DESACTIVADO lib/podstore/LocalPodProvider.mjs (recordEvent: if (!pod.materialized))
+== G4-lease :: DESACTIVADO lib/podstore/LocalPodProvider.mjs
 exit=1
-test-110-negativos: negativos verificados 6/7 (catálogo 7)
-test-110-negativos: FAIL — negativo «pod sin lease» — EL SISTEMA NO SE NEGÓ —
-  recordEvent sobre un pod sin lease → el sistema siguió adelante y devolvió undefined
+test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
+test-110-negativos: FAIL — negativo «pod sin lease» — provocador «pod sin lease» no probó nada: EL SISTEMA NO SE NEGÓ — recordEvent sobre un pod sin lease → el sistema siguió adelante y devolvió undefined
+test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: pod sin lease
+== restaurado: intacto=True
 
-== G4b-authorize :: DESACTIVADO lib/podstore/LocalPodProvider.mjs (transition: if (!decision.allowed))
+== G4b-authorize :: DESACTIVADO lib/podstore/LocalPodProvider.mjs
 exit=1
-test-110-negativos: negativos verificados 6/7 (catálogo 7)
-test-110-negativos: FAIL — negativo «pod sin lease» — transition falló, pero no por la política:
-  tipestate: transición ilegal declared → ready
+test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
+test-110-negativos: FAIL — negativo «pod sin lease» — provocador «pod sin lease» no probó nada: transition falló, pero no por la política: tipestate: transición ilegal declared → ready
+test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: pod sin lease
+== restaurado: intacto=True
 
-== G5-vectormock :: DESACTIVADO lib/verificador/verificar.mjs   (validateVectorMock)
+== G5-vectormock :: DESACTIVADO lib/verificador/verificar.mjs
 exit=1
-test-110-negativos: negativos verificados 6/7 (catálogo 7)
-test-110-negativos: FAIL — negativo «VectorMock no declarado» — el verificador se negó por OTRA
-  frontera: esperaba «VectorMock sin declarar», dio «sello del pack roto»
+test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
+test-110-negativos: FAIL — negativo «VectorMock no declarado» — provocador «VectorMock no declarado» no probó nada: el verificador se negó por OTRA frontera: esperaba «VectorMock sin declarar», dio «sello del pack roto» (sello del pack roto: digest declarado=sha256:5726766423861eee72d32ccf0019809bf752201f44e6873f50e0e075a667d2fa recomputado=sha256:7ecd2b01ae129a155717930a1a5144b777a2b1de8c46e65d4bb30d3f3fc01c16)
+test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: VectorMock no declarado
+== restaurado: intacto=True
 
-== G6-upstream :: DESACTIVADO lib/ceremonia/run-ceremonia.mjs   (if (!completed.has(up)))
+== G6-upstream :: DESACTIVADO lib/ceremonia/run-ceremonia.mjs
 exit=1
-test-110-negativos: negativos verificados 6/7 (catálogo 7)
-test-110-negativos: FAIL — negativo «upstream ausente» — la ceremonia falló por otra cosa:
-  CeremonyError code=unexpected «upstream ausente: machine»
+test-110-negativos: negativos verificados 6/7 del catálogo (filas en MATRIX: 7)
+test-110-negativos: FAIL — negativo «upstream ausente» — provocador «upstream ausente» no probó nada: la ceremonia falló por otra cosa: CeremonyError code=unexpected «upstream ausente: machine»
+test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: upstream ausente
 test-110-negativos: FAIL — actas de negativos sin recoger: neg-110-upstream.json
+== restaurado: intacto=True
 
-== G7-wipe :: DESACTIVADO lib/ceremonia/run-ceremonia.mjs   (wipePartialState(runRoot, provider))
+== G7-wipe :: DESACTIVADO lib/ceremonia/run-ceremonia.mjs
 exit=1
-test-110-negativos: negativos verificados 5/7 (catálogo 7)
-test-110-negativos: FAIL — negativo «upstream ausente» — EL SISTEMA NO SE NEGÓ —
-  estado parcial residual en .runs/neg-110-upstream: .podstore,evidence,H,M,manifest.json,room.json
-test-110-negativos: FAIL — negativo «runner caído» — EL SISTEMA NO SE NEGÓ —
-  runner caído dejó estado parcial en .runs/neg-110-runner: .podstore,evidence,H,M,...
+test-110-negativos: negativos verificados 5/7 del catálogo (filas en MATRIX: 7)
+test-110-negativos: FAIL — negativo «upstream ausente» — provocador «upstream ausente» no probó nada: EL SISTEMA NO SE NEGÓ — estado parcial residual en C:\S_LAB\wt\scriptorium-wp-hub-110\playground\prueba-de-H-M\.runs\neg-110-upstream: .podstore,evidence,H,M,manifest.json,room.json
+test-110-negativos: FAIL — negativo «runner caído» — provocador «runner caído» no probó nada: EL SISTEMA NO SE NEGÓ — runner caído dejó estado parcial en C:\S_LAB\wt\scriptorium-wp-hub-110\playground\prueba-de-H-M\.runs\neg-110-runner: .podstore,evidence,H,M,manifest.json,room.json
+test-110-negativos: FAIL — fronteras del catálogo sin negativo verificado: upstream ausente, runner caído
+test-110-negativos: FAIL — actas de negativos sin recoger: neg-110-runner.json,neg-110-upstream.json
+== restaurado: intacto=True
 
-== G8-offline-block :: DESACTIVADO lib/offline/preload.mjs (installOfflineGuard({ block:false }))
+== G8-offline-block :: DESACTIVADO lib/offline/preload.mjs
 exit=1
-test-110-consumidor-limpio: PASS — guardia offline instalada en 7 procesos descendientes
-test-110-consumidor-limpio: FAIL — la guardia NO bloquea:
-  la sonda salió a example.com:443 sin que nadie la parara
+test-110-consumidor-limpio: PASS — guardia offline instalada en 7 procesos descendientes (el padre no la instala)
+test-110-consumidor-limpio: FAIL — la guardia NO bloquea: la sonda salió a example.com:443 sin que nadie la parara
+test-110-consumidor-limpio: FAIL (1)
+== restaurado: intacto=True
 ```
 
 ### Lo que estos experimentos revelan, y que no se disimula
@@ -312,6 +324,61 @@ test-110-consumidor-limpio: FAIL (1)
 
 Esa es exactamente la condición que antes pasaba en verde.
 
+### G10 · el siguiente invisible, y la CA que podía imprimirse en verde con huérfanos vivos
+
+El cruce del censo demuestra `partes ⊆ censo`. **Nunca lo contrario, y nunca el
+universo.** Quien no deja parte no está en el denominador — y el `7/7` se
+calcula sobre un denominador que el propio ciego elige.
+
+Se inyectó el caso: dentro de `run-ceremonia.mjs`, bajo la guardia y en el kit,
+un proceso creado con `import { spawn }` —la vía que la instrumentación no ve—,
+con `NODE_OPTIONS` y `HM_OFFLINE_LOG` borrados del env, `detached`, vivo diez
+minutos. Tres ceremonias, tres procesos. Con el arnés de la entrega anterior:
+
+```
+exit=0
+PASS — censo cruzado: 7/7 procesos que dejaron parte están censados (censo 10 = 7 del test + 3 nietos)
+PASS — 10 procesos de SO creados, 0 vivos al cierre, 7 con código de salida recogido
+
+=== PIDS HUERFANOS CREADOS === 40272 43068 43952
+   40272 VIVO · 43068 VIVO · 43952 VIVO
+```
+
+**Exit 0, suite verde, y tres procesos de SO vivos en el instante exacto en que
+el arnés imprime «0 vivos al cierre».** La CA «shutdown sin procesos huérfanos»
+podía imprimirse en verde con huérfanos vivos. No era una laguna de cobertura
+declarada en una nota: era una línea verde falsa.
+
+**Medida barata que lo acota** (`barrerHuerfanosDelSO`): en vez de creer lo que
+el arnés recuerda haber lanzado, se le pregunta al SO por procesos **vivos**
+cuyo padre sea alguno de los PIDs que sí conocemos. El huérfano cuelga del
+proceso de ceremonia, que está en el censo, así que aparece aunque su creación
+fuera invisible. Con el barrido puesto, el mismo sabotaje:
+
+```
+exit=1
+PASS — censo cruzado: 7/7 procesos que dejaron parte están censados (censo 10 pids distintos = 7 del test + 3 nietos)
+PASS — 10 pids distintos creados, 0 vivos al cierre, 7 con código de salida recogido
+FAIL — procesos huérfanos VIVOS según el SO: node.exe#37468(padre 34884),
+       node.exe#43548(padre 35436), node.exe#43428(padre 43208)
+FAIL (1)
+
+=== PIDS HUERFANOS CREADOS === 37468 43548 43428
+```
+
+Los tres PIDs que denuncia son exactamente los tres creados. Y el rojo lo pone
+**una aserción**: en la primera pasada del revisor el test moría con
+`EBUSY: rmdir` en el `finally` porque el huérfano heredaba el `cwd` — exit 1
+por accidente de limpieza, con `failed = 0` y las dos líneas del censo ya
+impresas en PASS. Que se pusiera rojo no era mérito de nadie.
+
+Corrida limpia: `PASS — barrido del SO: cero procesos vivos colgando de los 11
+pids conocidos`.
+
+**Lo que el barrido NO cierra** está en §8: sólo Windows, sólo hijos directos
+de PIDs conocidos, y los PID se reciclan (se contrasta la fecha de creación
+contra el arranque de la corrida).
+
 ---
 
 ## 5 · El consumidor limpio, rehecho
@@ -325,6 +392,8 @@ Esa es exactamente la condición que antes pasaba en verde.
 | **los puertos no se comprobaban nunca** (cero referencias en el test) | `net.Server.prototype.listen` instrumentado en los 7 procesos; el test exige **cero escuchas** |
 | «sin procesos huérfanos» **infalsificable** (`residualProcesses` = unidades cuya transición lanzó; no había procesos de SO) | se instrumenta `child_process.*` —incluidas `execSync` y `execFileSync`, que se capturaban y nunca se envolvían—, se recogen los **PID reales** creados por el test y por sus hijos, se exige que ninguno siga vivo (`process.kill(pid,0)` → `ESRCH`) y con código de salida recogido, **y se CRUZA contra los partes offline**: un PID que dejó parte y no está censado es FAIL. Medido: **censo 10 = 7 del test + 3 nietos, cruce 7/7, 0 vivos**. Ver G9 |
 | el censo corría **antes** de `skills:ceguera`, que se registraba después y no lo miraba nadie | el censo va el **último**, así que ese proceso también entra |
+| el censo **no veía** lo que no pasa por su instrumentación: verde con huérfanos vivos | **barrido del SO** (`barrerHuerfanosDelSO`): procesos vivos colgando de PIDs conocidos, preguntando a Windows. Ver G10 |
+| `todos.length` contaba **registros, no PIDs distintos** (`cp.exec` deja dos entradas para un proceso) | se cuenta `censoPids.size` |
 | la sonda se autoadjudicaba `status: 0` descartando el real de `spawnSync` | se registra el `status` real |
 | aserción que se saltaba en silencio (`if (existsSync(tipPath))`) | el fichero es **obligatorio**; si falta, FAIL. Y `finals` vacío también es FAIL |
 | determinismo oculto dos veces (`TIME_FIELDS` borraba `issuedAt`, `expiresAt` y **`leaseId`** *y además* reloj congelado) | `TIME_FIELDS` **eliminado**. Comparación byte a byte del árbol completo, cero exclusiones, con reloj y semilla inyectados por CLI. Más control de falsabilidad (§1) |
@@ -350,8 +419,9 @@ PASS — cero puertos abiertos (listen() instrumentado en 7 procesos)
 PASS — shutdown: 12 unidades en estado final
 PASS — cero locks/pids huérfanos en el árbol de la corrida
 PASS — npm run skills:ceguera desde la raíz del hub
-PASS — censo cruzado: 7/7 procesos que dejaron parte están censados (censo 10 = 7 del test + 3 nietos)
-PASS — 10 procesos de SO creados, 0 vivos al cierre, 7 con código de salida recogido
+PASS — censo cruzado: 7/7 procesos que dejaron parte están censados (censo 10 pids distintos = 7 del test + 3 nietos)
+PASS — 10 pids distintos creados, 0 vivos al cierre, 7 con código de salida recogido
+PASS — barrido del SO: cero procesos vivos colgando de los 11 pids conocidos
 ```
 
 ---
@@ -376,8 +446,14 @@ verde y quien salvaba la corrida era el chequeo de conjuntos, no el número.
 Ahora el denominador es el **catálogo**, el numerador es un conjunto de
 fronteras (no un contador), y se exige explícitamente que ninguna frontera del
 catálogo se quede sin negativo verificado. En las nueve desactivaciones esa
-línea nueva salta:
+línea nueva salta, y está en la salida recapturada de §4:
 `FAIL — fronteras del catálogo sin negativo verificado: <frontera>`.
+
+Un detalle más, que también era cardinalidad disfrazada: el denominador era
+`Object.values(NEG_FRONTIER)` —un array— frente a un numerador `Set`, así que
+un valor duplicado en el catálogo imprimía `7/8` y **seguía en PASS**. Ahora el
+denominador es un `Set` y un catálogo con dos claves del mismo valor es un
+fallo con nombre.
 
 ---
 
@@ -428,38 +504,58 @@ Dicho antes de que lo encuentre nadie.
    salta otro guardián. El rojo es real, pero es «cambió la frontera», no
    «nadie se negó». G6 estaba mal clasificado en la primera entrega y lo
    desmontó la revisión con la salida que este mismo reporte ya imprimía.
-5. **La guardia offline es en-proceso, replicada en cada hijo Node, y sólo
-   alcanza a quien consume el builtin por el NAMESPACE.** El límite que declaré
-   antes —«un binario nativo, o un hijo que no sea Node»— era más ancho que el
-   real. Escapan **sin bloquear ni registrar**, con Node puro:
+5. **La guardia offline sólo alcanza a quien consume el builtin por el
+   NAMESPACE.** Lo que queda fuera, con Node puro, es **un** hueco y no dos:
    `import { lookup } from "node:dns"` y cualquier otro named import de un
-   builtin (binding fijado al instanciar: medido, no supuesto), y
-   `new dns.Resolver().resolve4()`, que trae sus propios métodos. Se añadieron
-   `dns.resolveAny/Cname/Mx/Txt/Srv/Ns` y las variantes de `dns/promises`, que
-   sí faltaban por namespace; los dos huecos estructurales **siguen abiertos**.
-   Y sigue sin haber comprobación a nivel de SO: ni sockets del sistema, ni
-   firewall, ni `netstat`.
+   builtin, porque el binding se fija al instanciar el módulo (medido). Lo
+   demás que declaré «estructural» era falso: `new dns.Resolver()` guarda sus
+   métodos en un **prototipo**, y un prototipo se parchea igual que
+   `net.Socket.prototype`. Y la lista a mano de `dns` estaba coja —9 de 17 en
+   `dns`, 5 de 17 en `dns/promises`, con `dns.promises.resolveTxt`, el vector
+   clásico de exfiltración por DNS, saliendo sin bloquear ni registrar—. La
+   lista a mano **era** el agujero: ahora la superficie se **enumera** en
+   tiempo de ejecución sobre `dns`, `dns/promises`, `dns.Resolver.prototype` y
+   `dns.promises.Resolver.prototype`. Medido después: **49 APIs bloquean y
+   registran, 0 escapan**. Sigue sin haber comprobación de red a nivel de SO:
+   ni sockets del sistema, ni firewall, ni `netstat`.
 6. **El proceso padre del test NO está bajo la guardia.** Los partes son de sus
    descendientes. Lo que el padre haga por red no lo mide nadie; hoy no hace
    nada, pero eso es una propiedad del código, no del arnés.
-7. **El censo de procesos sólo ve lo que pasa por el namespace de
-   `child_process`.** Ve los nietos porque se cambió el llamador del kit
-   (`run-ceremonia.mjs`), no porque la instrumentación sepa alcanzarlos: si
-   mañana otro fichero usa `import { spawn }`, sus procesos vuelven a ser
-   invisibles. Lo único que lo detectaría es el cruce contra los partes
-   offline, y sólo si ese proceso es Node y deja parte.
-8. **`npm ci` de la fase seed NO corre bajo la guardia**, por definición: es la
+7. **El cruce del censo demuestra `partes ⊆ censo`; nunca lo contrario, y
+   nunca el universo. Quien no deja parte no está en el denominador, y el
+   `7/7` se calcula sobre un denominador que el propio ciego elige.** Dicho
+   sin rodeos: **la CA «shutdown sin procesos huérfanos» se pudo imprimir en
+   verde con procesos huérfanos vivos** — no como riesgo teórico, sino
+   demostrado (G10: exit 0, suite verde, tres procesos de SO vivos en el
+   instante en que el arnés imprimía «0 vivos al cierre»). El censo por sí solo
+   cuenta a los que responden, y los que no responden son exactamente los que
+   no se supo lanzar. Por eso se añadió el barrido del SO, que mira lo que hay
+   en vez de lo que el arnés recuerda. **Lo que el barrido sigue sin cubrir**:
+   sólo Windows —en otra plataforma imprime `NO CUBIERTO` y no se calla—; sólo
+   ve hijos **directos** de PIDs conocidos, así que un nieto de un proceso
+   invisible queda fuera; y los PID se reciclan, de modo que se descarta por
+   fecha de creación anterior al arranque, lo cual acota el falso positivo pero
+   no lo elimina. El censo, además, sólo ve lo que pasa por el namespace de
+   `child_process`: ve los nietos porque se cambió el llamador del kit, no
+   porque la instrumentación sepa alcanzarlos.
+8. **Dos de las seis vías visibles por namespace son INCONTABLES por
+   construcción**: `execSync` y `execFileSync` no devuelven pid en Node, así
+   que se registran con `pid: null` y el cruce no los puede casar. Si un hijo
+   Node se lanzara por ahí, dejaría parte y el cruce lo denunciaría como «no
+   está en el censo» — cuando la causa no es ceguera sino que la API no da el
+   dato. El mensaje de fallo ahora lo dice; la limitación sigue.
+9. **`npm ci` de la fase seed NO corre bajo la guardia**, por definición: es la
    semilla y usa red. La CA dice «offline **tras** seed» y eso es lo que se
    verifica.
-9. **La liveness de procesos se comprueba con `process.kill(pid, 0)`**, que en
+10. **La liveness de procesos se comprueba con `process.kill(pid, 0)`**, que en
    Windows puede devolver `EPERM` en vez de `ESRCH`. Esos casos se cuentan como
    *indeterminados* y se reportan; no se dan por muertos. Los PID además se
    reciclan: la comprobación es buena, no es una prueba.
-10. **`--now` y `--lease-seed` sólo cubren el podstore.** Si mañana alguien
+11. **`--now` y `--lease-seed` sólo cubren el podstore.** Si mañana alguien
    añade otra fuente de tiempo o de azar en la ceremonia, la corrida dejará de
    ser reproducible; el rerun se pondrá rojo, pero la inyección no lo absorberá
    sola.
-11. **Cero medición de red real.** «Cero salidas no-loopback» significa que
+12. **Cero medición de red real.** «Cero salidas no-loopback» significa que
    ninguna API de Node intentó salir, no que la máquina no tuviera tráfico.
-12. **`REPORTE-WP-HUB-110.md` queda como retractación**, no como reporte: sus
+13. **`REPORTE-WP-HUB-110.md` queda como retractación**, no como reporte: sus
     afirmaciones son las que la auditoría desmontó.
