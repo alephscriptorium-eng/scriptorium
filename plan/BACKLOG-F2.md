@@ -14,6 +14,7 @@
 | ✎ 2026-08-02 | **LORE-HM ola 2 ✅**: `102` tip `186fc94` · `103` tip `07f36ac` · PASS_CON_ADDENDA · accum `wp/lore-hm-accum` · **sin merge main**. |
 | ✎ 2026-08-02 | **LORE-HM ola 3 GO**: `WP-HUB-104` 🔶 (wt `scriptorium-wp-hub-104`, base `wp/lore-hm-accum`=`c51c74d`); `105` tras 104 · L03 en s-sdk. |
 | ✎ 2026-08-02 | **LORE-HM ola 3**: `104` tip `5662eaa` entregado; `105` 🔶 despachado; L03 tip `397a4c5` entregado. |
+| ✎ 2026-08-02 | **LORE-HM ola 4 GO**: `106` ✅ tip `afcfa92` · `107` 🔶 · L04 tip `231bd3a`. |
 | ✎ 2026-08-02 | **LORE-HM ola 3 ✅**: `104`=`5662eaa` · `105`=`119711b` · L03=`397a4c5` · PASS_CON_ADDENDA · accum pre-GHM · **sin merge main**. |
 
 ## Visión
@@ -539,7 +540,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 - **Pri:** P1 · dep: 100, 104
 - **Estado:** ✅ ola 3 · tip `119711b` · rama `wp/hub-105-hm-cadena-lore-determinista` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-106 · hm-ceremonia-bilateral
+### WP-HUB-106 · hm-ceremonia-bilateral ✅
 - **BRIEF:** `barrio-lore-v1` en once pasos **bloqueantes**: preflight e
   identidad H/M → room y autoridad → leases e inflación conjunta de
   Bartleby/Cristalizador → machine manifest y despliegue del resto →
@@ -558,8 +559,9 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   cortos consultados, fallos y procesos residuales · cada mitad firma **sólo
   la suya**.
 - **Pri:** P0 · dep: 101, 102, 103, 105
+- **Estado:** ✅ ola 4 · tip `afcfa92` · rama `wp/hub-106-hm-ceremonia-bilateral` · PASS_CON_ADDENDA · verde **local** · **sin merge main**
 
-### WP-HUB-107 · hm-verificador-externo
+### WP-HUB-107 · hm-verificador-externo 🔶
 - **BRIEF:** `scripts/verificar-evidencia.mjs`: un tercero valida la corrida
   **sin consultar los directorios vivos de H ni de M**.
 - **CA:** valida wire, expansión JSON-LD, hashes, ACL, transiciones,
@@ -569,6 +571,7 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   el raw, VectorMock sin declarar— **fallan cada uno en su frontera y con su
   nombre**, no con un error genérico.
 - **Pri:** P0 · dep: 106 · **cierra `GHM`**
+- **Estado:** 🔶 ola 4 · rama `wp/hub-107-hm-verificador-externo` · wt `C:/S_LAB/wt/scriptorium-wp-hub-107` · base `afcfa92`
 
 ### WP-HUB-108 · hm-mapa-holones-distritos
 - **BRIEF:** la pieza de Ciudad: el mapa jugable **7 holones × 6 distritos ×
