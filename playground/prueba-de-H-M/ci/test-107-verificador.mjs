@@ -17,8 +17,13 @@ import {
   SEALED_PACK_DOCS,
   computePackDigest,
 } from "../lib/ceremonia/evidence-pack.mjs";
-import { computeCoverage } from "../lib/ceremonia/evidence.mjs";
-import { REQUIRED_SHUTDOWN_VERBS } from "../lib/ceremonia/constants.mjs";
+import { computeCoverage, renderReportMd } from "../lib/ceremonia/evidence.mjs";
+import {
+  REQUIRED_SHUTDOWN_VERBS,
+  EXPECTED_ACTIVITY_PAIRS,
+  CEREMONY_STEPS,
+} from "../lib/ceremonia/constants.mjs";
+import { causalDigest } from "../lib/ceremonia/envelope.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const kitRoot = path.resolve(here, "..");
@@ -89,6 +94,72 @@ const ACTOR_M_IRI = "urn:scriptorium:hm:actor:maestro-m";
  */
 function repairSuperficial(dir) {
   const acts = path.join(dir, "activities");
+
+  // ── (0) RE-ANCLA TOPOLÓGICO de la cadena de upstream ────────────────────
+  // Este reparador hacía cuatro de cinco: no rehacía `provenance.upstream`,
+  // así que varios negativos habrían enrojecido por «provenance rota» antes
+  // de llegar al guardián que decían probar — el mismo tanto ajeno que este
+  // fichero intenta evitar. Se reconstruye el enganche declarado y se resella
+  // en orden de dependencia (el causalDigest depende del upstream).
+  {
+    const entradas = fs
+      .readdirSync(acts)
+      .map((d) => ({ d, w: readJson(path.join(acts, d, "wire.json")) }));
+    const porClave = new Map();
+    for (const e of entradas) {
+      const base = String(e.w.id).replace(/:(H|M)$/, "");
+      const m = /:step:(\d+):([^:]+)(:sec)?$/.exec(base);
+      if (!m) continue;
+      const clave = `${Number(m[1])}|${m[2]}|${m[3] ? "sec" : "pri"}`;
+      if (!porClave.has(clave)) porClave.set(clave, []);
+      porClave.get(clave).push(e);
+    }
+    const causalPorClave = new Map();
+    const orden = [...EXPECTED_ACTIVITY_PAIRS].sort(
+      (a, b) => a.step - b.step || (a.secondary ? 1 : -1),
+    );
+    for (const p of orden) {
+      const clave = `${p.step}|${p.verb}|${p.secondary ? "sec" : "pri"}`;
+      const grupo = porClave.get(clave);
+      if (!grupo) continue;
+      const claveP = (n) => `${n}|${CEREMONY_STEPS[n - 1].verb}|pri`;
+      const ups = p.secondary
+        ? [causalPorClave.get(claveP(p.step))].filter(Boolean)
+        : CEREMONY_STEPS[p.step - 1].upstream
+            .map((u) => causalPorClave.get(claveP(u)))
+            .filter(Boolean);
+      for (const e of grupo) {
+        const { digest: _viejo, ...resto } = e.w;
+        resto.provenance = { ...resto.provenance, upstream: [...ups] };
+        const sellado = { ...resto, digest: digestObject(resto) };
+        writeJson(path.join(acts, e.d, "wire.json"), sellado);
+        const vp = path.join(acts, e.d, "view.jsonld");
+        if (fs.existsSync(vp)) {
+          const v = readJson(vp);
+          v["@id"] = sellado.id;
+          v["hm:verb"] = sellado.verb;
+          v["hm:result"] = sellado.result;
+          v["hm:digest"] = sellado.digest;
+          v["prov:wasDerivedFrom"] = ups.map((u) => ({ "@id": u }));
+          writeJson(vp, v);
+        }
+        e.w = sellado;
+      }
+      causalPorClave.set(clave, causalDigest(grupo[0].w));
+    }
+  }
+
+  repairShallow(dir);
+}
+
+/**
+ * Capa superficial del reparador: report/matriz/hashes/cobertura/md y sello.
+ * Se expone aparte para que un negativo pueda romper la cadena DESPUÉS del
+ * re-ancla topológico sin que éste se la vuelva a arreglar.
+ * @param {string} dir
+ */
+function repairShallow(dir) {
+  const acts = path.join(dir, "activities");
   const wires = fs
     .readdirSync(acts)
     .map((d) => readJson(path.join(acts, d, "wire.json")));
@@ -101,18 +172,18 @@ function repairSuperficial(dir) {
 
   const report = readJson(path.join(dir, "report.json"));
   report.hashes = hashes;
+  // `result` sale del wire, no de un "pass" escrito a mano: el reparador
+  // dependía de que nadie mirase ese campo.
   report.matrix = wires.map((w) => ({
     verb: w.verb,
     actor: w.actor,
     object: w.object,
-    result: "pass",
+    result: w.result,
   }));
   report.coverage = coverage;
   writeJson(path.join(dir, "report.json"), report);
-  fs.writeFileSync(
-    path.join(dir, "report.md"),
-    `# ${report.reportId}\n\n> derivado desde eventos\n`,
-  );
+  // report.md es el render del JSON, no dos líneas con las palabras mágicas.
+  fs.writeFileSync(path.join(dir, "report.md"), renderReportMd(report));
 
   const prov = readJson(path.join(dir, "pack/provenance.json"));
   prov.hashes = hashes;
@@ -130,8 +201,8 @@ function repairSuperficial(dir) {
 }
 
 /** Fabrica una pareja bilateral H/M coherente consigo misma. */
-function fabricatePair(acts, sample, sampleView, order, verb, tag) {
-  const base = `urn:scriptorium:hm:fab:step:${order}:${verb}`;
+function fabricatePair(acts, sample, sampleView, order, verb, tag, runId) {
+  const base = `urn:scriptorium:hm:${runId}:step:${order}:${verb}`;
   for (const side of ["H", "M"]) {
     const env = {
       id: `${base}:${side}`,
@@ -241,10 +312,16 @@ function main() {
     } else {
       const missing = REQUIRED_CHECKS.filter((c) => !v.checks.includes(c));
       const extra = v.checks.filter((c) => !REQUIRED_CHECKS.includes(c));
+      // Registrar uno DOS VECES daba verde: faltaba comparar multiplicidad.
+      const dup = v.checks.filter((c, i) => v.checks.indexOf(c) !== i);
       if (missing.length > 0) {
         fail(`checks ausentes por nombre: ${missing.join(" · ")}`);
       } else if (extra.length > 0) {
         fail(`checks no declarados en el guardián: ${extra.join(" · ")}`);
+      } else if (dup.length > 0) {
+        fail(`checks registrados por duplicado: ${dup.join(" · ")}`);
+      } else if (v.checks.length !== REQUIRED_CHECKS.length) {
+        fail(`checks=${v.checks.length} ≠ ${REQUIRED_CHECKS.length} declarados`);
       } else {
         ok(`verificador PASS — ${REQUIRED_CHECKS.length} checks fijados por nombre`);
       }
@@ -454,6 +531,7 @@ function main() {
       const r = readJson(path.join(dir, "report.json"));
       r.coverage = { verbsPercent: 90, unitsPercent: 90 };
       writeJson(path.join(dir, "report.json"), r);
+      fs.writeFileSync(path.join(dir, "report.md"), renderReportMd(r));
     },
     isoBase,
   );
@@ -510,8 +588,9 @@ function main() {
         "zzz.a", "zzz.b", "zzz.c", "zzz.d", "zzz.e", "zzz.f",
         "zzz.g", "zzz.h", "zzz.i", "zzz.j", "zzz.k", "zzz.l",
       ];
+      const runId = readJson(path.join(dir, "report.json")).runId;
       verbs.forEach((v, i) =>
-        fabricatePair(acts, sample, sampleView, i + 1, v, "fab"),
+        fabricatePair(acts, sample, sampleView, i + 1, v, "fab", runId),
       );
       repairSuperficial(dir);
     },
@@ -542,8 +621,9 @@ function main() {
           fs.rmSync(path.join(acts, d), { recursive: true, force: true });
         }
       }
+      const runId = readJson(path.join(dir, "report.json")).runId;
       ["zzz.a", "zzz.b", "zzz.c", "zzz.d", "zzz.e", "zzz.f"].forEach((v, i) =>
-        fabricatePair(acts, sample, sampleView, 90 + i, v, "rep"),
+        fabricatePair(acts, sample, sampleView, 90 + i, v, "rep", runId),
       );
       repairSuperficial(dir);
     },
@@ -602,9 +682,12 @@ function main() {
   );
 
   // Provenance: upstream inventado en AMBAS mitades (causalmente coherente).
+  // Se repara PRIMERO y se rompe DESPUÉS: si no, el re-ancla topológico del
+  // reparador arreglaría justo lo que este negativo quiere romper.
   expectFrontier(
-    FRONTIER.PROVENANCE_ROTA,
+    FRONTIER.CADENA_CAUSAL_DIVERGE,
     (dir) => {
+      repairSuperficial(dir);
       const acts = path.join(dir, "activities");
       const byBase = new Map();
       for (const d of fs.readdirSync(acts)) {
@@ -633,7 +716,170 @@ function main() {
         v["hm:digest"] = sealed.digest;
         writeJson(vp, v);
       }
+      repairShallow(dir);
+    },
+    isoBase,
+  );
+
+  // ── Devolución ZV-HUB: cuatro bloqueantes de la contrarrevisión ─────────
+
+  // B1 · Una corrida ENTERA fabricada con las claves exactas. La biyección
+  // comparaba la clave y no la corrida: 34 actividades de un runId que nunca
+  // existió, con cero solapamiento con la real, pasaban los doce checks.
+  expectFrontier(
+    FRONTIER.PAREJA_INESPERADA,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      const d0 = fs.readdirSync(acts)[0];
+      const sample = readJson(path.join(acts, d0, "wire.json"));
+      const sampleView = readJson(path.join(acts, d0, "view.jsonld"));
+      for (const d of fs.readdirSync(acts)) {
+        fs.rmSync(path.join(acts, d), { recursive: true, force: true });
+      }
+      for (const p of EXPECTED_ACTIVITY_PAIRS) {
+        fabricatePair(
+          acts,
+          sample,
+          sampleView,
+          p.step,
+          p.verb,
+          "fantasma",
+          "CORRIDA-QUE-NUNCA-EXISTIO",
+        );
+      }
       repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // B1b · Vaciar la cadena: el check llamado «cadena causal» no exigía que
+  // hubiera cadena. Los 34 wires con upstream:[] daban ok=true.
+  expectFrontier(
+    FRONTIER.CADENA_CAUSAL_DIVERGE,
+    (dir) => {
+      repairSuperficial(dir);
+      const acts = path.join(dir, "activities");
+      for (const d of fs.readdirSync(acts)) {
+        const wp = path.join(acts, d, "wire.json");
+        const w = readJson(wp);
+        const { digest: _old, ...rest } = w;
+        rest.provenance = { ...rest.provenance, upstream: [] };
+        const sealed = { ...rest, digest: digestObject(rest) };
+        writeJson(wp, sealed);
+        const vp = path.join(acts, d, "view.jsonld");
+        const v = readJson(vp);
+        v["hm:digest"] = sealed.digest;
+        v["prov:wasDerivedFrom"] = [];
+        writeJson(vp, v);
+      }
+      repairShallow(dir);
+    },
+    isoBase,
+  );
+
+  // B2 · `wire.result` no lo leía nadie: 34 mitades en "fail" con
+  // report.verdict "pass" daban ok=true.
+  expectFrontier(
+    FRONTIER.REPORTE_INVALIDO,
+    (dir) => {
+      const acts = path.join(dir, "activities");
+      for (const d of fs.readdirSync(acts)) {
+        const wp = path.join(acts, d, "wire.json");
+        const w = readJson(wp);
+        const { digest: _old, ...rest } = w;
+        rest.result = "fail";
+        writeJson(wp, { ...rest, digest: digestObject(rest) });
+      }
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // B2b · La matriz se contrastaba por recuento de verbos: `actor` y `object`
+  // de cada fila eran libres.
+  expectFrontier(
+    FRONTIER.REPORTE_INVALIDO,
+    (dir) => {
+      repairSuperficial(dir);
+      const r = readJson(path.join(dir, "report.json"));
+      r.matrix = r.matrix.map((m) => ({ ...m, actor: "urn:quien:sea" }));
+      writeJson(path.join(dir, "report.json"), r);
+      fs.writeFileSync(path.join(dir, "report.md"), renderReportMd(r));
+    },
+    isoBase,
+  );
+
+  // report.md tenía contenido libre: bastaba con que citara dos cadenas.
+  expectFrontier(
+    FRONTIER.REPORTE_INVALIDO,
+    (dir) => {
+      const r = readJson(path.join(dir, "report.json"));
+      fs.writeFileSync(
+        path.join(dir, "report.md"),
+        `# ${r.reportId}\n\n> desde eventos\n(todo lo demás inventado)\n`,
+      );
+    },
+    isoBase,
+  );
+
+  // La CA de apagado limpio se quedaba sin sujeto.
+  expectFrontier(
+    FRONTIER.SHUTDOWN_INCOMPLETO,
+    (dir) => {
+      const t = readJson(path.join(dir, "pack/tipestate.json"));
+      t.transitions = [t.transitions[0]];
+      t.finals = {};
+      writeJson(path.join(dir, "pack/tipestate.json"), t);
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // Una sola ACL positiva no es una política bilateral.
+  expectFrontier(
+    FRONTIER.PIEZA_AUSENTE,
+    (dir) => {
+      const a = readJson(path.join(dir, "pack/acl.json"));
+      for (const e of a.entries) {
+        if (e.acl) e.acl = e.acl.map((r) => ({ ...r, verbs: ["unit.inspect"] }));
+      }
+      writeJson(path.join(dir, "pack/acl.json"), a);
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // ceremonyId/scenarioId eran dos campos libres; ahora van contra la raíz.
+  expectFrontier(
+    FRONTIER.PROVENANCE_ROTA,
+    (dir) => {
+      const p = readJson(path.join(dir, "pack/provenance.json"));
+      p.ceremonyId = "ceremonia-que-no-es";
+      writeJson(path.join(dir, "pack/provenance.json"), p);
+      repairSuperficial(dir);
+    },
+    isoBase,
+  );
+
+  // artifactChain nunca se recomputaba, teniendo el cruce en la evidencia.
+  expectFrontier(
+    FRONTIER.PROVENANCE_ROTA,
+    (dir) => {
+      repairSuperficial(dir);
+      const r = readJson(path.join(dir, "report.json"));
+      r.artifactChain = `sha256:${"a".repeat(64)}`;
+      writeJson(path.join(dir, "report.json"), r);
+      fs.writeFileSync(path.join(dir, "report.md"), renderReportMd(r));
+      const p = readJson(path.join(dir, "pack/provenance.json"));
+      p.artifactChain = r.artifactChain;
+      writeJson(path.join(dir, "pack/provenance.json"), p);
+      const docs = {};
+      for (const { key, rel } of SEALED_PACK_DOCS) {
+        docs[key] = readJson(path.join(dir, rel));
+      }
+      const man = readJson(path.join(dir, "pack/manifest.json"));
+      man.digest = computePackDigest(docs, r.verdict);
+      writeJson(path.join(dir, "pack/manifest.json"), man);
     },
     isoBase,
   );

@@ -18,8 +18,18 @@ const DRIVE = /(?:^|[^A-Za-z])([A-Za-z]:[\\/])/;
 export const MACHINE_PATH_PATTERNS = Object.freeze([
   Object.freeze({ nombre: "unidad-windows", re: DRIVE }),
   Object.freeze({ nombre: "unc", re: /\\\\[A-Za-z0-9._-]+\\[A-Za-z0-9._$-]+/ }),
-  Object.freeze({ nombre: "home-macos", re: /\/Users\/[A-Za-z0-9._-]+\// }),
-  Object.freeze({ nombre: "home-linux", re: /\/home\/[A-Za-z0-9._-]+\// }),
+  // Sin barra final obligatoria: `/Users/aleph` se escapaba por un carácter.
+  Object.freeze({ nombre: "home-macos", re: /\/Users\/[A-Za-z0-9._-]+/ }),
+  Object.freeze({ nombre: "home-linux", re: /\/home\/[A-Za-z0-9._-]+/ }),
+  Object.freeze({ nombre: "home-root", re: /\/root(?:\/|$|[\s"'`,;)])/ }),
+  Object.freeze({ nombre: "volumen-macos", re: /\/Volumes\/[A-Za-z0-9._-]+/ }),
+  Object.freeze({ nombre: "wsl", re: /\/mnt\/[a-z](?:\/|$|[\s"'`,;)])/ }),
+  // Referencias al home del usuario: también son máquina, aunque indirectas.
+  Object.freeze({ nombre: "tilde-home", re: /(?:^|[\s"'`(=:,[])~\// }),
+  Object.freeze({
+    nombre: "env-home",
+    re: /\$HOME\b|\$\{HOME\}|%USERPROFILE%|%HOMEPATH%|%APPDATA%/,
+  }),
 ]);
 
 /**

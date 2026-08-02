@@ -27,8 +27,12 @@ import {
   EXPECTED_ACTIVITY_PAIRS,
   EXPECTED_PAIR_KEYS,
   activityPairKey,
+  CEREMONY_STEPS,
+  CEREMONY_ID,
+  SCENARIO_ID,
+  EXPECTED_CEREMONY_UNITS,
 } from "../ceremonia/constants.mjs";
-import { computeCoverage } from "../ceremonia/evidence.mjs";
+import { computeCoverage, renderReportMd } from "../ceremonia/evidence.mjs";
 import { causalDigest } from "../ceremonia/envelope.mjs";
 import { FRONTIER, failFrontier, VerifierError } from "./errors.mjs";
 
@@ -76,7 +80,7 @@ export function verificarEvidencia(evidenceRoot, opts = {}) {
   const wireVerbs = validateActivities(root, report, provenanceDoc, wires);
   checks.push("wire + JSON-LD + hashes");
 
-  validateBilateralCausal(wires);
+  validateBilateralCausal(wires, report);
   checks.push("cadena causal H/M desde wires");
 
   validateReport(report, root, wires);
@@ -204,23 +208,46 @@ function validateReport(report, root, wires) {
       `matrix ${report.matrix?.length ?? 0} filas ≠ ${expectedRows} esperadas (${EXPECTED_ACTIVITY_PAIRS.length} parejas × 2)`,
     );
   }
-  // Y sus verbos deben ser exactamente los de los wires: la matriz no puede
-  // declarar un reparto de verbos que la evidencia no respalda.
-  const matrixVerbs = tally(report.matrix.map((m) => m.verb));
-  const wireVerbTally = tally(wires.map((w) => w.wire.verb));
-  const matrixDiff = tallyDiff(matrixVerbs, wireVerbTally);
+  // Fila a fila, por la TUPLA COMPLETA. Contrastar solo el recuento de verbos
+  // dejaba libres `actor`, `object` y `result` de cada fila.
+  const fila = (o) => `${o.verb}|${o.actor}|${o.object}|${o.result}`;
+  const matrixTally = tally(report.matrix.map(fila));
+  const wireTally = tally(wires.map((w) => fila(w.wire)));
+  const matrixDiff = tallyDiff(matrixTally, wireTally);
   if (matrixDiff) {
     failFrontier(
       FRONTIER.REPORTE_INVALIDO,
-      `matrix no coincide con wires: ${matrixDiff}`,
+      `matrix no coincide con wires (verb|actor|object|result): ${matrixDiff}`,
     );
+  }
+
+  // Un veredicto positivo exige que TODA mitad registrada diga `pass`.
+  // El verificador no leía `wire.result` en ningún punto: 34 wires con
+  // result:"fail" convivían con report.verdict:"pass" y daban ok=true.
+  if (report.verdict === "pass") {
+    const noPass = wires.filter((w) => w.wire.result !== "pass");
+    if (noPass.length > 0) {
+      failFrontier(
+        FRONTIER.REPORTE_INVALIDO,
+        `verdict=pass con ${noPass.length} wires que no son pass: ${noPass
+          .slice(0, 3)
+          .map((w) => `${w.dir}=${w.wire.result}`)
+          .join(", ")}`,
+      );
+    }
   }
   if (report.verdict !== "pass") {
     failFrontier(FRONTIER.REPORTE_INVALIDO, `verdict=${report.verdict}`);
   }
+  // report.md DERIVADO, no «contiene dos cadenas»: se regenera desde el JSON
+  // y se compara. Antes su contenido no entraba en ningún digest y bastaba
+  // con que mencionara el reportId y la frase «desde eventos».
   const md = readFileSync(join(root, "report.md"), "utf8");
-  if (!md.includes(report.reportId) || !md.includes("desde eventos")) {
-    failFrontier(FRONTIER.REPORTE_INVALIDO, "report.md no derivado");
+  if (md !== renderReportMd(report)) {
+    failFrontier(
+      FRONTIER.REPORTE_INVALIDO,
+      "report.md no es el render de report.json (contenido libre)",
+    );
   }
 
   // Schema si ajv disponible
@@ -412,7 +439,7 @@ function tallyDiff(a, b) {
  *
  * @param {Array<{ dir: string, wire: object }>} wires
  */
-function validateBilateralCausal(wires) {
+function validateBilateralCausal(wires, report) {
   /** @type {Map<string, { H?: object, M?: object }>} */
   const pairs = new Map();
   for (const { dir, wire } of wires) {
@@ -472,14 +499,24 @@ function validateBilateralCausal(wires) {
     }
 
     // ── Cruce contra la raíz de confianza (CEREMONY_STEPS) ────────────────
-    const m = /:step:(\d+):([^:]+)(:sec)?$/.exec(baseId);
+    // El id se ancla a ESTA corrida, no solo a la forma de la clave. Sin el
+    // prefijo, 34 actividades de una corrida que nunca existió —con las claves
+    // exactas y cero solapamiento con la real— pasaban los doce checks.
+    const m = /^(.*):step:(\d+):([^:]+)(:sec)?$/.exec(baseId);
     if (!m) {
       failFrontier(
         FRONTIER.PAREJA_INESPERADA,
-        `${baseId}: id no sigue :step:<orden>:<verbo>[:sec]`,
+        `${baseId}: id no sigue <prefijo>:step:<orden>:<verbo>[:sec]`,
       );
     }
-    const [, orderRaw, verbFromId, secMark] = m;
+    const [, prefijo, orderRaw, verbFromId, secMark] = m;
+    const prefijoEsperado = `urn:scriptorium:hm:${report.runId}`;
+    if (prefijo !== prefijoEsperado) {
+      failFrontier(
+        FRONTIER.PAREJA_INESPERADA,
+        `${baseId}: prefijo de otra corrida (${prefijo} ≠ ${prefijoEsperado})`,
+      );
+    }
     const key = activityPairKey(Number(orderRaw), verbFromId, Boolean(secMark));
     if (!EXPECTED_PAIR_KEYS.includes(key)) {
       failFrontier(
@@ -513,20 +550,74 @@ function validateBilateralCausal(wires) {
       `faltan ${missing.length} parejas declaradas: ${missing.join(", ")}`,
     );
   }
+
+  // ── Y que HAYA cadena, no solo parejas ────────────────────────────────
+  // Vaciar `provenance.upstream` en las 34 mitades pasaba: el check llamado
+  // «cadena causal» no exigía que existiera cadena alguna. El enganche de
+  // cada paso se recomputa contra el `upstream` que declara CEREMONY_STEPS.
+  const causalPorKey = new Map();
+  for (const [key, baseId] of seenKeys) {
+    causalPorKey.set(key, causalDigest(pairs.get(baseId).H));
+  }
+  const claveDe = (step, sec) =>
+    activityPairKey(step, sec ? sec : CEREMONY_STEPS[step - 1].verb, Boolean(sec));
+
+  for (const p of EXPECTED_ACTIVITY_PAIRS) {
+    const key = activityPairKey(p.step, p.verb, p.secondary);
+    const baseId = seenKeys.get(key);
+    const observado = [...(pairs.get(baseId).H.provenance?.upstream ?? [])];
+    const esperado = p.secondary
+      ? [causalPorKey.get(claveDe(p.step, null))]
+      : CEREMONY_STEPS[p.step - 1].upstream.map((u) =>
+          causalPorKey.get(claveDe(u, null)),
+        );
+    if (JSON.stringify(observado) !== JSON.stringify(esperado)) {
+      failFrontier(
+        FRONTIER.CADENA_CAUSAL_DIVERGE,
+        `${key}: upstream=[${observado.join(",")}] ≠ enganche declarado [${esperado.join(",")}]`,
+      );
+    }
+  }
 }
 
 /**
  * @param {Array<{ dir: string, wire: object }>} wires
  */
 function validateProvenance(provenanceDoc, report, wires) {
+  // El cruce ya existía en la evidencia y no se usaba: `artifactChain` es el
+  // `object` del wire del paso 11 (coverage.measure). Se contrasta.
+  const cierre = wires.find(
+    (w) =>
+      w.wire.verb === CEREMONY_STEPS[CEREMONY_STEPS.length - 1].verb &&
+      !/:sec:(H|M)$/.test(w.wire.id),
+  );
+  if (!cierre) {
+    failFrontier(FRONTIER.PROVENANCE_ROTA, "sin wire de cierre (coverage.measure)");
+  }
+  if (report.artifactChain !== cierre.wire.object) {
+    failFrontier(
+      FRONTIER.PROVENANCE_ROTA,
+      `artifactChain=${report.artifactChain} ≠ object del wire de cierre (${cierre.wire.object})`,
+    );
+  }
   if (provenanceDoc.artifactChain !== report.artifactChain) {
     failFrontier(
       FRONTIER.PROVENANCE_ROTA,
       "artifactChain pack≠report",
     );
   }
-  if (!provenanceDoc.ceremonyId || !provenanceDoc.scenarioId) {
-    failFrontier(FRONTIER.PROVENANCE_ROTA, "falta ceremonyId/scenarioId");
+  // Contra la raíz de confianza, no «que exista»: eran dos campos libres.
+  if (provenanceDoc.ceremonyId !== CEREMONY_ID) {
+    failFrontier(
+      FRONTIER.PROVENANCE_ROTA,
+      `ceremonyId=${provenanceDoc.ceremonyId} ≠ ${CEREMONY_ID}`,
+    );
+  }
+  if (provenanceDoc.scenarioId !== SCENARIO_ID) {
+    failFrontier(
+      FRONTIER.PROVENANCE_ROTA,
+      `scenarioId=${provenanceDoc.scenarioId} ≠ ${SCENARIO_ID}`,
+    );
   }
   if (provenanceDoc.activityCount !== wires.length) {
     failFrontier(
@@ -639,6 +730,36 @@ function validateAcl(aclDoc, now) {
   if (!sawPositive) {
     failFrontier(FRONTIER.PIEZA_AUSENTE, "ninguna ACL positiva vigente en pack");
   }
+
+  // ── Una sola positiva no es una política ───────────────────────────────
+  // Dejar todas las filas en un único verbo daba verde porque solo se pedía
+  // «alguna» positiva. La bilateralidad exige que AMBOS actores tengan
+  // capacidad vigente sobre cada unidad de la ceremonia.
+  const porUnidad = new Map();
+  for (const entry of aclDoc.entries) {
+    porUnidad.set(entry.unitId, entry.acl ?? []);
+  }
+  for (const unitId of EXPECTED_CEREMONY_UNITS) {
+    const acl = porUnidad.get(unitId);
+    if (!acl || acl.length === 0) {
+      failFrontier(
+        FRONTIER.PIEZA_AUSENTE,
+        `unidad ${unitId} sin ACL en el pack`,
+      );
+    }
+    for (const [etiqueta, actor, verbo] of [
+      ["M", ACTOR_M, "unit.start"],
+      ["H", ACTOR_H, "unit.stop"],
+    ]) {
+      const d = evaluatePodAcl({ acl, actor, verb: verbo, now });
+      if (!d.allowed) {
+        failFrontier(
+          FRONTIER.PIEZA_AUSENTE,
+          `unidad ${unitId}: ${etiqueta} sin '${verbo}' vigente (${d.reason})`,
+        );
+      }
+    }
+  }
 }
 
 function validateTipestate(tipestateDoc) {
@@ -671,6 +792,34 @@ function validateTipestate(tipestateDoc) {
       failFrontier(
         FRONTIER.SHUTDOWN_INCOMPLETO,
         `pod ${unitId} finalState=${st}`,
+      );
+    }
+  }
+
+  // ── La CA de apagado limpio necesita SUJETO ────────────────────────────
+  // Reducir `transitions` a una entrada y vaciar `finals` daba verde: no se
+  // exigía que las unidades de la ceremonia estuvieran ahí siquiera.
+  for (const unitId of EXPECTED_CEREMONY_UNITS) {
+    if (!reached.has(unitId)) {
+      failFrontier(
+        FRONTIER.SHUTDOWN_INCOMPLETO,
+        `unidad ${unitId} de la ceremonia sin transiciones en el pack`,
+      );
+    }
+    const st = finals[unitId];
+    if (st !== "stopped" && st !== "failed") {
+      failFrontier(
+        FRONTIER.SHUTDOWN_INCOMPLETO,
+        `unidad ${unitId} no cerró (finalState=${st})`,
+      );
+    }
+  }
+  // Y todo lo que declara `finals` debe haber transicionado de verdad.
+  for (const unitId of Object.keys(finals)) {
+    if (!reached.has(unitId) && finals[unitId] !== "declared") {
+      failFrontier(
+        FRONTIER.SHUTDOWN_INCOMPLETO,
+        `finals declara ${unitId}=${finals[unitId]} sin transiciones que lo respalden`,
       );
     }
   }

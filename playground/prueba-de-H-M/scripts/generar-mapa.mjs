@@ -418,7 +418,11 @@ export function buildProjection({
     version: "1.0.0",
     mode: "import-once-projection",
     wp: "WP-HUB-108",
-    counts: { holones: 7, distritos: 6, barrios: 24 },
+    counts: {
+      holones: CONTEO.HOLONES,
+      distritos: CONTEO.DISTRITOS,
+      barrios: CONTEO.BARRIOS,
+    },
     holones,
     distritos,
     barrios,
@@ -466,6 +470,23 @@ function loadSources(canteraRoot, holonesMdPath, holonesRoot) {
   };
 }
 
+/**
+ * Piezas que el sello del mapa DEBE cubrir — raíz de confianza.
+ *
+ * `assertSeal` recorría solo `manifest.pieces`, que es autodeclarado, y
+ * recomputaba el sello de esa misma lista: sustituir un excerpt y resellar,
+ * o dejar `pieces: []` (sello de la cadena vacía), daba exit 0.
+ * Es la misma clase que `manifest.required` contra REQUIRED_EVIDENCE_PIECES
+ * en el verificador; aquí faltaba aplicar el patrón.
+ */
+export const SEALED_MAPA_PIECES = Object.freeze([
+  "mapa.json",
+  "excerpts/CENSO-ESTADOS.md",
+  "excerpts/HOLONES.md",
+  "excerpts/handoffs-barrios.tsv",
+  "excerpts/GRAFO-handoffs-counts.json",
+]);
+
 function writeProjection(outDir, projection, sources) {
   mkdirSync(join(outDir, "excerpts"), { recursive: true });
   const mapaBody = stableStringify(projection);
@@ -483,14 +504,7 @@ function writeProjection(outDir, projection, sources) {
     stableStringify(parseGrafoHandoffs(sources.grafoTsv || "")),
   );
 
-  const pieces = [
-    "mapa.json",
-    "excerpts/CENSO-ESTADOS.md",
-    "excerpts/HOLONES.md",
-    "excerpts/handoffs-barrios.tsv",
-    "excerpts/GRAFO-handoffs-counts.json",
-  ];
-  const pieceMeta = pieces.map((rel) => {
+  const pieceMeta = SEALED_MAPA_PIECES.map((rel) => {
     const abs = join(outDir, rel);
     return {
       relativePath: rel,
@@ -598,6 +612,18 @@ export function validateProjection(mapa) {
 
 function assertSeal(outDir) {
   const { manifest } = loadSealedMapa(outDir);
+
+  // La LISTA de piezas es tan autodeclarada como los hashes: se contrasta
+  // contra la raíz antes de mirar ningún digest.
+  const declaradas = [...(manifest.pieces ?? [])].map((p) => p.relativePath).sort();
+  const raiz = [...SEALED_MAPA_PIECES].sort();
+  if (JSON.stringify(declaradas) !== JSON.stringify(raiz)) {
+    fail(
+      `manifest.pieces ≠ raíz de confianza: declara [${declaradas.join(", ")}], ` +
+        `debe cubrir [${raiz.join(", ")}]`,
+    );
+  }
+
   const lines = [];
   for (const p of manifest.pieces) {
     const abs = join(outDir, p.relativePath);
@@ -624,6 +650,50 @@ function gate({ canteraRoot, holonesMd, holonesRoot, outDir, allowMissingCantera
   const censoIds = new Set(parseCenso(excerptCenso).map((b) => b.id));
   for (const b of mapa.barrios) {
     if (!censoIds.has(b.id)) fail(`slug inventado (no en censo): ${b.id}`);
+  }
+
+  // ── La proyección se RECOMPUTA desde los excerpts sellados ──────────────
+  // Un sello prueba integridad, no veracidad: sustituir un excerpt y resellar
+  // seguía dando exit 0 porque el manifest quedaba coherente consigo mismo.
+  // `mapa.json` es derivado de los excerpts, así que se puede rederivar y
+  // contrastar sin necesidad de cantera.
+  {
+    let rebuilt;
+    try {
+      rebuilt = buildProjection({
+        censoMd: excerptCenso,
+        holonesMd: readFileSync(join(outDir, "excerpts", "HOLONES.md"), "utf8"),
+        grafoTsv: readFileSync(
+          join(outDir, "excerpts", "handoffs-barrios.tsv"),
+          "utf8",
+        ),
+        holonesRootListing: mapa.holonesRootEntries ?? [],
+      });
+    } catch (e) {
+      fail(
+        `los excerpts sellados no reconstruyen una proyección válida: ${e.message || e}`,
+      );
+    }
+    const esencia = (m) =>
+      stableStringify({
+        barrios: m.barrios.map((b) => ({
+          id: b.id,
+          distrito: b.distrito,
+          holonId: b.holonId,
+          estado: b.estado,
+        })),
+        distritos: m.distritos,
+        holones: m.holones.map((h) => ({
+          id: h.id,
+          runtimeKind: h.runtimeKind,
+          barrios: h.barrios,
+          razonSinBarrio: h.razonSinBarrio,
+        })),
+        counts: m.counts,
+      });
+    if (esencia(mapa) !== esencia(rebuilt)) {
+      fail("mapa.json no se deriva de los excerpts sellados (excerpt sustituido)");
+    }
   }
 
   const cantera =
@@ -700,7 +770,7 @@ function gate({ canteraRoot, holonesMd, holonesRoot, outDir, allowMissingCantera
     }
     void sealedNorm;
     void rebuiltNorm;
-    console.log(`[generar-mapa] gate OK — cantera≡proyección barrios=24`);
+    console.log(`[generar-mapa] gate OK — cantera≡proyección barrios=${CONTEO.BARRIOS}`);
   } else {
     console.log(
       `[generar-mapa] gate DEGRADADO — cantera ausente; solo excerpt sellado contrastado (--gate-sin-cantera)`,
@@ -727,7 +797,7 @@ function importOnce(args) {
   mkdirSync(outDir, { recursive: true });
   writeProjection(outDir, projection, src);
   console.log(
-    `[generar-mapa] import-once OK holones=7 distritos=6 barrios=24 seal=ok`,
+    `[generar-mapa] import-once OK holones=${CONTEO.HOLONES} distritos=${CONTEO.DISTRITOS} barrios=${CONTEO.BARRIOS} seal=ok`,
   );
   console.log(`[generar-mapa] out=${posix(outDir)}`);
   gate({ canteraRoot, holonesMd, holonesRoot, outDir, allowMissingCantera: false });

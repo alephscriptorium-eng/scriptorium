@@ -69,6 +69,30 @@ export class CeremonyKillError extends CeremonyError {
  */
 export const ACTAS_DIRNAME = "_actas";
 
+/**
+ * Frontera con nombre propio para un fallo de ceremonia.
+ * `acta.frontier` era siempre null: campo muerto que aparentaba informar.
+ * @param {unknown} err
+ * @param {{ verb?: string, unitId?: string }|null} decl
+ */
+export function codigoAFrontera(err, decl) {
+  const code = /** @type {{code?: string}} */ (err)?.code;
+  switch (code) {
+    case "kill":
+      return "kill inyectado";
+    case "missing-upstream":
+      return "upstream ausente";
+    case "causal-diverge":
+      return "cadena causal diverge";
+    case "incomplete":
+      return "ceremonia incompleta";
+    case "pod-event":
+      return "pod no registró evento";
+    default:
+      return decl?.unitId ? `fallo en unidad ${decl.unitId}` : "fallo no clasificado";
+  }
+}
+
 /** @param {string} kitRoot */
 export function actasRoot(kitRoot) {
   return join(kitRoot, ".runs", ACTAS_DIRNAME);
@@ -390,7 +414,9 @@ export function runCeremonia(opts = {}) {
         unitId: decl?.unitId ?? null,
         stepsCompleted: [...completed.keys()],
         code: err instanceof CeremonyError ? err.code : "unexpected",
-        frontier: err?.frontier ?? null,
+        // `frontier` solo existe si el fallo viene del verificador; para
+        // errores de ceremonia se nombra la frontera por el código.
+        frontier: err?.frontier ?? codigoAFrontera(err, decl),
         message: mensaje,
       });
     } catch {

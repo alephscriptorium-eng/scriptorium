@@ -380,9 +380,24 @@ function grepZeroOwnLineSchemas(lineaKit) {
     fail("no se pudo localizar SCHEMAS_DIR de linea-kit para contrastar contenido");
     return;
   }
+  // Huella ESTRUCTURAL: se descartan las etiquetas ($id, title, description,
+  // $comment) y se ordenan las claves. Comparar el cuerpo entero sólo atrapaba
+  // el clon intacto; reetiquetar `$id`+`title` —la evasión más obvia— pasaba.
+  const stripLabels = (v) => {
+    if (Array.isArray(v)) return v.map(stripLabels);
+    if (v && typeof v === "object") {
+      const out = {};
+      for (const k of Object.keys(v).sort()) {
+        if (["$id", "title", "description", "$comment"].includes(k)) continue;
+        out[k] = stripLabels(v[k]);
+      }
+      return out;
+    }
+    return v;
+  };
   const norm = (txt) => {
     try {
-      return JSON.stringify(JSON.parse(txt));
+      return JSON.stringify(stripLabels(JSON.parse(txt)));
     } catch {
       return txt.replace(/\s+/g, "");
     }
@@ -406,27 +421,24 @@ function grepZeroOwnLineSchemas(lineaKit) {
     }
   }
 
-  let clones = 0;
   for (const f of owned) {
     if (!f.endsWith(".json")) continue;
     const txt = fs.readFileSync(path.join(schemasDir, f), "utf8");
     const gemelo = kitBodies.get(huella(txt));
     if (gemelo) {
-      fail(`schemas/${f} es copia byte-a-byte de linea-kit/${gemelo}`);
-      clones += 1;
-      continue;
+      // `fail()` sale del proceso: no hay contador que incrementar después.
+      fail(`schemas/${f} es clon estructural de linea-kit/${gemelo} (etiquetas aparte)`);
     }
     try {
       const id = JSON.parse(txt).$id;
       if (id && kitIds.has(String(id))) {
         fail(`schemas/${f} reutiliza el $id de linea-kit/${kitIds.get(String(id))}`);
-        clones += 1;
       }
     } catch {
       /* ya lo valida otro check */
     }
   }
-  if (clones === 0) {
+  {
     ok(
       `cero clones de linea-kit por contenido (${owned.filter((f) => f.endsWith(".json")).length} schemas propios vs ${kitBodies.size} del kit)`,
     );
