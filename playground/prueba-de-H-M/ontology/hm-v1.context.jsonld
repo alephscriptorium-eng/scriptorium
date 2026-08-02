@@ -81,29 +81,33 @@
     "@id": "hm:verb/unit.start",
     "verb": "unit.start",
     "family": "pods",
-    "activityType": "as:Start",
-    "coined": false
+    "activityType": "hm:UnitStart",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Start activity; unit lifecycle start is playground tipestate."
   },
   {
     "@id": "hm:verb/unit.pause",
     "verb": "unit.pause",
     "family": "pods",
-    "activityType": "as:Pause",
-    "coined": false
+    "activityType": "hm:UnitPause",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Pause activity for unit tipestate."
   },
   {
     "@id": "hm:verb/unit.resume",
     "verb": "unit.resume",
     "family": "pods",
-    "activityType": "as:Resume",
-    "coined": false
+    "activityType": "hm:UnitResume",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Resume activity for unit tipestate."
   },
   {
     "@id": "hm:verb/unit.stop",
     "verb": "unit.stop",
     "family": "pods",
-    "activityType": "as:Stop",
-    "coined": false
+    "activityType": "hm:UnitStop",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Stop activity for unit tipestate; Leave/Delete are not equivalent."
   },
   {
     "@id": "hm:verb/unit.debug",
@@ -132,8 +136,9 @@
     "@id": "hm:verb/document.analyze",
     "verb": "document.analyze",
     "family": "lore",
-    "activityType": "as:Analyze",
-    "coined": false
+    "activityType": "lore:DocumentAnalyze",
+    "coined": true,
+    "coinReason": "AS2 Rec has no Analyze; as:Read is weaker than Bartleby five-section analysis."
   },
   {
     "@id": "hm:verb/vector.mock-index",

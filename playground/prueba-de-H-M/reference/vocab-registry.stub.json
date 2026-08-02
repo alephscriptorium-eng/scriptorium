@@ -24,35 +24,10 @@
       "namespace": "https://www.w3.org/ns/activitystreams#",
       "family": "AS2"
     },
-    "unit.start": {
-      "term": "as:Start",
-      "namespace": "https://www.w3.org/ns/activitystreams#",
-      "family": "AS2"
-    },
-    "unit.pause": {
-      "term": "as:Pause",
-      "namespace": "https://www.w3.org/ns/activitystreams#",
-      "family": "AS2"
-    },
-    "unit.resume": {
-      "term": "as:Resume",
-      "namespace": "https://www.w3.org/ns/activitystreams#",
-      "family": "AS2"
-    },
-    "unit.stop": {
-      "term": "as:Stop",
-      "namespace": "https://www.w3.org/ns/activitystreams#",
-      "family": "AS2"
-    },
     "source.ingest": {
       "term": "prov:Usage",
       "namespace": "http://www.w3.org/ns/prov#",
       "family": "PROV-O"
-    },
-    "document.analyze": {
-      "term": "as:Analyze",
-      "namespace": "https://www.w3.org/ns/activitystreams#",
-      "family": "AS2"
     },
     "machine.status": {
       "term": "as:View",

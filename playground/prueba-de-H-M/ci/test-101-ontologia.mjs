@@ -19,6 +19,14 @@ const verbosPath = path.join(root, "reference", "VERBOS.md");
 
 const W3C_PREFIXES = ["as:", "prov:", "dcterms:"];
 const COIN_PREFIXES = ["hm:", "lore:"];
+/** Activity types from W3C AS2 Vocabulary (Rec) — closed list for as: claims. */
+const AS2_ACTIVITY_TYPES = new Set([
+  "Accept", "Add", "Announce", "Arrive", "Block", "Create", "Delete", "Dislike",
+  "Flag", "Follow", "Ignore", "Invite", "Join", "Leave", "Like", "Listen",
+  "Move", "Offer", "Question", "Reject", "Read", "Remove", "TentativeReject",
+  "TentativeAccept", "Travel", "Undo", "Update", "View", "Activity",
+  "IntransitiveActivity",
+]);
 
 function loadOntology() {
   return JSON.parse(fs.readFileSync(ontologyPath, "utf8"));
@@ -93,6 +101,19 @@ describe("WP-HUB-101 · ontología H/M", () => {
         );
       }
     }
+  });
+
+  it("as: claims must be real AS2 Rec types (no inventados)", () => {
+    const doc = loadOntology();
+    const fake = [];
+    for (const v of doc["hm:verbs"]) {
+      if (!v.activityType.startsWith("as:")) continue;
+      const local = v.activityType.slice(3);
+      if (!AS2_ACTIVITY_TYPES.has(local)) {
+        fake.push(`${v.verb}→${v.activityType}`);
+      }
+    }
+    assert.deepEqual(fake, [], `as: no-AS2: ${fake.join("; ")}`);
   });
 
   it("gate L04 stub: falla si acuña con equivalente W3C existente", () => {

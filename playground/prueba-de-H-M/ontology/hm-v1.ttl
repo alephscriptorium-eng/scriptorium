@@ -81,17 +81,17 @@ hm:verb-session-exit a hm:Verb ; hm:verb "session.exit" ; hm:family "base" ; hm:
 hm:verb-pod-lease a hm:Verb ; hm:verb "pod.lease" ; hm:family "pods" ; hm:activityType hm:PodLease ; hm:coined true .
 hm:verb-pod-revoke a hm:Verb ; hm:verb "pod.revoke" ; hm:family "pods" ; hm:activityType hm:PodRevoke ; hm:coined true .
 hm:verb-unit-inflate a hm:Verb ; hm:verb "unit.inflate" ; hm:family "pods" ; hm:activityType hm:UnitInflate ; hm:coined true .
-hm:verb-unit-start a hm:Verb ; hm:verb "unit.start" ; hm:family "pods" ; hm:activityType as:Start ; hm:coined false .
-hm:verb-unit-pause a hm:Verb ; hm:verb "unit.pause" ; hm:family "pods" ; hm:activityType as:Pause ; hm:coined false .
-hm:verb-unit-resume a hm:Verb ; hm:verb "unit.resume" ; hm:family "pods" ; hm:activityType as:Resume ; hm:coined false .
-hm:verb-unit-stop a hm:Verb ; hm:verb "unit.stop" ; hm:family "pods" ; hm:activityType as:Stop ; hm:coined false .
+hm:verb-unit-start a hm:Verb ; hm:verb "unit.start" ; hm:family "pods" ; hm:activityType hm:UnitStart ; hm:coined true .
+hm:verb-unit-pause a hm:Verb ; hm:verb "unit.pause" ; hm:family "pods" ; hm:activityType hm:UnitPause ; hm:coined true .
+hm:verb-unit-resume a hm:Verb ; hm:verb "unit.resume" ; hm:family "pods" ; hm:activityType hm:UnitResume ; hm:coined true .
+hm:verb-unit-stop a hm:Verb ; hm:verb "unit.stop" ; hm:family "pods" ; hm:activityType hm:UnitStop ; hm:coined true .
 hm:verb-unit-debug a hm:Verb ; hm:verb "unit.debug" ; hm:family "pods" ; hm:activityType hm:UnitDebug ; hm:coined true .
 hm:verb-machine-deploy a hm:Verb ; hm:verb "machine.deploy" ; hm:family "pods" ; hm:activityType hm:MachineDeploy ; hm:coined true .
 
 # --- LORE ---
 
 hm:verb-source-ingest a hm:Verb ; hm:verb "source.ingest" ; hm:family "lore" ; hm:activityType prov:Usage ; hm:coined false .
-hm:verb-document-analyze a hm:Verb ; hm:verb "document.analyze" ; hm:family "lore" ; hm:activityType as:Analyze ; hm:coined false .
+hm:verb-document-analyze a hm:Verb ; hm:verb "document.analyze" ; hm:family "lore" ; hm:activityType lore:DocumentAnalyze ; hm:coined true .
 hm:verb-vector-mock-index a hm:Verb ; hm:verb "vector.mock-index" ; hm:family "lore" ; hm:activityType lore:VectorMockIndex ; hm:coined true .
 hm:verb-line-materialize a hm:Verb ; hm:verb "line.materialize" ; hm:family "lore" ; hm:activityType lore:LineMaterialize ; hm:coined true .
 hm:verb-graph-bifurcate a hm:Verb ; hm:verb "graph.bifurcate" ; hm:family "lore" ; hm:activityType lore:GraphBifurcate ; hm:coined true .

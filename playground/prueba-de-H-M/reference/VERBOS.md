@@ -27,10 +27,10 @@ Fuente canónica machine-readable: `ontology/hm-v1.context.jsonld` +
 | `pod.lease` | `hm:PodLease` | sí | Sin término AS2/PROV-O para lease bilateral de pod simulado |
 | `pod.revoke` | `hm:PodRevoke` | sí | Sin término W3C para revocación de lease en playground |
 | `unit.inflate` | `hm:UnitInflate` | sí | Ceremonia bilateral M solicita / H valida |
-| `unit.start` | `as:Start` | no | |
-| `unit.pause` | `as:Pause` | no | |
-| `unit.resume` | `as:Resume` | no | |
-| `unit.stop` | `as:Stop` | no | |
+| `unit.start` | `hm:UnitStart` | sí | AS2 Rec no define Start |
+| `unit.pause` | `hm:UnitPause` | sí | AS2 Rec no define Pause |
+| `unit.resume` | `hm:UnitResume` | sí | AS2 Rec no define Resume |
+| `unit.stop` | `hm:UnitStop` | sí | AS2 Rec no define Stop; Leave/Delete ≠ tipestate |
 | `unit.debug` | `hm:UnitDebug` | sí | AS2 no define debug de unidad |
 | `machine.deploy` | `hm:MachineDeploy` | sí | Despliegue de manifest en simulacro; FM no corre |
 
@@ -39,7 +39,7 @@ Fuente canónica machine-readable: `ontology/hm-v1.context.jsonld` +
 | verbo | activityType | acuñado | razón si acuñado |
 | ----- | ------------ | ------- | ---------------- |
 | `source.ingest` | `prov:Usage` | no | Ingesta Onfalo sellada |
-| `document.analyze` | `as:Analyze` | no | Análisis Bartleby (5 secciones) |
+| `document.analyze` | `lore:DocumentAnalyze` | sí | AS2 Rec no define Analyze; Read es más débil |
 | `vector.mock-index` | `lore:VectorMockIndex` | sí | Índice mock determinista (`mock=true`) |
 | `line.materialize` | `lore:LineMaterialize` | sí | Materialización vía `@zeus/linea-kit` |
 | `graph.bifurcate` | `lore:GraphBifurcate` | sí | Bifurcación grafo → universos |
@@ -72,7 +72,7 @@ ontología paralela.
 | `boot` | `peer.join` | `as:Join` |
 | `status` | `machine.status` | `as:View` |
 | `loadMOCK` | `vector.mock-index` | `lore:VectorMockIndex` |
-| `run` | `unit.start` | `as:Start` |
+| `run` | `unit.start` | `hm:UnitStart` |
 | `inspect` | `unit.inspect` | `hm:UnitInspect` |
 | `data` | `artifact.data` | `dcterms:Dataset` |
 | `spec` | `artifact.spec` | `dcterms:BibliographicResource` |
