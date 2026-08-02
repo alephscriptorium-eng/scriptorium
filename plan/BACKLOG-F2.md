@@ -9,6 +9,7 @@
 | Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **392 WPs totales** en el Scriptorium (V 71 · O 75 · Z 67 · G 54 · L 73 · HUB 52) |
 | ✎ 2026-08-02 | **HUB 52 → 64**: lane **LORE-HM** (`WP-HUB-100`–`111`), promoción de la cola A del intake por orden del product owner. Las cifras de los demás mundos son **las de la edición F2-unificada, no las de hoy** — no se re-miden aquí para no sembrar un número nuevo sin medirlo (V y Z ya divergen). |
 | ✎ 2026-08-02 | **LORE-HM ola 0**: `WP-HUB-112` ✅ (`wp/hub-112-hm-spike-viabilidad`, verde **local**, PASS_CON_ADDENDA) · `WP-HUB-113` ✅ CI LORE-HM (`ci-lore-hm.yml`) · run-ids gh verde `30726224409` / rojo plantado `30726279433` · rama `wp/hub-113-hm-ci-que-verifica` · **PASS_CON_ADDENDA** (CA hub medible; no «bloquea merge»; s-sdk verde local / follow-up) · `ci/CONTRARREVISION-WP-HUB-113.md` · **no merge main**. |
+| ✎ 2026-08-02 | **LORE-HM ola 0**: `WP-HUB-112` ✅ aceptado (verde **local**) · veredicto **NO CORRE** cadena B→C→P · contrarrevisión **PASS_CON_ADDENDA** · reporte+addenda `playground/prueba-de-H-M/spike/REPORTE-WP-HUB-112.md` · siguiente `113` (GO ola 0 vigente). |
 | ✎ 2026-08-02 | **Hotfix LORE-HM CI**: tip `wp/lore-hm-accum` `2c4abea` estaba **CI rojo medido** (run `30734537647`) — `test-100-schemas` exigía `length===11` con 14 schemas legítimos post-109. Arreglo: guardian por **presencia de los once nombrados** (no cardinalidad). Tras `176439b`, schemas+sellos PASS en CI (`30741057136`); quedó rojo por `test-104` exigiendo OASIS `C:/Users/...` en runner. Follow-ups CI-safe: source-root Onfalo desde fixture; gate mapa sin cantera S (`--gate` excerpt). **NO-GO merge** hasta custodio. Run-id gh **VERDE** tip `ad36a27`: `30741139873`. |
 | ✎ 2026-08-02 | **LORE-HM ola 1 ✅**: `100`·`101` aceptados (PASS_CON_ADDENDA; sin merge main). |
 | ✎ 2026-08-02 | **LORE-HM ola 1 GO**: `WP-HUB-100` 🔶 · `WP-HUB-101` 🔶 (worktrees `C:/S_LAB/wt/scriptorium-wp-hub-100` / `-101`, base tip `wp/hub-113-hm-ci-que-verifica`) · herencia spike 112 **NO CORRE** FM viva → kit/ceremonia = **simulacro playground**; 112/113 ✅ en ramas, **sin merge main**. |
@@ -408,6 +409,12 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
 > **local** · contrarrevisión **PASS_CON_ADDENDA** · veredicto **NO CORRE**
 > cadena B→C→P · reporte+addenda en esa rama bajo `playground/prueba-de-H-M/spike/`.
 > **No merge a main** sin gate (`113`).
+>
+> **PRIMERA DE LA LANE.** Spike **aceptado** 2026-08-02 · veredicto **NO CORRE**
+> (cadena B→C→P / procesos FM reales autónomos) · **verde local** ·
+> contrarrevisión **PASS_CON_ADDENDA**
+> (`playground/prueba-de-H-M/spike/CONTRARREVISION-WP-HUB-112.md`) ·
+> addenda en `REPORTE-WP-HUB-112.md`. GO ola 0 sigue para `113`.
 - **BRIEF:** antes de construir el kit, contestar **con medida** la pregunta
   que abrió esta rama: **¿pueden H y M operar procesos reales con material de
   Onfalo en la Future Machine, hoy?** Spike acotado, **read-only sobre OASIS**:
@@ -428,6 +435,11 @@ Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
   lane se reordena en el mismo reporte** y nombra cuál de las once fichas cae
   o cambia de forma.
 - **Pri:** **P0 · BLOQUEA la lane entera**
+- **Estado:** ✅ aceptado · verde **local** · rama
+  `wp/hub-112-hm-spike-viabilidad` · worktree
+  `C:/S_LAB/wt/scriptorium-wp-hub-112` · impacto: `105`/`106`/`100` cambian a
+  simulacro playground; ninguna de `100`–`111` cae · **no merge a main** sin
+  gate/CI (`113`).
 
 ### WP-HUB-113 · hm-ci-que-verifica · ✅
 > Aceptado con evidencia `gh` · **PASS_CON_ADDENDA** · rama
