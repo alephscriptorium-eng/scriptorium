@@ -99,3 +99,7 @@ playground/prueba-de-H-M/REPORTE-WP-HUB-101.md
 
 Sí — CA cubiertos con gate real y tests automatizados. Pendiente solo CI remoto
 post-push.
+
+## Addenda orquestador · PASS_CON_ADDENDA
+
+Contrarrevisión: `PASS_CON_ADDENDA`. Tip post-fix `3f0a40c`. Fuente: `C:/S_LAB/wt/_lore-hm-ola1-vigilancia/`.
