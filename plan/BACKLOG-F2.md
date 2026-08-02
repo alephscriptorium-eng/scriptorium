@@ -7,6 +7,7 @@
 | Estado | ▶ **en ejecución por olas** (GO ola 0 · 2026-07-31) · ratificación progresiva por GO de ola · INÉDITO |
 | Método | `swarm-orquestacion` · un WP/brief/rama/worktree |
 | Edición | **F2-unificada** (Anfitrión): fases del camino crítico + costura a los 6 planes · **392 WPs totales** en el Scriptorium (V 71 · O 75 · Z 67 · G 54 · L 73 · HUB 52) |
+| ✎ 2026-08-02 | **HUB 52 → 64**: lane **LORE-HM** (`WP-HUB-100`–`111`), promoción de la cola A del intake por orden del product owner. Las cifras de los demás mundos son **las de la edición F2-unificada, no las de hoy** — no se re-miden aquí para no sembrar un número nuevo sin medirlo (V y Z ya divergen). |
 
 ## Visión
 
@@ -36,6 +37,7 @@ obra de O/V/Z/G/L ni usa `s-sdk` como cajón de gobierno.
 | PORTAL | casa pública, guías y mapas verificables |
 | INTEGRACION | O/V/Z/G/L, ui-docker y LAN→WAN |
 | E2E | consumidor limpio, offline y fallos ruidosos |
+| **LORE-HM** | **`prueba-de-H-M`: mapa 7 holones × ciudad + ontología de un caso real ejercida por H y M** |
 | HORIZONTE | P2P continuo, emergencias y crecimiento |
 
 ---
@@ -343,6 +345,225 @@ obra de O/V/Z/G/L ni usa `s-sdk` como cajón de gobierno.
 - **BRIEF:** evidencia verificable por tercero para snapshot/réplica sin consultar A/B.
 - **CA:** tercero valida manifests/hashes/sellos; no autocertificación.
 - **Pri:** P1 · T9
+
+---
+
+## Lane · LORE-HM
+
+> **Origen.** Rama nacida del intake externo `WPS_QUEUE` **cola A**
+> (`C:\S_LAB\s-sdk\WPS_QUEUE\`), promovida por el Anfitrión el **2026-08-02**
+> por orden del product owner: *«vamos a cambiar una carpeta pendiente de
+> encolar por una rama sólida de WPs para el backlog»*. Material fuente leído
+> entero antes de escribir: `plan.md` (6 fases de integración holónica) ·
+> `DRAFT/PLAN.md` (kit y ceremonia v1) · `DRAFT/researches/solid-city.md` ·
+> `DRAFT/plans/pd2_verbos_json-ld_9d69d81d.plan.md` ·
+> `DRAFT/plans/mesa_prueba_playground_0c3520d6.plan.md` ·
+> `DRAFT/researches/barrio-bartley.md` · cantera `CIUDAD` de S.
+
+**Qué es.** `prueba-de-H-M` **expande `prueba-de-dos`** en las dos direcciones
+que la prueba actual no cubre:
+
+- **(a) el mapa jugable de los 7 holones** sobre los **6 distritos y 24
+  barrios** de la ciudad (cantera de S, espejo lógico de `a-sdk`) — hoy el
+  starterkit demuestra entrada bilateral pero no ilumina ciudad;
+- **(b) el boilerplate de playground que modela la ontología de un caso
+  real** —barrio 20 `document-machine-sdk`, distrito `lore-voz`— para que H y
+  M la **ejerzan de punta a punta**, no la declaren.
+
+**Roles heredados sin cambio**: H = Human/A/anfitrión (autoridad, identidad,
+emisión y revocación de leases, observación); M = Machine/B (maestro de
+títeres del stack Cristalizador → Future Machine). La corrida **no pasa porque
+arranquen procesos: pasa porque los dos lados observan y registran la misma
+cadena causal.**
+
+**Lo que NO es** (decidido en el material, citado, no inferido): no crea holón
+08 ni `L_SDK` · **no amplía el reparto de mundos** — `e-sdk` ya es el holón 03
+con su propio plan (`C:\S_LAB\e-sdk\plan\`), `a-sdk` entra **RO import-once**
+(holón 05, cantera) y Network-Engine (holón 04) se **sella como fuente
+histórica**, no se adopta como runtime · no toca `prueba-de-dos` ni sus siete
+marcas · no monta servidor SOLID/CSS real, WebID real, VectorMachine real ni
+LLM en tests de v1 · el playground es **consumidor y banco de conformidad**,
+nunca dueño del dominio.
+
+**Gate `GHM`** = `WP-HUB-100`…`107` aceptados. Abre `108`–`111`.
+**Dependencias externas**: tipos de Zeus `U245`–`U249` (ventana abierta desde
+`GD`) · lengua y notaría `WP-SDK-L01`–`L05` en `s-sdk` · provider real de
+Document Machine = **obra de E**, aquí sólo su puerto y la contingencia.
+
+### WP-HUB-100 · hm-escenario-y-schemas
+- **BRIEF:** kit autocontenido `playground/prueba-de-H-M`;
+  `scenarios/barrio-lore/scenario.json` (barrio canónico `document-machine-sdk`,
+  distrito `lore-voz`, roles H/M fijos, unidades, ceremonia, artefactos
+  esperados, cleanup y CA) y `schemas/` para `scenario`, `unit`, `machine`,
+  `activity`, `pod`, `pod-lease`, `artifact-chain`, `graph`, `universe`,
+  `corto` y `evidence-report`. Catálogo de **diez unidades** (`loreador`,
+  `bartleby`, `archivero`, `vector-mock`, `grafista`, `demiurgo`,
+  `dramaturgo`, `pipeline`, `portal`, `cristalizador`) con tipo
+  `agent|machine`, I/O, dependencias, verbos, schema de estado y condición
+  `bootstrap|deployed|dynamic`.
+- **CA:** los once schemas validan **y rechazan su negativo** (los dos sentidos
+  se prueban) · las líneas **reusan los schemas publicados de
+  `@zeus/linea-kit`** — grep con exit code que demuestra **cero** schema de
+  línea propio · cero ids inventados: cada barrio/distrito citado existe en
+  `CENSO-ESTADOS.md` de la cantera · `prueba-de-dos` con **diff vacío**.
+- **Pri:** P0 · BLOQUEA la lane
+
+### WP-HUB-101 · hm-ontologia-y-verbos
+- **BRIEF:** `ontology/hm-v1.context.jsonld`, `ontology/hm-v1.ttl` y
+  `reference/VERBOS.md`. Catálogo en cuatro familias — base H/M (`peer.join`,
+  `peer.announce`, `state.inspect`, `session.exit`) · pods (`pod.lease`,
+  `pod.revoke`, `unit.inflate`, `unit.start|pause|resume|stop|debug`,
+  `machine.deploy`) · LORE (`source.ingest`, `document.analyze`,
+  `vector.mock-index`, `line.materialize`, `graph.bifurcate`,
+  `universe.instantiate`, `corto.emit`) · diagnóstico. Los alias TUI históricos
+  (`boot`, `status`, `loadMOCK`, `run`, `inspect`, `data`, `spec`, `gaps`,
+  `validate`, `trace`, `coverage`, `exit`) **traducen** a actividad tipada y no
+  constituyen una ontología paralela. Reuso obligatorio de AS2, PROV-O y
+  DCTERMS **antes** de acuñar `hm:` o `lore:`.
+- **CA:** cada verbo con término mapeado **o razón escrita** de por qué se
+  acuña · gate que **falla** si se acuña existiendo término W3C/DCMI
+  equivalente, alimentado por el registro de `WP-SDK-L04` (consumido, no
+  copiado) · **la vista JSON-LD no entra en la huella** (DIC-4: sha256 de
+  bytes sellados) — probado mutando la vista y exigiendo huella idéntica ·
+  cada alias resuelve a exactamente una actividad tipada.
+- **Pri:** P0
+
+### WP-HUB-102 · hm-generador-idempotente
+- **BRIEF:** `scripts/generar.mjs` produce corridas regenerables en
+  `.runs/<run-id>/H` y `.runs/<run-id>/M` (`--scenario`, `--run`,
+  `--sin-install`, `--force-new`): env **sin defaults silenciosos**, handoffs
+  vivos, room, manifest sellado y raíz de evidencia.
+- **CA:** dos corridas seguidas = **no-op medido** · drift de manifest **o** de
+  artefactos falla ruidoso y **no sobrescribe** (probado alterando los dos por
+  separado) · reanuda **sólo** si el manifest coincide · cero rutas de máquina
+  (`C:\Users\…`) en nada de lo generado, verificado con grep.
+- **Pri:** P0 · dep: 100
+
+### WP-HUB-103 · hm-podstore-y-leases
+- **BRIEF:** `LocalPodProvider` files-first con IRI lógica
+  `urn:scriptorium:hm:<run-id>:pod:<unit-id>` y ubicación física resuelta por
+  el manifest, **nunca publicada como ruta de máquina**. Contenido mínimo por
+  pod: `descriptor.jsonld`, `state.json`, `events.ndjson`,
+  `artifacts/manifest.json`, `inbox/`, `outbox/`. Tipestate
+  `declared → leased → inflated → ready → running → paused|stopped|failed`.
+  **Inflación bilateral**: M emite `unit.inflate`, H valida identidad y emite
+  `pod.lease`, y sólo entonces la unidad se materializa.
+- **CA:** **el pod decide, no H** — H emite y transporta capacidades, la
+  política la evalúa el pod; probado con ACL positiva, omitida, inválida y
+  expirada, y las cuatro deniegan salvo la positiva · **no hay override de
+  administrador**, y un test lo intenta · transiciones con chequeo exhaustivo:
+  añadir un estado sin su caso **rompe** compilación o test · marca explícita
+  de simulación — el proveedor local **nunca** se presenta como Pod Solid
+  real · un pod por cada una de las diez unidades estáticas y por cada
+  `universe-runner-<id>` dinámico.
+- **Pri:** P0 · dep: 100
+
+### WP-HUB-104 · hm-onfalo-import-once
+- **BRIEF:** `scripts/importar-onfalo.mjs`, import-once **build-time**, con
+  `--source-root` explícito, que selecciona exactamente dos piezas del corpus
+  de editoriales de `onfalo-asesor-sdk`. Comprobación de licencia y secretos
+  **antes** de copiar. `source.manifest.json` con repo lógico, rutas
+  relativas, tamaño, media type y sha256.
+- **CA:** dos piezas exactas, hashes reproducibles, **cero secretos y cero
+  rutas absolutas** · si no se puede redistribuir, **falla** — prohibido el
+  corpus sustituto silencioso, y un test lo comprueba · la corrida normal
+  consume **sólo** el snapshot sellado y funciona **sin OASIS montado**,
+  probado renombrando la fuente.
+- **Pri:** P1 · dep: 100
+
+### WP-HUB-105 · hm-cadena-lore-determinista
+- **BRIEF:** handlers deterministas — Bartleby produce sus cinco secciones y
+  metadatos; Cristalizador inspecciona capacidades y **genera el machine
+  manifest** (prepara infraestructura, no suplanta a Pipeline); VectorMock
+  genera embeddings y vecinos con **algoritmo y seed declarados**. Dos líneas
+  con `@zeus/linea-kit` (`barrio-lore-onfalo`: raw → análisis → referencias
+  vectoriales · `barrio-lore-futuros`: grafo → universos → cortos), grafo que
+  enlaza ambas `linea://` con las URNs de VectorMock, y **dos universos
+  deterministas** que demuestran una bifurcación real. `hm:CortoDeEjecucion` =
+  chunk inmutable y consultable del log de un runner (`universeId`,
+  `graphDigest`, referencias, intervalo, eventos y huella) — **no** el corto
+  literario histórico.
+- **CA:** los validadores publicados de `linea-kit` pasan sobre las dos líneas ·
+  `mock=true` **siempre declarado**, con un test que enrojece si desaparece ·
+  **cero LLM y cero VectorMachine real** en tests, medido sin red · dos
+  universos con bifurcación real, no dos copias (probado por divergencia de
+  contenido) · `corto.query` filtra por universo, unidad, verbo y rango, y
+  **cada resultado se traza hasta el raw de Onfalo**.
+- **Pri:** P1 · dep: 100, 104
+
+### WP-HUB-106 · hm-ceremonia-bilateral
+- **BRIEF:** `barrio-lore-v1` en once pasos **bloqueantes**: preflight e
+  identidad H/M → room y autoridad → leases e inflación conjunta de
+  Bartleby/Cristalizador → machine manifest y despliegue del resto →
+  ingest Onfalo y análisis → VectorMock → dos líneas validadas → grafo
+  enlazado → dos universos y runners con pods → emisión y consulta de cortos →
+  trace, coverage y shutdown limpio. Por actividad: envelope con `id`, `actor`,
+  `verb`, `object`, `target`, `context`, `instrument`, timestamps, `result`,
+  `provenance` y `digest` → `wire.json` sellado + `view.jsonld` + evento en el
+  pod de la unidad.
+- **CA:** **H y M registran la misma cadena causal**, comparada fila a fila
+  entre los dos handoffs — no basta con que arranquen los procesos · ningún
+  paso continúa si falta su upstream · un fallo deja **cero estado parcial**,
+  probado matando la corrida en cada uno de los once · `evidence/report.json`
+  y `report.md` generados **desde eventos, no a mano**, con matriz
+  verbo/actor/object/PASS, pods, cadena de artefactos, hashes, cobertura,
+  cortos consultados, fallos y procesos residuales · cada mitad firma **sólo
+  la suya**.
+- **Pri:** P0 · dep: 101, 102, 103, 105
+
+### WP-HUB-107 · hm-verificador-externo
+- **BRIEF:** `scripts/verificar-evidencia.mjs`: un tercero valida la corrida
+  **sin consultar los directorios vivos de H ni de M**.
+- **CA:** valida wire, expansión JSON-LD, hashes, ACL, transiciones,
+  provenance, cobertura, reporte y shutdown · **cero autocertificación**: se le
+  entrega sólo la raíz de evidencia y falla si le falta cualquier pieza · los
+  negativos —hash roto, ACL expirada, transición ilegal, corto sin traza hasta
+  el raw, VectorMock sin declarar— **fallan cada uno en su frontera y con su
+  nombre**, no con un error genérico.
+- **Pri:** P0 · dep: 106 · **cierra `GHM`**
+
+### WP-HUB-108 · hm-mapa-holones-distritos
+- **BRIEF:** la pieza de Ciudad: el mapa jugable **7 holones × 6 distritos ×
+  24 barrios**, dato machine-readable **derivado** de la cantera de S
+  (`CENSO-ESTADOS.md`, `01-BARRIOS/`, `GRAFO/`) y de `HOLONES.md`, consumido
+  por el juego como **proyección** — el runtime **no abre la cantera**.
+- **CA:** los 24 barrios tienen distrito y holón asignados; los 7 holones
+  tienen ≥1 barrio **o razón escrita** de por qué no · cero slugs inventados:
+  cada id contrastado contra el censo con exit code · la proyección se deriva
+  y un gate **falla si cantera y proyección divergen** · los holones 05 y 06
+  aparecen como cantera y constelación **sin fingir runtime**, y 07 como el
+  método, no como un barrio.
+- **Pri:** P1 · dep: `GHM`
+
+### WP-HUB-109 · hm-lore-voz-despierta
+- **BRIEF:** tras la ceremonia, el distrito `lore-voz` queda **despierto** en
+  el censo con actas por unidad. `novelist-editor` (distrito `runtime-mcp`)
+  aporta elenco de personajes por identidad, **no** pipeline.
+- **CA:** el estado del barrio cambia **por evidencia de corrida y no por
+  edición a mano** — probado revirtiendo la evidencia y exigiendo que el
+  estado vuelva solo · cada acta cita unidad, verbo y huella · identidad H/M
+  con ≥2 personajes y su lease cada uno.
+- **Pri:** P1 · dep: 108
+
+### WP-HUB-110 · hm-negativos-y-consumidor-limpio
+- **BRIEF:** matriz de negativos (corpus ausente, hash roto, schema inválido,
+  pod sin lease, VectorMock no declarado, upstream ausente, runner caído) y
+  cierre con consumidor limpio: `npm ci` en checkout temporal, generación sin
+  sibling paths, runtime **offline tras seed**, rerun determinista y shutdown
+  sin procesos, puertos ni locks huérfanos.
+- **CA:** cada negativo falla en su frontera y deja cero estado parcial · el
+  offline se **instrumenta**, no se declara (cero salidas no-loopback durante
+  la corrida) · rerun byte a byte determinista salvo campos de tiempo
+  declarados · `npm run skills:ceguera` pasa desde la raíz del hub.
+- **Pri:** P0 · dep: 107
+
+### WP-HUB-111 · hm-escenarios-descubribles
+- **BRIEF:** el arnés descubre `scenarios/*/scenario.json` y corre sobre ellos
+  una suite de conformidad común. **Sólo Barrio LORE entra en v1.**
+- **CA:** un segundo escenario mínimo corre **sin tocar el arnés** · todo
+  escenario declara barrio canónico, fixture, unidades, verbos, CA y cleanup ·
+  el descubrimiento **no** promueve a v1 lo que no lo es, y un test lo fija.
+- **Pri:** P2 · dep: 110
 
 ---
 
