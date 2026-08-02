@@ -285,9 +285,50 @@ no es mi worktree y no es ninguno de los `READ_ONLY_ROOTS`** — es el caché de
 la herramienta—, así que no es la clase de violación de la primera confesión,
 que fue escribir dentro de un árbol auditado. Pero **es una escritura fuera de
 mi worktree causada por una medida mía**, y la regla de este turno no admitía
-ninguna. **No se puede medir `npm` sin producirla:** el log se escribe también
-cuando la orden sale `exit=0`. Se declara en vez de callarse; quien quiera la
-medida de `npm` sin este efecto tendrá que decidir si le vale.
+ninguna.
+
+**Se produce si no se redirige `logs-dir`; yo no lo hice.** Escribí primero
+«no se puede medir `npm` sin producirla», y era **falso**: basta
+`npm_config_logs_dir=<dir propio>` delante de la misma orden —`npm.js:411`,
+`get #logsDir () { return this.config.get('logs-dir') || join(this.cache,
+'_logs') }`— y el caché del custodio no se mueve un byte. Es la corrección de
+la contrarrevisión, y es la regla que sale de aquí.
+
+Las dos vías obvias **no** valen, y una es peor que el problema:
+**`--logs-max=0` es destructiva** — `lib/utils/log-file.js:72` evita crear el
+fichero pero `#cleanLogs()` corre igual («*even if we aren't writing a
+logfile*») con `toDelete = logFiles.length - logsMax`, o sea que **borraría los
+11 logs del custodio**: cambia una escritura aditiva por una destructiva sobre
+caché ajeno. Y `--no-audit --no-fund` tampoco evita el log.
+
+Coda que sigue de mi propio «lo poda a `logs-max`»: **el ejemplar que cito
+arriba ya no existe**, podado por invocaciones de otro carril. La evidencia de
+esta confesión **se evapora sola**; queda la confesión.
+
+### Tercera escritura de frontera, la más pequeña y la que no vi
+
+Mi propio barrido `find -newermt` sobre OASIS devolvió **dos** entradas
+posteriores a las 17:00. Declaré una —la mía, confesada— y **no declaré la
+segunda**:
+
+```
+2026-08-02 17:24:25  d  …/onfalo-asesor-sdk/.git
+```
+
+No quedó nada persistente: el `index` de ese repo sigue con fecha
+`2026-05-01`. Fue por tanto **un lock o un temporal efímero**, de los que git
+crea y borra dentro del `.git` al consultar — casi con seguridad un `git
+status` **tomado sin `--no-optional-locks`**.
+
+Dicho con la precisión que la evidencia permite y ni una palabra más: **el
+mtime prueba que hubo una entrada y una salida en ese directorio, no qué orden
+la hizo.** Cae en mi ventana y es de mi misma familia, así que la declaro como
+mía sin adjudicarme más de lo que se puede leer ahí.
+
+**Regla que sale de aquí, y que vale más que las tres confesiones juntas:**
+`git --no-optional-locks` en **toda** consulta a árboles ajenos, y
+`npm_config_logs_dir` en toda invocación de `npm`. Las medidas de esta 2.ª
+ronda ya usan lo primero; la de `npm` no usó lo segundo.
 
 ---
 
@@ -407,13 +448,19 @@ exactamente donde estaban**; los bloques nuevos dicen qué son y las rehacen.
 Prueba de que es puro anexo, esta vez contra `git`, no contra una copia mía:
 
 ```
-git show HEAD:…/medidas-literales-2026-08-02.txt   → 394 líneas
-sha256 de esas 394                                 → a1a83d88…0832e
-sha256 de head -394 del worktree (normalizado LF)  → a1a83d88…0832e   (idéntico)
-git diff --numstat -- …/medidas-literales-2026-08-02.txt   → 369  0
+git show eefe856:…/medidas-literales-2026-08-02.txt   → 394 líneas
+sha256 de esas 394                                    → a1a83d88…0832e
+sha256 de head -394 del worktree (normalizado LF)     → a1a83d88…0832e   (idéntico)
+git diff --numstat eefe856 -- …/medidas-literales-2026-08-02.txt   → 369  0
 ```
 
 **+369 / −0.** Cero eliminaciones.
+
+*(Escrito primero como `git show HEAD:…`. Era cierto al escribirlo —`HEAD` era
+`eefe856`— y dejó de serlo en cuanto commiteé: hoy `HEAD` devuelve 763 y un
+tercero que lo reprodujera vería un número que no cuadra. Es **el pecado exacto
+de mi propia sección ②**: un veredicto anclado a un nombre móvil es
+infalsificable por nombre. Anclado al commit, que es lo que exijo a los demás.)*
 
 ### Menores cerrados
 
