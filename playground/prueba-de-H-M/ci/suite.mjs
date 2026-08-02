@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (113+100…107+109+111).
+ * Suite mínima LORE-HM (113+100…107+109+110+111).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -84,6 +84,16 @@ const required = [
   "fixtures/censo-excerpt-novelist-editor.md",
   "fixtures/novelist-elenco.json",
   "ciudad/README.md",
+  // # WP-HUB-110
+  "ci/test-110-negativos.mjs",
+  "ci/test-110-consumidor-limpio.mjs",
+  "lib/negativos/frontiers.mjs",
+  "lib/negativos/matrix.mjs",
+  "lib/offline/instrument.mjs",
+  // La guardia offline sólo llega a los procesos hijo por este preload: si
+  // desaparece, el test seguiría verde midiendo únicamente el padre.
+  "lib/offline/preload.mjs",
+
   // # WP-HUB-111
   "ci/test-111-escenarios.mjs",
   "lib/escenarios/discover.mjs",
@@ -194,6 +204,9 @@ const run109 = spawnSync(process.execPath, [test109], {
 });
 if (run109.status !== 0) fail("test-109-despierta.mjs falló");
 
+// # WP-HUB-110 · matriz negativos + consumidor limpio
+runTest("test-110-negativos.mjs", "test-110-negativos.mjs");
+runTest("test-110-consumidor-limpio.mjs", "test-110-consumidor-limpio.mjs");
 // # WP-HUB-111 · escenarios descubribles + conformidad + v1 allowlist
 const test111 = path.join(here, "test-111-escenarios.mjs");
 const run111 = spawnSync(process.execPath, [test111], {
