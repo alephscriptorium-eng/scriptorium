@@ -11,6 +11,7 @@ Machine viva **NO CORRE** hoy). No toca `prueba-de-dos`.
 | `scripts/generar.mjs` | corridas idempotentes → `.runs/<id>/{H,M}` (WP-HUB-102) |
 | `scripts/importar-onfalo.mjs` | import-once build-time Onfalo → `fixtures/onfalo/` (WP-HUB-104) |
 | `fixtures/onfalo/` | snapshot sellado (2 editoriales); corrida normal sin OASIS |
+| `lib/cadena/` | handlers mock deterministas + orquestación (WP-HUB-105) |
 | `.runs/` | salidas regenerables (gitignored) |
 | `ontology/` | WP-HUB-101 |
 | `reference/` | WP-HUB-101 |

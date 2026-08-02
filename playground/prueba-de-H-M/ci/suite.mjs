@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Suite mínima LORE-HM (113+100+101+102+103+104).
+ * Suite mínima LORE-HM (113+100+101+102+103+104+105).
  * Bloquea si falta el arnés o si está plantado el vector rojo.
  */
 import fs from "node:fs";
@@ -52,6 +52,12 @@ const required = [
   "scripts/importar-onfalo.mjs",
   "fixtures/onfalo/source.manifest.json",
   "fixtures/onfalo-attest.redistributable.json",
+  // # WP-HUB-105
+  "ci/test-105-cadena.mjs",
+  "lib/cadena/run-cadena.mjs",
+  "lib/cadena/bartleby.mjs",
+  "lib/cadena/cristalizador.mjs",
+  "lib/cadena/vector-mock.mjs",
 ];
 
 for (const rel of required) {
@@ -110,6 +116,15 @@ runTest("test-100-schemas.mjs", "test-100-schemas.mjs");
 runTest("test-102-generador.mjs", "test-102-generador.mjs");
 runTest("test-103-podstore.mjs", "test-103-podstore.mjs");
 runTest("test-104-onfalo.mjs", "test-104-onfalo.mjs");
+
+// # WP-HUB-105 · cadena lore determinista
+const test105 = path.join(here, "test-105-cadena.mjs");
+const run105 = spawnSync(process.execPath, [test105], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env },
+});
+if (run105.status !== 0) fail("test-105-cadena.mjs falló");
 
 console.log("lore-hm suite: PASS");
 console.log(`root: ${root.replaceAll("\\", "/")}`);

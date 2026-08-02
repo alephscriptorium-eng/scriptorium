@@ -2,7 +2,7 @@
   "name": "@scriptorium/prueba-hm-kit",
   "private": true,
   "version": "0.1.0",
-  "description": "Kit LORE-HM playground — escenario, schemas, generador, podstore y Onfalo import-once (WP-HUB-100/102/103/104)",
+  "description": "Kit LORE-HM playground — escenario, schemas, generador, podstore, Onfalo y cadena lore (WP-HUB-100/102/103/104/105)",
   "type": "module",
   "license": "UNLICENSED",
   "dependencies": {
@@ -15,7 +15,8 @@
     "generate": "node scripts/generar.mjs",
     "test:podstore": "node ci/test-103-podstore.mjs",
     "import:onfalo": "node scripts/importar-onfalo.mjs",
-    "test:onfalo": "node ci/test-104-onfalo.mjs"
+    "test:onfalo": "node ci/test-104-onfalo.mjs",
+    "test:cadena": "node ci/test-105-cadena.mjs"
   },
   "comments": {
     "linea-kit": "U245 types not landed — consume without @types; schemas via @zeus/linea-kit/schemas/*"
