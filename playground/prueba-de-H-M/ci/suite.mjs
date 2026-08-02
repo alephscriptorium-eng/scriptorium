@@ -69,6 +69,10 @@ const required = [
   "scripts/verificar-evidencia.mjs",
   "lib/verificador/verificar.mjs",
   "lib/ceremonia/evidence-pack.mjs",
+  // # WP-HUB-108
+  "ci/test-108-mapa.mjs",
+  "scripts/generar-mapa.mjs",
+  "fixtures/mapa/mapa.json",
   // # WP-HUB-109
   "ci/test-109-despierta.mjs",
   "scripts/despertar.mjs",
@@ -165,6 +169,15 @@ const run107 = spawnSync(process.execPath, [test107], {
   env: { ...process.env },
 });
 if (run107.status !== 0) fail("test-107-verificador.mjs falló");
+
+// # WP-HUB-108 · mapa 7×6×24
+const test108 = path.join(here, "test-108-mapa.mjs");
+const run108 = spawnSync(process.execPath, [test108], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env },
+});
+if (run108.status !== 0) fail("test-108-mapa.mjs falló");
 
 // # WP-HUB-109 · despertar lore-voz + actas + elenco
 const test109 = path.join(here, "test-109-despierta.mjs");
