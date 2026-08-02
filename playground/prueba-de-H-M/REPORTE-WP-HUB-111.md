@@ -45,11 +45,17 @@ flags `v1`/`promoteToV1` en JSON **no** promueven. Segundo escenario
 
 ## CA
 
+> **Corregida por ZV (2026-08-02).** La fila 1 decía «corre» cuando lo que
+> `ci/test-111` hacía era **conformar**: no había ni una llamada a `runCeremonia`
+> ni spawn de generación. Ahora corre de verdad — y la fila dice exactamente
+> qué corre y qué no. Detalle y medidas en `REPORTE-ZV-111.md`.
+
 | criterio | evidencia |
 | -------- | --------- |
-| segundo escenario corre sin tocar arnés | `segundo-minimo` descubierto; arnés sin string `segundo-minimo` |
-| declara barrio, fixture, units, verbos, CA, cleanup | conformidad OK ×2 en test-111 |
-| discovery no promueve a v1 lo que no lo es | v1=`[barrio-lore]`; hostil `promoteToV1` ignorado |
+| segundo escenario **corre** sin tocar arnés | `node scripts/generar.mjs --scenario segundo-minimo --run test-111-segundo-minimo --sin-install` → `exit=0`, 9/9 artefactos, `seal=sha256:db3a044f…`, rerun `no-op=true`; arnés sin string de ningún id no-v1 |
+| … y **qué no** corre | `lib/ceremonia/run-ceremonia.mjs` (ceremonia v1 de 11 pasos) está anclada a `barrio-lore` por `lib/ceremonia/constants.mjs`; correrla para un no-v1 exigiría tocar el arnés, que es lo que la CA prohíbe |
+| declara barrio, fixture, units, verbos, CA, cleanup | conformidad 15/15 chequeos ×2 escenarios, de los cuales **4 son de referencia** (`units` ⊂ `units/catalog`, verbos ⊂ ontología, `cleanup.shutdownVerbs` ⊂ ontología, fixture en disco) |
+| discovery no promueve a v1 lo que no lo es | `v1=[barrio-lore]` 1/2; hostil con `v1`+`promoteToV1`+`tier` → 3/3 banderas **vistas y descartadas** (`classifyV1` ahora lee `d.data`); en disco 0/2 escenarios con esas claves (schema `additionalProperties:false`) |
 
 ## Evidencia
 

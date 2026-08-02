@@ -6,8 +6,8 @@ Machine viva **NO CORRE** hoy). No toca `prueba-de-dos`.
 | zona | contenido |
 | ---- | --------- |
 | `scenarios/barrio-lore/` | escenario canónico **v1** (único en allowlist) |
-| `scenarios/segundo-minimo/` | segundo escenario descubrible (conformidad; **no** v1) |
-| `lib/escenarios/` | descubrimiento `scenarios/<id>/scenario.json` + conformidad (WP-HUB-111) |
+| `scenarios/segundo-minimo/` | segundo escenario descubrible: se descubre, conforma y **corre** el generador; **no** v1 (la ceremonia de 11 pasos sigue siendo de `barrio-lore`) |
+| `lib/escenarios/` | descubrimiento `scenarios/<id>/scenario.json` + conformidad (presencia **y** referencia contra `units/catalog` y la ontología) + ejecución (WP-HUB-111) |
 | `units/` | catálogo de diez unidades |
 | `schemas/` | 11 schemas HM (no schemas de línea propios) |
 | `scripts/generar.mjs` | corridas idempotentes → `.runs/<id>/{H,M}` (WP-HUB-102) |

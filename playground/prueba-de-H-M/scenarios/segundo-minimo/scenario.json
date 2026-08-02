@@ -9,7 +9,7 @@
   },
   "simulacro": {
     "futureMachine": true,
-    "declared": "Future Machine no corre hoy; segundo-minimo es solo conformidad descubrible (WP-HUB-111), no ceremonia v1.",
+    "declared": "Future Machine no corre hoy. segundo-minimo SÍ se ejecuta: scripts/generar.mjs lo corre como proceso y sella su manifest (WP-HUB-111 §7). Lo que NO corre es la ceremonia v1 de 11 pasos, anclada a barrio-lore en lib/ceremonia/constants.mjs.",
     "runtime": "playground-mock"
   },
   "roles": {
@@ -66,7 +66,8 @@
   },
   "acceptanceCriteria": [
     "Descubierto por scenarios/*/scenario.json sin tocar el arnés",
-    "Declara barrio, fixture, units, verbos, CA y cleanup",
-    "No entra en v1 (solo barrio-lore está en allowlist)"
+    "Ejecutado de verdad: spawn de scripts/generar.mjs, artefactos en disco y manifest sellado",
+    "Declara barrio, fixture, units, verbos, CA y cleanup — units y verbos resueltos contra units/catalog y la ontología",
+    "No entra en v1 (solo barrio-lore está en allowlist); la ceremonia v1 de 11 pasos no se corre aquí"
   ]
 }
