@@ -434,8 +434,42 @@ vector duro y se muestra entero.
 se comía la línea `FAIL (n)` y el exit 1 lo ponía el `EBUSY`, no la aserción.
 Ahora la limpieza va en `try/catch` y un fallo de borrado es **un `fail()` más**:
 se imprime `FAIL (2)` —el huérfano y la limpieza— y el código de salida sale de
-las aserciones. Además el `EBUSY` deja de ser ruido: que algo agarre el checkout
-**es** señal de que quedó un proceso vivo.
+las aserciones.
+
+**Y una frase de la entrega anterior no se sostenía**: dije que «que algo agarre
+el checkout **es** la señal de que quedó un proceso vivo». Es falso como
+universal. El `EBUSY` es una señal **compatible** con un huérfano vivo, no
+equivalente a él: cualquier proceso ajeno —antivirus, indexador, vista previa
+del explorador— que retenga un fichero del checkout lo produce igual, y el
+instante de máxima exposición es justo después de que `npm ci` escriba miles de
+ficheros. Era el mismo defecto que acababa de arreglar en el filtro por fecha,
+vivo en el instrumento de al lado: **un guardián con falsos positivos se
+desactiva solo.**
+
+Arreglado con reintentos (`maxRetries: 5, retryDelay: 100`) y **medido en los
+dos sentidos**, porque la pregunta era si los reintentos taparían al huérfano
+de verdad:
+
+```
+(1) lock TRANSITORIO ajeno (~1200 ms) — un ejecutable en marcha dentro del dir,
+    que NO es un `cwd`:
+      por defecto (maxRetries:0)     ->  EBUSY(EPERM)  tras     2 ms
+      maxRetries:5  retryDelay:100   ->  BORRADO       tras  1049 ms
+      maxRetries:20 retryDelay:100   ->  BORRADO       tras  1033 ms
+
+(2) DIRECTORIO retenido como `cwd` por un proceso vivo — el huérfano:
+      por defecto (maxRetries:0)     ->  EBUSY  tras 1 ms
+      maxRetries:3  retryDelay:500   ->  EBUSY  tras 1 ms
+      maxRetries:10 retryDelay:100   ->  EBUSY  tras 0 ms
+      maxRetries:20 retryDelay:100   ->  EBUSY  tras 0 ms
+```
+
+La asimetría no es suerte, y conviene saber por qué: **Node reintenta el borrado
+de un FICHERO retenido, pero no reintenta el `rmdir` de un directorio que otro
+proceso tiene como `cwd`** — falla en 0-1 ms por mucho `retryDelay` que se le
+ponga. Es decir, los reintentos sólo pueden quitar el falso positivo; **no
+pueden tapar al huérfano**. Y el mensaje ahora dice las dos lecturas en vez de
+una.
 
 Corrida limpia: `PASS — barrido del SO: cero procesos vivos colgando de los 11
 pids conocidos (0 candidatos, 0 descartados por ser anteriores al arranque)`.
@@ -459,6 +493,8 @@ pids conocidos (0 candidatos, 0 descartados por ser anteriores al arranque)`.
 | el descarte por fecha del barrido era **código muerto** (`/Date(ms)/` ⇒ `Invalid Date` ⇒ nunca filtraba) y prometía una cota inexistente | la fecha se pide en ISO, con respaldo para el formato viejo; **verificado en los dos sentidos**; y sin fecha legible el barrido falla en vez de acusar |
 | el barrido se podía **neutralizar sin enrojecer**: un fallo de la consulta salía por `console.log` | fallo del instrumento ⇒ `fail()`; sólo el límite de plataforma se declara sin enrojecer |
 | un `EBUSY` en la limpieza **se comía** la línea `FAIL (n)` y ponía él el exit 1 | la limpieza va en `try/catch` y su fallo es un `fail()` más: el veredicto lo dan las aserciones |
+| la limpieza sin reintentos convertía **un lock ajeno de 1 s** (antivirus tras `npm ci`) en rojo | `maxRetries: 5, retryDelay: 100`. Medido: quita el falso positivo (BORRADO tras 1049 ms) y **no puede tapar al huérfano**, porque Node no reintenta el `rmdir` de un `cwd` retenido |
+| el barrido probaba `sinFecha` **antes** que `vivos` con `else if`: una corrida con las dos cosas callaba la peor | los dos hallazgos se reportan por separado, huérfanos primero |
 | `todos.length` contaba **registros, no PIDs distintos** (`cp.exec` deja dos entradas para un proceso) | se cuenta `censoPids.size` |
 | la sonda se autoadjudicaba `status: 0` descartando el real de `spawnSync` | se registra el `status` real |
 | aserción que se saltaba en silencio (`if (existsSync(tipPath))`) | el fichero es **obligatorio**; si falta, FAIL. Y `finals` vacío también es FAIL |
@@ -586,8 +622,8 @@ Dicho antes de que lo encuentre nadie.
    `dns.Resolver !== dns.promises.Resolver` (medido). Medido después:
    **64 APIs bloquean y registran, 0 escapan** (17 + 17 + 15 + 15). La entrega
    anterior dijo **49**: la sonda no ejercitaba la cuarta superficie, así que
-   declaraba menos cobertura de la real. Una cifra equivocada **a favor** es
-   tan rancia como una en contra. Sigue sin haber comprobación de red a nivel de SO:
+   declaraba menos cobertura de la real: una cifra equivocada **en contra**. Que
+   el error fuera a mi favor no la hace menos rancia. Sigue sin haber comprobación de red a nivel de SO:
    ni sockets del sistema, ni firewall, ni `netstat`.
 6. **El proceso padre del test NO está bajo la guardia.** Los partes son de sus
    descendientes. Lo que el padre haga por red no lo mide nadie; hoy no hace
@@ -623,7 +659,11 @@ Dicho antes de que lo encuentre nadie.
    sentidos**: un proceso anterior al arranque queda fuera, uno posterior entra.
    Y si alguna fila llega sin fecha legible, el barrido **no acusa a nadie**:
    falla diciendo que no puede fechar, porque sin fecha no se distingue un
-   huérfano de un PID reciclado. El censo, además, sólo ve lo que pasa por el namespace de
+   huérfano de un PID reciclado. **Y el `EBUSY` de la limpieza no es prueba de
+   huérfano**: es compatible con uno, pero un proceso ajeno que retenga un
+   fichero del checkout lo produce igual. Se reintenta para no convertir un
+   lock de un segundo en un rojo, y se dice en el propio mensaje. El censo,
+   además, sólo ve lo que pasa por el namespace de
    `child_process`: ve los nietos porque se cambió el llamador del kit, no
    porque la instrumentación sepa alcanzarlos.
 8. **Dos de las seis vías visibles por namespace son INCONTABLES por
