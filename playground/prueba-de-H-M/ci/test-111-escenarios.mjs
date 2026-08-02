@@ -109,14 +109,36 @@ const ARNES_ALLOWLIST = "v1-allowlist.mjs";
  * nadie. Ahora se barren **todos** los ids descubiertos y la única excepción
  * está declarada arriba.
  */
+/**
+ * Todos los `.mjs` del arnés, **recursivo**.
+ *
+ * Corrección ZV vuelta 3: era `readdirSync` plano, así que
+ * `lib/escenarios/sub/cableado.mjs` pasaba sin que nadie lo viera.
+ */
+function ficherosDelArnes(dir = path.join(kitRoot, "lib/escenarios"), rel = "") {
+  const out = [];
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const abs = path.join(dir, e.name);
+    const camino = rel ? `${rel}/${e.name}` : e.name;
+    if (e.isDirectory()) out.push(...ficherosDelArnes(abs, camino));
+    else if (e.name.endsWith(".mjs")) out.push({ rel: camino, abs });
+  }
+  return out.sort((a, b) => a.rel.localeCompare(b.rel));
+}
+
+/** Cuerpo sin comentarios: un comentario no cablea comportamiento. */
+function sinComentarios(src) {
+  return src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
+}
+
 function arnesMencionaIndebidamente(id) {
-  const harnessDir = path.join(kitRoot, "lib/escenarios");
   const permitidoEnAllowlist = isV1Scenario(id);
   const hits = [];
-  for (const f of fs.readdirSync(harnessDir).filter((f) => f.endsWith(".mjs"))) {
-    if (f === ARNES_ALLOWLIST && permitidoEnAllowlist) continue;
-    const body = fs.readFileSync(path.join(harnessDir, f), "utf8");
-    if (body.includes(id)) hits.push(f);
+  for (const { rel, abs } of ficherosDelArnes()) {
+    if (rel === ARNES_ALLOWLIST && permitidoEnAllowlist) continue;
+    // Aquí NO se despojan comentarios, a propósito: la afirmación de este WP es
+    // que el arnés no nombra escenarios **en absoluto**, ni de pasada.
+    if (fs.readFileSync(abs, "utf8").includes(id)) hits.push(rel);
   }
   return hits;
 }
@@ -159,19 +181,25 @@ bloque("arnés sin hardcode", () => {
       fail(`el arnés menciona «${id}» en ${hits.join(", ")} — debe bastar scenarios/`);
     }
   }
-  // Y la excepción no puede ser una puerta: en el fichero de allowlist, el id
-  // v1 sólo vale dentro de V1_SCENARIO_IDS, no esparcido por el módulo.
-  const allowlistBody = fs.readFileSync(
-    path.join(kitRoot, "lib/escenarios", ARNES_ALLOWLIST),
-    "utf8",
+  // La excepción se estrecha: en el fichero de allowlist, el id v1 sólo vale
+  // una vez —la de V1_SCENARIO_IDS— y se cuenta sobre el CÓDIGO, sin comillas
+  // de por medio.
+  //
+  // Corrección ZV vuelta 3: se contaba `split(`"${v1id}"`)`, sólo comillas
+  // dobles, así que una segunda aparición con comillas simples pasaba. Ahora se
+  // despojan comentarios (que no cablean) y se cuenta el id desnudo, de modo
+  // que da igual cómo se cite.
+  const allowlistCodigo = sinComentarios(
+    fs.readFileSync(path.join(kitRoot, "lib/escenarios", ARNES_ALLOWLIST), "utf8"),
   );
   for (const v1id of V1_SCENARIO_IDS) {
-    const apariciones = allowlistBody.split(`"${v1id}"`).length - 1;
+    const apariciones = allowlistCodigo.split(v1id).length - 1;
     if (apariciones !== 1) {
-      fail(`«${v1id}» aparece ${apariciones} vez/veces en ${ARNES_ALLOWLIST}; sólo vale la de V1_SCENARIO_IDS`);
+      fail(`«${v1id}» aparece ${apariciones} vez/veces en el código de ${ARNES_ALLOWLIST}; sólo vale la de V1_SCENARIO_IDS`);
     }
   }
-  return `0/${ids.length} escenarios cableados en lib/escenarios/*.mjs (excepción declarada: ${V1_SCENARIO_IDS.length} id v1 dentro de ${ARNES_ALLOWLIST})`;
+  const nFicheros = ficherosDelArnes().length;
+  return `0/${ids.length} escenarios cableados en ${nFicheros} fichero(s) de lib/escenarios/** (recursivo; excepción declarada: ${V1_SCENARIO_IDS.length} id v1 dentro de ${ARNES_ALLOWLIST})`;
 });
 
 // ── 3) Schema JSON ──────────────────────────────────────────────────────────
