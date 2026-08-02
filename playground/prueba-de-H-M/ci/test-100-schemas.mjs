@@ -364,11 +364,15 @@ function grepZeroOwnLineSchemas() {
   }
 
   const domainOnly = owned.filter((f) => f.endsWith(".schema.json"));
-  if (domainOnly.length !== DOMAIN_SCHEMAS.length) {
-    fail(`schemas/ debe tener ${DOMAIN_SCHEMAS.length} *.schema.json, tiene ${domainOnly.length}`);
+  for (const name of DOMAIN_SCHEMAS) {
+    if (!domainOnly.includes(`${name}.schema.json`)) {
+      fail(`falta schema dominio obligatorio: ${name}.schema.json`);
+    }
   }
+  // Extras de WPs posteriores (p.ej. 109: acta-unidad, censo-runtime, elenco)
+  // son dominio HM; el guardian exige presencia de los once nombrados, no cardinalidad.
 
-  ok(`cero archivos linea-kit copiados (${domainOnly.length} schemas dominio)`);
+  ok(`cero archivos linea-kit copiados (${domainOnly.length} schemas dominio; base=${DOMAIN_SCHEMAS.length})`);
 }
 
 function verifyCensoIds(scenario) {
