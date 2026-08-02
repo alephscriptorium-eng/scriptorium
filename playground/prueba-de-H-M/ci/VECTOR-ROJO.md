@@ -17,9 +17,11 @@
 
 | evento | run-id | conclusion | sha |
 | ------ | ------ | ---------- | --- |
-| _(pendiente de planta)_ | — | — | — |
+| arnés verde | [30726224409](https://github.com/alephscriptorium-eng/scriptorium/actions/runs/30726224409) | success | `98cf881` |
+| rojo plantado | [30726279433](https://github.com/alephscriptorium-eng/scriptorium/actions/runs/30726279433) | **failure** | `9763638` |
+| restaura verde | _(este commit)_ | pendiente tras push | — |
 
 ## Nota
 
-Hasta tener run-id de GitHub Actions, el veredicto de este WP es 🔶.
-No se inventa run-id.
+Orden medida con `gh run list --workflow=ci-lore-hm.yml --branch=wp/hub-113-hm-ci-que-verifica`.
+El marcador se elimina en el commit de restauración; el vector queda documentado aquí.
