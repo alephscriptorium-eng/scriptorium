@@ -376,6 +376,44 @@ Semilla de skill (backlog para L, estadios futuros incluidos):
    replicación) es consenso de mesa pendiente; redacción final
    Anfitrión + L tras el hilo de concepto.
 
+## 10-bis · LA MEMORIA INTERNA NO CUENTA COMO MEMORIA
+
+*(orden del custodio, 2026-08-03)*
+
+**Regla dura, y vale para toda ventana del Scriptorium:**
+
+> **Nada que importe puede vivir sólo en la memoria interna de un asistente.
+> Todo lo que deba sobrevivir acaba en la codebase, bajo git y empujado.**
+
+**El motivo no es de estilo, es de mecánica**: la restauración siguiente puede
+ser **desde otro IDE o desde otra máquina**. La memoria interna es de la
+instalación, no del proyecto: no se clona, no viaja en el remoto y **no avisa
+al desaparecer**. Una ventana nueva no encuentra un hueco donde estaba el dato
+— encuentra un mundo que parece completo y no lo está. Es el **hueco contable**
+del programa (trabajo hecho, libro diciendo que no) con la peor variante: el
+libro tampoco existe.
+
+**Qué se hace con cada clase de recuerdo:**
+
+| clase | destino durable |
+| ----- | --------------- |
+| decisión del custodio | `plan/DECISIONES.md` del mundo que gobierna |
+| lección de método | fila `L-Hnn` en `skills-library/plan/BACKLOG-F2.md` |
+| estado de bloque, cola viva, fichas | `plan/BACKLOG.md` de cada mundo |
+| trampa de entorno o de máquina | **el punto de restauración**, `sincronia/FREEZE-<fecha>.md` |
+| regla de trabajo entre ventanas | este protocolo |
+
+**Y la comprobación, que es barata y va en el gate de cierre:** antes de
+congelar, leer la memoria interna entera y preguntar por cada línea *«¿dónde
+está esto en git?»*. Lo que no tenga respuesta, se escribe. Lo que sí, **se
+sustituye por un puntero al fichero**, no se duplica — dos copias de un hecho
+son dos hechos que divergen, que es justo lo que este programa lleva
+persiguiendo.
+
+**Corolario para la memoria interna que quede**: sirve como **índice y atajo**,
+nunca como fuente. Si la única copia de algo es interna, ese algo **ya está
+perdido**; sólo no lo sabe todavía.
+
 ## 11 · AUDITOR en sombra
 
 Rol reproducible: una ventana nueva se activa con la frase
