@@ -26,3 +26,7 @@
 	path = codebase/skills-library
 	url = https://github.com/alephscriptorium-eng/S_SDK-skills-library.git
 	branch = main
+[submodule "codebase/v-sdk"]
+	path = codebase/v-sdk
+	url = https://github.com/alephscriptorium-eng/V_SDK.git
+	branch = main
