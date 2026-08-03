@@ -30,3 +30,7 @@
 	path = codebase/v-sdk
 	url = https://github.com/alephscriptorium-eng/V_SDK.git
 	branch = main
+[submodule "codebase/h-sdk"]
+	path = codebase/h-sdk
+	url = https://github.com/alephscriptorium-eng/H_SDK.git
+	branch = main
