@@ -109,6 +109,17 @@ worktrees, cero ramas `wp/*`, nada a medias. Siguiente paso al retomar:
 **GO del custodio para Ola 4** (candidatos: cerrar carril D con U205→U206,
 que abre el gate `GD` y con él la ventana de `U245–U249`; los tres P0 nuevos).
 
+**⏸ FREEZE 2026-08-03 — BLOQUE 12.** Punto de restauración vigente:
+**[`FREEZE-2026-08-03.md`](FREEZE-2026-08-03.md)**. Congela con los cinco tips
+en remoto, **cero salas en V y en el hub** (podadas las 15 del swarm LORE-HM) y
+una sola rama viva (`U269`, en condiciones de cierre). Trae dos cosas que los
+freezes anteriores no tenían: **§3, el censo de trampas de esta máquina — las
+que no dan error** (una suite que se cuelga en local y pasa en CI, el `npm ci`
+incompleto, los arneses de ablación que no encajan por CRLF, la caché de ESM que
+falsea las mutaciones), y el asiento de la regla **`PROTOCOLO §10-bis`**: *la
+memoria interna no cuenta como memoria*, porque la restauración siguiente puede
+ser desde otro IDE o desde otra máquina.
+
 ✎ Histórico de la ola 3 — 9 frentes despachados.
 
 | WP | mundo | estado |
